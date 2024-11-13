@@ -1,25 +1,32 @@
 using UnityEngine;
-using UnityEngine.UI;
+using MixedReality.Toolkit.UX;
 
 public class ScreenChangeButton : MonoBehaviour
 {
     public Screens TargetScreen;
+    public PressableButton pressableButton;
 
     private void Start()
     {
-        Button button = GetComponent<Button>();
-        if (button != null)
+        if (pressableButton != null)
         {
-            button.onClick.AddListener(ChangeScreen);
+            pressableButton.OnClicked.AddListener(ChangeScreen);
         }
         else
         {
-            Debug.LogError("No Button component found on the GameObject.");
+            Debug.LogError("No PressableButton component found on the GameObject.");
         }
     }
 
     private void ChangeScreen()
     {
+        // Close the current screen first
+        EventBus.Publish(new CloseEvent(StateMachine.Instance.CurrScreen));
+
+        // Then, publish the ScreenChangedEvent to switch to the target screen
         EventBus.Publish(new ScreenChangedEvent(TargetScreen));
+
+        // Optionally log the screen change
+        Debug.Log("Changing screen from " + StateMachine.Instance.CurrScreen.ToString() + " to " + TargetScreen.ToString());
     }
 }
