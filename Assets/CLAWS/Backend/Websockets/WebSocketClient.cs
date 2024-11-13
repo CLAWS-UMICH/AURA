@@ -5,7 +5,8 @@ using SocketIOClient;
 using System;
 using System.Threading.Tasks;
 using PimDeWitte.UnityMainThreadDispatcher;
-using Newtonsoft.Json.Linq;  // Import Newtonsoft.Json for JSON handling
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
 
 public class WebSocketClient : MonoBehaviour
 {
@@ -72,11 +73,12 @@ public class WebSocketClient : MonoBehaviour
         // Listen for 'hololens_data' event to receive data
         client.On("hololens_data", response =>
         {
-            Debug.Log("test");
-            Debug.Log($"Raw response from hololens_data: {response.ToString()}");
-            JObject dataResponse = JObject.Parse(response.ToString());
-            string data = dataResponse["data"]?.ToString(); // Extract the data payload
-            UnityMainThreadDispatcher.Instance().Enqueue(() => HandleJsonMessage(data));
+            Debug.Log($"Raw response from WEB: {response.ToString()}");
+
+            JArray jsonArray = JArray.Parse(response.ToString());
+            JObject firstObject = (JObject)jsonArray[0];
+            JObject data = (JObject)firstObject["data"];
+            UnityMainThreadDispatcher.Instance().Enqueue(() => HandleJsonMessage(data.ToString()));
         });
 
         await client.ConnectAsync();
@@ -92,8 +94,61 @@ public class WebSocketClient : MonoBehaviour
 
     public void HandleJsonMessage(string jsonData)
     {
-        Debug.Log($"Received data for {assignedId}: {jsonData}");
-        // Handle the JSON data here as needed
+        try
+        {
+            // Log the received data
+            Debug.Log($"Received data: {jsonData}");
+
+            // Parse the incoming JSON string into a JObject
+            JObject jsonObject = JObject.Parse(jsonData);
+
+            // Check if 'type' exists in the JSON
+            if (jsonObject["type"] == null)
+            {
+                Debug.LogError("Missing 'type' in the received JSON.");
+                return; // Exit early if 'type' is missing
+            }
+
+            string type = (string)jsonObject["type"];
+
+            // Check if 'use' exists in the JSON
+            if (jsonObject["use"] == null)
+            {
+                Debug.LogError("Missing 'use' in the received JSON.");
+                return; // Exit early if 'use' is missing
+            }
+
+            string use = (string)jsonObject["use"];
+
+            // Check if 'data' exists in the JSON
+            if (jsonObject["data"] == null)
+            {
+                Debug.LogError("Missing 'data' in the received JSON.");
+                return; // Exit early if 'data' is missing
+            }
+
+            JObject data = (JObject)jsonObject["data"];
+
+            // Handle different types based on the 'type' field
+            switch (type)
+            {
+                case "TEST":
+                    /// Deserialize 'data' to the VitalsData class and publish to event
+                    TestWebObj testData = data.ToObject<TestWebObj>();
+                    EventBus.Publish(new WebTestEvent(testData, use));
+                    break;
+
+                default:
+                    // Log if the 'type' is not recognized
+                    Debug.LogWarning($"Unhandled 'type': {type}");
+                    break;
+            }
+        }
+        catch (JsonException ex)
+        {
+            // Catch any JSON parsing errors
+            Debug.LogError($"Error parsing JSON: {ex.Message}");
+        }
     }
 
     public async void SendJsonData(string jsonData)

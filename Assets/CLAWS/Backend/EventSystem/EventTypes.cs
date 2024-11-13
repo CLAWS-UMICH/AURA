@@ -109,3 +109,15 @@ public class UnHighlight
         levelnames = _levelnames;
     }
 }
+
+public class WebTestEvent
+{
+    public TestWebObj testData { get; set; }
+    public string use { get; set; }
+
+    public WebTestEvent(TestWebObj _testData, string _use)
+    {
+        testData = _testData;
+        use = _use;
+    }
+}
