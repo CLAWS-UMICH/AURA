@@ -20,13 +20,10 @@ public class ScreenChangeButton : MonoBehaviour
 
     private void ChangeScreen()
     {
-        // Close the current screen first
-        EventBus.Publish(new CloseEvent(StateMachine.Instance.CurrScreen));
 
-        // Then, publish the ScreenChangedEvent to switch to the target screen
+        EventBus.Publish(new CloseEvent(StateMachine.Instance.CurrScreen));
         EventBus.Publish(new ScreenChangedEvent(TargetScreen));
 
-        // Optionally log the screen change
         Debug.Log("Changing screen from " + StateMachine.Instance.CurrScreen.ToString() + " to " + TargetScreen.ToString());
     }
 }
