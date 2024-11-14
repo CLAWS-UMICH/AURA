@@ -28,36 +28,26 @@ public class StateMachine : MonoBehaviour
 
     private void Awake()
     {
-        // Singleton pattern ensures there's only one instance
         if (Instance == null)
         {
             Instance = this;
         }
         else
         {
-            Destroy(gameObject);  // Destroy if an instance already exists
+            Destroy(gameObject);
         }
 
-        // Ensure EventBus is initialized before subscribing
         InitializeEventSubscriptions();
     }
 
     private void InitializeEventSubscriptions()
     {
-        // Subscribe to events
         screenChangedSubscription = EventBus.Subscribe<ScreenChangedEvent>(SwitchScreen);
         modeChangedSubscription = EventBus.Subscribe<ModeChangedEvent>(SwitchMode);
     }
 
     private void OnDestroy()
     {
-        // Clean up subscriptions when the state machine is destroyed
-        UnsubscribeFromEvents();
-    }
-
-    private void UnsubscribeFromEvents()
-    {
-        // Unsubscribe to prevent memory leaks
         if (screenChangedSubscription != null)
         {
             EventBus.Unsubscribe(screenChangedSubscription);
@@ -81,16 +71,13 @@ public class StateMachine : MonoBehaviour
         Debug.Log($"{CurrMode} -> {e.Mode}");
         CurrMode = e.Mode;
     }
-
-    // Public method to close the current screen
-    [ContextMenu("CloseScreen")]
+    // Close screen when called
     public void CloseScreen(CloseEvent e)
     {
         // Debug log for closing the screen
         Debug.Log("Closing screen: " + e.Screen.ToString());
     }
 
-    // Public method to close all screens (you can extend this with more screens)
     [ContextMenu("CloseAll")]
     public void CloseAll()
     {

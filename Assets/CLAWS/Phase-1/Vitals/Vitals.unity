@@ -874,7 +874,7 @@ PrefabInstance:
     - target: {fileID: 5572466351762964349, guid: c25d8f2d22117bd40ad824684551fbde,
         type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ToggleVitalsScreen
+      value: CloseVitalScreen
       objectReference: {fileID: 0}
     - target: {fileID: 5572466351762964349, guid: c25d8f2d22117bd40ad824684551fbde,
         type: 3}
@@ -2263,6 +2263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 320b3d8c397504515b5c9e451357e8c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vitalsFirstAstronautScreen: {fileID: 1806306570}
+  vitalsSecondAstronautScreen: {fileID: 484847038}
 --- !u!114 &1658586230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2275,6 +2277,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cfc35c825cca7746be0648b6dbee7f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrScreen: 1
+  CurrMode: 0
 --- !u!1 &1806306570
 GameObject:
   m_ObjectHideFlags: 0
