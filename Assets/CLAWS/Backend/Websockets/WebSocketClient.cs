@@ -138,6 +138,20 @@ public class WebSocketClient : MonoBehaviour
                     EventBus.Publish(new WebTestEvent(testData, use));
                     break;
 
+                case "WAYPOINTS":
+                    // Deserialize 'data' to the Waypoint class and publish to event
+                    Waypoint waypointsData = data.ToObject<Waypoint>();
+                    if (use == "DELETE ") {
+                        EventBus.Publish(new WaypointToDelete(waypointsData));
+                    }
+                    else if (use == "POST") {
+                        EventBus.Publish(new WaypointToAdd(waypointsData));
+                    }
+                    else if (use == "PUT") {
+                        EventBus.Publish(new WaypointsEditedEvent(waypointsData));
+                    }
+                    break;
+
                 default:
                     // Log if the 'type' is not recognized
                     Debug.LogWarning($"Unhandled 'type': {type}");
