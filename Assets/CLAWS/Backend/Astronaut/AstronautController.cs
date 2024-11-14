@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.Rendering;
 
 // Location
 [System.Serializable]
@@ -27,5 +28,21 @@ public class Location
         Location otherLoc = (Location)obj;
         return latitude == otherLoc.latitude &&
                longitude == otherLoc.longitude;
+    }
+}
+
+// TestWebObj
+[System.Serializable]
+public class TestWebObj
+{
+    public int num;
+
+    public TestWebObj() { 
+        num = 0;
+    }
+
+    public TestWebObj(int _num)
+    {
+        num = _num;
     }
 }
