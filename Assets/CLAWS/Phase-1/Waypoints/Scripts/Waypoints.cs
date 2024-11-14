@@ -10,18 +10,23 @@ public class Waypoints : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        waypoints = new List<Waypoint>();
+          // Example usage
+        CreateWaypoint("Start Point", 0, 0, 0, "A", "test");
+        CreateWaypoint("End Point", 10, 10, 0, "A", "test");
+
+
     }
 
-     public void CreateWaypoint(string name, float x, float y, string letter, string type)
+     public void CreateWaypoint(string name, float x, float y, float z, string letter, string type)
     {
         GameObject waypointObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        waypointObject.transform.position = new Vector3(x, y, 0);
+        waypointObject.transform.position = new Vector3(x, y, z);
 
-        Waypoint newWaypoint = new Waypoint(name, x, y, letter, type, waypointObject);
+        Waypoint newWaypoint = new Waypoint(name, x, y, z, letter, type, waypointObject);
         waypoints.Add(newWaypoint);
 
-        Debug.Log("Created Waypoint: " + name + " at (" + x + ", " + y + ")");
+        Debug.Log("Created Waypoint: " + name + " letter: " + letter + " type: " + " at (" + x + ", " + y + ")");
     }
 
     public void DeleteWaypoint(string name)
