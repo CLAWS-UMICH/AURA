@@ -151,11 +151,23 @@ public class WebSocketClient : MonoBehaviour
         }
     }
 
-    public async void SendJsonData(string jsonData)
+    [System.Serializable]
+    public class MessageData
+    {
+        public string room;
+        public string message;
+    }
+
+    // Message should be a json serialized class 
+    // Room is who to Web you want this data to be sent to. Ex. VITALS, TASKLIST, etc.
+
+    public async void SendJsonData(string message, string room)
     {
         if (client != null)
         {
-            await client.EmitAsync("message", jsonData);
+            MessageData data = new MessageData { room = room.ToUpper(), message = message };
+            string jsonString = JsonUtility.ToJson(data);
+            await client.EmitAsync("send_to_room", jsonString);
         }
     }
 }
