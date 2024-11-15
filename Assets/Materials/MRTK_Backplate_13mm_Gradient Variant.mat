@@ -31,11 +31,6 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-<<<<<<< HEAD
-    - _Radius_: 0.098
-=======
-    - _Radius_: 0.08
->>>>>>> 91ad47b54b0b227b957c124434b377214245c2e4
+    m_Floats: []
     m_Colors: []
   m_BuildTextureStacks: []
