@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Waypoints : MonoBehaviour
 {
-    // List of waypoints
-    private List<Waypoint> waypoints;
+    // Public list of waypoints, accessible from other scripts
+    public List<Waypoint> WaypointsList { get; private set; }
 
     void Start()
     {
-        waypoints = new List<Waypoint>();
+        WaypointsList = new List<Waypoint>();
 
         // Example usage
         CreateWaypoint("Start Point", 0, 0, 0, "A", "test");
@@ -24,37 +24,29 @@ public class Waypoints : MonoBehaviour
 
     public void CreateWaypoint(string name, float x, float y, float z, string letter, string type)
     {
-        // Generate the new ID as the current size of the list
-        int newId = waypoints.Count;
+        int newId = WaypointsList.Count;
 
-        // Create the waypoint's GameObject
         GameObject waypointObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         waypointObject.transform.position = new Vector3(x, y, z);
 
-        // Create the new waypoint
         Waypoint newWaypoint = new Waypoint(newId, name, x, y, z, letter, type, waypointObject);
-        waypoints.Add(newWaypoint);
+        WaypointsList.Add(newWaypoint);
 
         Debug.Log($"Created Waypoint ID: {newId}, Name: {name}, Letter: {letter}, Type: {type}, Position: ({x}, {y}, {z})");
     }
 
     public void DeleteWaypoint(int id)
     {
-        Waypoint waypointToRemove = waypoints.Find(wp => wp.Id == id);
+        Waypoint waypointToRemove = WaypointsList.Find(wp => wp.Id == id);
         if (waypointToRemove != null)
         {
-            // Destroy the associated GameObject
             if (waypointToRemove.WaypointObject != null)
             {
                 Destroy(waypointToRemove.WaypointObject);
             }
-
-            // Remove the waypoint from the list
-            waypoints.Remove(waypointToRemove);
+            WaypointsList.Remove(waypointToRemove);
 
             Debug.Log($"Deleted Waypoint ID: {id}");
-
-            // Update IDs of the remaining waypoints to match their new positions
             UpdateWaypointIds();
         }
         else
@@ -65,17 +57,15 @@ public class Waypoints : MonoBehaviour
 
     public void EditWaypoint(int id, float newX, float newY, float newZ, string newLetter, string newType)
     {
-        Waypoint waypointToEdit = waypoints.Find(wp => wp.Id == id);
+        Waypoint waypointToEdit = WaypointsList.Find(wp => wp.Id == id);
         if (waypointToEdit != null)
         {
-            // Update properties of the waypoint
             waypointToEdit.X = newX;
             waypointToEdit.Y = newY;
             waypointToEdit.Z = newZ;
             waypointToEdit.Letter = newLetter;
             waypointToEdit.Type = newType;
 
-            // Update the position of the associated GameObject
             if (waypointToEdit.WaypointObject != null)
             {
                 waypointToEdit.WaypointObject.transform.position = new Vector3(newX, newY, newZ);
@@ -91,15 +81,10 @@ public class Waypoints : MonoBehaviour
 
     private void UpdateWaypointIds()
     {
-        for (int i = 0; i < waypoints.Count; i++)
+        for (int i = 0; i < WaypointsList.Count; i++)
         {
-            waypoints[i].Id = i;
-            Debug.Log($"Updated Waypoint ID to: {i}, Name: {waypoints[i].Name}");
+            WaypointsList[i].Id = i;
+            Debug.Log($"Updated Waypoint ID to: {i}, Name: {WaypointsList[i].Name}");
         }
-    }
-
-    void Update()
-    {
-
     }
 }
