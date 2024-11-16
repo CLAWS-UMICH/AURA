@@ -159,6 +159,7 @@ public class FellowAstronautVitalsDataChangeEvent
         vitals = v;
     }
 }
+// WAYPOINT EVENTS
 public class WaypointsEditedEvent
 {
     public Waypoint EditedWaypoint { get; private set; }

@@ -12,9 +12,11 @@ public class Waypoint
     public float Z {get; set; }
     public string Letter {get; set;}
     public string Type{get; set;}
+    
+    public string Author{get; set;}
     public GameObject WaypointObject { get; set; }
 
-    public Waypoint(int id, string name, float x, float y, float z, string letter, string type, GameObject waypointObject)
+    public Waypoint(int id, string name, float x, float y, float z, string letter, string type, string author, GameObject waypointObject)
     {
         Id = id;
         Name = name;
@@ -23,6 +25,7 @@ public class Waypoint
         Z = z;
         Letter = letter;
         Type = type;
+        Author = author;
         WaypointObject = waypointObject;
     }
     
