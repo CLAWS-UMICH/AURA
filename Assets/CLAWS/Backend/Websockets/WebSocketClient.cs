@@ -139,7 +139,20 @@ public class WebSocketClient : MonoBehaviour
                     break;
 
                 case "WAYPOINTS":
-                    // Deserialize 'data' to the Waypoint class and publish to event
+                    /*
+                    JSON DATA FORMAT:
+                    {
+                        "type": "WAYPOINT",
+                        "use": "<GET/POST/PUT/DELETE>",
+                        "data": {
+                            "id": <number>,
+                            "name": <string>,
+                            "location": <Location>,
+                            "type": <string>,
+                            "author": <string>
+                        }
+                    }
+                    */
                     Waypoint waypointsData = data.ToObject<Waypoint>();
                     if (use == "DELETE ") {
                         EventBus.Publish(new WaypointToDelete(waypointsData));

@@ -17,6 +17,43 @@ public class Waypoints : MonoBehaviour
 
         // Edit the first waypoint by its ID
         EditWaypoint(0, 5, 5, 5, "C", "example");
+        /*
+            JSON DATA FORMAT:
+        {
+            "type": "WAYPOINT", 
+            "use": "<GET/POST/PUT/DELETE>",
+            "data": {
+                "id": <number>,
+                "name": <string>,
+                "location": <Location>,
+                "type": <string>,
+                "author": <string>
+            }
+        }
+        */
+        string json = @"{
+            ""type"": ""WAYPOINT"",
+            ""use"": ""PUT"",
+            ""data"": {
+                ""id"": 0,
+                ""name"": ""Start Point"",
+                ""location"": {
+                    ""x"": 5,
+                    ""y"": 5, 
+                    ""z"": 5
+                },
+                ""type"": ""example"",
+                ""author"": ""system""
+            }
+        }";
+        Debug.Log(json);
+        // Get reference to WebSocketClient instance
+        WebSocketClient client = FindObjectOfType<WebSocketClient>();
+        if (client != null) {
+            client.SendJsonData(json, "WAYPOINTS");
+        } else {
+            Debug.LogError("WebSocketClient not found in scene");
+        }
 
         // Delete the second waypoint by its ID
         DeleteWaypoint(1);
