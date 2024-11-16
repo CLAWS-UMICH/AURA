@@ -26,7 +26,38 @@ public class Waypoint
         WaypointObject = waypointObject;
     }
     
-
+    public string getJsonString(string use) {
+        /*
+        Waypoint json:
+        {
+            "type": "WAYPOINT",
+            "use": "<GET/POST/PUT/DELETE>",
+            "data": {
+                "id": <number>,
+                "name": <string>,
+                "location": <Location>,
+                "type": <string>,
+                "author": <string>
+            }
+        }
+        */
+        string jsonString = "{"
+            + "\"type\": \"WAYPOINT\","
+            + "\"use\": \"" + use + "\","
+            + "\"data\": {"
+                + "\"id\": " + Id + ","
+                + "\"name\": \"" + Name + "\","
+                + "\"location\": {"
+                    + "\"x\": " + X + ","
+                    + "\"y\": " + Y + ","
+                    + "\"z\": " + Z
+                + "},"
+                + "\"type\": \"" + Type + "\","
+                + "\"author\": \"" + Author + "\""
+            + "}"
+        + "}";
+        return jsonString;
+    }
    
 }
 
