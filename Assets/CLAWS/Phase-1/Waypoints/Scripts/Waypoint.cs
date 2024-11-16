@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Waypoint
 {   
+    public int Id { get; set; }
     public string Name { get; set; }
     public float X { get; set; }
     public float Y { get; set; }
@@ -13,8 +14,9 @@ public class Waypoint
     public string Type{get; set;}
     public GameObject WaypointObject { get; set; }
 
-     public Waypoint(string name, float x, float y, float z, string letter, string type, GameObject waypointObject)
+    public Waypoint(int id, string name, float x, float y, float z, string letter, string type, GameObject waypointObject)
     {
+        Id = id;
         Name = name;
         X = x;
         Y = y;
@@ -23,6 +25,8 @@ public class Waypoint
         Type = type;
         WaypointObject = waypointObject;
     }
+    
+
    
 }
 
