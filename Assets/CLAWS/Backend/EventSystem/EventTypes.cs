@@ -121,3 +121,27 @@ public class WebTestEvent
         use = _use;
     }
 }
+
+public class UpdatedVitalsEvent
+{
+    public Vitals vitals { get; private set; }
+
+    public UpdatedVitalsEvent(Vitals v)
+    {
+        vitals = v;
+    }
+    public override string ToString()
+    {
+        return "<VitalsUpdatedEvent>: vitals were updated";
+    }
+}
+
+public class FellowAstronautVitalsDataChangeEvent
+{
+    public Vitals vitals { get; private set; }
+
+    public FellowAstronautVitalsDataChangeEvent(Vitals v)
+    {
+        vitals = v;
+    }
+}
