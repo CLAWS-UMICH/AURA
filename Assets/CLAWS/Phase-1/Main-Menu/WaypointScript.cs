@@ -6,20 +6,41 @@ public class WaypointScript : MonoBehaviour
 {
     [SerializeField] private Transform playerIcon;  // Reference to the player icon's transform
 
+    private float currentRotationY;
+
+    private void Start()
+    {
+        // Initialize the waypoint's rotation based on the player's initial rotation
+        currentRotationY = NormalizeAngle(playerIcon.eulerAngles.y);
+    }
+
     // Update is called once per frame
     void Update()
     {
         // Get the player's Y rotation (horizontal rotation only)
-        float playerYRotation = playerIcon.eulerAngles.y;
+        float targetRotationY = NormalizeAngle(playerIcon.eulerAngles.y);
 
-        if (playerYRotation < 0)
+        // Ensure the rotation stays in the upright range
+        float rotationDifference = Mathf.DeltaAngle(currentRotationY, targetRotationY);
+
+        // Prevent any flipping behavior
+        if (Mathf.Abs(rotationDifference) > 90f)
         {
-            float makeUpwards = Mathf.Abs(-180 - playerYRotation);
-            playerYRotation = makeUpwards;
+            targetRotationY = currentRotationY; // Ignore the rotation if it would cause a flip
         }
 
-        // Set the waypoint's rotation to match only the Y rotation of the player icon
-        // Lock the X and Z rotation to prevent flipping
-        transform.rotation = Quaternion.Euler(90, playerYRotation, 0);
+        // Smoothly interpolate the rotation to avoid jitter
+        currentRotationY = Mathf.LerpAngle(currentRotationY, targetRotationY, Time.deltaTime * 10f);
+
+        // Apply the corrected rotation, locking X to 90 to keep it upright
+        transform.rotation = Quaternion.Euler(90, currentRotationY, 0);
+    }
+
+    // Utility function to normalize angles to the 0-360 range
+    private float NormalizeAngle(float angle)
+    {
+        while (angle < 0) angle += 360;
+        while (angle >= 360) angle -= 360;
+        return angle;
     }
 }

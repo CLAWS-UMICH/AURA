@@ -8,6 +8,8 @@ public class NorthIndicator : MonoBehaviour
     public RectTransform minimapCenter;      // Reference to the minimap's RectTransform (center of the minimap)
     private Vector3 initialPositionOffset;   // Stores the initial offset of the indicator from the center
 
+    [SerializeField] private float smoothSpeed = 10f;  // Speed for smooth movement
+
     private void Start()
     {
         // Calculate the initial offset from the center of the minimap to the top position
@@ -26,11 +28,13 @@ public class NorthIndicator : MonoBehaviour
         // Convert the angle to radians
         float radians = angle * Mathf.Deg2Rad;
 
-        // Calculate the new position along the circumference based on the angle
+        // Calculate the target position along the circumference based on the angle
         float x = initialPositionOffset.x * Mathf.Cos(radians) - initialPositionOffset.y * Mathf.Sin(radians);
         float y = initialPositionOffset.x * Mathf.Sin(radians) + initialPositionOffset.y * Mathf.Cos(radians);
 
-        // Set the local position of the "N" indicator
-        transform.localPosition = minimapCenter.localPosition + new Vector3(x, y, 0);
+        Vector3 targetPosition = minimapCenter.localPosition + new Vector3(x, y, 0);
+
+        // Smoothly interpolate the current position towards the target position
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * smoothSpeed);
     }
 }
