@@ -78,3 +78,71 @@ public class TestWebObj
         num = _num;
     }
 }
+
+// TasklistObj
+[System.Serializable]
+public class TasklistObj
+{
+    public class TaskObj
+    {
+        public int task_id;
+        public int status;
+        public string title;
+        public string description;
+        public bool isEmergency;
+        public bool isShared;
+
+        // change later for location constructor if sent in tuple
+        public string location;
+        public List<int> astronauts;
+        public List<TaskObj> subtasks;
+        public TaskObj()
+        {
+            task_id = 0;
+            status = 0;
+            title = "";
+            description = "";
+            isEmergency = false;
+            isShared = false;
+            location = "";
+            astronauts = new List<int>();
+            subtasks = new List<TaskObj>();
+        }
+        public TaskObj(int t_id, int st, string tle, string desc, bool em, bool sh, string loc, List<int> astrs, List<TaskObj> subts)
+        {
+            task_id = t_id;
+            status = st;
+            title = tle;
+            description = desc;
+            isEmergency = em;
+            isShared = sh;
+            location = loc;
+            astronauts = new List<int>();
+            foreach(int a in astrs)
+            {
+                astronauts.Add(a);
+            }
+            subtasks = new List<TaskObj>();
+            if (description.Length > 0){
+                foreach (TaskObj t in subts)
+                {
+                    subtasks.Add(t);
+                }
+            }
+        }
+    }
+    List<TaskObj> Tasklist = new List<TaskObj>();
+
+    public TasklistObj()
+    {
+        //do nothing for now
+    }
+    public TasklistObj(List<TaskObj> data)
+    {
+        foreach (TaskObj task_d in data)
+        {
+            TaskObj task = new TaskObj(task_d.task_id, task_d.status, task_d.title, task_d.description, task_d.isEmergency, task_d.isShared, task_d.location, task_d.astronauts, task_d.subtasks);
+            Tasklist.Add(task);
+        }
+    }
+}

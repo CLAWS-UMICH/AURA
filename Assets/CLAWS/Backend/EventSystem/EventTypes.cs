@@ -122,14 +122,14 @@ public class WebTestEvent
     }
 }
 
-public class TaskListEvent
+public class TasklistEvent
 {
-    public TaskListObj testData { get; set; }
+    public TasklistObj taskdata { get; set; }
     public string use { get; set; }
 
-    public TaskListEvent(TaskListObj _testData, string _use)
+    public TasklistEvent(TasklistObj _taskData, string _use)
     {
-        testData = _testData;
+        taskdata = _taskData;
         use = _use;
     }
 }

@@ -137,10 +137,13 @@ public class WebSocketClient : MonoBehaviour
                     TestWebObj testData = data.ToObject<TestWebObj>();
                     EventBus.Publish(new WebTestEvent(testData, use));
                     break;
+
                 case "TASKLIST":
-                    TaskListObj taskData = data.ToObject<TaskListObj>(); 
-                    EventBus.Publish(new TaskListEvent(taskData, use)); 
+                    TasklistObj taskData = data.ToObject<TasklistObj>();
+                    EventBus.Publish(new TasklistEvent(taskData, use));
                     break;
+
+
                 default:
                     // Log if the 'type' is not recognized
                     Debug.LogWarning($"Unhandled 'type': {type}");
