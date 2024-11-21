@@ -30,6 +30,7 @@ public class Location
                longitude == otherLoc.longitude;
     }
 }
+
 // Vitals
 [System.Serializable]
 public class Vitals
