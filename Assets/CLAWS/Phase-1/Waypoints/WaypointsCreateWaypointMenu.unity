@@ -2766,6 +2766,41 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6922232474701558454, guid: 180d4d2203473be4fa3fef18d0bec80e,
+        type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6922232474701558454, guid: 180d4d2203473be4fa3fef18d0bec80e,
+        type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6922232474701558454, guid: 180d4d2203473be4fa3fef18d0bec80e,
+        type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1643343234}
+    - target: {fileID: 6922232474701558454, guid: 180d4d2203473be4fa3fef18d0bec80e,
+        type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6922232474701558454, guid: 180d4d2203473be4fa3fef18d0bec80e,
+        type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SwitchScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 6922232474701558454, guid: 180d4d2203473be4fa3fef18d0bec80e,
+        type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SwitchSceneScript, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6922232474701558454, guid: 180d4d2203473be4fa3fef18d0bec80e,
+        type: 3}
+      propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7776007855563873072, guid: 180d4d2203473be4fa3fef18d0bec80e,
         type: 3}
       propertyPath: m_text
@@ -2844,6 +2879,10 @@ PrefabInstance:
     - {fileID: 7776007856618850415, guid: 180d4d2203473be4fa3fef18d0bec80e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7776007855708321233, guid: 180d4d2203473be4fa3fef18d0bec80e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1643343234}
     - targetCorrespondingSourceObject: {fileID: 7776007856328844323, guid: 180d4d2203473be4fa3fef18d0bec80e,
         type: 3}
       insertIndex: -1
@@ -2861,6 +2900,25 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 180d4d2203473be4fa3fef18d0bec80e, type: 3}
+--- !u!1 &1643343233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7776007855708321233, guid: 180d4d2203473be4fa3fef18d0bec80e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1643343232}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1643343234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643343233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5036b76c21d6c429e92c673c41989351, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneName: WaypointsBasicMenuDesign
 --- !u!1001 &1700138366
 PrefabInstance:
   m_ObjectHideFlags: 0
