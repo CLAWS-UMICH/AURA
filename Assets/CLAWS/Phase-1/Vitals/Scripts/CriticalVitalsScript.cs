@@ -19,6 +19,7 @@ public class CriticalVitalsScript : MonoBehaviour
 
     private void onVitalsUpdate(UpdatedVitalsEvent e) {
         // astr1 vitals update
+        //checkAlerts(e.vitals);
         oxygenCons.transform.Find("O2Cnum").GetComponent<TextMeshPro>().text = e.vitals.oxy_consumption.ToString("F1");
         heartRate.transform.Find("HRnum").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
         carbonProd.transform.Find("CO2Pnum").GetComponent<TextMeshPro>().text = e.vitals.co2_production.ToString("F1");
@@ -47,6 +48,18 @@ public class CriticalVitalsScript : MonoBehaviour
         // scrubB.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_b_co2_storage.ToString("F0");
 
     }
+
+    // private void checkAlerts(Vitals vitals)
+    // {
+    //     if (vitals.heart_rate > 150)
+    //     {
+    //         CreateAlert alert = new Alert {
+
+    //         }
+    //         EventBus.Publish<
+    //         Debug.Log("Warning: Heart rate is too high!");
+    //     }
+    // }
 
     private void OnDestroy() {
         EventBus.Unsubscribe(vitalsUpdateEvent);

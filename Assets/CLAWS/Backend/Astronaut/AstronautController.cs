@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Rendering;
+using System;
 
 // Location
 [System.Serializable]
@@ -60,6 +61,42 @@ public class Vitals
     public double coolant_liquid_pressure;
     public double batt_percentage;
     public double oxy_percentage;
+    public Alerts alerts;
+}
+
+public class VitalsData
+{
+    public string type;
+    public string use;
+    public Vitals data;
+}
+
+// Alerts
+[System.Serializable]
+public class Alerts
+{
+    public List<AlertObj> AllAlerts = new List<AlertObj>();
+}
+
+[System.Serializable]
+public class AlertObj
+{
+    public int alert_id; // starting from 0 and going up 1 
+    public string vital; // vital that is in danger
+    public float vital_val; // that vital's value
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        AlertObj otherAlert = (AlertObj)obj;
+        return alert_id == otherAlert.alert_id &&
+               vital == otherAlert.vital &&
+               vital_val == otherAlert.vital_val;
+    }
 }
 
 // TestWebObj
