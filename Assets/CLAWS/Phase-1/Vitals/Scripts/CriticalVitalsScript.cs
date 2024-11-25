@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System;
+using MixedReality.Toolkit.UX;
 
 public class CriticalVitalsScript : MonoBehaviour
 {
     private Subscription<UpdatedVitalsEvent> vitalsUpdateEvent;
     private Subscription<FellowAstronautVitalsDataChangeEvent> fellowVitalsUpdateEvent;
-    [SerializeField] private GameObject heartRate, oxygenCons, carbonProd, temp; // priFan, secFan, scrubA, scrubB;
-    [SerializeField] private GameObject heartRate2, oxygenCons2, carbonProd2, temp2; //priFan2, secFan2, scrubA2, scrubB2;
+    [SerializeField] private GameObject heartRate, oxygenCons, carbonProd, temp, oxyTime; // priFan, secFan, scrubA, scrubB;
+    [SerializeField] private GameObject heartRate2, oxygenCons2, carbonProd2, temp2, oxyTime2; //priFan2, secFan2, scrubA2, scrubB2;
     // Start is called before the first frame update
+    [SerializeField] private Slider oxygenSlider, oxygenSlider2;
     void Start()
     {
         vitalsUpdateEvent = EventBus.Subscribe<UpdatedVitalsEvent>(onVitalsUpdate);
@@ -29,8 +31,17 @@ public class CriticalVitalsScript : MonoBehaviour
         // // Scrubbers
         // scrubA.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_a_co2_storage.ToString("F0");
         // scrubB.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_b_co2_storage.ToString("F0");
-
-
+        int time_left = e.vitals.oxy_time_left;
+        int hours = time_left / 3600;
+        int minutes = (time_left % 3600) / 60;
+        string timeLeftString = $"{hours}h {minutes}m";
+        
+        oxyTime.transform.Find("BodyText").GetComponent<TextMeshPro>().text = timeLeftString;
+        if (oxygenSlider != null)
+        {
+            Debug.Log("Oxygen vital instantiated");
+            oxygenSlider.Value = e.vitals.oxy_time_left; // Normalize value to 0-1
+        }
     }
 
     private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e) {
@@ -45,7 +56,16 @@ public class CriticalVitalsScript : MonoBehaviour
         // // Scrubbers
         // scrubA.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_a_co2_storage.ToString("F0");
         // scrubB.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_b_co2_storage.ToString("F0");
+        int time_left = e.vitals.oxy_time_left;
+        int hours = time_left / 3600;
+        int minutes = (time_left % 3600) / 60;
+        string timeLeftString = $"{hours}h {minutes}m";
 
+        oxyTime2.transform.Find("BodyText").GetComponent<TextMeshPro>().text = timeLeftString;
+        if (oxygenSlider2 != null)
+        {
+            oxygenSlider2.Value = e.vitals.oxy_time_left; // Normalize value to 0-1
+        }
     }
 
     private void OnDestroy() {
