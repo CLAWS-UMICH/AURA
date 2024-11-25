@@ -30,7 +30,15 @@ public class CriticalVitalsScript : MonoBehaviour
         // // Scrubbers
         // scrubA.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_a_co2_storage.ToString("F0");
         // scrubB.transform.Find("BodyText").GetComponent<TextMeshPro>().text = e.vitals.scrubber_b_co2_storage.ToString("F0");
-
+        // VitalsData vitalsData = new VitalsData
+        //     {
+        //         type = "VITALS",
+        //         use = "POST",
+        //         data = AstronautInstance.User.VitalsData
+        //     };
+        // string json = JsonUtility.ToJson(vitalsData);
+        // webSocketClient.SendJsonData(json, "VITALS");
+        // Debug.Log(json);
 
     }
 
