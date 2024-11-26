@@ -6,5 +6,5 @@ public class Astronaut
 {
     public int id;
     public Location location;
-
+    public Vitals vitals;
 }

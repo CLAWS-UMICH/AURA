@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: EmptyCircl
+  m_Name: EmptyCircle
   m_Shader: {fileID: 4800000, guid: 4319f5883ede94ed084f0373c0f9eb63, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,7 +41,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: c64a567ef2cb34726b72f156c6d11adb, type: 3}
+        m_Texture: {fileID: 2800000, guid: ddf6a9578ebbd4643b61b19535e573da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
@@ -65,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: c64a567ef2cb34726b72f156c6d11adb, type: 3}
+        m_Texture: {fileID: 2800000, guid: ddf6a9578ebbd4643b61b19535e573da, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:

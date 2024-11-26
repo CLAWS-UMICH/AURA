@@ -28,8 +28,8 @@ public class FakeTSS : MonoBehaviour
             yield return new WaitForSeconds(secondsToUpdate);
             
             // Update vitals with random values
-            AstronautInstance.User.VitalsData.co2_production = UnityEngine.Random.Range(0.05f, 0.15f);
-            AstronautInstance.User.VitalsData.oxy_consumption = UnityEngine.Random.Range(0.05f, 0.15f);
+            AstronautInstance.User.vitals.co2_production = UnityEngine.Random.Range(0.05f, 0.15f);
+            AstronautInstance.User.vitals.oxy_consumption = UnityEngine.Random.Range(0.05f, 0.15f);
             //AstronautInstance.User.VitalsData.batt_percentage = UnityEngine.Random.Range(90f, 100f);
             //AstronautInstance.User.VitalsData.oxy_sec_storage = UnityEngine.Random.Range(90f, 100f);
             //AstronautInstance.User.VitalsData.suit_pressure = UnityEngine.Random.Range(0.8f, 5.2f);
@@ -40,10 +40,10 @@ public class FakeTSS : MonoBehaviour
             //AstronautInstance.User.VitalsData.h2o_liquid_pressure = UnityEngine.Random.Range(18f, 25f);
             //AstronautInstance.User.VitalsData.sop_pressure = UnityEngine.Random.Range(6f, 12f);
             //AstronautInstance.User.VitalsData.sop_rate = UnityEngine.Random.Range(1f, 3f);
-            AstronautInstance.User.VitalsData.heart_rate = UnityEngine.Random.Range(50f, 160f);
+            AstronautInstance.User.vitals.heart_rate = UnityEngine.Random.Range(50f, 160f);
             //AstronautInstance.User.VitalsData.fan_tachometer = UnityEngine.Random.Range(1000f, 3000f);
             //AstronautInstance.Usesr.VitalsData.battery_capacity = UnityEngine.Random.Range(3000f, 5000f);
-            AstronautInstance.User.VitalsData.temperature = UnityEngine.Random.Range(50f, 90f);
+            AstronautInstance.User.vitals.temperature = UnityEngine.Random.Range(50f, 90f);
             //AstronautInstance.User.VitalsData.battery_percentage = UnityEngine.Random.Range(70f, 100f);
             //AstronautInstance.User.VitalsData.battery_outputput = UnityEngine.Random.Range(200f, 400f);
             //AstronautInstance.User.VitalsData.oxygen_primary_time = UnityEngine.Random.Range(1000f, 2000f);
@@ -63,7 +63,7 @@ public class FakeTSS : MonoBehaviour
 
 
             // Publish VitalsUpdatedEvent
-            EventBus.Publish<UpdatedVitalsEvent>(new UpdatedVitalsEvent(AstronautInstance.User.VitalsData));
+            EventBus.Publish<UpdatedVitalsEvent>(new UpdatedVitalsEvent(AstronautInstance.User.vitals));
 
         }
     }
