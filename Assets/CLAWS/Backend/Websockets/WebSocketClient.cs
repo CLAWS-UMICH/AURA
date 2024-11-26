@@ -132,17 +132,6 @@ public class WebSocketClient : MonoBehaviour
             // Handle different types based on the 'type' field
             switch (type)
             {
-                case "VITALS":
-                    Vitals vitalsData = data.ToObject<Vitals>();
-                    if (assignedId == "0")
-                    {
-                        EventBus.Publish(new UpdatedVitalsEvent(vitalsData));
-                    }
-                    if (assignedId == "1") 
-                    {
-                        EventBus.Publish(new FellowAstronautVitalsDataChangeEvent(vitalsData));
-                    }
-                    break;
                 case "TEST":
                     /// Deserialize 'data' to the VitalsData class and publish to event
                     TestWebObj testData = data.ToObject<TestWebObj>();
