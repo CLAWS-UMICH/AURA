@@ -7,31 +7,33 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MRTK_Backplate_13mm_Gradient Variant 2
-  m_Shader: {fileID: 4800000, guid: bf1548464ae044849a0ce555785ea4a2, type: 3}
-  m_Parent: {fileID: 2100000, guid: f32fb793f8a4656469db1040ccf2cffb, type: 2}
+  m_Name: Capsule_Line_MRTK_DKGray_171717 Variant 1
+  m_Shader: {fileID: 4800000, guid: c331f6c43a2ef0945864cb668f2653c9, type: 3}
+  m_Parent: {fileID: 2100000, guid: 6d3ffc46aac64b245a82cb715e63d654, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _EDGE_ONLY_
-  - _IRIDESCENCE_ENABLE_
-  - _LINE_ENABLE_
-  - _SMOOTH_EDGES_
+  - _ALPHABLEND_ON
+  - _DISABLE_ALBEDO_MAP
+  - _SPECULAR_HIGHLIGHTS
   m_InvalidKeywords:
-  - _ABSOLUTE_SIZES__ON
-  - _GRADIENT_DISABLED_
-  - _REFLECTED__ON
+  - _BLOB_ENABLE_2_
+  - _DECAL_FRONT_ONLY__ON
+  - _SKY_ENABLED_
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
-  stringTagMap: {}
+  stringTagMap:
+    DisableBatching: False
+    RenderType: Fade
   disabledShaderPasses: []
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Fade: 1
     m_Colors:
-    - _Base_Color_: {r: 0.19686721, g: 0.19686721, b: 0.5283019, a: 1}
+    - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
