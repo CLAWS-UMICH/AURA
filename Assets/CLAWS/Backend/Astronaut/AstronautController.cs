@@ -91,6 +91,7 @@ public class TasklistObj
         public string description;
         public bool isEmergency;
         public bool isShared;
+        public bool isSubtask;
 
         // change later for location constructor if sent in tuple
         public string location;
@@ -104,11 +105,12 @@ public class TasklistObj
             description = "";
             isEmergency = false;
             isShared = false;
+            isSubtask = false;
             location = "";
             astronauts = new List<int>();
             subtasks = new List<TaskObj>();
         }
-        public TaskObj(int t_id, int st, string tle, string desc, bool em, bool sh, string loc, List<int> astrs, List<TaskObj> subts)
+        public TaskObj(int t_id, int st, string tle, string desc, bool em, bool sh, bool sut, string loc, List<int> astrs, List<TaskObj> subts)
         {
             task_id = t_id;
             status = st;
@@ -116,6 +118,7 @@ public class TasklistObj
             description = desc;
             isEmergency = em;
             isShared = sh;
+            isSubtask = sut;
             location = loc;
             astronauts = new List<int>();
             foreach(int a in astrs)
