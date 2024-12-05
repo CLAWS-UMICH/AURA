@@ -89,6 +89,21 @@ public class SelectButton
     }
 }
 
+public class CreateAlert
+{
+    public AlertEnum alertType;
+    public string title;
+    public string desc;
+    public string letter;
+    public CreateAlert(AlertEnum _alertType, string _title = "", string _desc = "", string _letter = "")
+    {
+        alertType = _alertType;
+        title = _title;
+        desc = _desc;
+        letter = _letter;
+    }
+}
+
 // Highlight Button
 public class HighlightButton
 {
@@ -121,9 +136,11 @@ public class WebTestEvent
         use = _use;
     }
 }
+
 public class UpdatedVitalsEvent
 {
     public Vitals vitals { get; private set; }
+
     public UpdatedVitalsEvent(Vitals v)
     {
         vitals = v;
@@ -133,9 +150,11 @@ public class UpdatedVitalsEvent
         return "<VitalsUpdatedEvent>: vitals were updated";
     }
 }
+
 public class FellowAstronautVitalsDataChangeEvent
 {
     public Vitals vitals { get; private set; }
+
     public FellowAstronautVitalsDataChangeEvent(Vitals v)
     {
         vitals = v;
