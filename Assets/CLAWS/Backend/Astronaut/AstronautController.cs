@@ -88,6 +88,7 @@ public class TasklistObj
         public int task_id;
         public int status;
         public string title;
+        public string taskType;
         public string description;
         public bool isEmergency;
         public bool isShared;
