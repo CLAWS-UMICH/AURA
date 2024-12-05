@@ -85,6 +85,7 @@ public class TasklistObj
 {
  
     List<TaskObj> Tasklist = new List<TaskObj>();
+    TaskObj currentTask = new TaskObj();
 
     public TasklistObj()
     {

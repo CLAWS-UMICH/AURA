@@ -15,9 +15,20 @@ public class TasklistBackend : MonoBehaviour
         taskListEvent = EventBus.Subscribe<TasklistEvent>(SetCurrentTask);
     }
 
-    public void SetCurrentTask<T> (T e)
+    public void SetCurrentTask(TasklistEvent e)
     {
-        eventUse = taskListEvent.use 
+        if (e.use == "POST")
+        {
+
+        }
+        if (e.use == "PUT")
+        {
+
+        }
+        if (e.use == "DELETE")
+        {
+
+        }
     }
 
     // Update is called once per frame
