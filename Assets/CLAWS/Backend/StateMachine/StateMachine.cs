@@ -2,13 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Add new Screens to the Enum
 [System.Serializable]
 public enum Screens
 {
     Menu,
-
-
+    taskList,
+    navigation,
+    messages,
+    samples,
+    vitals,
+    UIA,
+    VitalsFirstAstronaut,
+    VitalsSecondAstronaut
 }
 
 public enum Modes
@@ -18,13 +23,30 @@ public enum Modes
 
 public class StateMachine : MonoBehaviour
 {
+    // Singleton instance
+    public static StateMachine Instance { get; private set; }
 
-    public static Screens CurrScreen = Screens.Menu;
-    public static Modes CurrMode = Modes.Normal;
-    private Subscription<ScreenChangedEvent> screenChangedSubscription; // Store the subscription
+    public Screens CurrScreen = Screens.Menu;
+    public Modes CurrMode = Modes.Normal;
+
+    private Subscription<ScreenChangedEvent> screenChangedSubscription;
     private Subscription<ModeChangedEvent> modeChangedSubscription;
 
-    private void Start()
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        InitializeEventSubscriptions();
+    }
+
+    private void InitializeEventSubscriptions()
     {
         screenChangedSubscription = EventBus.Subscribe<ScreenChangedEvent>(SwitchScreen);
         modeChangedSubscription = EventBus.Subscribe<ModeChangedEvent>(SwitchMode);
@@ -32,43 +54,56 @@ public class StateMachine : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Unsubscribe when the script is destroyed
         if (screenChangedSubscription != null)
         {
             EventBus.Unsubscribe(screenChangedSubscription);
         }
+        if (modeChangedSubscription != null)
+        {
+            EventBus.Unsubscribe(modeChangedSubscription);
+        }
     }
 
+    // Switch screen when ScreenChangedEvent is published
     public void SwitchScreen(ScreenChangedEvent e)
     {
-        Debug.Log(CurrScreen.ToString() + " -> " + e.Screen.ToString());
+        Debug.Log($"{CurrScreen} -> {e.Screen}");
         CurrScreen = e.Screen;
     }
 
+    // Switch mode when ModeChangedEvent is published
     public void SwitchMode(ModeChangedEvent e)
     {
-        Debug.Log(CurrMode.ToString() + " -> " + e.Mode.ToString());
+        Debug.Log($"{CurrMode} -> {e.Mode}");
         CurrMode = e.Mode;
     }
-
-    [ContextMenu("CloseScreen")]
-    public void CloseScreen()
+    // Close screen when called
+    public void CloseScreen(CloseEvent e)
     {
-        EventBus.Publish(new CloseEvent(CurrScreen));
+        // Debug log for closing the screen
+        Debug.Log("Closing screen: " + e.Screen.ToString());
     }
 
     [ContextMenu("CloseAll")]
     public void CloseAll()
     {
-        /*EventBus.Publish(new CloseEvent(Screens.CreatingWaypoint));
-        EventBus.Publish(new CloseEvent(Screens.Vitals_1));
-        EventBus.Publish(new CloseEvent(Screens.Vitals_2));
-        EventBus.Publish(new CloseEvent(Screens.Map_3D));
-        EventBus.Publish(new CloseEvent(Screens.Map_2D));
-        EventBus.Publish(new CloseEvent(Screens.Navigation));
-        EventBus.Publish(new CloseEvent(Screens.Tasklist));
+        // Publish CloseEvent for multiple screens
+        EventBus.Publish(new CloseEvent(Screens.taskList));
+        EventBus.Publish(new CloseEvent(Screens.navigation));
+        EventBus.Publish(new CloseEvent(Screens.messages));
+        EventBus.Publish(new CloseEvent(Screens.samples));
+        EventBus.Publish(new CloseEvent(Screens.vitals));
+        EventBus.Publish(new CloseEvent(Screens.UIA));
+        EventBus.Publish(new CloseEvent(Screens.VitalsFirstAstronaut));
+        EventBus.Publish(new CloseEvent(Screens.VitalsSecondAstronaut));
+        
+
+        // Reset to menu or default screen
+        CurrScreen = Screens.Menu;
+        EventBus.Publish(new ScreenChangedEvent(Screens.Menu));
+
+        // Reset the mode if necessary
         CurrMode = Modes.Normal;
-        CurrScreen = Screens.Menu;*/
+        EventBus.Publish(new ModeChangedEvent(Modes.Normal));
     }
 }
-
