@@ -17,9 +17,21 @@ public class TasklistBackend : MonoBehaviour
 
     public void SetCurrentTask(TasklistEvent e)
     {
+        tasklist = e.taskdata;
         if (e.use == "POST")
         {
-
+            foreach (TaskObj t in tasklist.Tasklist)
+            {
+                // puts the emergency task in the front of the tasklist
+                if (t.isEmergency)
+                {
+                    AstronautInstance.User.tasklist.insert(0, t);
+                }
+                else
+                {
+                    AstronautInstance.User.tasklist.add(t);
+                }
+            }
         }
         if (e.use == "PUT")
         {
@@ -27,7 +39,10 @@ public class TasklistBackend : MonoBehaviour
         }
         if (e.use == "DELETE")
         {
-
+            foreach (TaskObj target in tasklist.Tasklist)
+            {
+                AstronautInstance.User.tasklist.Tasklist.Remove(target); 
+            }
         }
     }
 

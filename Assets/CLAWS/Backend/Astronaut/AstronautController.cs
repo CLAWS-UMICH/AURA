@@ -84,8 +84,8 @@ public class TestWebObj
 public class TasklistObj
 {
  
-    List<TaskObj> Tasklist = new List<TaskObj>();
-    TaskObj currentTask = new TaskObj();
+    public List<TaskObj> Tasklist = new List<TaskObj>();
+    public TaskObj currentTask = new TaskObj();
 
     public TasklistObj()
     {
@@ -97,6 +97,24 @@ public class TasklistObj
         {
             TaskObj task = new TaskObj(task_d.task_id, task_d.status, task_d.title, task_d.taskType, task_d.description, task_d.isEmergency, task_d.isShared, task_d.isSubtask, task_d.location, task_d.astronauts, task_d.subtasks);
             Tasklist.Add(task);
+        }
+    }
+
+    public void add(TaskObj t)
+    {
+        Tasklist.Add(t);
+    }
+
+    public void insert(int pos, TaskObj t)
+    {
+        Tasklist.Insert(pos, t);
+    }
+
+    public void remove(TaskObj target)
+    {
+        foreach(TaskObj t in Tasklist)
+        {
+            if(t.task_id == )
         }
     }
 }
@@ -130,6 +148,7 @@ public class TaskObj
         subtasks = new List<TaskObj>();
     }
     public TaskObj(int t_id, int st, string tle, string desc, string t_type, bool em, bool sh, bool sut, string loc, List<int> astrs, List<TaskObj> subts)
+
     {
         task_id = t_id;
         status = st;
@@ -145,12 +164,32 @@ public class TaskObj
             astronauts.Add(a);
         }
         subtasks = new List<TaskObj>();
-        if (description.Length > 0)
+        if (!isSubtask)
         {
             foreach (TaskObj t in subts)
             {
                 subtasks.Add(t);
             }
         }
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        TaskObj otherTask = (TaskObj)obj;
+        return task_id == otherTask.task_id &&
+               title == otherTask.title &&
+               astronauts.Equals(otherTask.astronauts) &&
+               subtasks.Equals(otherTask.subtasks) &&
+               status == otherTask.status &&
+               isEmergency == otherTask.isEmergency &&
+               isSubtask == otherTask.isSubtask && 
+               description == otherTask.description &&
+               isShared == otherTask.isShared &&
+               location == otherTask.location;
     }
 }
