@@ -109,14 +109,6 @@ public class TasklistObj
     {
         Tasklist.Insert(pos, t);
     }
-
-    public void remove(TaskObj target)
-    {
-        foreach(TaskObj t in Tasklist)
-        {
-            if(t.task_id == )
-        }
-    }
 }
 
 public class TaskObj
