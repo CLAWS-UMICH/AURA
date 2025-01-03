@@ -12,10 +12,10 @@ public class TasklistBackend : MonoBehaviour
     private Subscription<TasklistEvent> taskListEvent;
     void Start()
     {
-        taskListEvent = EventBus.Subscribe<TasklistEvent>(SetCurrentTask);
+        taskListEvent = EventBus.Subscribe<TasklistEvent>(UpdateTasklistWeb);
     }
 
-    public void SetCurrentTask(TasklistEvent e)
+    public void UpdateTasklistWeb(TasklistEvent e)
     {
         tasklist = e.taskdata;
         if (e.use == "POST")
@@ -35,7 +35,10 @@ public class TasklistBackend : MonoBehaviour
         }
         if (e.use == "PUT")
         {
-
+            foreach(TaskObj t in tasklist.Tasklist)
+            {
+                AstronautInstance.User.tasklist.update(t);
+            }
         }
         if (e.use == "DELETE")
         {

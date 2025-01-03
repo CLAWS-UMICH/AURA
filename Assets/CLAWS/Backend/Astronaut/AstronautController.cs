@@ -109,6 +109,18 @@ public class TasklistObj
     {
         Tasklist.Insert(pos, t);
     }
+
+    public void update(TaskObj newT)
+    {
+        for (int i = 0; i < Tasklist.Count; i++)
+        {
+            if (Tasklist[i].task_id == newT.task_id)
+            {
+                Tasklist[i] = newT;
+                break;
+            }
+        }
+    }
 }
 
 public class TaskObj
