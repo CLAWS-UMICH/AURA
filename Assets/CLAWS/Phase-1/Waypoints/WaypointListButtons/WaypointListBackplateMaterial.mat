@@ -122,16 +122,16 @@ Material:
     - _ZTest: 4
     - _ZWrite: 1
     m_Colors:
-    - _Base_Color_: {r: 0.2, g: 0.28235295, b: 0.4, a: 1}
+    - _Base_Color_: {r: 0.19999993, g: 0.2823529, b: 0.39999995, a: 1}
     - _Bottom_Left_: {r: 0, g: 0.33, b: 0.88, a: 1}
     - _Bottom_Right_: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Gradient_Color_: {r: 0.631373, g: 0.631373, b: 0.631373, a: 1}
-    - _Highlight_Color_: {r: 0.2392157, g: 0.43529415, b: 0.82745105, a: 1}
+    - _Highlight_Color_: {r: 0.23921567, g: 0.4352941, b: 0.82745105, a: 1}
     - _Highlight_Transform_: {r: 1, g: 1, b: 0, a: 0}
     - _Iridescence_Tint_: {r: 1, g: 1, b: 1, a: 1}
-    - _Line_Color_: {r: 0.20784315, g: 0.31764707, b: 0.48627454, a: 1}
+    - _Line_Color_: {r: 0.20784312, g: 0.31764704, b: 0.48627454, a: 1}
     - _Top_Left_: {r: 1, g: 0.690196, b: 0.976471, a: 1}
     - _Top_Right_: {r: 0, g: 0.33, b: 0.88, a: 1}
   m_BuildTextureStacks: []
