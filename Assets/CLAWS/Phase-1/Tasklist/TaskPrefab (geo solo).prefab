@@ -1568,7 +1568,7 @@ GameObject:
   m_Component:
   - component: {fileID: 944441959517404481}
   m_Layer: 0
-  m_Name: TaskPrefab (nav solo)
+  m_Name: TaskPrefab (geo solo)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1664,7 +1664,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 892e4666657330243851bc016d6fee2e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 847343e16195da646b5a39742b8d7222, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
