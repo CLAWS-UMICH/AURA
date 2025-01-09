@@ -147,7 +147,7 @@
 //                 Destroy(gm);
 //                 Destroy(gm_3D);
 //             }
-            
+
 //             AstronautInstance.User.WaypointData.AllWaypoints.Remove(waypoint);
 //         }
 //     }
@@ -194,7 +194,7 @@
 //                 waypointDict[waypoint.waypoint_id].type = waypoint.type;
 //                 waypointDict[waypoint.waypoint_id].description = waypoint.description;
 //                 waypointDict[waypoint.waypoint_id].waypoint_letter = waypoint.waypoint_letter;
-                
+
 //                 waypointObjDic[waypoint.waypoint_id].transform.Find("Body").Find("Title").gameObject.transform.Find("IconAndText").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>().text = waypoint.description;
 //                 waypointObjDic[waypoint.waypoint_id].transform.Find("Body").Find("Quad").gameObject.transform.Find("Text").gameObject.transform.Find("TextMeshPro").gameObject.GetComponent<TextMeshPro>().text = waypoint.waypoint_letter;
 
