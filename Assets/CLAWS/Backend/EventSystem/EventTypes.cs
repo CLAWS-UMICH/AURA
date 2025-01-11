@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class ScreenChangedEvent
 {
@@ -124,11 +125,15 @@ public class WebTestEvent
 
 public class TaskListEvent
 {
-    public TaskListObj testData { get; set; }
+    public object testData { get; set; } 
+    /* Original code led to compilation error: TaskListObj not found, using correct namespace/assembly references? Looked like:
+    public TaskListObj testdata { get; set; }
+    
+    Replaced with "object" instead of TaskListObj to allow for compilation while working on other scenes. */
     
     public string use { get; set; }
 
-    public TaskListEvent(TaskListObj _testData, string _use)
+    public TaskListEvent(object _testData, string _use) /* Was also "TaskListObj _testData" */
     {
         testData = _testData;
         use = _use;
