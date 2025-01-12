@@ -25,6 +25,13 @@ public class DynamicPop : MonoBehaviour
             "SubaskPrefab (emergency)",
             "SubaskPrefab (emergency)",
             "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
             "SubaskPrefab (emergency)"
         };
     }
@@ -40,7 +47,8 @@ public class DynamicPop : MonoBehaviour
             {
                 // Instantiate the prefab and add it to the Content area
                 GameObject newItem = Instantiate(prefab, contentParent);
-                newItem.transform.localPosition = new Vector3(0.275f, 0, -0.01f);
+                newItem.transform.localPosition = new Vector3(contentParent.localPosition.x, contentParent.localPosition.y, -0.01f);
+                newItem.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
             }
             else
             {
@@ -49,7 +57,6 @@ public class DynamicPop : MonoBehaviour
         }
 
         EventBus.Publish(new InitPopFinishedEvent("i just published" + prefabTypes[0]));
-        Debug.LogWarning("event published");
     }
 
     GameObject GetPrefabByType(string type)

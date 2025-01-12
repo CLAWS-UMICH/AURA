@@ -46,6 +46,7 @@ public class TaskListScrollHandler : MonoBehaviour
     [ContextMenu("Func ScrollUp")]
     public void ScrollUp()
     {
+        Debug.Log("Scroll up");
         int index = GetScrollIndex() - 1;
 
         if (index < 0)
@@ -59,6 +60,7 @@ public class TaskListScrollHandler : MonoBehaviour
     [ContextMenu("Func ScrollDown")]
     public void ScrollDown()
     {
+        Debug.Log("Scroll down");
         int index = GetScrollIndex() + 1;
 
         if (index > Objects.Count - 1)
@@ -89,9 +91,7 @@ public class TaskListScrollHandler : MonoBehaviour
     }
 
     private void OnSub(InitPopFinishedEvent e)
-    {
-        Debug.LogWarning("made it into start");
-        Debug.LogWarning(e.message);
+    {;
         colliderOffset = Bounds.center.y;
 
         startBounds = transform.localPosition;
@@ -99,7 +99,6 @@ public class TaskListScrollHandler : MonoBehaviour
         scrollTarget = startBounds;
         isScrolling = false;
 
-        Debug.LogWarning("going into fix locations");
         FixLocations();
     }
 
@@ -133,24 +132,17 @@ public class TaskListScrollHandler : MonoBehaviour
     /// </summary>
     void CollectAllButtons()
     {
-        // Transform parentTransform = Content;
+        Transform parentTransform = transform;
         Objects.Clear();
 
-        Debug.LogWarning("collecting...");
-
-        foreach (Transform child in Content)
+        foreach (Transform child in parentTransform)
         {
             if (child.name != "Grid Layout")
             {
                 Objects.Add(child);
             }
-            Debug.LogWarning("collecting children");
         }
 
-        foreach (Transform child in Objects)
-        {
-            Debug.LogWarning(child);
-        }
     }
 
     /// <summary>
@@ -159,13 +151,12 @@ public class TaskListScrollHandler : MonoBehaviour
     [ContextMenu("Func FixLayout")]
     public void FixLocations()
     {
-        Debug.LogWarning("made it into fix");
         CollectAllButtons();
-        Debug.LogWarning("made it out of collect");
 
         for (int i = 0; i < Objects.Count; i++)
         {
             float yOffset;
+            bool taskToSub = false;
 
             if (i == 0)
             {
@@ -173,14 +164,29 @@ public class TaskListScrollHandler : MonoBehaviour
             }
             else
             {
-                yOffset = Objects[i - 1].transform.localPosition.y
+                string prev_n = Objects[i - 1].name;
+                string curr_n = Objects[i].name;
+                taskToSub = (prev_n[0] == 'T' && curr_n[0] == 'S');
+                if (taskToSub)
+                {
+                    yOffset = Objects[i - 1].transform.localPosition.y
+                    - (Objects[i - 1].GetComponent<BoxCollider>().size.y / 2
+                        * Objects[i - 1].transform.localScale.y)
+                    - (Objects[i-1].GetComponent<BoxCollider>().size.y
+                        * Objects[i-1].transform.localScale.y)
+                    - spacing;
+                }
+                else
+                {
+                    yOffset = Objects[i - 1].transform.localPosition.y
                     - (Objects[i - 1].GetComponent<BoxCollider>().size.y / 2
                         * Objects[i - 1].transform.localScale.y)
                     - (Objects[i].GetComponent<BoxCollider>().size.y / 2
                         * Objects[i].transform.localScale.y)
                     - spacing;
+                }
+        
             }
-
             // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
             Vector3 newPosition = new Vector3(Objects[i].transform.localPosition.x, yOffset, Objects[i].transform.localPosition.z);
             Objects[i].transform.localPosition = newPosition; // Move each button to the new position
