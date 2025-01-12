@@ -134,6 +134,15 @@ public class TasklistEvent
     }
 }
 
+public class InitPopFinishedEvent
+{
+    public string message;
+    public InitPopFinishedEvent(string _m)
+    {
+        message = _m;
+    }
+}
+
 public class UpdatedVitalsEvent
 {
     public Vitals vitals { get; private set; }

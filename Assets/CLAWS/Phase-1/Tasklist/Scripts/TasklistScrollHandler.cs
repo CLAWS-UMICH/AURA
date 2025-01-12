@@ -18,6 +18,8 @@ public class TaskListScrollHandler : MonoBehaviour
     private Vector3 scrollTarget;
     private bool isScrolling;
 
+    private Subscription<InitPopFinishedEvent> initEvent;
+
     /// <summary>
     /// Returns the index of the first visible element (visible by more than 1/2 showing).
     /// </summary>
@@ -75,8 +77,21 @@ public class TaskListScrollHandler : MonoBehaviour
                 startBounds.z);
     }
 
-    private void Start()
+    private void Awake()
     {
+        initEvent = EventBus.Subscribe<InitPopFinishedEvent>(OnSub);
+        Debug.LogWarning("subscribed");
+    }
+
+    private void OnDestroy()
+    {
+        EventBus.Unsubscribe(initEvent);
+    }
+
+    private void OnSub(InitPopFinishedEvent e)
+    {
+        Debug.LogWarning("made it into start");
+        Debug.LogWarning(e.message);
         colliderOffset = Bounds.center.y;
 
         startBounds = transform.localPosition;
@@ -84,6 +99,7 @@ public class TaskListScrollHandler : MonoBehaviour
         scrollTarget = startBounds;
         isScrolling = false;
 
+        Debug.LogWarning("going into fix locations");
         FixLocations();
     }
 
@@ -117,12 +133,23 @@ public class TaskListScrollHandler : MonoBehaviour
     /// </summary>
     void CollectAllButtons()
     {
-        Transform parentTransform = transform;
+        // Transform parentTransform = Content;
         Objects.Clear();
 
-        foreach (Transform child in parentTransform)
+        Debug.LogWarning("collecting...");
+
+        foreach (Transform child in Content)
         {
-            Objects.Add(child);
+            if (child.name != "Grid Layout")
+            {
+                Objects.Add(child);
+            }
+            Debug.LogWarning("collecting children");
+        }
+
+        foreach (Transform child in Objects)
+        {
+            Debug.LogWarning(child);
         }
     }
 
@@ -132,7 +159,9 @@ public class TaskListScrollHandler : MonoBehaviour
     [ContextMenu("Func FixLayout")]
     public void FixLocations()
     {
+        Debug.LogWarning("made it into fix");
         CollectAllButtons();
+        Debug.LogWarning("made it out of collect");
 
         for (int i = 0; i < Objects.Count; i++)
         {

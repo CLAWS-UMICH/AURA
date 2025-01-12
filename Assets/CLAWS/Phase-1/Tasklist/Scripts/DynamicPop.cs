@@ -40,12 +40,16 @@ public class DynamicPop : MonoBehaviour
             {
                 // Instantiate the prefab and add it to the Content area
                 GameObject newItem = Instantiate(prefab, contentParent);
+                newItem.transform.localPosition = new Vector3(0.275f, 0, -0.01f);
             }
             else
             {
                 Debug.LogWarning($"Prefab for type '{type}' not found!");
-            }
+            }    
         }
+
+        EventBus.Publish(new InitPopFinishedEvent("i just published" + prefabTypes[0]));
+        Debug.LogWarning("event published");
     }
 
     GameObject GetPrefabByType(string type)
