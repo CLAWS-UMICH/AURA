@@ -2219,8 +2219,8 @@ MonoBehaviour:
   handType: -1
   proximityType: -1
   executionOrder: 0
-  constraintOnMovement: 0
-  useLocalSpaceForConstraint: 0
+  constraintOnMovement: 5
+  useLocalSpaceForConstraint: 1
 --- !u!114 &1193971644
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2425,14 +2425,15 @@ MonoBehaviour:
   rotateLerpTime: 0.001
   scaleLerpTime: 0.001
   enableConstraints: 1
-  constraintsManager: {fileID: 0}
+  constraintsManager: {fileID: 1193971645}
   manipulationLogicTypes:
     moveLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.MoveLogic, MixedReality.Toolkit.SpatialManipulation
     rotateLogicType:
       reference: MixedReality.Toolkit.SpatialManipulation.RotateLogic, MixedReality.Toolkit.SpatialManipulation
     scaleLogicType:
-      reference: MixedReality.Toolkit.SpatialManipulation.ScaleLogic, MixedReality.Toolkit.SpatialManipulation
+      reference: MixedReality.Toolkit.SpatialManipulation.BoundsControlScaleLogic,
+        MixedReality.Toolkit.SpatialManipulation
 --- !u!114 &1193971645
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2462,7 +2463,7 @@ MonoBehaviour:
   handType: -1
   proximityType: -1
   executionOrder: 0
-  constraintOnRotation: 5
+  constraintOnRotation: -1
   useLocalSpaceForConstraint: 1
 --- !u!114 &1193971647
 MonoBehaviour:
@@ -4755,7 +4756,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1193971639}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

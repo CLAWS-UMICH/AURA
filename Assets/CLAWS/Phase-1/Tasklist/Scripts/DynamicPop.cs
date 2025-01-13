@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class DynamicPop : MonoBehaviour
 {
-    private List<string> prefabTypes; 
+    private List<string> prefabTypes;
+    private List<string> prefabTypes1;
     public GameObject[] prefabs;
     public Transform contentParent;
 
-    void Start()
+    void Awake()
     {
         InitializePrefabTypes();
         PopulateContent();
@@ -34,11 +35,27 @@ public class DynamicPop : MonoBehaviour
             "SubaskPrefab (emergency)",
             "SubaskPrefab (emergency)"
         };
+
+        prefabTypes1 = new List<string>
+        {
+            "TaskPrefab (geo solo)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+            "SubaskPrefab (emergency)",
+        };
     }
 
     void PopulateContent()
     {
-        foreach (string type in prefabTypes)
+        foreach (string type in prefabTypes1)
         {
             // Find the corresponding prefab for the type
             GameObject prefab = GetPrefabByType(type);

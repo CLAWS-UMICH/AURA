@@ -138,6 +138,7 @@ public class TaskObj
     public string location;
     public List<int> astronauts;
     public List<TaskObj> subtasks;
+    private int numSub;
     public TaskObj()
     {
         task_id = 0;
@@ -150,6 +151,7 @@ public class TaskObj
         location = "";
         astronauts = new List<int>();
         subtasks = new List<TaskObj>();
+        numSub = 0;
     }
     public TaskObj(int t_id, int st, string tle, string desc, string t_type, bool em, bool sh, bool sut, string loc, List<int> astrs, List<TaskObj> subts)
 
@@ -174,6 +176,11 @@ public class TaskObj
             {
                 subtasks.Add(t);
             }
+            numSub = subts.Count;
+        }
+        else
+        {
+            numSub = 0;
         }
     }
 
@@ -195,5 +202,15 @@ public class TaskObj
                description == otherTask.description &&
                isShared == otherTask.isShared &&
                location == otherTask.location;
+    }
+
+    public void add()
+    {
+        numSub += 1;
+    }
+
+    public int getNumSub()
+    {
+        return numSub;
     }
 }
