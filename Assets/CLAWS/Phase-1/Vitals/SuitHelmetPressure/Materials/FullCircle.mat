@@ -88,8 +88,8 @@ Material:
     - _AlphaClip: 0
     - _AlphaToMask: 0
     - _Angle: 241
-    - _Arc1: 0
-    - _Arc2: 167
+    - _Arc1: 88
+    - _Arc2: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 0
     - _BumpScale: 1

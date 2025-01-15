@@ -58,8 +58,8 @@ public class FakeTSS : MonoBehaviour
             TimeSpan batteryTime = TimeSpan.FromMinutes(5) - TimeSpan.FromSeconds(timer);
             TimeSpan o2Time = TimeSpan.FromMinutes(5) - TimeSpan.FromSeconds(timer);
 
-            AstronautInstance.User.vitals.batt_time_left = (int)batteryTime.TotalMinutes;
-            AstronautInstance.User.vitals.oxy_time_left = (int)o2Time.TotalMinutes;
+            AstronautInstance.User.vitals.batt_time_left = 3000;//(int)batteryTime.TotalSeconds;
+            AstronautInstance.User.vitals.oxy_time_left = 3000;//(int)o2Time.TotalSeconds;
 
             // Publish VitalsUpdatedEvent
             EventBus.Publish<UpdatedVitalsEvent>(new UpdatedVitalsEvent(AstronautInstance.User.vitals));

@@ -71,6 +71,7 @@ public class StateMachine : MonoBehaviour
         Debug.Log($"{CurrMode} -> {e.Mode}");
         CurrMode = e.Mode;
     }
+    
     // Close screen when called
     public void CloseScreen(CloseEvent e)
     {

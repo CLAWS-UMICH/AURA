@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro;
-using System;
+using System.Collections;
 using MixedReality.Toolkit.UX;
 
 [System.Serializable]
@@ -51,6 +51,8 @@ public class VitalsController : MonoBehaviour
     [SerializeField] private EVAGroup eva1;
     [SerializeField] private EVAGroup eva2;
     private WebSocketClient webSocketClient;
+    private bool isCooldown = false;
+    public float cooldownTime = 0.5f;
 
     private void Start() 
     {
@@ -77,8 +79,19 @@ public class VitalsController : MonoBehaviour
         }
     }
 
+
+    private IEnumerator Cooldown()
+    {
+        isCooldown = true;
+        yield return new WaitForSeconds(cooldownTime);
+        isCooldown = false;
+    }
+
     public void ToggleVitalsScreen()
     {
+        if (isCooldown) return;
+        Debug.Log($"Current Screen: {StateMachine.Instance.CurrScreen}");
+
         if (StateMachine.Instance.CurrScreen == Screens.VitalsFirstAstronaut)
         {
             EventBus.Publish(new CloseEvent(Screens.VitalsFirstAstronaut));
@@ -89,6 +102,7 @@ public class VitalsController : MonoBehaviour
             EventBus.Publish(new CloseEvent(Screens.VitalsSecondAstronaut));
             EventBus.Publish(new ScreenChangedEvent(Screens.VitalsFirstAstronaut));
         }
+        StartCoroutine(Cooldown());
     }
 
 
@@ -157,11 +171,11 @@ public class VitalsController : MonoBehaviour
         eva1.suitPresOxy.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_oxy / 4.1) * 302));
         eva1.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_oxy.ToString("F1");
         eva1.suitPresCO2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_co2 / 0.1) * 302));
-        eva1.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_co2.ToString("F1");
+        eva1.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_co2.ToString("F2");
         eva1.otherSuitPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_other / 0.5) * 302));
         eva1.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_other.ToString("F1");
         eva1.helmetCO2Pres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.helmet_pressure_co2 / 0.15) * 302));
-        eva1.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.helmet_pressure_co2.ToString("F1");
+        eva1.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.helmet_pressure_co2.ToString("F2");
 
         eva1.priFan.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.fan_pri_rpm.ToString("N0");
         eva1.secFan.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.fan_sec_rpm.ToString("N0");
@@ -173,6 +187,7 @@ public class VitalsController : MonoBehaviour
         int oxyTimeLeftSeconds = e.vitals.oxy_time_left;
         int oxyHours = oxyTimeLeftSeconds / 3600;
         int oxyMinutes = oxyTimeLeftSeconds % 3600 / 60;
+        Debug.Log(oxyTimeLeftSeconds);
         eva1.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().text = $"{oxyHours} hr {oxyMinutes} m";
         eva1.oxySlider.Value = e.vitals.oxy_time_left;
 
@@ -190,7 +205,7 @@ public class VitalsController : MonoBehaviour
             };
         string json = JsonUtility.ToJson(vitalsData);
         webSocketClient.SendJsonData(json, "VITALS");
-        Debug.Log(json);
+        //Debug.Log(json);
     }
 
     private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e)
