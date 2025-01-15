@@ -136,10 +136,10 @@ public class TasklistEvent
 
 public class InitPopFinishedEvent
 {
-    public string message;
-    public InitPopFinishedEvent(string _m)
+    public List<TaskObj> tl;
+    public InitPopFinishedEvent(List<TaskObj> _tl)
     {
-        message = _m;
+        tl = _tl;
     }
 }
 

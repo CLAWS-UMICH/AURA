@@ -40,7 +40,7 @@ public class TaskListScrollHandler : MonoBehaviour
                 min_distance = distance;
                 min_index = index;
             }
-            Debug.LogWarning("dis " + distance + " ind " + index);
+            //Debug.LogWarning("dis " + distance + " ind " + index);
             //Debug.LogWarning("content pos " + Content.position.y);
             //Debug.LogWarning("t pos " + t.localPosition.y);
             index++;
@@ -88,15 +88,10 @@ public class TaskListScrollHandler : MonoBehaviour
                 startBounds.z);
     }
 
-    private void Awake()
+    private void Start()
     {
         initEvent = EventBus.Subscribe<InitPopFinishedEvent>(OnSub);
-        Debug.LogWarning("subscribed");
-    }
-
-    private void OnDestroy()
-    {
-        EventBus.Unsubscribe(initEvent);
+        //Debug.LogWarning("subscribed");
     }
 
     private void OnSub(InitPopFinishedEvent e)

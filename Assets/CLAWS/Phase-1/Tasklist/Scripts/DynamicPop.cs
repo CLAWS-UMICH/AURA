@@ -12,7 +12,7 @@ public class DynamicPop : MonoBehaviour
     public GameObject[] prefabs;
     public Transform contentParent;
 
-    void Awake()
+    void Start()
     {
         InitializePrefabTypes();
         PopulateContent();
@@ -161,7 +161,7 @@ public class DynamicPop : MonoBehaviour
         
         
 
-        EventBus.Publish(new InitPopFinishedEvent("i just published" + prefabTypes[0]));
+        EventBus.Publish(new InitPopFinishedEvent(localTL));
     }
 
     GameObject GetPrefabByType(string type)
