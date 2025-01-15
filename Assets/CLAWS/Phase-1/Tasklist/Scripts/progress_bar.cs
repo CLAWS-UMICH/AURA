@@ -7,24 +7,28 @@ public class progress_bar : MonoBehaviour
 {
     private TextMeshPro fraction;
     private GameObject pbar;
-    private List<TaskObj> tasklist_bar;
+    //private List<TaskObj> tasklist_bar;
     public float progress;
-    public bool isSubtask = true;
-    private Subscription<InitPopFinishedEvent> initEvent;
+    private Subscription<InitPopFinishedEvent> initEventPB;
+    private Subscription<ProgressBarUpdateEvent> updatePBEvent;
 
-    void Start()
+    private void Start()
     {
         Debug.LogWarning("made it into start");
         fraction = transform.Find("Fraction").GetComponent<TextMeshPro>();
-        //Debug.LogWarning("made it here 1");
         pbar = transform.Find("pb_background").transform.Find("pb_bar").gameObject;
-        //Debug.LogWarning("made it here 2");
+        Debug.LogWarning("did we find fraction ? " + (fraction == null) + " and did we find pbar ? " + (pbar == null));
         pbar.transform.localScale = new Vector3(0, 1, 1);
-        //Debug.LogWarning("made it here 3");
-        initEvent = EventBus.Subscribe<InitPopFinishedEvent>(Init_Progress_bar);
-        //Debug.LogWarning("subscribed");
+        //Debug.LogWarning("about to subscribe");
+        //Debug.LogWarning("subscribed to events");
+        initEventPB = EventBus.Subscribe<InitPopFinishedEvent>(Init_Progress_bar);
+        updatePBEvent = EventBus.Subscribe<ProgressBarUpdateEvent>(Update_caller);
     }
 
+    private void Update_caller(ProgressBarUpdateEvent e)
+    {
+        Update_Progress_bar(e.comp, e.total);
+    }
     public void Update_Progress_bar(int completed, int total)
     {
         progress = ((float)completed) / total;
@@ -33,19 +37,19 @@ public class progress_bar : MonoBehaviour
         pbar.transform.localScale = new Vector3(progress, 1, 1);
     }
 
-    public void Init_Progress_bar(InitPopFinishedEvent e)
+    private void Init_Progress_bar(InitPopFinishedEvent e)
     {
-        Debug.LogWarning("made it into Init PB");
+        Debug.LogWarning("This subscription works progress bar");
         int comp = 0;
-        int total = 0;
-        tasklist_bar = e.tl;
-        foreach(TaskObj t in tasklist_bar)
+        //tasklist_bar = e.tl;
+        int total = e.tl.Count;
+        foreach(TaskObj t in e.tl)
         {
-            total += 1;
             if (t.status == 2)
             {
                 comp += 1;
             }
+            /*
             if (t.subtasks.Count > 0)
             {
                 foreach (TaskObj subT in t.subtasks)
@@ -57,7 +61,9 @@ public class progress_bar : MonoBehaviour
                     }
                 }
             }
+            */
         }
+        Debug.LogWarning("About to update");
         Update_Progress_bar(comp, total);
     }   
     

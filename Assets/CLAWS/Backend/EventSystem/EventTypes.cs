@@ -154,6 +154,17 @@ public class TaskFinishedEvent
     }
 }
 
+public class ProgressBarUpdateEvent
+{
+    public int comp;
+    public int total;
+    public ProgressBarUpdateEvent(int _comp, int _total)
+    {
+        comp = _comp;
+        total = _total;
+    }
+}
+
 public class TaskDeletedEvent
 {
     public int id;

@@ -175,16 +175,24 @@ public class TaskObj
         subtasks = new List<TaskObj>();
         if (!isSubtask)
         {
-            foreach (TaskObj t in subts)
+            if (subts.Count > 0)
             {
-                subtasks.Add(t);
+                foreach (TaskObj t in subts)
+                {
+                    subtasks.Add(t);
+                }
+                numSub = subts.Count;
+                comSub = 0;
             }
-            numSub = subts.Count;
-            comSub = 0;
+            else
+            {
+                numSub = -1;
+                comSub = -1;
+            }
         }
         else
         {
-            numSub = 0;
+            numSub = -1;
             comSub = -1;
         }
     }
@@ -209,7 +217,7 @@ public class TaskObj
                location == otherTask.location;
     }
 
-    public void add()
+    public void addCom()
     {
         comSub += 1;
     }

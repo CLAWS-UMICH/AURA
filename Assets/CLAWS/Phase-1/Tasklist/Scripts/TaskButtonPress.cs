@@ -12,26 +12,28 @@ public class TaskButtonPress : MonoBehaviour
     private int pid_val;
     private int id_val;
     // Start is called before the first frame update
-    void Start()
+    void Update()
     {
         id = transform.Find("ID").GetComponent<TextMeshPro>();
-        pid = transform.Find("PID").GetComponent<TextMeshPro>();
-        if (pid == null)
+        if (transform.Find("PID") == null)
         {
-            Debug.LogWarning("Main Task");
+            // Debug.LogWarning("Main Task");
             id_val = int.Parse(id.text);
             pid_val = -1;
         }
         else
         {
-            Debug.LogWarning("Main Task");
+            // Debug.LogWarning("Sub Task");
             id_val = int.Parse(id.text);
+            pid = transform.Find("PID").GetComponent<TextMeshPro>();
             pid_val = int.Parse(pid.text);
         }
     }
 
     public void OnPress()
     {
+        Debug.LogWarning("ID " + id_val + " PID " + pid_val);
         EventBus.Publish(new TaskFinishedEvent(id_val, pid_val));
+        Debug.LogWarning("New Task Finished");
     }
 }

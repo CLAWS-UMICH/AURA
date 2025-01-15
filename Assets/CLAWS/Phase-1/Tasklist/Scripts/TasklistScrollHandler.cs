@@ -95,7 +95,8 @@ public class TaskListScrollHandler : MonoBehaviour
     }
 
     private void OnSub(InitPopFinishedEvent e)
-    {;
+    {
+        Debug.LogWarning("This subscription works Scroll handler");
         colliderOffset = Bounds.center.y;
 
         startBounds = transform.localPosition;

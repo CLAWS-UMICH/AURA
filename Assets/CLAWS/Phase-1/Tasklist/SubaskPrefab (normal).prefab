@@ -344,6 +344,7 @@ GameObject:
   - component: {fileID: 4665737731571260907}
   - component: {fileID: 8158813130454687224}
   - component: {fileID: 6752668297063930897}
+  - component: {fileID: 874251929155954908}
   m_Layer: 0
   m_Name: UX.Slate.ContentBackplate
   m_TagString: Untagged
@@ -420,6 +421,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &874251929155954908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2864260709680253183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a18735f35cbcff46b25ed348e7d8f36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  backplate: {fileID: 2864260709680253183}
 --- !u!1 &3006445223892218286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1405,7 +1419,19 @@ MonoBehaviour:
         m_Calls: []
   <OnClicked>k__BackingField:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 874251929155954908}
+        m_TargetAssemblyTypeName: TaskButtonPress, Assembly-CSharp
+        m_MethodName: OnPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []

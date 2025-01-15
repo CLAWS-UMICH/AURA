@@ -11,14 +11,16 @@ public class DynamicPop : MonoBehaviour
     private List<TaskObj> localTL;
     public GameObject[] prefabs;
     public Transform contentParent;
+    
+    // additions for new TL
     private Subscription<TaskFinishedEvent> finishedEvent;
     private List<Transform> Objects = new List<Transform>();
 
     void Start()
     {
-        finishedEvent = EventBus.Subscribe<TaskFinishedEvent>(UpdateContent);
         InitializePrefabTypes();
         PopulateContent();
+        finishedEvent = EventBus.Subscribe<TaskFinishedEvent>(UpdateContent);
     }
 
     void InitializePrefabTypes()
@@ -96,11 +98,53 @@ public class DynamicPop : MonoBehaviour
         int id = e.id;
         int pid = e.pid;
         bool skip_sub = (pid == -1);
+        int comp = 0;
+        int total = localTL.Count;
         // change localTL to (AstronautInstance.User.tasklist.Tasklist) when running with web tests
         // backend update
         foreach (TaskObj task in localTL)
         {
+            if (task.task_id == id)
+            {
+                task.status = 2;
+            }
+            if (!skip_sub && task.subtasks.Count > 0)
+            {
+                foreach (TaskObj subtask in task.subtasks) 
+                {
+                    if (subtask.task_id == id)
+                    {
+                        subtask.status = 2;
+                        task.addCom();
+                    }
+                }
+            }
+            if (task.getComSub() == task.getNumSub() && task.getNumSub() != -1 )
+            {
+                task.status = 2;
+            }
+            if (task.status == 2)
+            {
+                Debug.Log("task name " + task.title);
+                Debug.LogWarning(comp);
+                comp += 1;
+            }
+        }
+        Debug.LogWarning("comp" + comp);
+        EventBus.Publish(new ProgressBarUpdateEvent(comp, total));
+    }
 
+    void CollectAllButtons()
+    {
+        Transform parentTransform = transform;
+        Objects.Clear();
+
+        foreach (Transform child in parentTransform)
+        {
+            if (child.name != "Grid Layout")
+            {
+                Objects.Add(child);
+            }
         }
     }
 
@@ -121,6 +165,11 @@ public class DynamicPop : MonoBehaviour
                 newTask.transform.Find("UX.Slate.ContentBackplate").transform.Find("Title").GetComponent<TextMeshPro>().text = task.title;
                 newTask.transform.Find("UX.Slate.ContentBackplate").transform.Find("Description").GetComponent<TextMeshPro>().text = task.description;
                 newTask.transform.Find("UX.Slate.ContentBackplate").transform.Find("ID").GetComponent<TextMeshPro>().text = task.task_id.ToString();
+                newTask.transform.Find("UX.Slate.ContentBackplate").transform.Find("NumSubs").GetComponent<TextMeshPro>().text = task.subtasks.Count.ToString();
+                if (task.subtasks.Count > 0)
+                {
+                    newTask.transform.Find("UX.Slate.ContentBackplate").transform.Find("ComSubs").GetComponent<TextMeshPro>().text = 0.ToString();
+                }
                 if (task.isShared)
                 {
                     Debug.LogWarning("Shared, logic later!");
@@ -152,8 +201,6 @@ public class DynamicPop : MonoBehaviour
                 Debug.LogWarning($"Prefab not found!");
             }
         }
-        
-        
 
         // BELOW LOOP IS FOR BLANK TEMPLATE TESTING
         /*
@@ -175,10 +222,8 @@ public class DynamicPop : MonoBehaviour
             }    
         }
         */
-        
-        
-
         EventBus.Publish(new InitPopFinishedEvent(localTL));
+        Debug.LogWarning("Finished Init Population");
     }
 
     GameObject GetPrefabByType(string type)
@@ -186,12 +231,12 @@ public class DynamicPop : MonoBehaviour
         // Find the prefab that matches the type
         foreach (GameObject prefab in prefabs)
         {
-            //Debug.LogWarning("TYPE " + type + " and name " + prefab.name);
             if (prefab.name == type)
             {
                 return prefab;
             }
         }
-        return null; // Return null if no matching prefab is found
+        // Return null if no matching prefab is found
+        return null; 
     }
 }
