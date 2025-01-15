@@ -143,6 +143,17 @@ public class InitPopFinishedEvent
     }
 }
 
+public class TaskFinishedEvent
+{
+    public int id;
+    public int pid;
+    public TaskFinishedEvent(int _id, int _pid)
+    {
+        id = _id;
+        pid = _pid;
+    }
+}
+
 public class TaskDeletedEvent
 {
     public int id;
@@ -152,11 +163,11 @@ public class TaskDeletedEvent
     }
 }
 
-public class TaskEditeddEvent
+public class TaskEditedEvent
 {
     public int id;
     public TaskObj data;
-    public TaskEditeddEvent(int _id, TaskObj _data)
+    public TaskEditedEvent(int _id, TaskObj _data)
     {
         id = _id;
         data = _data;

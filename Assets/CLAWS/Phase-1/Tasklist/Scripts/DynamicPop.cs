@@ -11,9 +11,12 @@ public class DynamicPop : MonoBehaviour
     private List<TaskObj> localTL;
     public GameObject[] prefabs;
     public Transform contentParent;
+    private Subscription<TaskFinishedEvent> finishedEvent;
+    private List<Transform> Objects = new List<Transform>();
 
     void Start()
     {
+        finishedEvent = EventBus.Subscribe<TaskFinishedEvent>(UpdateContent);
         InitializePrefabTypes();
         PopulateContent();
     }
@@ -88,6 +91,19 @@ public class DynamicPop : MonoBehaviour
         prefabNames[("SUB_NORMAL", false)] = "SubaskPrefab (normal)";
     }
 
+    private void UpdateContent(TaskFinishedEvent e)
+    {
+        int id = e.id;
+        int pid = e.pid;
+        bool skip_sub = (pid == -1);
+        // change localTL to (AstronautInstance.User.tasklist.Tasklist) when running with web tests
+        // backend update
+        foreach (TaskObj task in localTL)
+        {
+
+        }
+    }
+
     void PopulateContent()
     {
         // change localTL to (AstronautInstance.User.tasklist.Tasklist) when running with web tests
@@ -122,6 +138,7 @@ public class DynamicPop : MonoBehaviour
                             newSub.transform.Find("UX.Slate.ContentBackplate").transform.Find("Title").GetComponent<TextMeshPro>().text = subtask.title;
                             newSub.transform.Find("UX.Slate.ContentBackplate").transform.Find("Description").GetComponent<TextMeshPro>().text = subtask.description;
                             newSub.transform.Find("UX.Slate.ContentBackplate").transform.Find("ID").GetComponent<TextMeshPro>().text = subtask.task_id.ToString();
+                            newSub.transform.Find("UX.Slate.ContentBackplate").transform.Find("PID").GetComponent<TextMeshPro>().text = task.task_id.ToString();
                         }
                         else
                         {
