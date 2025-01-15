@@ -143,6 +143,26 @@ public class InitPopFinishedEvent
     }
 }
 
+public class TaskDeletedEvent
+{
+    public int id;
+    public TaskDeletedEvent(int _id)
+    {
+        id = _id;
+    }
+}
+
+public class TaskEditeddEvent
+{
+    public int id;
+    public TaskObj data;
+    public TaskEditeddEvent(int _id, TaskObj _data)
+    {
+        id = _id;
+        data = _data;
+    }
+}
+
 public class UpdatedVitalsEvent
 {
     public Vitals vitals { get; private set; }

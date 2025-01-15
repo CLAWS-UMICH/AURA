@@ -29,12 +29,12 @@ public class TaskListScrollHandler : MonoBehaviour
         int min_index = 0;
 
         int index = 0;
-        float conposy = Content.position.y;
+        float conposy = Content.localPosition.y;
         //Debug.LogWarning("name " + Content.name);
         //Debug.LogWarning("conposy " + conposy);
         foreach (Transform t in Objects)
         {
-            float distance = Mathf.Abs((Content.position.y) - spacing + (t.localPosition.y));
+            float distance = Mathf.Abs((Content.localPosition.y) - spacing + (t.localPosition.y));
             if (distance < min_distance)
             {
                 min_distance = distance;
@@ -151,7 +151,6 @@ public class TaskListScrollHandler : MonoBehaviour
                 Objects.Add(child);
             }
         }
-
     }
 
     /// <summary>
@@ -165,7 +164,6 @@ public class TaskListScrollHandler : MonoBehaviour
         for (int i = 0; i < Objects.Count; i++)
         {
             float yOffset;
-            bool taskToSub = false;
 
             if (i == 0)
             {
@@ -180,29 +178,6 @@ public class TaskListScrollHandler : MonoBehaviour
                     - (Objects[i].GetComponent<BoxCollider>().size.y / 2
                         * Objects[i].transform.localScale.y)
                     - spacing;
-                /*
-                string prev_n = Objects[i - 1].name;
-                string curr_n = Objects[i].name;
-                taskToSub = (prev_n[0] == 'T' && curr_n[0] == 'S');
-                if (taskToSub)
-                {
-                    yOffset = Objects[i - 1].transform.localPosition.y
-                    - (Objects[i - 1].GetComponent<BoxCollider>().size.y / 2
-                        * Objects[i - 1].transform.localScale.y)
-                    - (Objects[i-1].GetComponent<BoxCollider>().size.y
-                        * Objects[i-1].transform.localScale.y)
-                    - spacing;
-                }
-                else
-                {
-                    yOffset = Objects[i - 1].transform.localPosition.y
-                    - (Objects[i - 1].GetComponent<BoxCollider>().size.y / 2
-                        * Objects[i - 1].transform.localScale.y)
-                    - (Objects[i].GetComponent<BoxCollider>().size.y / 2
-                        * Objects[i].transform.localScale.y)
-                    - spacing;
-                }
-                */
         
             }
             // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);

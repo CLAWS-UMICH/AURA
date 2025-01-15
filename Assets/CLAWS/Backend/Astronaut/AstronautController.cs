@@ -139,12 +139,14 @@ public class TaskObj
     public List<int> astronauts;
     public List<TaskObj> subtasks;
     private int numSub;
+    private int comSub;
     public TaskObj()
     {
         task_id = 0;
         status = 0;
         title = "";
         description = "";
+        taskType = "";
         isEmergency = false;
         isShared = false;
         isSubtask = false;
@@ -152,14 +154,15 @@ public class TaskObj
         astronauts = new List<int>();
         subtasks = new List<TaskObj>();
         numSub = 0;
+        comSub = 0;
     }
     public TaskObj(int t_id, int st, string tle, string desc, string t_type, bool em, bool sh, bool sut, string loc, List<int> astrs, List<TaskObj> subts)
-
     {
         task_id = t_id;
         status = st;
         title = tle;
         description = desc;
+        taskType = t_type;
         isEmergency = em;
         isShared = sh;
         isSubtask = sut;
@@ -177,10 +180,12 @@ public class TaskObj
                 subtasks.Add(t);
             }
             numSub = subts.Count;
+            comSub = 0;
         }
         else
         {
             numSub = 0;
+            comSub = -1;
         }
     }
 
@@ -206,11 +211,15 @@ public class TaskObj
 
     public void add()
     {
-        numSub += 1;
+        comSub += 1;
     }
 
     public int getNumSub()
     {
         return numSub;
+    }
+    public int getComSub()
+    {
+        return comSub;
     }
 }
