@@ -6,8 +6,14 @@ using UnityEngine;
 public enum Screens
 {
     Menu,
+    taskList,
+    navigation,
+    messages,
+    samples,
+    vitals,
+    UIA,
     VitalsFirstAstronaut,
-    VitalsSecondAstronaut,
+    VitalsSecondAstronaut
 }
 
 public enum Modes
@@ -83,8 +89,15 @@ public class StateMachine : MonoBehaviour
     public void CloseAll()
     {
         // Publish CloseEvent for multiple screens
+        EventBus.Publish(new CloseEvent(Screens.taskList));
+        EventBus.Publish(new CloseEvent(Screens.navigation));
+        EventBus.Publish(new CloseEvent(Screens.messages));
+        EventBus.Publish(new CloseEvent(Screens.samples));
+        EventBus.Publish(new CloseEvent(Screens.vitals));
+        EventBus.Publish(new CloseEvent(Screens.UIA));
         EventBus.Publish(new CloseEvent(Screens.VitalsFirstAstronaut));
         EventBus.Publish(new CloseEvent(Screens.VitalsSecondAstronaut));
+        
 
         // Reset to menu or default screen
         CurrScreen = Screens.Menu;

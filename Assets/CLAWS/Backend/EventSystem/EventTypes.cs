@@ -122,6 +122,20 @@ public class WebTestEvent
     }
 }
 
+public class TaskListEvent
+{
+    public TaskListObj testData { get; set; }
+    
+    public string use { get; set; }
+
+    public TaskListEvent(TaskListObj _testData, string _use)
+    {
+        testData = _testData;
+        use = _use;
+    }
+
+}
+
 public class UpdatedVitalsEvent
 {
     public Vitals vitals { get; private set; }
@@ -143,5 +157,35 @@ public class FellowAstronautVitalsDataChangeEvent
     public FellowAstronautVitalsDataChangeEvent(Vitals v)
     {
         vitals = v;
+    }
+}
+// WAYPOINT EVENTS
+public class WaypointsEditedEvent
+{
+    public Waypoint EditedWaypoint { get; private set; }
+
+    public WaypointsEditedEvent(Waypoint _editedWaypoint)
+    {
+        EditedWaypoint = _editedWaypoint;
+    }
+}
+
+public class WaypointToDelete
+{
+    public int Id { get; private set; }
+
+    public WaypointToDelete(Waypoint _waypoint)
+    {
+        Id = _waypoint.Id;
+    }
+}
+
+public class WaypointToAdd
+{
+    public Waypoint waypointToAdd { get; private set; }
+
+    public WaypointToAdd(Waypoint _waypoint)
+    {
+        waypointToAdd = _waypoint;
     }
 }
