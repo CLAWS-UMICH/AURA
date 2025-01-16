@@ -1,0 +1,552 @@
+init
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# On branch test
+#
+# Initial commit
+#
+# Changes to be committed:
+#	new file:   .gitattributes
+#	new file:   .gitignore
+#	new file:   Assets/CLAWS.meta
+#	new file:   Assets/CLAWS/Backend.meta
+#	new file:   Assets/CLAWS/Backend/Astronaut.meta
+#	new file:   Assets/CLAWS/Backend/Astronaut/Astronaut.cs
+#	new file:   Assets/CLAWS/Backend/Astronaut/Astronaut.cs.meta
+#	new file:   Assets/CLAWS/Backend/Astronaut/AstronautController.cs
+#	new file:   Assets/CLAWS/Backend/Astronaut/AstronautController.cs.meta
+#	new file:   Assets/CLAWS/Backend/Astronaut/AstronautInstance.cs
+#	new file:   Assets/CLAWS/Backend/Astronaut/AstronautInstance.cs.meta
+#	new file:   Assets/CLAWS/Backend/EventSystem.meta
+#	new file:   Assets/CLAWS/Backend/EventSystem/EventBus.cs
+#	new file:   Assets/CLAWS/Backend/EventSystem/EventBus.cs.meta
+#	new file:   Assets/CLAWS/Backend/EventSystem/EventTypes.cs
+#	new file:   Assets/CLAWS/Backend/EventSystem/EventTypes.cs.meta
+#	new file:   Assets/CLAWS/Backend/GPS.meta
+#	new file:   Assets/CLAWS/Backend/GPS/GPSStartScreenHandler.cs
+#	new file:   Assets/CLAWS/Backend/GPS/GPSStartScreenHandler.cs.meta
+#	new file:   Assets/CLAWS/Backend/GPS/GPSUtils.cs
+#	new file:   Assets/CLAWS/Backend/GPS/GPSUtils.cs.meta
+#	new file:   Assets/CLAWS/Backend/GPS/OrientationHandler.cs
+#	new file:   Assets/CLAWS/Backend/GPS/OrientationHandler.cs.meta
+#	new file:   Assets/CLAWS/Backend/GPS/ResetGPSSpawn.cs
+#	new file:   Assets/CLAWS/Backend/GPS/ResetGPSSpawn.cs.meta
+#	new file:   Assets/CLAWS/Backend/StateMachine.meta
+#	new file:   Assets/CLAWS/Backend/StateMachine/ScreenChangeButton.cs
+#	new file:   Assets/CLAWS/Backend/StateMachine/ScreenChangeButton.cs.meta
+#	new file:   Assets/CLAWS/Backend/StateMachine/StateMachine.cs
+#	new file:   Assets/CLAWS/Backend/StateMachine/StateMachine.cs.meta
+#	new file:   Assets/CLAWS/Backend/ThreadFix.meta
+#	new file:   Assets/CLAWS/Backend/ThreadFix/UnityMainThreadDispatcher.cs
+#	new file:   Assets/CLAWS/Backend/ThreadFix/UnityMainThreadDispatcher.cs.meta
+#	new file:   Assets/CLAWS/Backend/ThreadFix/UnityMainThreadDispatcher.prefab
+#	new file:   Assets/CLAWS/Backend/ThreadFix/UnityMainThreadDispatcher.prefab.meta
+#	new file:   Assets/CLAWS/Backend/Websockets.meta
+#	new file:   Assets/CLAWS/Backend/Websockets/MainConnections.cs
+#	new file:   Assets/CLAWS/Backend/Websockets/MainConnections.cs.meta
+#	new file:   Assets/CLAWS/Backend/Websockets/Test.meta
+#	new file:   Assets/CLAWS/Backend/Websockets/Test/Backend.unity
+#	new file:   Assets/CLAWS/Backend/Websockets/Test/Backend.unity.meta
+#	new file:   Assets/CLAWS/Backend/Websockets/Test/WebsocketTest.cs
+#	new file:   Assets/CLAWS/Backend/Websockets/Test/WebsocketTest.cs.meta
+#	new file:   Assets/CLAWS/Backend/Websockets/WebSocketClient.cs
+#	new file:   Assets/CLAWS/Backend/Websockets/WebSocketClient.cs.meta
+#	new file:   Assets/CLAWS/Backend/Websockets/WebsocketDataHandler.cs
+#	new file:   Assets/CLAWS/Backend/Websockets/WebsocketDataHandler.cs.meta
+#	new file:   Assets/CLAWS/FeaturePrefabs.meta
+#	new file:   Assets/CLAWS/FeaturePrefabs/VitalsController.prefab
+#	new file:   Assets/CLAWS/FeaturePrefabs/VitalsController.prefab.meta
+#	new file:   Assets/CLAWS/Phase-1.meta
+#	new file:   Assets/CLAWS/Phase-1/Main-Menu.meta
+#	new file:   Assets/CLAWS/Phase-1/Main-Menu/MainMenu.unity
+#	new file:   Assets/CLAWS/Phase-1/Main-Menu/MainMenu.unity.meta
+#	new file:   Assets/CLAWS/Phase-1/Main-Menu/Mnimap 1.unity
+#	new file:   Assets/CLAWS/Phase-1/Main-Menu/Mnimap 1.unity.meta
+#	new file:   Assets/CLAWS/Phase-1/Tasklist.meta
+#	new file:   Assets/CLAWS/Phase-1/Tasklist/Tasklist.unity
+#	new file:   Assets/CLAWS/Phase-1/Tasklist/Tasklist.unity.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/HRIcon.png
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/HRIcon.png.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/Line 12.png
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/Line 12.png.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/Line.mat
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/Line.mat.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/heart-icon.mat
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/heart-icon.mat.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/o2-icon.mat
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/o2-icon.mat.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/o2Icon.png
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/o2Icon.png.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/temp-icon.mat
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/temp-icon.mat.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/tempIcon.png
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Icons/Materials/tempIcon.png.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/2023Vitals.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/2023Vitals.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/AlertController.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/AlertController.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/CriticalVitalsScript.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/CriticalVitalsScript.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/DCUController.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/DCUController.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/FakeTSS.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/FakeTSS.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/VitalsController.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/VitalsController.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/sample.json
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Scripts/sample.json.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/EmptyCircle.mat
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/EmptyCircle.mat.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/FullCircle.mat
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/FullCircle.mat.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/Materials.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/Materials/spo2 1.mat
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/Materials/spo2 1.mat.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/RadialFill.shader
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/RadialFill.shader.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/Rectangle 148 (3).png
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/Rectangle 148 (3).png.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/Rectangle 148 (4).png
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/Rectangle 148 (4).png.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/materialHandler.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/Materials/materialHandler.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/SHP.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/SHP.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/SHP_Test.cs
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/SHP_Test.cs.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/task-vitals-shp.unity
+#	new file:   Assets/CLAWS/Phase-1/Vitals/SuitHelmetPressure/task-vitals-shp.unity.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Vitals.unity
+#	new file:   Assets/CLAWS/Phase-1/Vitals/Vitals.unity.meta
+#	new file:   Assets/CLAWS/Phase-1/Vitals/task-vitals-cv.unity
+#	new file:   Assets/CLAWS/Phase-1/Vitals/task-vitals-cv.unity.meta
+#	new file:   Assets/CLAWS/Phase-1/Waypoints.meta
+#	new file:   Assets/CLAWS/Phase-1/Waypoints/Waypoints.unity
+#	new file:   Assets/CLAWS/Phase-1/Waypoints/Waypoints.unity.meta
+#	new file:   Assets/CLAWS/Phase-2.meta
+#	new file:   Assets/CLAWS/Phase-3.meta
+#	new file:   Assets/Demo.meta
+#	new file:   Assets/Demo/EyeGazeDemo.meta
+#	new file:   Assets/Demo/EyeGazeDemo.unity
+#	new file:   Assets/Demo/EyeGazeDemo.unity.meta
+#	new file:   Assets/Demo/EyeGazeDemo/LightingData.asset
+#	new file:   Assets/Demo/EyeGazeDemo/LightingData.asset.meta
+#	new file:   Assets/Demo/EyeGazeDemo/Lightmap-0_comp_dir.png
+#	new file:   Assets/Demo/EyeGazeDemo/Lightmap-0_comp_dir.png.meta
+#	new file:   Assets/Demo/EyeGazeDemo/Lightmap-0_comp_light.exr
+#	new file:   Assets/Demo/EyeGazeDemo/Lightmap-0_comp_light.exr.meta
+#	new file:   Assets/Demo/EyeGazeDemo/ReflectionProbe-0.exr
+#	new file:   Assets/Demo/EyeGazeDemo/ReflectionProbe-0.exr.meta
+#	new file:   Assets/Demo/EyeGazeDemo/ReflectionProbe-1.exr
+#	new file:   Assets/Demo/EyeGazeDemo/ReflectionProbe-1.exr.meta
+#	new file:   Assets/Demo/HighlghtController.cs
+#	new file:   Assets/Demo/HighlghtController.cs.meta
+#	new file:   Assets/Editor.meta
+#	new file:   Assets/Editor/MeasureToolSettings.asset
+#	new file:   Assets/Editor/MeasureToolSettings.asset.meta
+#	new file:   Assets/MRTK.Generated.meta
+#	new file:   Assets/MRTK.Generated/MRTKSettings.asset
+#	new file:   Assets/MRTK.Generated/MRTKSettings.asset.meta
+#	new file:   Assets/MRTK.meta
+#	new file:   Assets/MRTK/Editor.meta
+#	new file:   Assets/MRTK/Editor/MeasureToolSettings.asset
+#	new file:   Assets/MRTK/Editor/MeasureToolSettings.asset.meta
+#	new file:   Assets/MRTK/Readme.asset
+#	new file:   Assets/MRTK/Readme.asset.meta
+#	new file:   Assets/MRTK/TemplateScene.scenetemplate
+#	new file:   Assets/MRTK/TemplateScene.scenetemplate.meta
+#	new file:   Assets/MRTK/TemplateScene.unity
+#	new file:   Assets/MRTK/TemplateScene.unity.meta
+#	new file:   Assets/Materials.meta
+#	new file:   Assets/Materials/MRTK_BackPlate_Standard.mat
+#	new file:   Assets/Materials/MRTK_BackPlate_Standard.mat.meta
+#	new file:   Assets/Materials/MRTK_Backplate_13mm_Gradient Variant 2.mat
+#	new file:   Assets/Materials/MRTK_Backplate_13mm_Gradient Variant 2.mat.meta
+#	new file:   Assets/Materials/MRTK_Backplate_13mm_Gradient Variant 3.mat
+#	new file:   Assets/Materials/MRTK_Backplate_13mm_Gradient Variant 3.mat.meta
+#	new file:   Assets/Materials/MRTK_ButtonBackplateHighlightGlow_32mm Variant.mat
+#	new file:   Assets/Materials/MRTK_ButtonBackplateHighlightGlow_32mm Variant.mat.meta
+#	new file:   Assets/Materials/MRTK_UI_Component.mat
+#	new file:   Assets/Materials/MRTK_UI_Component.mat.meta
+#	new file:   Assets/Samples.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/.sample.json
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Fist Expression Capture.asset
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Fist Expression Capture.asset.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Grab Expression Capture.asset
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Grab Expression Capture.asset.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Open Expression Capture.asset
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Open Expression Capture.asset.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Pinch Expression Capture.asset
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Pinch Expression Capture.asset.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Poke Expression Capture.asset
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Poke Expression Capture.asset.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Resting Expression Capture.asset
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Resting Expression Capture.asset.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Thumb Expression Capture.asset
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Hand Expression Captures/Thumb Expression Capture.asset.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Scripts.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Scripts/XRDeviceSimulatorControllerUI.cs
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Scripts/XRDeviceSimulatorControllerUI.cs.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Scripts/XRDeviceSimulatorHandsUI.cs
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Scripts/XRDeviceSimulatorHandsUI.cs.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Scripts/XRDeviceSimulatorUI.cs
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Scripts/XRDeviceSimulatorUI.cs.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/ControllerLeft.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/ControllerLeft.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/ControllerOverlayLinesLeft.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/ControllerOverlayLinesLeft.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/ControllerOverlayLinesRight.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/ControllerOverlayLinesRight.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/ControllerRight.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/ControllerRight.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/xr_ctlr.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/ControllerDevice/xr_ctlr.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/CloseWindow.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/CloseWindow.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/CycleXRDevices.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/CycleXRDevices.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/DeviceSimUI_bg.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/DeviceSimUI_bg.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/Gripper.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/Gripper.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/KeyboardIcon.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/KeyboardIcon.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/Locked.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/Locked.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/Look.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/Look.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/OpenWindow.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/OpenWindow.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/Unlocked.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/Unlocked.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/btn_bgbottom.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/General/btn_bgbottom.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Default.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Default.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Fist.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Fist.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Grab.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Grab.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Open.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Open.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Pinch.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Pinch.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Poke.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Poke.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Thumb.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/Hand_Thumb.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/hand.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Hands/hand.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/HMD.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/HMD.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/HMDOverlay.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/HMDOverlay.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/HMD_d.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/HMD_d.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/MoveRotateTool.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/MoveRotateTool.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/Movement.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/Movement.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/XR.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/XR.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/xr_hmd.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/HeadDevice/xr_hmd.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/Cursor.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/Cursor.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/Mouse.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/Mouse.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/MouseMoveAround.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/MouseMoveAround.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/MouseR.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/MouseR.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/MouseR_d.png
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/Mouse/MouseR_d.png.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/XR Device Simulator UI.prefab
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/UI/XR Device Simulator UI.prefab.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator.asmdef
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/Unity.XR.Interaction.Toolkit.Samples.DeviceSimulator.asmdef.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/XR Device Controller Controls.inputactions
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/XR Device Controller Controls.inputactions.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/XR Device Hand Controls.inputactions
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/XR Device Hand Controls.inputactions.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/XR Device Simulator Controls.inputactions
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/XR Device Simulator Controls.inputactions.meta
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/XR Device Simulator.prefab
+#	new file:   Assets/Samples/XR Interaction Toolkit/3.0.3/XR Device Simulator/XR Device Simulator.prefab.meta
+#	new file:   Assets/Settings.meta
+#	new file:   Assets/Settings/SampleSceneProfile.asset
+#	new file:   Assets/Settings/SampleSceneProfile.asset.meta
+#	new file:   Assets/Settings/URP-Balanced-Renderer.asset
+#	new file:   Assets/Settings/URP-Balanced-Renderer.asset.meta
+#	new file:   Assets/Settings/URP-Balanced.asset
+#	new file:   Assets/Settings/URP-Balanced.asset.meta
+#	new file:   Assets/Settings/URP-HighFidelity-Renderer.asset
+#	new file:   Assets/Settings/URP-HighFidelity-Renderer.asset.meta
+#	new file:   Assets/Settings/URP-HighFidelity.asset
+#	new file:   Assets/Settings/URP-HighFidelity.asset.meta
+#	new file:   Assets/Settings/URP-Performant-Renderer.asset
+#	new file:   Assets/Settings/URP-Performant-Renderer.asset.meta
+#	new file:   Assets/Settings/URP-Performant.asset
+#	new file:   Assets/Settings/URP-Performant.asset.meta
+#	new file:   Assets/Terrain.meta
+#	new file:   Assets/Terrain/ConditionalRender.cs
+#	new file:   Assets/Terrain/ConditionalRender.cs.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs/Rocks_00.prefab
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs/Rocks_00.prefab.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs/Rocks_01.prefab
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs/Rocks_01.prefab.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs/Rocks_02.prefab
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs/Rocks_02.prefab.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs/Rocks_03.prefab
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Prefabs/Rocks_03.prefab.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Geometry.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Geometry/Rocks.fbx
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Geometry/Rocks.fbx.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Geometry/Terrain.asset
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Geometry/Terrain.asset.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Crater_Brush.brush
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Crater_Brush.brush.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Dust.mat
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Dust.mat.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Ground_00.terrainlayer
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Ground_00.terrainlayer.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Ground_01.terrainlayer
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Ground_01.terrainlayer.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Ground_02.terrainlayer
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Ground_02.terrainlayer.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Ground_03.terrainlayer
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Ground_03.terrainlayer.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Milkyway.mat
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Milkyway.mat.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Rocks.mat
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Materials/Rocks.mat.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Crater_Brush.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Crater_Brush.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_00_D.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_00_D.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_00_N.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_00_N.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_01_D.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_01_D.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_01_N.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_01_N.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_02_D.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_02_D.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_02_N.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_02_N.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_03_D.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_03_D.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_03_N.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Ground_03_N.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/LensDirt.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/LensDirt.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Milkyway.png
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Resources/Textures/Milkyway.png.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Scenes.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Scenes/LunarLandscape3D.unity
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Scenes/LunarLandscape3D.unity.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Scenes/LunarLandscape3D_Profiles.meta
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Scenes/LunarLandscape3D_Profiles/Post-Processing Volume Profile.asset
+#	new file:   Assets/Terrain/Lunar Landscape 3D/Scenes/LunarLandscape3D_Profiles/Post-Processing Volume Profile.asset.meta
+#	new file:   Assets/TextMesh Pro.meta
+#	new file:   Assets/TextMesh Pro/Documentation.meta
+#	new file:   Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf
+#	new file:   Assets/TextMesh Pro/Documentation/TextMesh Pro User Guide 2016.pdf.meta
+#	new file:   Assets/TextMesh Pro/Fonts.meta
+#	new file:   Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt
+#	new file:   Assets/TextMesh Pro/Fonts/LiberationSans - OFL.txt.meta
+#	new file:   Assets/TextMesh Pro/Fonts/LiberationSans.ttf
+#	new file:   Assets/TextMesh Pro/Fonts/LiberationSans.ttf.meta
+#	new file:   Assets/TextMesh Pro/Resources.meta
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials.meta
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Drop Shadow.mat.meta
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset.meta
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Outline.mat.meta
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset
+#	new file:   Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset.meta
+#	new file:   Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt
+#	new file:   Assets/TextMesh Pro/Resources/LineBreaking Following Characters.txt.meta
+#	new file:   Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt
+#	new file:   Assets/TextMesh Pro/Resources/LineBreaking Leading Characters.txt.meta
+#	new file:   Assets/TextMesh Pro/Resources/Sprite Assets.meta
+#	new file:   Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset
+#	new file:   Assets/TextMesh Pro/Resources/Sprite Assets/EmojiOne.asset.meta
+#	new file:   Assets/TextMesh Pro/Resources/Style Sheets.meta
+#	new file:   Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset
+#	new file:   Assets/TextMesh Pro/Resources/Style Sheets/Default Style Sheet.asset.meta
+#	new file:   Assets/TextMesh Pro/Resources/TMP Settings.asset
+#	new file:   Assets/TextMesh Pro/Resources/TMP Settings.asset.meta
+#	new file:   Assets/TextMesh Pro/Shaders.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_Bitmap-Custom-Atlas.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_Bitmap-Mobile.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_Bitmap.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF Overlay.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF SSD.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile Overlay.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile SSD.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Surface-Mobile.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF-Surface.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_SDF.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_Sprite.shader
+#	new file:   Assets/TextMesh Pro/Shaders/TMP_Sprite.shader.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMPro.cginc
+#	new file:   Assets/TextMesh Pro/Shaders/TMPro.cginc.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc
+#	new file:   Assets/TextMesh Pro/Shaders/TMPro_Mobile.cginc.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc
+#	new file:   Assets/TextMesh Pro/Shaders/TMPro_Properties.cginc.meta
+#	new file:   Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc
+#	new file:   Assets/TextMesh Pro/Shaders/TMPro_Surface.cginc.meta
+#	new file:   Assets/TextMesh Pro/Sprites.meta
+#	new file:   Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt
+#	new file:   Assets/TextMesh Pro/Sprites/EmojiOne Attribution.txt.meta
+#	new file:   Assets/TextMesh Pro/Sprites/EmojiOne.json
+#	new file:   Assets/TextMesh Pro/Sprites/EmojiOne.json.meta
+#	new file:   Assets/TextMesh Pro/Sprites/EmojiOne.png
+#	new file:   Assets/TextMesh Pro/Sprites/EmojiOne.png.meta
+#	new file:   Assets/ThirdParty.meta
+#	new file:   Assets/ThirdParty/michaeltaylor3d.meta
+#	new file:   Assets/ThirdParty/michaeltaylor3d/GPSEncoder.meta
+#	new file:   Assets/ThirdParty/michaeltaylor3d/GPSEncoder/GPS Encoder Documentation.txt
+#	new file:   Assets/ThirdParty/michaeltaylor3d/GPSEncoder/GPS Encoder Documentation.txt.meta
+#	new file:   Assets/ThirdParty/michaeltaylor3d/GPSEncoder/GPSEncoder.cs
+#	new file:   Assets/ThirdParty/michaeltaylor3d/GPSEncoder/GPSEncoder.cs.meta
+#	new file:   Assets/TutorialInfo.meta
+#	new file:   Assets/TutorialInfo/Icons.meta
+#	new file:   Assets/TutorialInfo/Icons/URP.png
+#	new file:   Assets/TutorialInfo/Icons/URP.png.meta
+#	new file:   Assets/TutorialInfo/Layout.wlt
+#	new file:   Assets/TutorialInfo/Layout.wlt.meta
+#	new file:   Assets/TutorialInfo/Scripts.meta
+#	new file:   Assets/TutorialInfo/Scripts/Editor.meta
+#	new file:   Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs
+#	new file:   Assets/TutorialInfo/Scripts/Editor/ReadmeEditor.cs.meta
+#	new file:   Assets/TutorialInfo/Scripts/Readme.cs
+#	new file:   Assets/TutorialInfo/Scripts/Readme.cs.meta
+#	new file:   Assets/UniversalRenderPipelineGlobalSettings.asset
+#	new file:   Assets/UniversalRenderPipelineGlobalSettings.asset.meta
+#	new file:   Assets/XR.meta
+#	new file:   Assets/XR/Loaders.meta
+#	new file:   Assets/XR/Loaders/OpenXRLoader.asset
+#	new file:   Assets/XR/Loaders/OpenXRLoader.asset.meta
+#	new file:   Assets/XR/Loaders/SimulationLoader.asset
+#	new file:   Assets/XR/Loaders/SimulationLoader.asset.meta
+#	new file:   Assets/XR/Resources.meta
+#	new file:   Assets/XR/Resources/XRSimulationRuntimeSettings.asset
+#	new file:   Assets/XR/Resources/XRSimulationRuntimeSettings.asset.meta
+#	new file:   Assets/XR/Settings.meta
+#	new file:   Assets/XR/Settings/MRTK_UX_ThemeProfile.asset
+#	new file:   Assets/XR/Settings/MRTK_UX_ThemeProfile.asset.meta
+#	new file:   Assets/XR/Settings/OpenXR Editor Settings.asset
+#	new file:   Assets/XR/Settings/OpenXR Editor Settings.asset.meta
+#	new file:   Assets/XR/Settings/OpenXR Package Settings.asset
+#	new file:   Assets/XR/Settings/OpenXR Package Settings.asset.meta
+#	new file:   Assets/XR/Settings/XRSimulationSettings.asset
+#	new file:   Assets/XR/Settings/XRSimulationSettings.asset.meta
+#	new file:   Assets/XR/UserSimulationSettings.meta
+#	new file:   Assets/XR/UserSimulationSettings/Resources.meta
+#	new file:   Assets/XR/UserSimulationSettings/Resources/XRSimulationPreferences.asset
+#	new file:   Assets/XR/UserSimulationSettings/Resources/XRSimulationPreferences.asset.meta
+#	new file:   Assets/XR/UserSimulationSettings/SimulationEnvironmentAssetsManager.asset
+#	new file:   Assets/XR/UserSimulationSettings/SimulationEnvironmentAssetsManager.asset.meta
+#	new file:   Assets/XR/XRGeneralSettingsPerBuildTarget.asset
+#	new file:   Assets/XR/XRGeneralSettingsPerBuildTarget.asset.meta
+#	new file:   Assets/XRI.meta
+#	new file:   Assets/XRI/Settings.meta
+#	new file:   Assets/XRI/Settings/Resources.meta
+#	new file:   Assets/XRI/Settings/Resources/InteractionLayerSettings.asset
+#	new file:   Assets/XRI/Settings/Resources/InteractionLayerSettings.asset.meta
+#	new file:   Assets/XRI/Settings/Resources/XRDeviceSimulatorSettings.asset
+#	new file:   Assets/XRI/Settings/Resources/XRDeviceSimulatorSettings.asset.meta
+#	new file:   Assets/XRI/Settings/XRInteractionEditorSettings.asset
+#	new file:   Assets/XRI/Settings/XRInteractionEditorSettings.asset.meta
+#	new file:   Packages/MixedReality/com.microsoft.mixedreality.openxr-1.11.1.tgz
+#	new file:   Packages/MixedReality/com.microsoft.mrtk.graphicstools.unity-0.7.1.tgz
+#	new file:   Packages/MixedReality/com.microsoft.mrtk.tts.windows-1.0.4.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.accessibility-1.0.3-pre.20.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.audio-3.0.4.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.core-4.0.0-pre.1.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.diagnostics-3.0.2.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.extendedassets-3.0.3.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.input-4.0.0-pre.1.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.spatialmanipulation-4.0.0-pre.1.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.standardassets-3.2.0.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.tools-3.0.4.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.uxcomponents-4.0.0-pre.1.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.uxcomponents.noncanvas-4.0.0-pre.1.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.uxcore-4.0.0-pre.1.tgz
+#	new file:   Packages/MixedReality/org.mixedrealitytoolkit.windowsspeech-3.0.3.tgz
+#	new file:   Packages/manifest.json
+#	new file:   Packages/manifest.json.backup
+#	new file:   Packages/packages-lock.json
+#	new file:   ProjectSettings/AudioManager.asset
+#	new file:   ProjectSettings/BurstAotSettings_StandaloneOSX.json
+#	new file:   ProjectSettings/BurstAotSettings_StandaloneWindows.json
+#	new file:   ProjectSettings/ClusterInputManager.asset
+#	new file:   ProjectSettings/CommonBurstAotSettings.json
+#	new file:   ProjectSettings/DynamicsManager.asset
+#	new file:   ProjectSettings/EditorBuildSettings.asset
+#	new file:   ProjectSettings/EditorSettings.asset
+#	new file:   ProjectSettings/GraphicsSettings.asset
+#	new file:   ProjectSettings/InputManager.asset
+#	new file:   ProjectSettings/MemorySettings.asset
+#	new file:   ProjectSettings/MixedRealityOpenXRValidationSettings.asset
+#	new file:   ProjectSettings/NavMeshAreas.asset
+#	new file:   ProjectSettings/PackageManagerSettings.asset
+#	new file:   ProjectSettings/Physics2DSettings.asset
+#	new file:   ProjectSettings/PresetManager.asset
+#	new file:   ProjectSettings/ProjectSettings.asset
+#	new file:   ProjectSettings/ProjectVersion.txt
+#	new file:   ProjectSettings/QualitySettings.asset
+#	new file:   ProjectSettings/SceneTemplateSettings.json
+#	new file:   ProjectSettings/ShaderGraphSettings.asset
+#	new file:   ProjectSettings/TagManager.asset
+#	new file:   ProjectSettings/TimeManager.asset
+#	new file:   ProjectSettings/URPProjectSettings.asset
+#	new file:   ProjectSettings/UnityConnectSettings.asset
+#	new file:   ProjectSettings/VFXManager.asset
+#	new file:   ProjectSettings/VersionControlSettings.asset
+#	new file:   ProjectSettings/XRPackageSettings.asset
+#	new file:   ProjectSettings/XRSettings.asset
+#	new file:   mono_crash.87d8de682.0.json
+#	new file:   mono_crash.b11ebd510.0.json
+#
