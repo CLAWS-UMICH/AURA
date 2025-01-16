@@ -5,8 +5,6 @@ using TMPro;
 
 public class DynamicPop : MonoBehaviour
 {
-    private List<string> prefabTypes;
-    private List<string> prefabTypes1;
     private Dictionary<(string, bool), string> prefabNames;
     private List<TaskObj> localTL;
     public GameObject[] prefabs;
@@ -25,40 +23,6 @@ public class DynamicPop : MonoBehaviour
 
     void InitializePrefabTypes()
     {
-        // Add the prefab types to the list
-        prefabTypes = new List<string>
-        {
-            "TaskPrefab (geo solo)",
-            "TaskPrefab (repair solo)",
-            "TaskPrefab (emergency solo)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)"
-        };
-
-        prefabTypes1 = new List<string>
-        {
-            "TaskPrefab (geo solo)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-            "SubaskPrefab (emergency)",
-        };
 
         localTL = new List<TaskObj>
         {
@@ -104,7 +68,7 @@ public class DynamicPop : MonoBehaviour
         // backend update
         foreach (TaskObj task in localTL)
         {
-            if (task.task_id == id)
+            if (task.task_id == id && task.status != 2)
             {
                 task.status = 2;
             }
@@ -112,7 +76,7 @@ public class DynamicPop : MonoBehaviour
             {
                 foreach (TaskObj subtask in task.subtasks) 
                 {
-                    if (subtask.task_id == id)
+                    if (subtask.task_id == id && subtask.status != 2)
                     {
                         subtask.status = 2;
                         task.addCom();
@@ -130,7 +94,7 @@ public class DynamicPop : MonoBehaviour
                 comp += 1;
             }
         }
-        Debug.LogWarning("comp" + comp);
+        //Debug.LogWarning("comp" + comp);
         EventBus.Publish(new ProgressBarUpdateEvent(comp, total));
     }
 
@@ -151,7 +115,8 @@ public class DynamicPop : MonoBehaviour
     void PopulateContent()
     {
         // change localTL to (AstronautInstance.User.tasklist.Tasklist) when running with web tests
-
+        int comp = 0;
+        int total = localTL.Count;
         foreach (TaskObj task in localTL)
         {
             // Find the corresponding prefab for the type
@@ -201,27 +166,7 @@ public class DynamicPop : MonoBehaviour
                 Debug.LogWarning($"Prefab not found!");
             }
         }
-
-        // BELOW LOOP IS FOR BLANK TEMPLATE TESTING
-        /*
-        foreach (string type in prefabTypes1)
-        {
-            // Find the corresponding prefab for the type
-            GameObject prefab = GetPrefabByType(type);
-
-            if (prefab != null)
-            {
-                // Instantiate the prefab and add it to the Content area
-                GameObject newItem = Instantiate(prefab, contentParent);
-                newItem.transform.localPosition = new Vector3(contentParent.localPosition.x, contentParent.localPosition.y, -0.01f);
-                newItem.transform.localScale = new Vector3(3.5f, 3.5f, 3.5f);
-            }
-            else
-            {
-                Debug.LogWarning($"Prefab for type '{type}' not found!");
-            }    
-        }
-        */
+        EventBus.Publish(new ProgressBarUpdateEvent(comp, total));
         EventBus.Publish(new InitPopFinishedEvent(localTL));
         Debug.LogWarning("Finished Init Population");
     }

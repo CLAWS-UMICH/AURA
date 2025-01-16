@@ -9,8 +9,9 @@ public class progress_bar : MonoBehaviour
     private GameObject pbar;
     //private List<TaskObj> tasklist_bar;
     public float progress;
-    private Subscription<InitPopFinishedEvent> initEventPB;
+    //private Subscription<InitPopFinishedEvent> initEventPB;
     private Subscription<ProgressBarUpdateEvent> updatePBEvent;
+
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class progress_bar : MonoBehaviour
         pbar.transform.localScale = new Vector3(0, 1, 1);
         //Debug.LogWarning("about to subscribe");
         //Debug.LogWarning("subscribed to events");
-        initEventPB = EventBus.Subscribe<InitPopFinishedEvent>(Init_Progress_bar);
+        //initEventPB = EventBus.Subscribe<InitPopFinishedEvent>(Init_Progress_bar);
         updatePBEvent = EventBus.Subscribe<ProgressBarUpdateEvent>(Update_caller);
     }
 
