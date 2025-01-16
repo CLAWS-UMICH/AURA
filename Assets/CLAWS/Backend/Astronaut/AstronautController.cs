@@ -36,7 +36,7 @@ public class Location
 public class Vitals
 {
     public int eva_time;
-    public double batt_time_left;
+    public int batt_time_left;
     public double oxy_pri_storage;
     public double oxy_sec_storage;
     public double oxy_pri_pressure;
@@ -58,9 +58,6 @@ public class Vitals
     public double coolant_m;
     public double coolant_gas_pressure;
     public double coolant_liquid_pressure;
-
-    public double batt_percentage;
-    public double oxy_percentage;
 }
 
 // TestWebObj

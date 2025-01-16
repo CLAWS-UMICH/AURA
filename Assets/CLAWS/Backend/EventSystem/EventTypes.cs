@@ -122,19 +122,19 @@ public class WebTestEvent
     }
 }
 
-public class TaskListEvent
-{
-    public TaskListObj testData { get; set; }
+// public class TaskListEvent
+// {
+//     public TaskListObj testData { get; set; }
     
-    public string use { get; set; }
+//     public string use { get; set; }
 
-    public TaskListEvent(TaskListObj _testData, string _use)
-    {
-        testData = _testData;
-        use = _use;
-    }
+//     public TaskListEvent(TaskListObj _testData, string _use)
+//     {
+//         testData = _testData;
+//         use = _use;
+//     }
 
-}
+// }
 
 public class UpdatedVitalsEvent
 {

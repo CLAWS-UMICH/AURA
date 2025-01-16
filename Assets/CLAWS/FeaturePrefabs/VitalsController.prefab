@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.2089, y: 0.003}
+  m_AnchoredPosition: {x: 0.2102, y: 0.003}
   m_SizeDelta: {x: 20, y: 1.86439}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4597703462698508976
@@ -2301,7 +2301,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7444611328938799314}
   m_Layer: 0
-  m_Name: SecOxy
+  m_Name: Gas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2960,7 +2960,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3439668984918492366}
   m_Layer: 0
-  m_Name: SecOxy
+  m_Name: SEC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2975,7 +2975,7 @@ Transform:
   m_GameObject: {fileID: 279074224117976121}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.2659, y: -0.181, z: 0}
+  m_LocalPosition: {x: 0.2719, y: -0.181, z: 0}
   m_LocalScale: {x: 1.9670199, y: 1.9670199, z: 1.9670199}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11550,13 +11550,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360878096976083226}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.028823905, y: 0.083088174, z: -0.0031254357}
   m_LocalScale: {x: 0.005204043, y: 0.005204043, z: 0.005204043}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1671159476883023721}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &8323086449614531268
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15385,7 +15385,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4043134168306356179}
   m_Layer: 0
-  m_Name: PriOxy
+  m_Name: Liquid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20387,13 +20387,13 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 0
-  m_AllowGazeSelect: 0
+  m_AllowGazeInteraction: 1
+  m_AllowGazeSelect: 1
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
   m_OverrideTimeToAutoDeselectGaze: 0
   m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 0
+  m_AllowGazeAssistance: 1
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -20402,7 +20402,19 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3905840393055263581}
+        m_TargetAssemblyTypeName: VitalsController, Assembly-CSharp
+        m_MethodName: ToggleVitalsScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -20562,7 +20574,7 @@ MonoBehaviour:
   <ToggleMode>k__BackingField: 0
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 1
+  <TriggerOnRelease>k__BackingField: 0
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -20904,7 +20916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7aaeaac1776d48549b871c07f883c446, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TargetScreen: 2
+  TargetScreen: 1
   pressableButton: {fileID: 1479212186788578848}
 --- !u!1 &2269373948581423674
 GameObject:
@@ -21640,7 +21652,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pri O<sub>2</sub>
+  m_text: CO<sub>2</sub> A
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   m_sharedMaterial: {fileID: -1005824763306460071, guid: 533bdd8d5c92b52448ee2ecf7bd828a4,
@@ -34996,8 +35008,8 @@ Transform:
   m_GameObject: {fileID: 3826586617911622244}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.13942128, y: 0, z: -0.00037640333}
-  m_LocalScale: {x: 0.72115743, y: 1, z: 1}
+  m_LocalPosition: {x: -0.25400463, y: 0, z: -0.00037640333}
+  m_LocalScale: {x: 0.49199075, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 237604674004085796}
@@ -35535,7 +35547,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Helmet CO<sub>2</sub>
+  m_text: ' CO<sub>2</sub> Helmet
 
     Pressure'
   m_isRightToLeft: 0
@@ -36730,7 +36742,7 @@ Transform:
   m_GameObject: {fileID: 4043061018837266283}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.20660162, y: -0.028090023, z: -0.011393159}
+  m_LocalPosition: {x: 0.2088, y: -0.028090023, z: -0.011393159}
   m_LocalScale: {x: 0.0015562712, y: 0.041542638, z: 2.0878851}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37027,7 +37039,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4065528923294010526}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 31641bdaca0fb7947843a692a69c3242, type: 3}
   m_Name: 
@@ -37202,8 +37214,8 @@ MonoBehaviour:
   <OnDisabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  isTouchable: 1
-  snapToPosition: 1
+  isTouchable: 0
+  snapToPosition: 0
   handleTransform: {fileID: 2168942139215430493}
   trackCollider: {fileID: 6474850992573919606}
   minValue: 0
@@ -39164,13 +39176,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4448326958133362188}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.028823905, y: 0.083088174, z: -0.0031254357}
   m_LocalScale: {x: 0.005204043, y: 0.005204043, z: 0.005204043}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6921671541772166668}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &2894409085401169901
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -44383,7 +44395,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0121, y: 0.0782}
+  m_AnchoredPosition: {x: 0.0113, y: 0.0782}
   m_SizeDelta: {x: 20, y: 1.86439}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &591949246502607087
@@ -44448,7 +44460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sec O<sub>2</sub>
+  m_text: CO<sub>2</sub> B
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   m_sharedMaterial: {fileID: -1005824763306460071, guid: 533bdd8d5c92b52448ee2ecf7bd828a4,
@@ -46308,7 +46320,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0155, y: 0.0757}
+  m_AnchoredPosition: {x: 0.0119, y: 0.0757}
   m_SizeDelta: {x: 20, y: 1.86439}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &2666603207528636518
@@ -46373,7 +46385,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pri O<sub>2</sub>
+  m_text: Pri
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   m_sharedMaterial: {fileID: -1005824763306460071, guid: 533bdd8d5c92b52448ee2ecf7bd828a4,
@@ -47541,7 +47553,7 @@ MonoBehaviour:
   trackCollider: {fileID: 2934109446924664966}
   minValue: 0
   maxValue: 21600
-  value: 15577
+  value: 10627
   useSliderStepDivisions: 0
   sliderStepDivisions: 10
   sliderStart: {fileID: 1304071621173678941}
@@ -47576,11 +47588,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c72836fd24f77e4f8b5a4e0f79b6c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playSoundsOnlyOnInteract: 0
+  playSoundsOnlyOnInteract: 1
   interactionStartSound: {fileID: 8300000, guid: a6df42a6534a99b44bab6bf896cad6a4,
     type: 3}
   interactionEndSound: {fileID: 8300000, guid: 9bb44e4e04a41434082d97b1064421e1, type: 3}
-  playTickSounds: 1
+  playTickSounds: 0
   alignWithStepSlider: 1
   passNotchSound: {fileID: 8300000, guid: bb2e061449451aa45960db70c734b513, type: 3}
   tickEvery: 0.1
@@ -47627,7 +47639,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
@@ -49498,7 +49510,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.017, y: 0.0757}
+  m_AnchoredPosition: {x: 0.013, y: 0.0757}
   m_SizeDelta: {x: 20, y: 1.86439}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &8121622715839336138
@@ -49563,7 +49575,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sec O<sub>2</sub>
+  m_text: Sec
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   m_sharedMaterial: {fileID: -1005824763306460071, guid: 533bdd8d5c92b52448ee2ecf7bd828a4,
@@ -50858,7 +50870,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7417582482342507297}
   m_Layer: 0
-  m_Name: SecOxy
+  m_Name: B
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56290,7 +56302,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1355820505577828706}
   m_Layer: 0
-  m_Name: PriOxy
+  m_Name: PRI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56305,7 +56317,7 @@ Transform:
   m_GameObject: {fileID: 6389503816666662723}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1517, y: -0.181, z: 0}
+  m_LocalPosition: {x: 0.1631, y: -0.181, z: 0}
   m_LocalScale: {x: 1.9670199, y: 1.9670199, z: 1.9670199}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56796,13 +56808,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6457354983492738350}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.028823905, y: 0.083088174, z: -0.0031254357}
   m_LocalScale: {x: 0.005204043, y: 0.005204043, z: 0.005204043}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3795502169143214005}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &2107028775246451365
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -58702,13 +58714,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6597032613657081723}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.028823905, y: 0.08308818, z: -0.0031254357}
   m_LocalScale: {x: 0.005204043, y: 0.005204043, z: 0.005204043}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 491738388647321292}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &6623843789298606973
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -61708,7 +61720,7 @@ RectTransform:
   m_GameObject: {fileID: 6914784405278400901}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.0040000007}
-  m_LocalScale: {x: 1.3165009, y: 1.4882329, z: 0.8627986}
+  m_LocalScale: {x: 1.1652349, y: 1.3172349, z: 0.763663}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6975871812103987463}
@@ -61780,7 +61792,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.1
+  m_text: 0.01
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   m_sharedMaterial: {fileID: -1005824763306460071, guid: 533bdd8d5c92b52448ee2ecf7bd828a4,
@@ -64031,13 +64043,13 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 0
-  m_AllowGazeSelect: 0
+  m_AllowGazeInteraction: 1
+  m_AllowGazeSelect: 1
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
   m_OverrideTimeToAutoDeselectGaze: 0
   m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 0
+  m_AllowGazeAssistance: 1
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -64046,7 +64058,19 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3905840393055263581}
+        m_TargetAssemblyTypeName: VitalsController, Assembly-CSharp
+        m_MethodName: CloseVitalScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -64225,19 +64249,7 @@ MonoBehaviour:
         m_Calls: []
   <OnClicked>k__BackingField:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3905840393055263581}
-        m_TargetAssemblyTypeName: VitalsController, Assembly-CSharp
-        m_MethodName: CloseVitalScreen
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -70494,13 +70506,13 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 0
-  m_AllowGazeSelect: 0
+  m_AllowGazeInteraction: 1
+  m_AllowGazeSelect: 1
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
   m_OverrideTimeToAutoDeselectGaze: 0
   m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 0
+  m_AllowGazeAssistance: 1
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -70509,7 +70521,19 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3905840393055263581}
+        m_TargetAssemblyTypeName: VitalsController, Assembly-CSharp
+        m_MethodName: ToggleVitalsScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -70608,19 +70632,7 @@ MonoBehaviour:
     active: 0
     onEntered:
       m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 3905840393055263581}
-          m_TargetAssemblyTypeName: VitalsController, Assembly-CSharp
-          m_MethodName: ToggleVitalsScreen
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+        m_Calls: []
     onExited:
       m_PersistentCalls:
         m_Calls: []
@@ -70669,7 +70681,7 @@ MonoBehaviour:
   <ToggleMode>k__BackingField: 0
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 1
+  <TriggerOnRelease>k__BackingField: 0
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -72031,7 +72043,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8028332836713315851}
   m_Layer: 0
-  m_Name: PriOxy
+  m_Name: A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -73265,6 +73277,8 @@ GameObject:
   - component: {fileID: 82117307500486777}
   - component: {fileID: 3304902617341336893}
   - component: {fileID: 519869669886342018}
+  - component: {fileID: 4117903485540065053}
+  - component: {fileID: 4432111374118814700}
   m_Layer: 0
   m_Name: VitalsController
   m_TagString: Untagged
@@ -73304,30 +73318,30 @@ MonoBehaviour:
   vitalsFirstAstronautScreen: {fileID: 3129051601539511830}
   vitalsSecondAstronautScreen: {fileID: 7163736672457186135}
   eva1:
-    heartRate: {fileID: 0}
-    temp: {fileID: 0}
-    oxyCons: {fileID: 0}
-    co2Prod: {fileID: 0}
-    priOxyPres: {fileID: 0}
-    priOxyStor: {fileID: 0}
-    secOxyPres: {fileID: 0}
-    helmetCO2Pres: {fileID: 0}
-    otherSuitPres: {fileID: 0}
-    scrubberA: {fileID: 0}
-    secFan: {fileID: 0}
-    scrubberB: {fileID: 0}
-    coolant: {fileID: 0}
-    suitPresOxy: {fileID: 0}
-    suitTotPres: {fileID: 0}
-    suitPresCO2: {fileID: 0}
-    secOxyStor: {fileID: 0}
-    priFan: {fileID: 0}
-    coolLiquidPres: {fileID: 0}
-    coolGasPres: {fileID: 0}
-    powerTime: {fileID: 0}
-    oxyTime: {fileID: 0}
-    oxySlider: {fileID: 0}
-    battSlider: {fileID: 0}
+    heartRate: {fileID: 1587366663152730459}
+    temp: {fileID: 2221510975395721895}
+    oxyCons: {fileID: 7646173721620561809}
+    co2Prod: {fileID: 2348633087484877237}
+    priOxyPres: {fileID: 6404501417355710086}
+    priOxyStor: {fileID: 7699599199642239057}
+    secOxyPres: {fileID: 9099071377995955927}
+    helmetCO2Pres: {fileID: 1131495024594510446}
+    otherSuitPres: {fileID: 4550588209197390384}
+    scrubberA: {fileID: 7918309729146416189}
+    secFan: {fileID: 279074224117976121}
+    scrubberB: {fileID: 5743939109896091425}
+    coolant: {fileID: 5108241496788392066}
+    suitPresOxy: {fileID: 6530403666100736460}
+    suitTotPres: {fileID: 808702361526519428}
+    suitPresCO2: {fileID: 2444917959973575715}
+    secOxyStor: {fileID: 8450277921205466189}
+    priFan: {fileID: 6389503816666662723}
+    coolLiquidPres: {fileID: 1838454018336005196}
+    coolGasPres: {fileID: 176598338473102447}
+    powerTime: {fileID: 8718111328653830545}
+    oxyTime: {fileID: 4851106160053256026}
+    oxySlider: {fileID: 4065528923294010527}
+    battSlider: {fileID: 5262719322544946543}
   eva2:
     heartRate: {fileID: 0}
     temp: {fileID: 0}
@@ -73432,8 +73446,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58b9c6073978d284393c20167deed91c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  webSocketUrl: http:/localhost.8080
-  autoConnectWebSocket: 0
+  webSocketUrl: http:/localhost:8080
+  autoConnectWebSocket: 1
   tssUrl: 
   autoConnectTSS: 0
   id: 0
@@ -73451,6 +73465,57 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CurrScreen: 0
   CurrMode: 0
+--- !u!114 &4117903485540065053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021524163048650865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3986155c7a728454f8bbbabd2e274601, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leftInteractor: {fileID: 0}
+  rightInteractor: {fileID: 0}
+  trackedTargetType: 0
+  trackedHandedness: 3
+  trackedHandJoint: 0
+  transformOverride: {fileID: 0}
+  additionalOffset: {x: 0, y: 0, z: 0}
+  additionalRotation: {x: 0, y: 0, z: 0}
+  updateSolvers: 1
+--- !u!114 &4432111374118814700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8021524163048650865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c8a10bdd6850674590a7d931a87adb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateLinkedTransform: 0
+  moveLerpTime: 0.1
+  rotateLerpTime: 0.1
+  scaleLerpTime: 0
+  maintainScaleOnInitialization: 1
+  smoothing: 1
+  lifetime: 0
+  referenceDirection: 1
+  minDistance: 1
+  maxDistance: 2
+  minViewDegrees: 0
+  maxViewDegrees: 30
+  aspectV: 1
+  ignoreAngleClamp: 0
+  ignoreDistanceClamp: 0
+  useFixedVerticalPosition: 0
+  fixedVerticalPosition: -0.4
+  orientToReferenceDirection: 0
 --- !u!1 &8032987084881686157
 GameObject:
   m_ObjectHideFlags: 0
@@ -73477,7 +73542,7 @@ Transform:
   m_GameObject: {fileID: 8032987084881686157}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.022115735, y: 0.000000008587814, z: 0.0000000045125335}
+  m_LocalPosition: {x: -0.00080092077, y: 0.000000008582015, z: 0.000000004481915}
   m_LocalScale: {x: 0.004, y: 0.011999998, z: 0.062525995}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -76922,13 +76987,13 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 0
-  m_AllowGazeSelect: 0
+  m_AllowGazeInteraction: 1
+  m_AllowGazeSelect: 1
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
   m_OverrideTimeToAutoDeselectGaze: 0
   m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 0
+  m_AllowGazeAssistance: 1
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -76937,7 +77002,19 @@ MonoBehaviour:
       m_Calls: []
   m_HoverEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3905840393055263581}
+        m_TargetAssemblyTypeName: VitalsController, Assembly-CSharp
+        m_MethodName: CloseVitalScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_HoverExited:
     m_PersistentCalls:
       m_Calls: []
@@ -77094,7 +77171,7 @@ MonoBehaviour:
         m_Calls: []
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
-  <ToggleMode>k__BackingField: 0
+  <ToggleMode>k__BackingField: 2
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
   <TriggerOnRelease>k__BackingField: 1
@@ -77116,19 +77193,7 @@ MonoBehaviour:
         m_Calls: []
   <OnClicked>k__BackingField:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3905840393055263581}
-        m_TargetAssemblyTypeName: VitalsController, Assembly-CSharp
-        m_MethodName: CloseVitalScreen
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -78721,13 +78786,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8482439547058690522}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: -0.028823905, y: 0.083088174, z: -0.0031254357}
   m_LocalScale: {x: 0.005204043, y: 0.005204043, z: 0.005204043}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6975871812103987463}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!212 &3700823768344976996
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -79558,7 +79623,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ddf6a9578ebbd4643b61b19535e573da, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8301887, g: 0.81060874, b: 0.81060874, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -81641,8 +81706,8 @@ RectTransform:
   m_GameObject: {fileID: 8897211958901680693}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.0040000007}
-  m_LocalScale: {x: 1.3165009, y: 1.4882329, z: 0.8627986}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.1652349, y: 1.3172349, z: 0.763663}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1671159476883023721}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -81713,7 +81778,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0.5
+  m_text: 0.05
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   m_sharedMaterial: {fileID: -1005824763306460071, guid: 533bdd8d5c92b52448ee2ecf7bd828a4,
