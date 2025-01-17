@@ -83,6 +83,7 @@ public class StateMachine : MonoBehaviour
     {
         // Debug log for closing the screen
         Debug.Log("Closing screen: " + e.Screen.ToString());
+        // currScreen = Screen.Menu;
     }
 
     [ContextMenu("CloseAll")]

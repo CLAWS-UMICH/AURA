@@ -46,23 +46,18 @@ public class VitalsController : MonoBehaviour
     [SerializeField] private GameObject vitalsSecondAstronautScreen;
     private Subscription<UpdatedVitalsEvent> vitalsUpdateEvent;
     private Subscription<FellowAstronautVitalsDataChangeEvent> fellowVitalsUpdateEvent;
-    private Subscription<CloseEvent> closeSubscription;
-    private Subscription<ScreenChangedEvent> screenChangedSubscription;
     [SerializeField] private EVAGroup eva1;
     [SerializeField] private EVAGroup eva2;
     private WebSocketClient webSocketClient;
-    private bool isCooldown = false;
-    public float cooldownTime = 0.5f;
 
     private void Start() 
     {
         InitializeWebConnection();
         vitalsUpdateEvent = EventBus.Subscribe<UpdatedVitalsEvent>(onVitalsUpdate);
         fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
-        closeSubscription = EventBus.Subscribe<CloseEvent>(HandleCloseScreen);
-        screenChangedSubscription = EventBus.Subscribe<ScreenChangedEvent>(HandleScreenChange);
         vitalsSecondAstronautScreen.SetActive(false);
     }
+
 
     private void  InitializeWebConnection()
     {
@@ -80,75 +75,29 @@ public class VitalsController : MonoBehaviour
     }
 
 
-    private IEnumerator Cooldown()
-    {
-        isCooldown = true;
-        yield return new WaitForSeconds(cooldownTime);
-        isCooldown = false;
-    }
-
     public void ToggleVitalsScreen()
     {
-        if (isCooldown) return;
         Debug.Log($"Current Screen: {StateMachine.Instance.CurrScreen}");
-
-        if (StateMachine.Instance.CurrScreen == Screens.VitalsFirstAstronaut)
+        if (vitalsFirstAstronautScreen.activeSelf)
         {
-            EventBus.Publish(new CloseEvent(Screens.VitalsFirstAstronaut));
+            vitalsFirstAstronautScreen.SetActive(false);
+            vitalsSecondAstronautScreen.SetActive(true);
             EventBus.Publish(new ScreenChangedEvent(Screens.VitalsSecondAstronaut)); 
         }
-        else if (StateMachine.Instance.CurrScreen == Screens.VitalsSecondAstronaut)
+        else 
         {
-            EventBus.Publish(new CloseEvent(Screens.VitalsSecondAstronaut));
+            vitalsSecondAstronautScreen.SetActive(false);
+            vitalsFirstAstronautScreen.SetActive(true);
             EventBus.Publish(new ScreenChangedEvent(Screens.VitalsFirstAstronaut));
         }
-        StartCoroutine(Cooldown());
     }
 
 
     public void CloseVitalScreen()
     {
-        if (StateMachine.Instance.CurrScreen == Screens.VitalsFirstAstronaut)
-        {
-            EventBus.Publish(new CloseEvent(Screens.VitalsFirstAstronaut));
-            Debug.Log("VitalsFirstAstronaut screen closed.");
-        }
-        else if (StateMachine.Instance.CurrScreen == Screens.VitalsSecondAstronaut)
-        {
-            EventBus.Publish(new CloseEvent(Screens.VitalsSecondAstronaut));
-            Debug.Log("VitalsSecondAstronaut screen closed.");
-        }
-    }
-
-
-    private void HandleScreenChange(ScreenChangedEvent e)
-    {
-        if (e.Screen == Screens.VitalsFirstAstronaut)
-        {
-            vitalsFirstAstronautScreen.SetActive(true);
-            vitalsSecondAstronautScreen.SetActive(false);
-            Debug.Log("VitalsSecondAstronaut screen changed to VitalsFirstAstronaut.");
-        }
-        else if (e.Screen == Screens.VitalsSecondAstronaut)
-        {
-            vitalsSecondAstronautScreen.SetActive(true);
-            vitalsFirstAstronautScreen.SetActive(false);
-            Debug.Log("VitalFirstAstronaut screen changed to VitalsSecondAstronaut.");
-        }
-    }
-
-    private void HandleCloseScreen(CloseEvent e)
-    {
-        if (e.Screen == Screens.VitalsFirstAstronaut)
-        {
-            vitalsFirstAstronautScreen.SetActive(false);
-            Debug.Log("VitalsFirstAstronaut screen closed.");
-        }
-        else if (e.Screen == Screens.VitalsSecondAstronaut)
-        {
-            vitalsSecondAstronautScreen.SetActive(false);
-            Debug.Log("VitalsSecondAstronaut screen closed.");
-        }
+        vitalsFirstAstronautScreen.SetActive(false);
+        vitalsSecondAstronautScreen.SetActive(false);
+        StateMachine.Instance.CurrScreen = Screens.Menu;
     }
 
 
@@ -208,6 +157,7 @@ public class VitalsController : MonoBehaviour
         //Debug.Log(json);
     }
 
+
     private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e)
     {
         //astronaut 2
@@ -216,8 +166,6 @@ public class VitalsController : MonoBehaviour
 
     private void OnDestroy() 
     {
-        EventBus.Unsubscribe(closeSubscription);
-        EventBus.Unsubscribe(screenChangedSubscription);
         EventBus.Unsubscribe(vitalsUpdateEvent);
         EventBus.Unsubscribe(fellowVitalsUpdateEvent);
     }
