@@ -163,7 +163,7 @@ public class WebSocketClient : MonoBehaviour
                             "author": <string>
                         }
                     }
-                    */
+                    
                     Waypoint waypointsData = data.ToObject<Waypoint>();
                     if (use == "DELETE ") {
                         EventBus.Publish(new WaypointToDelete(waypointsData));
@@ -174,6 +174,7 @@ public class WebSocketClient : MonoBehaviour
                     else if (use == "PUT") {
                         EventBus.Publish(new WaypointsEditedEvent(waypointsData));
                     }
+                    */
                     break;
 
                 default:

@@ -14,6 +14,7 @@ Material:
   m_ValidKeywords:
   - _ALPHABLEND_ON
   - _DISABLE_ALBEDO_MAP
+  - _ROUND_CORNERS
   - _SPECULAR_HIGHLIGHTS
   m_InvalidKeywords:
   - _BLOB_ENABLE_2_

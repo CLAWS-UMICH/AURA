@@ -38,7 +38,7 @@ public class HighlightController : MonoBehaviour
     private void OnButtonGazeEnter(int buttonIndex)
     {
         Debug.Log("setting:" + buttonIndex);
-        SetButtonHighlight(buttons[buttonIndex], "UI/Default", Color.green);
+        SetButtonHighlight(buttons[buttonIndex], "Graphics Tools/Non-Canvas/Frontplate", Color.green);
     }
 
 

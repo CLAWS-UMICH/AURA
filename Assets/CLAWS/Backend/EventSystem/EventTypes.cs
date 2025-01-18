@@ -159,33 +159,33 @@ public class FellowAstronautVitalsDataChangeEvent
         vitals = v;
     }
 }
-// WAYPOINT EVENTS
-public class WaypointsEditedEvent
-{
-    public Waypoint EditedWaypoint { get; private set; }
+// // WAYPOINT EVENTS
+// public class WaypointsEditedEvent
+// {
+//     public Waypoint EditedWaypoint { get; private set; }
 
-    public WaypointsEditedEvent(Waypoint _editedWaypoint)
-    {
-        EditedWaypoint = _editedWaypoint;
-    }
-}
+//     public WaypointsEditedEvent(Waypoint _editedWaypoint)
+//     {
+//         EditedWaypoint = _editedWaypoint;
+//     }
+// }
 
-public class WaypointToDelete
-{
-    public int Id { get; private set; }
+// public class WaypointToDelete
+// {
+//     public int Id { get; private set; }
 
-    public WaypointToDelete(Waypoint _waypoint)
-    {
-        Id = _waypoint.Id;
-    }
-}
+//     public WaypointToDelete(Waypoint _waypoint)
+//     {
+//         Id = _waypoint.Id;
+//     }
+// }
 
-public class WaypointToAdd
-{
-    public Waypoint waypointToAdd { get; private set; }
+// public class WaypointToAdd
+// {
+//     public Waypoint waypointToAdd { get; private set; }
 
-    public WaypointToAdd(Waypoint _waypoint)
-    {
-        waypointToAdd = _waypoint;
-    }
-}
+//     public WaypointToAdd(Waypoint _waypoint)
+//     {
+//         waypointToAdd = _waypoint;
+//     }
+// }
