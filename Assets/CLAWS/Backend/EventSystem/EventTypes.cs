@@ -122,7 +122,7 @@ public class WebTestEvent
     }
 }
 
-public class TaskListEvent
+/*public class TaskListEvent
 {
     public TaskListObj testData { get; set; }
     
@@ -134,7 +134,7 @@ public class TaskListEvent
         use = _use;
     }
 
-}
+}*/
 
 public class UpdatedVitalsEvent
 {
