@@ -4,7 +4,7 @@ CLAWS is a student-run organization affiliated with the college of Engineering a
 
 ## Installation
 
-Unity version: 2022.3.71f 
+Unity version: 2022.3.56f 
 
 MRTK3 was used to develop for the Hololens 2
 
