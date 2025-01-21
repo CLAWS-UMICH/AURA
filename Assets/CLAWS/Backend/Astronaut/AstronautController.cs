@@ -66,13 +66,165 @@ public class TestWebObj
 {
     public int num;
 
-    public TestWebObj()
-    {
+    public TestWebObj() { 
         num = 0;
     }
 
     public TestWebObj(int _num)
     {
         num = _num;
+    }
+}
+
+// TasklistObj
+[System.Serializable]
+public class TasklistObj
+{
+ 
+    public List<TaskObj> Tasklist = new List<TaskObj>();
+    public TaskObj currentTask = new TaskObj();
+
+    public TasklistObj()
+    {
+        //do nothing for now
+    }
+    public TasklistObj(List<TaskObj> data)
+    {
+        foreach (TaskObj task_d in data)
+        {
+            TaskObj task = new TaskObj(task_d.task_id, task_d.status, task_d.title, task_d.taskType, task_d.description, task_d.isEmergency, task_d.isShared, task_d.isSubtask, task_d.location, task_d.astronauts, task_d.subtasks);
+            Tasklist.Add(task);
+        }
+    }
+
+    public void add(TaskObj t)
+    {
+        Tasklist.Add(t);
+    }
+
+    public void insert(int pos, TaskObj t)
+    {
+        Tasklist.Insert(pos, t);
+    }
+
+    public void update(TaskObj newT)
+    {
+        for (int i = 0; i < Tasklist.Count; i++)
+        {
+            if (Tasklist[i].task_id == newT.task_id)
+            {
+                Tasklist[i] = newT;
+                break;
+            }
+        }
+    }
+}
+
+public class TaskObj
+{
+    public int task_id;
+    public int status;
+    public string title;
+    public string taskType;
+    public string description;
+    public bool isEmergency;
+    public bool isShared;
+    public bool isSubtask;
+
+    // change later for location constructor if sent in tuple
+    public string location;
+    public List<int> astronauts;
+    public List<TaskObj> subtasks;
+    private int numSub;
+    private int comSub;
+    public TaskObj()
+    {
+        task_id = 0;
+        status = 0;
+        title = "";
+        description = "";
+        taskType = "";
+        isEmergency = false;
+        isShared = false;
+        isSubtask = false;
+        location = "";
+        astronauts = new List<int>();
+        subtasks = new List<TaskObj>();
+        numSub = 0;
+        comSub = 0;
+    }
+    public TaskObj(int t_id, int st, string tle, string desc, string t_type, bool em, bool sh, bool sut, string loc, List<int> astrs, List<TaskObj> subts)
+    {
+        task_id = t_id;
+        status = st;
+        title = tle;
+        description = desc;
+        taskType = t_type;
+        isEmergency = em;
+        isShared = sh;
+        isSubtask = sut;
+        location = loc;
+        astronauts = new List<int>();
+        foreach (int a in astrs)
+        {
+            astronauts.Add(a);
+        }
+        subtasks = new List<TaskObj>();
+        if (!isSubtask)
+        {
+            if (subts.Count > 0)
+            {
+                foreach (TaskObj t in subts)
+                {
+                    subtasks.Add(t);
+                }
+                numSub = subts.Count;
+                comSub = 0;
+            }
+            else
+            {
+                numSub = -1;
+                comSub = -1;
+            }
+        }
+        else
+        {
+            numSub = -1;
+            comSub = -1;
+        }
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        TaskObj otherTask = (TaskObj)obj;
+        return task_id == otherTask.task_id &&
+               title == otherTask.title &&
+               astronauts.Equals(otherTask.astronauts) &&
+               subtasks.Equals(otherTask.subtasks) &&
+               status == otherTask.status &&
+               isEmergency == otherTask.isEmergency &&
+               isSubtask == otherTask.isSubtask && 
+               description == otherTask.description &&
+               isShared == otherTask.isShared &&
+               location == otherTask.location;
+    }
+
+    public void addCom()
+    {
+        comSub += 1;
+    }
+
+    public int getNumSub()
+    {
+        return numSub;
+    }
+    public int getComSub()
+    {
+        return comSub;
     }
 }

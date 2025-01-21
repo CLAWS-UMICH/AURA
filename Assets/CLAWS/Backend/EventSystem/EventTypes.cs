@@ -122,19 +122,70 @@ public class WebTestEvent
     }
 }
 
-// public class TaskListEvent
-// {
-//     public TaskListObj testData { get; set; }
-    
-//     public string use { get; set; }
 
-//     public TaskListEvent(TaskListObj _testData, string _use)
-//     {
-//         testData = _testData;
-//         use = _use;
-//     }
+public class TasklistEvent
+{
+    public TasklistObj taskdata { get; set; }
+    public string use { get; set; }
 
-// }
+    public TasklistEvent(TasklistObj _taskData, string _use)
+    {
+        taskdata = _taskData;
+        use = _use;
+    }
+}
+
+public class InitPopFinishedEvent
+{
+    public List<TaskObj> tl;
+    public InitPopFinishedEvent(List<TaskObj> _tl)
+    {
+        tl = _tl;
+    }
+}
+
+public class TaskFinishedEvent
+{
+    public int id;
+    public int pid;
+    public TaskFinishedEvent(int _id, int _pid)
+    {
+        id = _id;
+        pid = _pid;
+    }
+}
+
+public class ProgressBarUpdateEvent
+{
+    public int comp;
+    public int total;
+    public ProgressBarUpdateEvent(int _comp, int _total)
+    {
+        comp = _comp;
+        total = _total;
+    }
+}
+
+public class TaskDeletedEvent
+{
+    public int id;
+    public TaskDeletedEvent(int _id)
+    {
+        id = _id;
+    }
+}
+
+public class TaskEditedEvent
+{
+    public int id;
+    public TaskObj data;
+    public TaskEditedEvent(int _id, TaskObj _data)
+    {
+        id = _id;
+        data = _data;
+    }
+}
+
 
 public class UpdatedVitalsEvent
 {
@@ -159,33 +210,35 @@ public class FellowAstronautVitalsDataChangeEvent
         vitals = v;
     }
 }
-// // WAYPOINT EVENTS
-// public class WaypointsEditedEvent
-// {
-//     public Waypoint EditedWaypoint { get; private set; }
 
-//     public WaypointsEditedEvent(Waypoint _editedWaypoint)
-//     {
-//         EditedWaypoint = _editedWaypoint;
-//     }
-// }
 
-// public class WaypointToDelete
-// {
-//     public int Id { get; private set; }
+// WAYPOINT EVENTS
+public class WaypointsEditedEvent
+{
+    public Waypoint EditedWaypoint { get; private set; }
 
-//     public WaypointToDelete(Waypoint _waypoint)
-//     {
-//         Id = _waypoint.Id;
-//     }
-// }
+    public WaypointsEditedEvent(Waypoint _editedWaypoint)
+    {
+        EditedWaypoint = _editedWaypoint;
+    }
+}
 
-// public class WaypointToAdd
-// {
-//     public Waypoint waypointToAdd { get; private set; }
+public class WaypointToDelete
+{
+    public int Id { get; private set; }
 
-//     public WaypointToAdd(Waypoint _waypoint)
-//     {
-//         waypointToAdd = _waypoint;
-//     }
-// }
+    public WaypointToDelete(Waypoint _waypoint)
+    {
+        Id = _waypoint.Id;
+    }
+}
+
+public class WaypointToAdd
+{
+    public Waypoint waypointToAdd { get; private set; }
+
+    public WaypointToAdd(Waypoint _waypoint)
+    {
+        waypointToAdd = _waypoint;
+    }
+}
