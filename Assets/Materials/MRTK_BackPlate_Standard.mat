@@ -32,7 +32,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Line_Width_: 0.003
-    - _Radius_: 0.03
+    - _Line_Width_: 0.001
+    - _Radius_: 0.015
     m_Colors: []
   m_BuildTextureStacks: []

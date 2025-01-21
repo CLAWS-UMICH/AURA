@@ -12,9 +12,10 @@ Material:
   m_Parent: {fileID: 2100000, guid: a690324c7e514fe4e9c217aa5bf04ebe, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _GRADIENT_ENABLE_
+  - _EDGE_ONLY_
   - _IRIDESCENCE_ENABLE_
   - _LINE_ENABLE_
+  - _SMOOTH_EDGES_
   m_InvalidKeywords:
   - _ABSOLUTE_SIZES__ON
   - _GRADIENT_DISABLED_
