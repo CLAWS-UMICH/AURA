@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using MixedReality.Toolkit.UX;
+using MixedReality.Toolkit;
 
 [System.Serializable]
 public class EVAGroup
@@ -42,6 +43,7 @@ public class VitalsData
 
 public class VitalsController : MonoBehaviour
 {
+    [SerializeField] private GameObject vitals;    
     [SerializeField] private GameObject vitalsFirstAstronautScreen;
     [SerializeField] private GameObject vitalsSecondAstronautScreen;
     private Subscription<UpdatedVitalsEvent> vitalsUpdateEvent;
@@ -49,6 +51,7 @@ public class VitalsController : MonoBehaviour
     [SerializeField] private EVAGroup eva1;
     [SerializeField] private EVAGroup eva2;
     private WebSocketClient webSocketClient;
+    [SerializeField] private StatefulInteractable VitalsButton;
 
     private void Start() 
     {
@@ -83,12 +86,14 @@ public class VitalsController : MonoBehaviour
         {
             vitalsFirstAstronautScreen.SetActive(false);
             vitalsSecondAstronautScreen.SetActive(true);
+            vitals.SetActive(true);
             EventBus.Publish(new ScreenChangedEvent(Screens.VitalsSecondAstronaut)); 
         }
         else 
         {
             vitalsSecondAstronautScreen.SetActive(false);
             vitalsFirstAstronautScreen.SetActive(true);
+            vitals.SetActive(true); 
             EventBus.Publish(new ScreenChangedEvent(Screens.VitalsFirstAstronaut));
         }
     }
@@ -99,6 +104,12 @@ public class VitalsController : MonoBehaviour
         vitalsFirstAstronautScreen.SetActive(false);
         vitalsSecondAstronautScreen.SetActive(false);
         StateMachine.Instance.CurrScreen = Screens.Menu;
+        transform.parent.Find("Vitals").gameObject.SetActive(false);
+        if (VitalsButton.IsToggled.Active)
+        {
+            VitalsButton.ForceSetToggled(false);
+        }
+
     }
 
 
