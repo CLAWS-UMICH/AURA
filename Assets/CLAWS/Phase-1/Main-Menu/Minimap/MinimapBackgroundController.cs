@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MinimapBackground : MonoBehaviour
+public class MinimapBackgroundController : MonoBehaviour
 {
     public RectTransform backgroundImage; // Background RectTransform
     public Transform player;              // Reference to the player

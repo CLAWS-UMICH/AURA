@@ -59,6 +59,7 @@ public class VitalsController : MonoBehaviour
     }
 
 
+
     private void  InitializeWebConnection()
     {
         GameObject controllerObject = GameObject.Find("VitalsController");
@@ -77,7 +78,7 @@ public class VitalsController : MonoBehaviour
 
     public void ToggleVitalsScreen()
     {
-        Debug.Log($"Current Screen: {StateMachine.Instance.CurrScreen}");
+        //Debug.Log($"Current Screen: {StateMachine.Instance.CurrScreen}");
         if (vitalsFirstAstronautScreen.activeSelf)
         {
             vitalsFirstAstronautScreen.SetActive(false);

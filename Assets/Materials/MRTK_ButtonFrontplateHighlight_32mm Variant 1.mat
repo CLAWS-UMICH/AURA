@@ -7,10 +7,10 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MRTK_ButtonFrontplateHighlight_32mm Variant
+  m_Name: MRTK_ButtonFrontplateHighlight_32mm Variant 1
   m_Shader: {fileID: 4800000, guid: 3dee60a1b8e777e4f8b15a53c35077c0, type: 3}
   m_Parent: {fileID: 2100000, guid: f6298bbad646d6847986f9c0042092e7, type: 2}
-  m_ModifiedSerializedProperties: 0
+  m_ModifiedSerializedProperties: 8
   m_ValidKeywords: []
   m_InvalidKeywords:
   - USE_GLOBAL_EXTRA_INPUT_ON
@@ -32,11 +32,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats:
-    - _Blob_Enable_: 1
-    - _Blob_Intensity_: 1.03
-    - _Fade_Out_: 0.43
-    - _Line_Width_: 0.59
-    - _Radius_: 0.31
-    m_Colors: []
+    m_Floats: []
+    m_Colors:
+    - _Color: {r: 0.764151, g: 0.59474015, b: 0.59474015, a: 1}
   m_BuildTextureStacks: []

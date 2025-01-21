@@ -19,6 +19,9 @@ public enum Screens
 public enum Modes
 {
     Normal,
+    Sampling,
+    Navigation,
+    Egress
 }
 
 public class StateMachine : MonoBehaviour

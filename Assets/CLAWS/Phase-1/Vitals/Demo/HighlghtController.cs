@@ -11,34 +11,42 @@ public class HighlightController : MonoBehaviour
     private GameObject[] buttons;
     private Material[] originalMaterials;
 
-    void Start()
+void Start()
+{
+    buttons = new GameObject[totalButtons];
+    originalMaterials = new Material[totalButtons];
+
+    for (int i = 0; i < totalButtons; ++i)
     {
-        buttons = new GameObject[totalButtons];
-        originalMaterials = new Material[totalButtons];
+        int adjusted = i + 1;
+        string buttonName = "Button" + adjusted;
+        Debug.Log(buttonName);
 
-        for (int i = 0; i < totalButtons; ++i)
+        buttons[i] = gameObject.transform.Find(buttonName)?.gameObject;
+        if (buttons[i] != null)
         {
-            int adjusted = i + 1;
-            string buttonName = "Button" + adjusted;
-            Debug.Log(buttonName);
+            Debug.Log("index" + i);
+            var button = buttons[i].GetComponent<PressableButton>();
+            originalMaterials[i] = buttons[i].transform.GetChild(1).GetChild(1)
+                .Find("UX.Button.FrontplateHighlight")
+                .GetComponent<Renderer>().material;
 
-            buttons[i] = gameObject.transform.Find(buttonName)?.gameObject;
-            if (buttons[i] != null)
-            {
-                var button =  buttons[i].GetComponent<PressableButton>();
-                originalMaterials[i] = buttons[i].transform.GetChild(1).GetChild(1).Find("UX.Button.FrontplateHighlight").GetComponent<Renderer>().material;
-                button.IsGazeHovered.OnEntered.AddListener((data) => OnButtonGazeEnter(i));
-                button.IsGazeHovered.OnExited.AddListener((data) => OnButtonGazeExit(i));
-            }
-            else { Debug.Log("null button"); }
+            int localIndex = i;
+            button.IsGazeHovered.OnEntered.AddListener((data) => OnButtonGazeEnter(localIndex));
+            button.IsGazeHovered.OnExited.AddListener((data) => OnButtonGazeExit(localIndex));
+        }
+        else
+        {
+            Debug.Log("null button");
         }
     }
+}
 
 
     private void OnButtonGazeEnter(int buttonIndex)
     {
         Debug.Log("setting:" + buttonIndex);
-        SetButtonHighlight(buttons[buttonIndex], "Graphics Tools/Non-Canvas/Frontplate", Color.green);
+        SetButtonHighlight(buttons[buttonIndex], "UI/Default", Color.white);
     }
 
 
@@ -57,7 +65,8 @@ public class HighlightController : MonoBehaviour
             var renderer = frontplateHighlight.GetComponent<Renderer>();
             if (renderer != null)
             {
-                Material newMaterial = new Material(Shader.Find("UI/default"));
+                Material newMaterial = new Material(Shader.Find(shader));
+
                 newMaterial.SetColor("_Color", color);
                 renderer.material = newMaterial;
             }
