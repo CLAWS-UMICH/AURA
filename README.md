@@ -11,7 +11,7 @@ MRTK3 was used to develop for the Hololens 2
 Windows is needed to configure the MRTK3 packages as Microsoft requires you to use their tool. Read more about configuring the Unity project [Here](https://docs.google.com/document/d/1vLJ98uiUNSCTeldjaDFKwF7CTjQHwHTLx3sduLSyuy8/edit?usp=sharing), but  simply downloading Unity Hub and opening this project after running should work: 
 
 ```bash
-git clone git@github.com:CLAWS-UMICH/AR_24-25.git
+git clone git@github.com:CLAWS-UMICH/AURA.git
 ```
  
 
