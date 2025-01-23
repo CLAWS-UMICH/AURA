@@ -228,3 +228,51 @@ public class TaskObj
         return comSub;
     }
 }
+
+//Messaging
+
+[System.Serializable]
+public class Messaging
+{
+    public List<Message> AllMessages = new List<Message>();
+}
+
+[System.Serializable]
+public class Message
+{
+    static int global_message_id = 0;
+
+    public int message_id; // starting from 0 and going up 1
+    public int sent_to; // Astronaut ID it was sent to
+    public string message;
+    public int from; // Astronaut ID it who sent the message
+
+    public Message()
+    {
+        global_message_id++;
+    }
+
+    public Message(int init_sent_to, string init_message, int init_from)
+    {
+        message_id = global_message_id;
+        sent_to = init_sent_to;
+        message = init_message;
+        from = init_from;
+
+        global_message_id++;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Message otherMessage = (Message)obj;
+        return message_id == otherMessage.message_id &&
+               sent_to == otherMessage.sent_to &&
+               message == otherMessage.message &&
+               from == otherMessage.from;
+    }
+}

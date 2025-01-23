@@ -176,6 +176,13 @@ public class WebSocketClient : MonoBehaviour
                     }
                     */
                     break;
+                
+                case "MESSAGES":
+                    Message messageData = data.ToObject<Message>();
+                    //if from tss -> update frontend, forward to web
+                    //if from web -> update frontend
+                    //potentially POST request from astronaut to web (after voice/ai implemented)
+                    break;
 
                 default:
                     // Log if the 'type' is not recognized
