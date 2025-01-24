@@ -242,3 +242,13 @@ public class WaypointToAdd
         waypointToAdd = _waypoint;
     }
 }
+
+public class MessagesAddedEvent
+{
+    public List<Message> NewAddedMessages { get; private set; }
+
+    public MessagesAddedEvent(List<Message> newAddedMessages)
+    {
+        NewAddedMessages = newAddedMessages;
+    }
+}
