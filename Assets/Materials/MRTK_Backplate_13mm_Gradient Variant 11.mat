@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: MRTK_Backplate_13mm_Gradient Variant 8
+  m_Name: MRTK_Backplate_13mm_Gradient Variant 11
   m_Shader: {fileID: 4800000, guid: bf1548464ae044849a0ce555785ea4a2, type: 3}
   m_Parent: {fileID: 2100000, guid: f32fb793f8a4656469db1040ccf2cffb, type: 2}
   m_ModifiedSerializedProperties: 0
@@ -31,6 +31,9 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _Line_Width_: 0
+    - _Radius_: 0.006
+    m_Colors:
+    - _Base_Color_: {r: 0.1714133, g: 0.1714133, b: 0.33962262, a: 1}
   m_BuildTextureStacks: []
