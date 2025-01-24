@@ -8,4 +8,5 @@ public class Astronaut
     public Location location;
     public Vitals vitals;
     public TasklistObj tasklist;
+    public Messaging messages;
 }

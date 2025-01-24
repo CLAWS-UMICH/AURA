@@ -176,6 +176,14 @@ public class WebSocketClient : MonoBehaviour
                     }
                     */
                     break;
+                
+                case "MESSAGES":
+                    Messaging messageData = data.ToObject<Messaging>();
+                    //if from tss -> update frontend, forward to web
+                    //if from web -> update frontend
+                    EventBus.Publish(new MessagesAddedEvent(messageData.AllMessages));
+                    //potentially POST request from astronaut to web (after voice/ai implemented)
+                    break;
 
                 default:
                     // Log if the 'type' is not recognized
@@ -193,7 +201,7 @@ public class WebSocketClient : MonoBehaviour
     [System.Serializable]
     public class MessageData
     {
-        public string room;
+        public string type;
         public string message;
     }
 
@@ -204,7 +212,7 @@ public class WebSocketClient : MonoBehaviour
     {
         if (client != null)
         {
-            MessageData data = new MessageData { room = room.ToUpper(), message = message };
+            MessageData data = new MessageData { type = room.ToUpper(), message = message };
             string jsonString = JsonUtility.ToJson(data);
             await client.EmitAsync("send_to_room", jsonString);
         }
