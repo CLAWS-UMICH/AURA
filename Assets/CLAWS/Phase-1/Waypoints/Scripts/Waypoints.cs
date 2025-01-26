@@ -1,26 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Waypoints : MonoBehaviour
 {
     // Public list of waypoints, accessible from other scripts
-    public List<Waypoint> WaypointsList { get; private set; }
+    public static List<Waypoint> WaypointsList { get; private set; }
     private WebSocketClient webSocketClient; //TODO: make a function to initalize this webSocket
+
+    // Waypoint prefabs
+    [SerializeField] private GameObject companionWaypoint;
+    [SerializeField] private GameObject stationWaypoint;
+    [SerializeField] private GameObject sampleWaypoint;
+    [SerializeField] private GameObject dangerWaypoint;
+    [SerializeField] private GameObject interestWaypoint;
 
     void Start()
     {
         WaypointsList = new List<Waypoint>();
         passInSocket();
+
         // Example usage
-        Waypoint w1= CreateWaypoint("Start Point", 0, 0, 0, "A", "test", "testauthor");
-        Waypoint w2 = CreateWaypoint("End Point", 10, 10, 0, "B", "test", "testauthor");
+        Waypoint w1 = CreateWaypoint("Other Astronaut", 2f, 0f, 3f, "A", "Companion", "testauthor");
+        Waypoint w2 = CreateWaypoint("Rover", -2f, 0f, 1.5f, "B", "Companion", "testauthor");
+        Waypoint w3 = CreateWaypoint("Home", -3f, 0f, -3f, "A", "Station", "testauthor");
+        Waypoint w4 = CreateWaypoint("Cool Rock", 3f, 0f, 4f, "A", "Sample", "testauthor");
+        Waypoint w5 = CreateWaypoint("Mid Rock", 2f, 0f, -5f, "B", "Sample", "testauthor");
+        Waypoint w6 = CreateWaypoint("Dwayne", 2.5f, 0f, 3.5f, "C", "Sample", "testauthor");
+        Waypoint w7 = CreateWaypoint("Pebble", -1f, 0f, -4f, "D", "Sample", "testauthor");
+        Waypoint w8 = CreateWaypoint("Dwebble", -4f, 0f, 3f, "E", "Sample", "testauthor");
+        Waypoint w9 = CreateWaypoint("Interesting spot", 2f, 0f, -5f, "A", "Interest", "testauthor");
 
         // Edit the first waypoint by its ID
-        EditWaypoint(0, 5, 5, 5, "C", "example"); 
+        //EditWaypoint(0, 5, 5, 5, "C", "example"); 
 
         // Delete the second waypoint by its ID
-        DeleteWaypoint(w2);
+        //DeleteWaypoint(w2);
 
         // Subscribe to events
         EventBus.Subscribe<WaypointToAdd>(OnWaypointToAdd);
@@ -46,9 +62,9 @@ public class Waypoints : MonoBehaviour
     }
 
     private void OnWaypointToAdd(WaypointToAdd eventData){
-    Waypoint waypointToAdd = eventData.waypointToAdd;
-    WaypointsList.Add(waypointToAdd);
-    Debug.Log($"Added Waypoint ID: {waypointToAdd.Id}, Name: {waypointToAdd.Name}");
+        Waypoint waypointToAdd = eventData.waypointToAdd;
+        WaypointsList.Add(waypointToAdd);
+        Debug.Log($"Added Waypoint ID: {waypointToAdd.Id}, Name: {waypointToAdd.Name}");
     }
 
     private void OnWaypointToDelete(WaypointToDelete eventData)
@@ -76,8 +92,31 @@ public class Waypoints : MonoBehaviour
         int newId = WaypointsList.Count;
 
         // Create the waypoint's GameObject
-        GameObject waypointObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        waypointObject.transform.position = new Vector3(x, y, z);
+        GameObject waypointObject = gameObject;
+        switch (type)
+        {
+            case "Companion":
+                waypointObject = Instantiate(companionWaypoint);
+                break;
+
+            case "Station":
+                waypointObject = Instantiate(stationWaypoint);
+                break;
+
+            case "Sample":
+                waypointObject = Instantiate(sampleWaypoint);
+                break;
+
+            case "Danger":
+                waypointObject = Instantiate(dangerWaypoint);
+                break;
+
+            case "Interest":
+                waypointObject = Instantiate(interestWaypoint);
+                break;
+        }
+        waypointObject.transform.position = new Vector3(x, 7, z);
+        waypointObject.transform.Find("Focused").Find("Letter").GetComponent<TextMeshPro>().text = letter;
 
         // Create the new waypoint
         Waypoint newWaypoint = new Waypoint(newId, name, x, y, z, letter, type, author, waypointObject);
