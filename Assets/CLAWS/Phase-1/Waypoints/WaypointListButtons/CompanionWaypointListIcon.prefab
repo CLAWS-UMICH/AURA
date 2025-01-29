@@ -308,6 +308,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CompanionWaypointListIcon
       objectReference: {fileID: 0}
+    - target: {fileID: 8290906168760161106, guid: a69170382c049914c9866f5914e0adee,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.011860867
+      objectReference: {fileID: 0}
+    - target: {fileID: 8290906168760161106, guid: a69170382c049914c9866f5914e0adee,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.001020546
+      objectReference: {fileID: 0}
     - target: {fileID: 8290906169061678286, guid: a69170382c049914c9866f5914e0adee,
         type: 3}
       propertyPath: m_IsActive

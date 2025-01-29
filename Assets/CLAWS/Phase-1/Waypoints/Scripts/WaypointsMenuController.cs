@@ -19,14 +19,15 @@ public class WaypointsMenuController : MonoBehaviour
     [SerializeField] private GameObject waypointTypeText;
 
     [SerializeField] private static List<Waypoint> waypointsList = Waypoints.WaypointsList;
+    [SerializeField] private WaypointsDynamicPop waypointsDynamicPop;
 
     // Start is called before the first frame update
     void Start()
     {
         // Initalize menu gameobjects
-        waypointsMenu = GameObject.Find("WaypointsMenu").gameObject;
-        createWaypointMenu = GameObject.Find("CreateWaypointMenu").gameObject;
-        navigationMenu = GameObject.Find("NavigationMenu").gameObject;
+        waypointsMenu = gameObject.transform.Find("WaypointsMenu").gameObject;
+        createWaypointMenu = gameObject.transform.Find("CreateWaypointMenu").gameObject;
+        navigationMenu = gameObject.transform.Find("NavigationMenu").gameObject;
         createWaypointMenu.SetActive(false);
         navigationMenu.SetActive(false);
 
@@ -51,6 +52,8 @@ public class WaypointsMenuController : MonoBehaviour
 
         // Initialize waypoint type text
         waypointTypeText = waypointsMenu.transform.Find("WaypointTypeText").gameObject;
+
+        waypointsDynamicPop = waypointsMenu.transform.Find("Content").Find("GridLayout").GetComponent<WaypointsDynamicPop>();
     }
 
     private void Update()
@@ -64,6 +67,7 @@ public class WaypointsMenuController : MonoBehaviour
         waypointsMenu.SetActive(true);
         createWaypointMenu.SetActive(false);
         navigationMenu.SetActive(false);
+        waypointsDynamicPop.PopulateContent("Companion");
     }
 
     // onClick function for "X" button on menus
@@ -102,6 +106,7 @@ public class WaypointsMenuController : MonoBehaviour
                     w.WaypointObject.transform.Find("Minimized").gameObject.SetActive(true);
                 }
             }
+            waypointsDynamicPop.PopulateContent("Companion");
             //companionsHighlight.SetActive(true);
             //stationsHighlight.SetActive(false);
             //samplesHighlight.SetActive(false);
@@ -124,6 +129,7 @@ public class WaypointsMenuController : MonoBehaviour
                     w.WaypointObject.transform.Find("Minimized").gameObject.SetActive(true);
                 }
             }
+            waypointsDynamicPop.PopulateContent("Station");
             //companionsHighlight.SetActive(false);
             //stationsHighlight.SetActive(true);
             //samplesHighlight.SetActive(false);
@@ -146,6 +152,7 @@ public class WaypointsMenuController : MonoBehaviour
                     w.WaypointObject.transform.Find("Minimized").gameObject.SetActive(true);
                 }
             }
+            waypointsDynamicPop.PopulateContent("Sample");
             //companionsHighlight.SetActive(false);
             //stationsHighlight.SetActive(false);
             //samplesHighlight.SetActive(true);
@@ -168,6 +175,7 @@ public class WaypointsMenuController : MonoBehaviour
                     w.WaypointObject.transform.Find("Minimized").gameObject.SetActive(true);
                 }
             }
+            waypointsDynamicPop.PopulateContent("Danger");
             //companionsHighlight.SetActive(false);
             //stationsHighlight.SetActive(false);
             //samplesHighlight.SetActive(false);
@@ -190,6 +198,7 @@ public class WaypointsMenuController : MonoBehaviour
                     w.WaypointObject.transform.Find("Minimized").gameObject.SetActive(true);
                 }
             }
+            waypointsDynamicPop.PopulateContent("Interest");
             //companionsHighlight.SetActive(false);
             //stationsHighlight.SetActive(false);
             //samplesHighlight.SetActive(false);
@@ -221,6 +230,15 @@ public class WaypointsMenuController : MonoBehaviour
     public void onClickSelectWaypointType()
     {
         // TODO: IMPLEMENT BELOW
+    }
+
+    // onClick function for selecting waypoint on Waypoints menu to navigate to selected waypoint
+    public void onClickWaypoint(Waypoint waypoint)
+    {
+        waypointsMenu.SetActive(false);
+        navigationMenu.SetActive(true);
+        navigationMenu.transform.Find("NavigationTitle").GetComponent<TextMeshPro>().text = "Navigation to " + waypoint.Type + ": " + waypoint.Name;
+        // TODO: Use waypoint data to adjust ETAText, EDAText, BatteryDepletion bar, OxygenDepletion bar, and minimap
     }
 
     // onClick function for "Back" button on Navigation menu
