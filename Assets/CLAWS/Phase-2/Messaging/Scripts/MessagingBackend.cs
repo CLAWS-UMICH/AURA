@@ -54,16 +54,6 @@ public class MessagingBackend : MonoBehaviour
         }
     }
 
-    public class MessageNotificationEvent
-    {
-        public List<Message> NewAddedMessages { get; private set; }
-
-        public MessageNotificationEvent(List<Message> newMessages)
-        {
-            NewAddedMessages = newMessages;
-        }
-    }
-
     public void CloseNotification()
     {
         notificationPanel.SetActive(false);
@@ -142,5 +132,15 @@ public class MessagingBackend : MonoBehaviour
         EventBus.Unsubscribe(messageSentEvent);
         EventBus.Unsubscribe(messageReactionEvent);
         EventBus.Unsubscribe(messageNotifEvent);
+    }
+}
+
+public class MessageNotificationEvent
+{
+    public List<Message> NewAddedMessages { get; private set; }
+
+    public MessageNotificationEvent(List<Message> newMessages)
+    {
+        NewAddedMessages = newMessages;
     }
 }
