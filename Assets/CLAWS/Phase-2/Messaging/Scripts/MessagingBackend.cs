@@ -11,9 +11,24 @@ public class MessagingBackend : MonoBehaviour
     List<Message> AstroChat = new List<Message>();
     List<Message> LMCCChat = new List<Message>();
     List<Message> GroupChat = new List<Message>();
+
+    [SerializeField]private GameObject messageObject;
+    [SerializeField]private GameObject LMCCgc;
+    [SerializeField]private GameObject A2gc;
+    [SerializeField]private GameObject A2andLMCCgc;
+    [SerializeField]private Sprite thumbsUp;
+    [SerializeField]private Sprite thumbsDown;
+    [SerializeField]private Sprite warning;
+    [SerializeField]private GameObject notificationPanel;
+    [SerializeField]private TextMeshProUGUI notificationText;
+    [SerializeField] private GameObject chatWindow;
+    private string messageText;
+    
+
     private Subscription<MessagesAddedEvent> messageAddedEvent;
     private Subscription<MessageSentEvent> messageSentEvent;
     private Subscription<MessageReactionEvent> messageReactionEvent;
+    private Subscription<MessageNotificationEvent> messageNotifEvent;
     private WebSocketClient webSocketClient;
 
 
@@ -25,10 +40,39 @@ public class MessagingBackend : MonoBehaviour
         messageAddedEvent = EventBus.Subscribe<MessagesAddedEvent>(appendList);
         messageSentEvent = EventBus.Subscribe<MessageSentEvent>(sendMessage);
         messageReactionEvent = EventBus.Subscribe<MessageReactionEvent>(sendReaction);
+        messageNotifEvent = EventBus.Subscribe<MessageNotificationEvent>(onNewMessageReceived);
 
         InitializeWebConnection();
     }
 
+    void onNewMessageReceived(MessageNotificationEvent e)
+    {
+        if (e.NewAddedMessages.Count > 0)
+        {
+            notificationText.text = "New message received!";    
+            notificationPanel.SetActive(true);
+        }
+    }
+
+    public class MessageNotificationEvent
+    {
+        public List<Message> NewAddedMessages { get; private set; }
+
+        public MessageNotificationEvent(List<Message> newMessages)
+        {
+            NewAddedMessages = newMessages;
+        }
+    }
+
+    public void CloseNotification()
+    {
+        notificationPanel.SetActive(false);
+    }
+
+    public void CloseChatWindow()
+    {
+        chatWindow.SetActive(false);
+    }
 
     private void  InitializeWebConnection()
     {
@@ -67,6 +111,7 @@ public class MessagingBackend : MonoBehaviour
                 AstroChat.Add(m);
             }
         }
+        EventBus.Publish(new MessageNotificationEvent(e.NewAddedMessages));
     }
 
 
@@ -96,5 +141,6 @@ public class MessagingBackend : MonoBehaviour
         EventBus.Unsubscribe(messageAddedEvent);
         EventBus.Unsubscribe(messageSentEvent);
         EventBus.Unsubscribe(messageReactionEvent);
+        EventBus.Unsubscribe(messageNotifEvent);
     }
 }
