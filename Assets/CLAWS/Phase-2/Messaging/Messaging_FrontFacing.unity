@@ -983,11 +983,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3592834283080500271, guid: 23ad519888b9442b8911cbf42e0becd4,
-        type: 3}
-      propertyPath: managedReferences[6].targets.Array.data[0]
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 5052955753720969706, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1043,15 +1038,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: MessagingController
       objectReference: {fileID: 0}
-    - target: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2941058861371621246}
+    - targetCorrespondingSourceObject: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2941058861371621245}
     - targetCorrespondingSourceObject: {fileID: 5073481230167050345, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
       insertIndex: -1
@@ -1125,6 +1123,80 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 23ad519888b9442b8911cbf42e0becd4, type: 3}
+--- !u!1 &2941058861371621243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2941058861371621242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2941058861371621244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3470336270662583402, guid: 23ad519888b9442b8911cbf42e0becd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2941058861371621242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2941058861371621245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2941058861371621243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5ee950dea0b14d3fa2aa549ae8d9dee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageObject: {fileID: 2941058861371621244}
+  LMCCgc: {fileID: 0}
+  A2gc: {fileID: 0}
+  A2andLMCCgc: {fileID: 0}
+  thumbsUp: {fileID: 0}
+  thumbsDown: {fileID: 0}
+  warning: {fileID: 0}
+--- !u!114 &2941058861371621246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2941058861371621243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9138a69987212743ba7ff3a7785ccf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _user:
+    id: 0
+    location:
+      latitude: 0
+      longitude: 0
+    vitals:
+      eva_time: 0
+      batt_time_left: 0
+      oxy_pri_storage: 0
+      oxy_sec_storage: 0
+      oxy_pri_pressure: 0
+      oxy_sec_pressure: 0
+      oxy_time_left: 0
+      heart_rate: 0
+      oxy_consumption: 0
+      co2_production: 0
+      suit_pressure_oxy: 0
+      suit_pressure_co2: 0
+      suit_pressure_other: 0
+      suit_pressure_total: 0
+      fan_pri_rpm: 0
+      fan_sec_rpm: 0
+      helmet_pressure_co2: 0
+      scrubber_a_co2_storage: 0
+      scrubber_b_co2_storage: 0
+      temperature: 0
+      coolant_m: 0
+      coolant_gas_pressure: 0
+      coolant_liquid_pressure: 0
+    messages:
+      AllMessages: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
