@@ -230,7 +230,6 @@ public class TaskObj
 }
 
 //Messaging
-
 [System.Serializable]
 public class Messaging
 {
@@ -254,12 +253,10 @@ public class Message
 
     public Message(int init_sent_to, string init_message, int init_from)
     {
-        message_id = global_message_id;
+        message_id = global_message_id++;
         sent_to = init_sent_to;
         message = init_message;
         from = init_from;
-
-        global_message_id++;
     }
 
     public override bool Equals(object obj)

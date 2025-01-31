@@ -252,3 +252,22 @@ public class MessagesAddedEvent
         NewAddedMessages = newAddedMessages;
     }
 }
+
+public class MessageSentEvent
+{
+    public Message NewMadeMessage { get; private set; }
+
+    public MessageSentEvent(Message newMadeMessage)
+    {
+        NewMadeMessage = newMadeMessage;
+    }
+}
+
+public class MessageReactionEvent
+{
+    public Message NewReactionMessage { get; private set; }
+    public MessageReactionEvent(Message newRactionMessage)
+    {
+        NewReactionMessage = newRactionMessage;
+    }
+}

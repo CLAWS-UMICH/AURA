@@ -1043,6 +1043,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MessagingController
       objectReference: {fileID: 0}
+    - target: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -1,30 +1,7 @@
 {
-    "type": "VITALS",
-    "use": "POST",
-    "data": {
-        "eva_time": 0,
-        "batt_time_left": 5632,
-        "oxy_pri_stroage": 42,
-        "oxy_sec_storage": 100,
-        "oxy_pri_pressure": 1200,
-        "oxy_sec_pressure": 3000,
-        "oxy_time_left": 5687,
-        "coolant_storage": 100,
-        "heart_rate": 87,
-        "oxy_consumption": 0.09,
-        "co2_production": 0.12,
-        "suit_pressure_oxy": 4.0,
-        "suit_pressure_co2": 0.0,
-        "suit_pressure_other": 0.0,
-        "suit_pressure_total": 4.0,
-        "helmet_pressure_co2": 0.1,
-        "fan_pri_rpm": 30000,
-        "fan_sec_rpm": 30000,
-        "scrubber_a_co2_storage": 32,
-        "scrubber_b_co2_storage": 0,
-        "temperature": 70,
-        "coolant_liquid_pressure": 400,
-        "coolant_gas_pressure": 0,
-        "alerts": {}
-    }
+    "room": "MESSAGING",
+    "message_id": 0,
+    "sent_to": 0,
+    "message": "",
+    "from": 0
 }

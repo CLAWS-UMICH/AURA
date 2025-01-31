@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// important file for prefab spacing.
 public class TaskListScrollHandler : MonoBehaviour
 {
     [SerializeField] private float spacing = 0.1f; // Distance between gameobjects
