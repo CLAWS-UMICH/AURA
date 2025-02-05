@@ -14,7 +14,26 @@ public class TaskManager : MonoBehaviour
 
     void Start()
     {
-        // Initialize with some tasks
+        // Validate components
+        if (taskPrompts == null || taskPrompts.Length == 0)
+        {
+            Debug.LogError("Task prompts array not set!");
+            return;
+        }
+
+        if (moreTasksText == null)
+        {
+            Debug.LogError("More tasks text reference not set!");
+            return;
+        }
+
+        if (loadingIcon == null)
+        {
+            Debug.LogError("Loading icon reference not set!");
+            return;
+        }
+
+        // Initialize tasks
         AddTask("Finding Waypoint");
         AddTask("Open Navigation");
         AddTask("Start Navigation");
@@ -38,16 +57,20 @@ public class TaskManager : MonoBehaviour
             if (tasks.Count > i)
             {
                 string taskText = tasks.ToArray()[i];
-                Debug.Log("Task Text is: " + taskText);
-                if (i == 0 && tasks.Count > 1) // Check if it's the first task and there are more tasks
+                if (i == 0 && tasks.Count > 1)
                 {
-                    taskText += " ..."; // Append "..." to the first task
+                    taskText += " ...";
                 }
 
-                // Get the TextMeshPro component from the task prompt GameObject
-                TextMeshPro taskTextComponent = GameObject.Find("TaskText").GetComponent<TextMeshPro>();
-                taskTextComponent.text = taskText;
-
+                // Get the TaskText component within the current taskPrompt
+                TextMeshPro taskTextComponent = taskPrompts[i].transform
+                    .Find("TaskText")
+                    .GetComponent<TextMeshPro>();
+                    
+                if (taskTextComponent != null)
+                {
+                    taskTextComponent.text = taskText;
+                }
 
                 taskPrompts[i].SetActive(true);
             }
@@ -57,14 +80,16 @@ public class TaskManager : MonoBehaviour
             }
         }
 
+        // Update more tasks counter
         if (tasks.Count > taskPrompts.Length)
         {
-            TextMeshProUGUI moreTasksTextComponent = moreTasksText.GetComponentInChildren<TextMeshProUGUI>();
+            moreTasksText.SetActive(true);
+            TextMeshProUGUI moreTasksTextComponent = moreTasksText
+                .GetComponent<TextMeshProUGUI>();
             if (moreTasksTextComponent != null)
             {
                 moreTasksTextComponent.text = $"+{tasks.Count - taskPrompts.Length} more tasks";
             }
-            moreTasksText.SetActive(true);
         }
         else
         {
