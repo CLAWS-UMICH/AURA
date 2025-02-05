@@ -1,3 +1,7 @@
+// Wrote by: Haotian Li 
+// Description: This script manages the voice assistant task queue and updates the UI accordingly.
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
