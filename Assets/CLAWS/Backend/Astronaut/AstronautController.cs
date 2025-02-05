@@ -243,7 +243,7 @@ public class Message
 
     public int message_id; // starting from 0 and going up 1
     public int sent_to; // Astronaut ID it was sent to  //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3, Group = 4
-    public string message;
+    public string message; 
     public int from; // Astronaut ID it who sent the message    //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3, Group = 4
 
     public Message()

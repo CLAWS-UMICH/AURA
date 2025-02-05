@@ -18,9 +18,9 @@ public class FrontEndButton : MonoBehaviour
 
     void Start () 
     {
-        lmccGC.SetActive(false);
-        a2andlmccGC.SetActive(false);
-        a2
+        LMCCgc.SetActive(false);
+        A2andLMCCgc.SetActive(false);
+        A2gc.SetActive(true);
     }
 
     void sendMessageButton() 
@@ -166,20 +166,42 @@ public class FrontEndButton : MonoBehaviour
 
     void lmccGC() 
     {
-        lmccGC.SetActive(true);
-
+        LMCCgc.SetActive(true);
+        A2andLMCCgc.SetActive(false);
+        A2gc.SetActive(false);
     }
 
 
     void a2GC() 
     {
-
+        LMCCgc.SetActive(false);
+        A2andLMCCgc.SetActive(false);
+        A2gc.SetActive(true);
     }
 
 
     void a2andlmccGC()
     {
-
+        LMCCgc.SetActive(false);
+        A2andLMCCgc.SetActive(true);
+        A2gc.SetActive(false);
     }
 
+
+    // void upButton() 
+    // {
+    //     // call scroll handler
+    // }
+
+
+    // void downButton()
+    // {
+    //     // call scroll handler
+    // }
+
 }
+
+
+
+
+// <prefab>.transform.Find("CompressableButtonVisuals".Find("IconAndText").Find("Message").GetComponent<TextMeshPro>().text;

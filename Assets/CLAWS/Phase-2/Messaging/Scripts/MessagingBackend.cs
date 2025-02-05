@@ -90,7 +90,6 @@ public class MessagingBackend : MonoBehaviour
     }
 
 
-
     void appendList(MessagesAddedEvent e)
     {
         foreach (Message m in e.NewAddedMessages)
