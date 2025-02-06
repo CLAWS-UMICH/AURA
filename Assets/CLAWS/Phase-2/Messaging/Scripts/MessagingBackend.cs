@@ -45,24 +45,6 @@ public class MessagingBackend : MonoBehaviour
         InitializeWebConnection();
     }
 
-    void onNewMessageReceived(MessageNotificationEvent e)
-    {
-        if (e.NewAddedMessages.Count > 0)
-        {
-            notificationText.text = "New message received!";    
-            notificationPanel.SetActive(true);
-        }
-    }
-
-    public void CloseNotification()
-    {
-        notificationPanel.SetActive(false);
-    }
-
-    public void CloseChatWindow()
-    {
-        chatWindow.SetActive(false);
-    }
 
     private void  InitializeWebConnection()
     {
@@ -131,6 +113,16 @@ public class MessagingBackend : MonoBehaviour
         EventBus.Unsubscribe(messageSentEvent);
         EventBus.Unsubscribe(messageReactionEvent);
         EventBus.Unsubscribe(messageNotifEvent);
+    }
+}
+
+public class MessageNotificationEvent
+{
+    public List<Message> NewAddedMessages { get; private set; }
+
+    public MessageNotificationEvent(List<Message> newMessages)
+    {
+        NewAddedMessages = newMessages;
     }
 }
 
