@@ -1052,6 +1052,14 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2941058861371621245}
+    - targetCorrespondingSourceObject: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2941058861371621244}
     - targetCorrespondingSourceObject: {fileID: 5073481230167050345, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
       insertIndex: -1
@@ -1125,6 +1133,50 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 23ad519888b9442b8911cbf42e0becd4, type: 3}
+--- !u!1 &2941058861371621243 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 2941058861371621242}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2941058861371621244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2941058861371621243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a70da3cafe8d449feb778c8ef6263723, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageObject: {fileID: 0}
+  LMCCgc: {fileID: 0}
+  A2gc: {fileID: 0}
+  A2andLMCCgc: {fileID: 0}
+  thumbsUp: {fileID: 0}
+  thumbsDown: {fileID: 0}
+  warning: {fileID: 0}
+--- !u!114 &2941058861371621245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2941058861371621243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a8a465427a434891a826440db7f1da0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabs: []
+  clones: []
+  LMCC: {fileID: 0}
+  A2: {fileID: 0}
+  LMCCChat: []
+  AstroChat: []
+  GroupChat: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

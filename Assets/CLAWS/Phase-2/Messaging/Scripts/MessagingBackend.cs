@@ -6,7 +6,7 @@ using TMPro;
 public class MessagingBackend : MonoBehaviour
 {
     Messaging msgList;
-    List<Message> allMessage = new List<Message>();
+    public List<Message> allMessage = new List<Message>();
     List<Message> AstroChat = new List<Message>();
     List<Message> LMCCChat = new List<Message>();
     List<Message> GroupChat = new List<Message>();
