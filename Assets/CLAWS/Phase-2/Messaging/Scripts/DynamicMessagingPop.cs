@@ -34,7 +34,7 @@ public class DynamicMessagingPop : MonoBehaviour
         }
     }
 
-    void appendList() { //making the current list whatever the current active screen is
+    public void appendList() { //making the current list whatever the current active screen is
         if (LMCC.activeSelf == true) {
             currentList = LMCCChat;
         } else if (A2.activeSelf == true) {
