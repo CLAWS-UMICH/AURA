@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor.Rendering;
+using System.Numerics;
+using Unity.Collections.LowLevel.Unsafe;
 
 // Location
 [System.Serializable]
@@ -227,4 +229,83 @@ public class TaskObj
     {
         return comSub;
     }
+}
+
+public struct Composition {
+    string element;
+    float amount;
+    public Composition(string elt, float amt) {
+        element = elt;
+        amount = amt;
+    }
+}
+[System.Serializable]
+public class GeoSample {
+    public string name;
+    public string zone;
+    public string type;
+    public string shape;
+    public string color;
+    public string note;
+    public int id;
+    public List<Composition> comp;
+    public GeoSample() {
+        name = "";
+        zone = "";
+        type = "";
+        shape = "";
+        color = "";
+        note = "";
+        id = 0;
+        comp = new List<Composition>();
+    }
+    public GeoSample(string nameIn, string zoneIn, string typeIn, string shapeIn, string colorIn, string noteIn, int idIn, List<Composition> compIn) {
+        name = nameIn;
+        zone = zoneIn;
+        type = typeIn;
+        shape = shapeIn;
+        color = colorIn;
+        note = noteIn;
+        id = idIn;
+        comp = new List<Composition>(compIn);
+    }
+}
+[System.Serializable]
+public class GeoSampleDB {
+    List<GeoSample> samples;
+    GeoSample curr;
+    public GeoSampleDB() {
+        samples = new List<GeoSample>();
+    }
+     public GeoSampleDB(List<GeoSample> data)
+    {
+        foreach (GeoSample sample in data)
+        {
+            GeoSample geo = new GeoSample(sample.name, sample.zone, sample.type, sample.shape, sample.color, sample.note, sample.id, sample.comp);
+            samples.Add(geo);
+        }
+    }
+
+    public void add(GeoSample g)
+    {
+        samples.Add(g);
+    }
+
+    public void insert(int pos, GeoSample g)
+    {
+        samples.Insert(pos, g);
+    }
+
+    public void update(GeoSample newG)
+    {
+        for (int i = 0; i < samples.Count; i++)
+        {
+            if (samples[i].id == newG.id)
+            {
+                samples[i] = newG;
+                break;
+            }
+        }
+    }
+
 }
