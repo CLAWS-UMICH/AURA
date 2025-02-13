@@ -34,5 +34,7 @@ Material:
     m_Floats:
     - _Line_Width_: 0.001
     - _Radius_: 0.015
-    m_Colors: []
+    m_Colors:
+    - _Base_Color_: {r: 0.62352943, g: 0.050980393, b: 0.050980393, a: 1}
+    - _Line_Color_: {r: 0.92156863, g: 0.34117648, b: 0.34117648, a: 1}
   m_BuildTextureStacks: []

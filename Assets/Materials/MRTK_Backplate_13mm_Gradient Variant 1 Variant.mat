@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: MRTK_Backplate_13mm_Gradient Variant 1 Variant
   m_Shader: {fileID: 4800000, guid: bf1548464ae044849a0ce555785ea4a2, type: 3}
-  m_Parent: {fileID: 2100000, guid: 1f0007fcca3de4f09b0bed919f13d2ef, type: 2}
+  m_Parent: {fileID: 2100000, guid: a1d805f41e81e470ea1f12f65745a2a8, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - _EDGE_ONLY_
@@ -26,12 +26,13 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Line_Color_
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
     - _Radius_: 0.03
-    m_Colors: []
+    m_Colors:
+    - _Base_Color_: {r: 0.13725491, g: 0.1764706, b: 0.45490196, a: 1}
   m_BuildTextureStacks: []
