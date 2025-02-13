@@ -23,12 +23,12 @@ public class AIAssistantIcon : MonoBehaviour
     void Start()
     {
         // TODO: Find aiAssistantIcon in scene
-        aiAssistantIcon = GameObject.Find("IrregularCircleQuad").gameObject;
-        colorCircle = aiAssistantIcon.transform.Find("QuadColor").gameObject;
+        //aiAssistantIcon = GameObject.Find("IrregularCircleQuad").gameObject;
+        //colorCircle = aiAssistantIcon.transform.Find("QuadColor").gameObject;
 
         // Initialize the icon as invisible and at small scale
-        aiAssistantIcon.transform.localScale = smallScale;
-        aiAssistantIcon.SetActive(false);
+        //aiAssistantIcon.transform.localScale = smallScale;
+        //aiAssistantIcon.SetActive(false);
     }
 
     public void ToggleVoiceAssistant(bool isOn)

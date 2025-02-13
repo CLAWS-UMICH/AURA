@@ -17,7 +17,7 @@ public class MenuState : MonoBehaviour
     [SerializeField] private GameObject NavigationButton;
     [SerializeField] private GameObject MessagesButton;
     [SerializeField] private GameObject SamplesButton;
-    [SerializeField] private GameObject VitalsButton; 
+    [SerializeField] private GameObject VitalsButton;
 
     // are we doing the modes button??
     // [SerializeField] private GameObject ModesButton;
@@ -69,6 +69,16 @@ public class MenuState : MonoBehaviour
         }
     }
 
+    public void CloseMenus()
+    {
+
+    }
+
+    public void ActivateVoiceAssistant()
+    {
+        transform.parent.Find("VoiceAssistant").GetComponent<VoiceAssistantController>().ToggleVoiceAssistant();
+    }
+
     public void ClickTasks()
     {
         //transform.parent.Find("Main_TaskList").GetComponent<TaskListScreenHandler>().OpenTaskListMain();
@@ -77,7 +87,9 @@ public class MenuState : MonoBehaviour
 
     public void ClickNavigation()
     {
-        //transform.parent.Find("Navigation").Find("NavController").GetComponent<NavScreenHandler>().OpenNavScreen();
+        transform.parent.Find("Navigation").gameObject.SetActive(true);
+        //transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().openWaypoints();
+        //transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().onClickChangeWaypointType(0);
         //ClickIRISClose();
     }
 
@@ -230,7 +242,7 @@ public class MenuState : MonoBehaviour
     //     {
     //         IRISMenu.SetActive(true);
     //         IRISHideMenuButton.SetActive(true);
-            
+
     //         if (isIRISModeSelected)
     //         {
     //             ExitIRISModeButton.SetActive(true);
