@@ -5,7 +5,9 @@ public class BreadcrumbTrail : MonoBehaviour
     public Transform targetBlock; // End point
     public Transform[] dangerZones; // Array of objects representing danger zones
     public float dangerRadius = 1f; // Radius of each danger zone
-    public int curveResolution = 5; // Number of points for curved path
+    public int curveResolution = 10; // Number of points for curved path
+    public LayerMask groundLayer; // Layer mask to detect the floor
+    public float breadcrumbHeightOffset = 0.05f; // Small offset to prevent clipping
 
     private LineRenderer lineRenderer;
     private Transform playerTransform; // Player position reference
@@ -26,8 +28,9 @@ public class BreadcrumbTrail : MonoBehaviour
     {
         if (playerTransform != null && targetBlock != null)
         {
-            Vector3 playerPos = playerTransform.position + new Vector3(0, -0.1f, 0);
-            Vector3 targetPos = targetBlock.position;
+            // Get ground-adjusted positions
+            Vector3 playerPos = GetGroundPosition(playerTransform.position);
+            Vector3 targetPos = GetGroundPosition(targetBlock.position);
 
             Transform closestDangerZone = null;
             Vector3 closestIntersection = Vector3.zero;
@@ -55,12 +58,31 @@ public class BreadcrumbTrail : MonoBehaviour
             }
             else
             {
-                // No danger zones in the way, draw a straight line
-                lineRenderer.positionCount = 2;
-                lineRenderer.SetPosition(0, playerPos);
-                lineRenderer.SetPosition(1, targetPos);
+                DrawBreadcrumbPath(playerPos, targetPos);
             }
         }
+    }
+
+    void DrawBreadcrumbPath(Vector3 start, Vector3 end)
+    {
+        lineRenderer.positionCount = curveResolution;
+        for (int i = 0; i < curveResolution; i++)
+        {
+            float t = i / (float)(curveResolution - 1);
+            Vector3 point = Vector3.Lerp(start, end, t);
+            point = GetGroundPosition(point); // Ensure breadcrumb is set on the ground
+            lineRenderer.SetPosition(i, point);
+        }
+    }
+
+    Vector3 GetGroundPosition(Vector3 originalPosition)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(originalPosition + Vector3.up * 2f, Vector3.down, out hit, Mathf.Infinity, groundLayer))
+        {
+            return new Vector3(originalPosition.x, hit.point.y + breadcrumbHeightOffset, originalPosition.z);
+        }
+        return new Vector3(originalPosition.x, 0.05f, originalPosition.z); // Default to a flat plane if no ground detected
     }
 
     bool IsRayIntersectingDangerZone(Vector3 start, Vector3 end, Transform dangerZone, out Vector3 intersection)
@@ -91,28 +113,25 @@ public class BreadcrumbTrail : MonoBehaviour
         Vector3 dangerCenter = dangerZone.position;
         
         // Calculate avoidance direction, ignoring Y-axis 
-        // (we want ray to stay flat or parallel to the ground)
         Vector3 avoidDir = (closestPoint - dangerCenter);
-        avoidDir.y = 0; // Flatten to stay parallel to the ground
+        avoidDir.y = 0; // Keep the curve flat
         avoidDir = avoidDir.normalized;
 
         // Set the midpoint away from the danger zone 
-        Vector3 midPoint = closestPoint + avoidDir * dangerRadius * 1.2f;
-        midPoint.y = start.y; // Ensure it remains at the same Y level as the player!
+        Vector3 midPoint = closestPoint + avoidDir * dangerRadius * 1.5f;
+        midPoint = GetGroundPosition(midPoint); // Ensure it stays on the ground
 
-        // Create smooth curve using Bezier interpolation (idk what this is, ChatGPT recommended this method)
-        // https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+        // Create smooth curve using Bezier interpolation
         lineRenderer.positionCount = curveResolution;
         for (int i = 0; i < curveResolution; i++)
         {
             float t = i / (float)(curveResolution - 1);
             Vector3 curvePoint = QuadraticBezier(start, midPoint, end, t);
-            curvePoint.y = start.y; // Keep all points flat!
+            curvePoint = GetGroundPosition(curvePoint); // Keep each point on the ground
             lineRenderer.SetPosition(i, curvePoint);
         }
     }
 
-    // Bezier interpolation 
     Vector3 QuadraticBezier(Vector3 p0, Vector3 p1, Vector3 p2, float t)
     {
         return (1 - t) * (1 - t) * p0 + 2 * (1 - t) * t * p1 + t * t * p2;
