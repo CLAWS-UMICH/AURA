@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using MixedReality.Toolkit.UX;
 using TMPro;
 
 public class WaypointsMenuController : MonoBehaviour
@@ -10,13 +11,13 @@ public class WaypointsMenuController : MonoBehaviour
     [SerializeField] private GameObject createWaypointMenu;
     [SerializeField] private GameObject navigationMenu;
 
-    [SerializeField] private GameObject companionsHighlight;
-    [SerializeField] private GameObject stationsHighlight;
-    [SerializeField] private GameObject samplesHighlight;
-    [SerializeField] private GameObject dangerHighlight;
-    [SerializeField] private GameObject interestHighlight;
-
     [SerializeField] private GameObject waypointTypeText;
+
+    [SerializeField] private GameObject companionsButton;
+    [SerializeField] private GameObject stationsButton;
+    [SerializeField] private GameObject samplesButton;
+    [SerializeField] private GameObject dangerButton;
+    [SerializeField] private GameObject interestButton;
 
     // Start is called before the first frame update
     void Start()
@@ -27,25 +28,6 @@ public class WaypointsMenuController : MonoBehaviour
         navigationMenu = GameObject.Find("NavigationMenu").gameObject;
         createWaypointMenu.SetActive(false);
         navigationMenu.SetActive(false);
-
-        // Initialize highlighted backplates for waypoint types
-        GameObject buttons = waypointsMenu.transform.Find("VerticalAppBar").Find("Buttons").gameObject;
-        companionsHighlight = buttons.transform.Find("CompanionsButton").Find("HighlightedBackplate").gameObject;
-        stationsHighlight = buttons.transform.Find("StationsButton").Find("HighlightedBackplate").gameObject;
-        samplesHighlight = buttons.transform.Find("SamplesButton").Find("HighlightedBackplate").gameObject;
-        dangerHighlight = buttons.transform.Find("DangerButton").Find("HighlightedBackplate").gameObject;
-        interestHighlight = buttons.transform.Find("InterestButton").Find("HighlightedBackplate").gameObject;
-        stationsHighlight.SetActive(false);
-        samplesHighlight.SetActive(false);
-        dangerHighlight.SetActive(false);
-        interestHighlight.SetActive(false);
-
-        // Initialize current selected waypoint type
-        companionsHighlight.SetActive(true);        // TODO: SPAWN WAYPOINT LIST FOR COMPANIONS
-        stationsHighlight.SetActive(false);
-        samplesHighlight.SetActive(false);
-        dangerHighlight.SetActive(false);
-        interestHighlight.SetActive(false);
 
         // Initialize waypoint type text
         waypointTypeText = waypointsMenu.transform.Find("WaypointTypeText").gameObject;
@@ -59,6 +41,12 @@ public class WaypointsMenuController : MonoBehaviour
         navigationMenu.SetActive(false);
     }
 
+    public void OpenNavigationMenu()
+    {
+        waypointsMenu.SetActive(true);
+        onClickChangeWaypointType(0);
+    }
+
     // onClick function for "Add Waypoint"
     public void onClickAddWaypoint()
     {
@@ -67,54 +55,34 @@ public class WaypointsMenuController : MonoBehaviour
     }
 
     // onClick function for changing waypoint types with sidebar buttons
-    public void onClickChangeWaypointType()
+    public void onClickChangeWaypointType(float type)
     {
         // TODO: SPAWN WAYPOINT LIST FOR EACH WAYPOINT TYPE
         string clickedButton = EventSystem.current.currentSelectedGameObject.name;
-        if (clickedButton.Equals("CompanionsButton"))
+        if (clickedButton.Equals("CompanionsButton") || type == 0)
         {
             waypointTypeText.GetComponent<TextMeshPro>().text = "Companions";
-            companionsHighlight.SetActive(true);
-            stationsHighlight.SetActive(false);
-            samplesHighlight.SetActive(false);
-            dangerHighlight.SetActive(false);
-            interestHighlight.SetActive(false);
+            companionsButton.GetComponent<PressableButton>().ForceSetToggled(true);
         }
-        else if (clickedButton.Equals("StationsButton"))
+        else if (clickedButton.Equals("StationsButton") || type == 1)
         {
             waypointTypeText.GetComponent<TextMeshPro>().text = "Stations";
-            companionsHighlight.SetActive(false);
-            stationsHighlight.SetActive(true);
-            samplesHighlight.SetActive(false);
-            dangerHighlight.SetActive(false);
-            interestHighlight.SetActive(false);
+            stationsButton.GetComponent<PressableButton>().ForceSetToggled(true);
         }
-        else if (clickedButton.Equals("SamplesButton"))
+        else if (clickedButton.Equals("SamplesButton") || type == 2)
         {
             waypointTypeText.GetComponent<TextMeshPro>().text = "Samples";
-            companionsHighlight.SetActive(false);
-            stationsHighlight.SetActive(false);
-            samplesHighlight.SetActive(true);
-            dangerHighlight.SetActive(false);
-            interestHighlight.SetActive(false);
+            samplesButton.GetComponent<PressableButton>().ForceSetToggled(true);
         }
-        else if (clickedButton.Equals("DangerButton"))
+        else if (clickedButton.Equals("DangerButton") || type == 3)
         {
             waypointTypeText.GetComponent<TextMeshPro>().text = "Danger";
-            companionsHighlight.SetActive(false);
-            stationsHighlight.SetActive(false);
-            samplesHighlight.SetActive(false);
-            dangerHighlight.SetActive(true);
-            interestHighlight.SetActive(false);
+            dangerButton.GetComponent<PressableButton>().ForceSetToggled(true);
         }
-        else if (clickedButton.Equals("InterestButton"))
+        else if (clickedButton.Equals("InterestButton") || type == 4)
         {
             waypointTypeText.GetComponent<TextMeshPro>().text = "Interest";
-            companionsHighlight.SetActive(false);
-            stationsHighlight.SetActive(false);
-            samplesHighlight.SetActive(false);
-            dangerHighlight.SetActive(false);
-            interestHighlight.SetActive(true);
+            interestButton.GetComponent<PressableButton>().ForceSetToggled(true);
         }
     }
 

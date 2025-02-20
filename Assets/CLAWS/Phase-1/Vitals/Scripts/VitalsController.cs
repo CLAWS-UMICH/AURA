@@ -65,7 +65,7 @@ public class VitalsController : MonoBehaviour
 
     private void  InitializeWebConnection()
     {
-        GameObject controllerObject = GameObject.Find("VitalsController");
+        GameObject controllerObject = GameObject.Find("Controller").transform.Find("Vitals").gameObject;
         if (controllerObject != null){
             webSocketClient = controllerObject.GetComponent<WebSocketClient>();
             if (webSocketClient != null){
@@ -103,12 +103,12 @@ public class VitalsController : MonoBehaviour
     {
         vitalsFirstAstronautScreen.SetActive(false);
         vitalsSecondAstronautScreen.SetActive(false);
-        StateMachine.Instance.CurrScreen = Screens.Menu;
+        //StateMachine.Instance.CurrScreen = Screens.Menu;
         transform.parent.Find("Vitals").gameObject.SetActive(false);
-        if (VitalsButton.IsToggled.Active)
-        {
-            VitalsButton.ForceSetToggled(false);
-        }
+        //if (VitalsButton.IsToggled.Active)
+        //{
+        //    VitalsButton.ForceSetToggled(false);
+        //}
 
     }
 
