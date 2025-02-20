@@ -18,6 +18,9 @@ public class MenuState : MonoBehaviour
     [SerializeField] private GameObject MessagesButton;
     [SerializeField] private GameObject SamplesButton;
     [SerializeField] private GameObject VitalsButton;
+    [SerializeField] private GameObject UIAButton;
+
+    [SerializeField] private GameObject LastToggledButton;
 
     // are we doing the modes button??
     // [SerializeField] private GameObject ModesButton;
@@ -71,7 +74,37 @@ public class MenuState : MonoBehaviour
 
     public void CloseMenus()
     {
+        if (!LastToggledButton)
+        {
+            return;
+        }
 
+        LastToggledButton.GetComponent<PressableButton>().ForceSetToggled(false);
+
+        if (LastToggledButton.Equals(TasksButton))
+        {
+            transform.parent.Find("Tasklist").GetComponent<TasklistController>().CloseTasklistScreen();
+        }
+        else if (LastToggledButton.Equals(NavigationButton))
+        {
+            transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().onClickCloseMenu();
+        }
+        else if (LastToggledButton.Equals(MessagesButton))
+        {
+            //transform.parent.Find("Messages").GetComponent<WaypointsMenuController>().onClickCloseMenu();
+        }
+        else if (LastToggledButton.Equals(SamplesButton))
+        {
+            //transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().onClickCloseMenu();
+        }
+        else if (LastToggledButton.Equals(VitalsButton))
+        {
+            transform.parent.Find("Vitals").GetComponent<VitalsController>().CloseVitalScreen();
+        }
+        else if (LastToggledButton.Equals(UIAButton))
+        {
+            //transform.parent.Find("Vitals").GetComponent<VitalsController>().CloseVitalScreen();
+        }
     }
 
     public void ActivateVoiceAssistant()
@@ -81,37 +114,50 @@ public class MenuState : MonoBehaviour
 
     public void ClickTasks()
     {
-        //transform.parent.Find("Main_TaskList").GetComponent<TaskListScreenHandler>().OpenTaskListMain();
+        CloseMenus();
+        //TasksButton.GetComponent<PressableButton>().ForceSetToggled(true);
+        transform.parent.Find("Tasklist").GetComponent<TasklistController>().ToggleTasklistScreen();
+        LastToggledButton = TasksButton;
         //ClickIRISClose(
     }
 
     public void ClickNavigation()
     {
+        CloseMenus();
+        //NavigationButton.GetComponent<PressableButton>().ForceSetToggled(true);
         transform.parent.Find("Navigation").gameObject.SetActive(true);
-        //transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().openWaypoints();
-        //transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().onClickChangeWaypointType(0);
+        transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().OpenNavigationMenu();
+        LastToggledButton = NavigationButton;
         //ClickIRISClose();
     }
 
     public void ClickMessages()
     {
+        CloseMenus();
+        LastToggledButton = MessagesButton;
         //ClickIRISClose();
     }
 
     public void ClickSamples()
     {
+        CloseMenus();
+        LastToggledButton = SamplesButton;
         //ClickIRISClose();
     }
     public void ClickVitals()
     {
+        CloseMenus();
+        //VitalsButton.GetComponent<PressableButton>().ForceSetToggled(true);
         transform.parent.Find("Vitals").GetComponent<VitalsController>().ToggleVitalsScreen();
+        LastToggledButton = VitalsButton;
         // ClickIRISClose();
     }
 
     public void ClickUIA()
     {
         // TODO: Open Egress
-
+        CloseMenus();
+        LastToggledButton = UIAButton;
     }
 
     // public void ClickModes()
