@@ -16,6 +16,10 @@ public class FrontEndButton : MonoBehaviour
     private string messageText;
     private MessagingBackend messagingBackend;
 
+    public DynamicMessagingPop caller; /*For whoever is looking at this in the future. You are supposed to drag DynamicMessagingPop.cs in the inspector
+    for this bad boy, and that script handles the display of lists in the form of prefabs onto the screen. I think. we haven't tested it yet and it
+    might work without dragging.*/
+
     void Start () 
     {
         LMCCgc.SetActive(false);
@@ -169,6 +173,11 @@ public class FrontEndButton : MonoBehaviour
         LMCCgc.SetActive(true);
         A2andLMCCgc.SetActive(false);
         A2gc.SetActive(false);
+
+        caller.appendList();
+        /*Since the appendList function, which resets the list of messages to be displayed in DynamicMessagingPop.cs, need to ne called when screens are
+        changed (as changing screens or groupchats requires a new list of messages to be shown), the user changing screens should call the function
+        as well as receiving/sending new messages by anyone. The logic of which screen is active and which list to display is all handled in DMP.cs*/
     }
 
 
@@ -177,6 +186,8 @@ public class FrontEndButton : MonoBehaviour
         LMCCgc.SetActive(false);
         A2andLMCCgc.SetActive(false);
         A2gc.SetActive(true);
+
+        caller.appendList();
     }
 
 
@@ -185,6 +196,8 @@ public class FrontEndButton : MonoBehaviour
         LMCCgc.SetActive(false);
         A2andLMCCgc.SetActive(true);
         A2gc.SetActive(false);
+
+        caller.appendList();
     }
 
 

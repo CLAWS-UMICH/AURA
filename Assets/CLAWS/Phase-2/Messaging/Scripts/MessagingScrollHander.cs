@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // important file for prefab spacing.
+//script added to MessagingController Object
 public class MessagingScrollHandler : MonoBehaviour
 {
     [SerializeField] private float spacing = 0.1f; // Distance between gameobjects
@@ -11,8 +12,13 @@ public class MessagingScrollHandler : MonoBehaviour
     [SerializeField] private BoxCollider Bounds;
     [SerializeField] private Transform Content;
 
-    private List<Transform> Objects = clones; /* changed to clones assuming this will work? gets list of edited clones (in theory) from
+
+    public List<Transform> clones = new List<Transform>(); //debug object so it compiles for now
+
+
+    private List<Transform> Objects; /* changed to clones assuming this will work? gets list of edited clones (in theory) from
     DynamicMessagingPop.cs, may need to also subscribe to message added*/
+    //Changed to List<GameObject> instead of Transform to match DynamicMessagingPop.cs
 
     private Vector3 startBounds;
     private Vector3 endBounds;
@@ -94,6 +100,8 @@ public class MessagingScrollHandler : MonoBehaviour
     {
         initEvent = EventBus.Subscribe<InitPopFinishedEvent>(OnSub);
         //Debug.LogWarning("subscribed");
+        Objects = clones;
+
     }
 
     private void OnSub(InitPopFinishedEvent e)
