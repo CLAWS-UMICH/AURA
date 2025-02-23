@@ -275,6 +275,203 @@ public class Message
 }
 
 
+[System.Serializable]
+public class SPEC
+{
+    public SpecEVAs spec;
+}
 
+[System.Serializable]
+public class SpecEVAs
+{
+    public EvaData eva1;
+    public EvaData eva2;
+}
+
+[System.Serializable]
+public class EvaData 
+{
+    public string name; // Name of rock
+    public int id; // id of rock from NASA
+    public DataDetails data; // data of rock
+}
+[System.Serializable]
+public class DataDetails
+{
+    public double SiO2;
+    public double TiO2;
+    public double Al2O3;
+    public double FeO;
+    public double MnO;
+    public double MgO;
+    public double CaO;
+    public double K2O;
+    public double P2O3;
+}
+
+// Data of other Fellow Astronauts
+[System.Serializable]
+public class FellowAstronaut
+{
+    public int astronaut_id;
+    public Location location;
+    public string color;
+    public Vitals vitals;
+    public bool navigating;
+    public AllBreadCrumbs bread_crumbs;
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        FellowAstronaut otherA = (FellowAstronaut)obj;
+        return astronaut_id == otherA.astronaut_id &&
+               location.Equals(otherA.location) &&
+               color == otherA.color &&
+               vitals.Equals(otherA.vitals) &&
+               navigating == otherA.navigating &&
+               bread_crumbs.Equals(otherA.bread_crumbs);
+    }
+}
+
+
+// TSS
+[System.Serializable]
+public class COMM
+{
+    public CommDetails comm;
+}
+
+[System.Serializable]
+public class CommDetails
+{
+    public bool comm_tower;
+}
+
+[System.Serializable]
+public class DCU
+{
+    public DCUData dcu;
+}
+
+[System.Serializable]
+public class DCUData
+{
+    public EvaDetails eva1;
+    public EvaDetails eva2;
+}
+
+[System.Serializable]
+public class IMU
+{
+    public IMUEVAs imu;
+}
+
+[System.Serializable]
+public class IMUEVAs
+{
+    public IMUData eva1;
+    public IMUData eva2;
+}
+
+[System.Serializable]
+public class IMUData
+{
+    public double posx;
+    public double posy;
+    public double heading;
+}
+
+
+[System.Serializable]
+public class EvaDetails
+{
+    public bool batt;
+    public bool oxy;
+    public bool comm;
+    public bool fan;
+    public bool pump;
+    public bool co2;
+}
+
+[System.Serializable]
+public class ROVER
+{
+    public RoverDetails rover;
+}
+
+[System.Serializable]
+public class RoverDetails
+{
+    public double posx;
+    public double posy;
+    public int qr_id;
+}
+
+[System.Serializable]
+public class TELEMETRY
+{
+    public TelemetryDetails telemetry;
+}
+
+[System.Serializable]
+public class TelemetryDetails
+{
+    public int eva_time;
+    public EvaTelemetryDetails eva1;
+    public EvaTelemetryDetails eva2;
+}
+
+[System.Serializable]
+public class EvaTelemetryDetails
+{
+    public int eva_time;
+    public int batt_time_left;
+    public double oxy_pri_storage;
+    public double oxy_sec_storage;
+    public double oxy_pri_pressure;
+    public double oxy_sec_pressure;
+    public int oxy_time_left;
+    public double heart_rate;
+    public double oxy_consumption;
+    public double co2_production;
+    public double suit_pressure_oxy;
+    public double suit_pressure_co2;
+    public double suit_pressure_other;
+    public double suit_pressure_total;
+    public double fan_pri_rpm;
+    public double fan_sec_rpm;
+    public double helmet_pressure_co2;
+    public double scrubber_a_co2_storage;
+    public double scrubber_b_co2_storage;
+    public double temperature;
+    public double coolant_m;
+    public double coolant_gas_pressure;
+    public double coolant_liquid_pressure;
+}
+
+[System.Serializable]
+public class UIA
+{
+    public UiDetails uia;
+}
+
+[System.Serializable]
+public class UiDetails
+{
+    public bool eva1_power;
+    public bool eva1_oxy;
+    public bool eva1_water_supply;
+    public bool eva1_water_waste;
+    public bool eva2_power;
+    public bool eva2_oxy;
+    public bool eva2_water_supply;
+    public bool eva2_water_waste;
+    public bool oxy_vent;
+    public bool depress;
+}
 
 

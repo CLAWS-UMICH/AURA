@@ -271,3 +271,89 @@ public class MessageReactionEvent
         NewReactionMessage = newRactionMessage;
     }
 }
+
+
+public class DCUChanged
+{
+    public EvaDetails data { get; private set; }
+
+    public DCUChanged(EvaDetails d)
+    {
+        data = d;
+    }
+}
+
+public class StartEgress
+{
+    public StartEgress()
+    {
+        Debug.Log("Start Egress Event");
+    }
+}
+public class StartIngress
+{
+    public StartIngress()
+    {
+        Debug.Log("Start Ingress Event");
+    }
+}
+
+
+public class UIAChanged
+{
+    public UiDetails data { get; private set; }
+
+    public UIAChanged(UiDetails d)
+    {
+        data = d;
+    }
+}
+
+public class CommChanged
+{
+    public CommDetails data { get; private set; }
+
+    public CommChanged(CommDetails d)
+    {
+        data = d;
+    }
+}
+
+public class IMUChanged
+{
+    public IMUData data { get; private set; }
+
+    public IMUChanged(IMUData d)
+    {
+        data = d;
+    }
+}
+
+public class FellowIMUChanged
+{
+    public IMUData data { get; private set; }
+
+    public FellowIMUChanged(IMUData d)
+    {
+        data = d;
+    }
+}
+
+public class RoverChanged
+{
+    public RoverDetails data { get; private set; }
+
+    public RoverChanged(RoverDetails d)
+    {
+        data = d;
+    }
+}
+
+public class XRFScanEvent
+{
+    public DataDetails data;
+    public XRFScanEvent(DataDetails d)
+    {
+        data = d;
+    }
+}

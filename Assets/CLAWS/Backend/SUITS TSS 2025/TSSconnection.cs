@@ -311,7 +311,7 @@ public class TSScConnection : MonoBehaviour
                         AstronautInstance.User.telemetry = JsonUtility.FromJson<TELEMETRY>(this.TELEMETRYJsonString);
                         if (AstronautInstance.User.id == 0)
                         {
-                            CopyVitals(AstronautInstance.User.VitalsData, AstronautInstance.User.telemetry.telemetry.eva1);
+                            CopyVitals(AstronautInstance.User.vitals, AstronautInstance.User.telemetry.telemetry.eva1);
                             CopyVitals(AstronautInstance.User.FellowAstronautsData.vitals, AstronautInstance.User.telemetry.telemetry.eva2);
                         } else
                         {
