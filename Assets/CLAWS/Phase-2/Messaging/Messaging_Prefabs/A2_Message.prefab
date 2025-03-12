@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 932140635199024613}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: A2_Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,7 +26,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0638, y: 1.5883, z: 0.19596146}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 8.708479, y: 10.933509, z: 10.933509}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7019907059359346698}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7019907059359346698}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CompressableButtonVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -75,7 +75,7 @@ GameObject:
   - component: {fileID: 8253690673779266844}
   - component: {fileID: 7754339461353278352}
   - component: {fileID: 4616644437151979788}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -245,7 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 177776656840914953}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IconAndText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -280,7 +280,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8933754635266229899}
   - component: {fileID: 6419274324252356921}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: UX.Button.Icon.Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 7289064977255875303}
   - component: {fileID: 366146168416947568}
   - component: {fileID: 5336311065512674808}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}

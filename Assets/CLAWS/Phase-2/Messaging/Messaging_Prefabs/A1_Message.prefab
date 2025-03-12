@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 486607934917568296}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: IconAndText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 5345055548954853753}
   - component: {fileID: 1313466887801570068}
   - component: {fileID: 5059729002684313998}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,7 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1938151152354550357}
   - component: {fileID: 311956037584799501}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: UX.Button.Icon.Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -299,7 +299,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5307589012534620490}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: A1_Message
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1188, y: 1.5594, z: 0.19596146}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 8.708479, y: 10.933509, z: 10.933509}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2234927669063995988}
@@ -333,7 +333,7 @@ GameObject:
   - component: {fileID: 268264810507608468}
   - component: {fileID: 6696109166653116064}
   - component: {fileID: 8386206418264347351}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Time
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -503,7 +503,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2234927669063995988}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CompressableButtonVisuals
   m_TagString: Untagged
   m_Icon: {fileID: 0}
