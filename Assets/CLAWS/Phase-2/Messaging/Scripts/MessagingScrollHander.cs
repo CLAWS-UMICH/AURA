@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // important file for prefab spacing.
-public class TaskListScrollHandler : MonoBehaviour
+public class MessagingScrollHandler : MonoBehaviour
 {
     [SerializeField] private float spacing = 0.1f; // Distance between gameobjects
     [SerializeField] private float lerp = 0.1f;
@@ -11,7 +11,8 @@ public class TaskListScrollHandler : MonoBehaviour
     [SerializeField] private BoxCollider Bounds;
     [SerializeField] private Transform Content;
 
-    private List<Transform> Objects = new List<Transform>(); // List to store all buttons
+    private List<Transform> Objects = clones; /* changed to clones assuming this will work? gets list of edited clones (in theory) from
+    DynamicMessagingPop.cs, may need to also subscribe to message added*/
 
     private Vector3 startBounds;
     private Vector3 endBounds;

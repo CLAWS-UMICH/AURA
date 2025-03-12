@@ -5,9 +5,9 @@ using TMPro;
 
 public class DynamicPop : MonoBehaviour
 {
-    private Dictionary<(string, bool), string> prefabNames;
+    private Dictionary<(string, bool), string> prefabNames; // 
     private List<TaskObj> localTL;
-    public GameObject[] prefabs;
+    public GameObject[] prefabs; // types of messages (a1, lmcc a2)
     public Transform contentParent;
     
     // additions for new TL
