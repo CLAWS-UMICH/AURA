@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class QuadScaleAndMove : MonoBehaviour
+public class BeamScale : MonoBehaviour
 {
     public Transform player;
     public float minDistance = 2.0f;
