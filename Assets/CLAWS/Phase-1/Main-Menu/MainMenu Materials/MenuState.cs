@@ -77,7 +77,9 @@ public class MenuState : MonoBehaviour
 
     public void ClickNavigation()
     {
-        //transform.parent.Find("Navigation").Find("NavController").GetComponent<NavScreenHandler>().OpenNavScreen();
+        transform.parent.Find("Navigation").gameObject.SetActive(true);
+        transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().openWaypoints();
+        transform.parent.Find("Navigation").GetComponent<WaypointsMenuController>().onClickChangeWaypointType(0);
         //ClickIRISClose();
     }
 
