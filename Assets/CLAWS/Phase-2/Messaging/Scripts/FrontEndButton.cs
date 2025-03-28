@@ -14,7 +14,7 @@ public class FrontEndButton : MonoBehaviour
     [SerializeField]private Sprite thumbsDown;
     [SerializeField]private Sprite warning;
     private string messageText;
-    private MessagingBackend messagingBackend;
+    public MessagingBackend messagingBackend;
 
     void Start () 
     {
@@ -23,7 +23,7 @@ public class FrontEndButton : MonoBehaviour
         A2gc.SetActive(true);
     }
 
-    void sendMessageButton() 
+    public void sendMessageButton() 
     {
         messageText = messageObject.transform.Find("Message").GetComponent<TextMeshPro>().text;
         int messageCount = messagingBackend.allMessage.FindAll(m => m.from == (AstronautInstance.User.id + 1)).Count + 1;
@@ -37,7 +37,9 @@ public class FrontEndButton : MonoBehaviour
                 message = messageText,
                 from = AstronautInstance.User.id + 1
             };
+            Debug.Log(newMessage);
             EventBus.Publish(new MessageSentEvent(newMessage));
+            EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
         }
         else if (A2gc.activeSelf)
         {
@@ -50,7 +52,9 @@ public class FrontEndButton : MonoBehaviour
                     message = messageText,
                     from = AstronautInstance.User.id + 1
                 };
-                EventBus.Publish(new MessageSentEvent(newMessage));
+                Debug.Log(newMessage);
+                //EventBus.Publish(new MessageSentEvent(newMessage));
+                EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
             }
             if (AstronautInstance.User.id == 1)
             {
@@ -61,7 +65,9 @@ public class FrontEndButton : MonoBehaviour
                     message = messageText,
                     from = AstronautInstance.User.id + 1
                 };
+                Debug.Log(newMessage);
                 EventBus.Publish(new MessageSentEvent(newMessage));
+                EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
             }
         }
         else 
@@ -74,18 +80,19 @@ public class FrontEndButton : MonoBehaviour
                 from = AstronautInstance.User.id + 1
             };
             EventBus.Publish(new MessageSentEvent(newMessage));
+            EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
         }
     }
 
 
-    void deleteButton()
+    public void deleteButton()
     {
         messageText = messageObject.transform.Find("Message").GetComponent<TextMeshPro>().text;
         messageText = "";
     }
 
 
-    void sendReaction(string JSONreaction)
+    public void sendReaction(string JSONreaction)
     {
         string messageText = JSONreaction;
         int messageCount = messagingBackend.allMessage.FindAll(m => m.from == (AstronautInstance.User.id + 1)).Count + 1;
@@ -140,7 +147,7 @@ public class FrontEndButton : MonoBehaviour
     }
 
 
-    void sendThumbsUp()
+    public void sendThumbsUp()
     {
         ImageMessage encodedImage = new ImageMessage(thumbsUp);
         string jsonString = JsonUtility.ToJson(encodedImage);
@@ -148,7 +155,7 @@ public class FrontEndButton : MonoBehaviour
     }
 
 
-    void sendThumbsDown()
+    public void sendThumbsDown()
     {
         ImageMessage encodedImage = new ImageMessage(thumbsDown);
         string jsonString = JsonUtility.ToJson(encodedImage);
@@ -164,7 +171,7 @@ public class FrontEndButton : MonoBehaviour
     }
 
 
-    void lmccGC() 
+    public void lmccGC() 
     {
         LMCCgc.SetActive(true);
         A2andLMCCgc.SetActive(false);
@@ -172,7 +179,7 @@ public class FrontEndButton : MonoBehaviour
     }
 
 
-    void a2GC() 
+    public void a2GC() 
     {
         LMCCgc.SetActive(false);
         A2andLMCCgc.SetActive(false);
@@ -180,7 +187,7 @@ public class FrontEndButton : MonoBehaviour
     }
 
 
-    void a2andlmccGC()
+    public void a2andlmccGC()
     {
         LMCCgc.SetActive(false);
         A2andLMCCgc.SetActive(true);

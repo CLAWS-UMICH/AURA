@@ -143,10 +143,18 @@ public class WebSocketClient : MonoBehaviour
                         EventBus.Publish(new FellowAstronautVitalsDataChangeEvent(vitalsData));
                     }
                     break;
-                case "TEST":
+                case "DEMO":
                     /// Deserialize 'data' to the VitalsData class and publish to event
-                    TestWebObj testData = data.ToObject<TestWebObj>();
-                    EventBus.Publish(new WebTestEvent(testData, use));
+                    Message messageData = new Message
+                    {
+                        // Map properties from Messaging to Message
+                        message_id = 0,
+                        sent_to = 0, // A1
+                        message = data.ToString(),
+                        from = 3 // LMCC
+                    };
+                    EventBus.Publish(new MessageSentEvent(messageData));
+                    Debug.Log(data.ToString());
                     break;
 
                 case "WAYPOINTS":
@@ -178,10 +186,10 @@ public class WebSocketClient : MonoBehaviour
                     break;
                 
                 case "MESSAGES":
-                    Messaging messageData = data.ToObject<Messaging>();
-                    //if from tss -> update frontend, forward to web
-                    //if from web -> update frontend
-                    EventBus.Publish(new MessagesAddedEvent(messageData.AllMessages));
+                    // Messaging messageData = data.ToObject<Messaging>();
+                    // //if from tss -> update frontend, forward to web
+                    // //if from web -> update frontend
+                    // EventBus.Publish(new MessagesAddedEvent(messageData.AllMessages));
                     //potentially POST request from astronaut to web (after voice/ai implemented)
                     break;
 

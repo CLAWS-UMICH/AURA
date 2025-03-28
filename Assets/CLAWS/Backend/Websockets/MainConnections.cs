@@ -11,6 +11,7 @@ public class MainConnections : MonoBehaviour
     [SerializeField] private string tssUrl;
     [SerializeField] private bool autoConnectTSS = false;
     [SerializeField] private int id;
+    [SerializeField] private WebSocketClient webSocketClient;
 
     private bool websocketConnected;
     private bool TSSConnected;
@@ -34,7 +35,12 @@ public class MainConnections : MonoBehaviour
 
     private async Task<bool> ConnectWebsocket(string connectionString)
     {
-        WebSocketClient webSocketClient = transform.GetComponent<WebSocketClient>();
+        Debug.Log(webSocketClient);
+        if (webSocketClient == null)
+        {
+            Debug.LogWarning("WebSocketClient component not found on Controller.");
+            return false;
+        }
         return await webSocketClient.ReConnect(connectionString);
     }
 

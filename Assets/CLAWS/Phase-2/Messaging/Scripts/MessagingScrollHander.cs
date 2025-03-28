@@ -2,23 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// important file for prefab spacing.
-//script added to MessagingController Object
 public class MessagingScrollHandler : MonoBehaviour
 {
-    [SerializeField] private float spacing = 0.1f; // Distance between gameobjects
+    [SerializeField] private float spacing = 0.1f;
     [SerializeField] private float lerp = 0.1f;
 
-    [SerializeField] private BoxCollider Bounds;
+    [SerializeField] private Renderer BoundsRenderer; // Use Renderer instead of BoxCollider
     [SerializeField] private Transform Content;
 
-
-    public List<Transform> clones = new List<Transform>(); //debug object so it compiles for now
-
-
-    private List<Transform> Objects; /* changed to clones assuming this will work? gets list of edited clones (in theory) from
-    DynamicMessagingPop.cs, may need to also subscribe to message added*/
-    //Changed to List<GameObject> instead of Transform to match DynamicMessagingPop.cs
+    public DynamicMessagingPop dynamicMessagingPop; // Reference to DynamicMessagingPop
 
     private Vector3 startBounds;
     private Vector3 endBounds;
@@ -26,89 +18,21 @@ public class MessagingScrollHandler : MonoBehaviour
     private Vector3 scrollTarget;
     private bool isScrolling;
 
-    private Subscription<InitPopFinishedEvent> initEvent;
-
-    /// <summary>
-    /// Returns the index of the first visible element (visible by more than 1/2 showing).
-    /// </summary>
-    int GetScrollIndex()
-    {
-        float min_distance = float.MaxValue;
-        int min_index = 0;
-
-        int index = 0;
-        float conposy = Content.localPosition.y;
-        //Debug.LogWarning("name " + Content.name);
-        //Debug.LogWarning("conposy " + conposy);
-        foreach (Transform t in Objects)
-        {
-            float distance = Mathf.Abs((Content.localPosition.y) - spacing + (t.localPosition.y));
-            if (distance < min_distance)
-            {
-                min_distance = distance;
-                min_index = index;
-            }
-            //Debug.LogWarning("dis " + distance + " ind " + index);
-            //Debug.LogWarning("content pos " + Content.position.y);
-            //Debug.LogWarning("t pos " + t.localPosition.y);
-            index++;
-
-        }
-
-        //Debug.LogWarning("Mindis" + min_distance);
-        //Debug.LogWarning("Mind" + min_index);
-        return min_index;
-    }
-
-    [ContextMenu("Func ScrollUp")]
-    public void ScrollUp()
-    {
-        Debug.Log("Scroll up");
-        int index = GetScrollIndex() - 1;
-
-        if (index < 0)
-        {
-            index = 0;
-        }
-
-        ScrollTo(index);
-    }
-
-    [ContextMenu("Func ScrollDown")]
-    public void ScrollDown()
-    {
-        Debug.Log("Scroll down");
-        int index = GetScrollIndex() + 1;
-
-        if (index > Objects.Count - 1)
-        {
-            index = Objects.Count - 1;
-        }
-
-        ScrollTo(index);
-    }
-
-    void ScrollTo(int index_f)
-    {
-        isScrolling = true;
-        scrollTarget = new Vector3(startBounds.x,
-                -Objects[index_f].transform.localPosition.y,
-                startBounds.z);
-    }
-
     private void Start()
     {
-        initEvent = EventBus.Subscribe<InitPopFinishedEvent>(OnSub);
-        //Debug.LogWarning("subscribed");
-        Objects = clones;
+        if (dynamicMessagingPop == null)
+        {
+            Debug.LogError("DynamicMessagingPop script not found in the scene!");
+            return;
+        }
 
-    }
+        if (BoundsRenderer == null)
+        {
+            Debug.LogError("BoundsRenderer is not assigned!");
+            return;
+        }
 
-    private void OnSub(InitPopFinishedEvent e)
-    {
-        Debug.LogWarning("This subscription works Scroll handler");
-        colliderOffset = Bounds.center.y;
-
+        colliderOffset = BoundsRenderer.bounds.center.y;
         startBounds = transform.localPosition;
         endBounds = startBounds;
         scrollTarget = startBounds;
@@ -119,9 +43,9 @@ public class MessagingScrollHandler : MonoBehaviour
 
     private void Update()
     {
-        // update the box collider to be scrollable
-        Bounds.center = new Vector3(Bounds.center.x, colliderOffset - Bounds.transform.localPosition.y, Bounds.center.z);
-
+        // Update bounds based on the Renderer
+        Bounds bounds = BoundsRenderer.bounds;
+        colliderOffset = bounds.center.y;
 
         if (isScrolling)
         {
@@ -142,32 +66,14 @@ public class MessagingScrollHandler : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Adds all buttons to a list. Used in case of new buttons added in the middle of the run.
-    /// </summary>
-    void CollectAllButtons()
-    {
-        Transform parentTransform = transform;
-        Objects.Clear();
-
-        foreach (Transform child in parentTransform)
-        {
-            if (child.name != "Grid Layout")
-            {
-                Objects.Add(child);
-            }
-        }
-    }
-
-    /// <summary>
-    /// Fixes the layout of all objects in the scroll handler.
-    /// </summary>
-    [ContextMenu("Func FixLayout")]
     public void FixLocations()
     {
-        CollectAllButtons();
+        if (dynamicMessagingPop == null) return;
 
-        for (int i = 0; i < Objects.Count; i++)
+        // Use the clones list from DynamicMessagingPop
+        List<Transform> clones = dynamicMessagingPop.clones;
+
+        for (int i = 0; i < clones.Count; i++)
         {
             float yOffset;
 
@@ -177,28 +83,22 @@ public class MessagingScrollHandler : MonoBehaviour
             }
             else
             {
-
-                yOffset = Objects[i - 1].transform.localPosition.y
-                    - (Objects[i - 1].GetComponent<BoxCollider>().size.y / 2
-                        * Objects[i - 1].transform.localScale.y)
-                    - (Objects[i].GetComponent<BoxCollider>().size.y / 2
-                        * Objects[i].transform.localScale.y)
+                yOffset = clones[i - 1].localPosition.y
+                    - (clones[i - 1].GetComponent<BoxCollider>().size.y / 2 * clones[i - 1].localScale.y)
+                    - (clones[i].GetComponent<BoxCollider>().size.y / 2 * clones[i].localScale.y)
                     - spacing;
-        
             }
-            // Vector3 newPosition = parentTransform.position + new Vector3(xOffset, yOffset, 0f);
-            Vector3 newPosition = new Vector3(Objects[i].transform.localPosition.x, yOffset, Objects[i].transform.localPosition.z);
-            Objects[i].transform.localPosition = newPosition; // Move each button to the new position
+
+            Vector3 newPosition = new Vector3(clones[i].localPosition.x, yOffset, clones[i].localPosition.z);
+            clones[i].localPosition = newPosition;
         }
 
-        if (Objects.Count > 0)
+        if (clones.Count > 0)
         {
             endBounds = new Vector3(endBounds.x,
-                -Objects[Objects.Count - 1].transform.localPosition.y
-                + (Objects[Objects.Count - 1].GetComponent<BoxCollider>().size.y / 2
-                            * Objects[Objects.Count - 1].transform.localScale.y),
+                -clones[clones.Count - 1].localPosition.y
+                + (clones[clones.Count - 1].GetComponent<BoxCollider>().size.y / 2 * clones[clones.Count - 1].localScale.y),
                 endBounds.z);
         }
     }
-
 }

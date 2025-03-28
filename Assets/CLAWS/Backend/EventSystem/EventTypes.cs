@@ -253,6 +253,13 @@ public class MessagesAddedEvent
     }
 }
 
+public class MessagesAppendedEvent 
+{
+    public MessagesAppendedEvent()
+    {
+    }
+}
+
 public class MessageSentEvent
 {
     public Message NewMadeMessage { get; private set; }

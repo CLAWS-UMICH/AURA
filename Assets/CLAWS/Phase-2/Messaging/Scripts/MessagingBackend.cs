@@ -7,12 +7,12 @@ using TMPro;
  {
     Messaging msgList;
     public List<Message> allMessage = new List<Message>();
-    List<Message> AstroChat = new List<Message>();
-    List<Message> LMCCChat = new List<Message>();
-    List<Message> GroupChat = new List<Message>();
+    public List<Message> AstroChat = new List<Message>();
+    public List<Message> LMCCChat = new List<Message>();
+    public List<Message> GroupChat = new List<Message>();
 
     [SerializeField]private GameObject messageObject;
-    [SerializeField]private GameObject LMCCgc;
+    [SerializeField]public GameObject LMCCgc;
     [SerializeField]private GameObject A2gc;
     [SerializeField]private GameObject A2andLMCCgc;
     [SerializeField]private Sprite thumbsUp;
@@ -24,7 +24,8 @@ using TMPro;
     private Subscription<MessagesAddedEvent> messageAddedEvent;
     private Subscription<MessageSentEvent> messageSentEvent;
     private Subscription<MessageReactionEvent> messageReactionEvent;
-    private WebSocketClient webSocketClient;
+    [SerializeField]private WebSocketClient webSocketClient;
+    [SerializeField]private GameObject controllerObject;
     void Start()
     {
         msgList = new Messaging();
@@ -40,169 +41,27 @@ using TMPro;
 
     private void  InitializeWebConnection()
     {
-        GameObject controllerObject = GameObject.Find("MessagingController");
-        if (controllerObject != null){
-            webSocketClient = controllerObject.GetComponent<WebSocketClient>();
-            if (webSocketClient != null){
-                Debug.Log("Successfully connected to the existing WebSocketClient from Controller.");
-            } else{
-                Debug.LogWarning("WebSocketClient component not found on Controller.");
-            }
+
+        if (webSocketClient != null){
+            Debug.Log("Successfully connected to the existing WebSocketClient from Controller.");
         } else{
-            Debug.LogError("Controller object not found in the scene.");
+            Debug.LogWarning("WebSocketClient component not found on Controller.");
         }
-    }
-
-
-    void sendMessageButton() 
-    {
-        messageText = messageObject.transform.Find("Message").GetComponent<TextMeshPro>().text;
-        int messageCount = allMessage.FindAll(m => m.from == (AstronautInstance.User.id + 1)).Count + 1;
-        Message newMessage;
-        if (LMCCgc.activeSelf)
-        {
-            newMessage = new Message
-            {
-                message_id = messageCount,
-                sent_to = 3,
-                message = messageText,
-                from = AstronautInstance.User.id + 1
-            };
-            EventBus.Publish(new MessageSentEvent(newMessage));
-        }
-        else if (A2gc.activeSelf)
-        {
-            if (AstronautInstance.User.id == 0) 
-            {
-                newMessage = new Message
-                {
-                    message_id = messageCount,
-                    sent_to = 2,
-                    message = messageText,
-                    from = AstronautInstance.User.id + 1
-                };
-                EventBus.Publish(new MessageSentEvent(newMessage));
-            }
-            if (AstronautInstance.User.id == 1)
-            {
-                newMessage = new Message
-                {
-                    message_id = messageCount,
-                    sent_to = 1,
-                    message = messageText,
-                    from = AstronautInstance.User.id + 1
-                };
-                EventBus.Publish(new MessageSentEvent(newMessage));
-            }
-        }
-        else 
-        {
-            newMessage = new Message
-            {
-                message_id = messageCount,
-                sent_to = 4,
-                message = messageText,
-                from = AstronautInstance.User.id + 1
-            };
-            EventBus.Publish(new MessageSentEvent(newMessage));
-        }
-    }
-
-
-    void deleteButton()
-    {
-        messageText = messageObject.transform.Find("Message").GetComponent<TextMeshPro>().text;
-        messageText = "";
-    }
-
-
-    void sendReaction(string JSONreaction)
-    {
-        string messageText = JSONreaction;
-        int messageCount = allMessage.FindAll(m => m.from == (AstronautInstance.User.id + 1)).Count + 1;
-        Message newMessage;
-        if (LMCCgc.activeSelf)
-        {
-            newMessage = new Message
-            {
-                message_id = messageCount,
-                sent_to = 3,
-                message = messageText,
-                from = AstronautInstance.User.id + 1
-            };
-            EventBus.Publish(new MessageSentEvent(newMessage));
-        }
-        else if (A2gc.activeSelf)
-        {
-            if (AstronautInstance.User.id == 0) 
-            {
-                newMessage = new Message
-                {
-                    message_id = messageCount,
-                    sent_to = 2,
-                    message = messageText,
-                    from = AstronautInstance.User.id + 1
-                };
-                EventBus.Publish(new MessageSentEvent(newMessage));
-            }
-            if (AstronautInstance.User.id == 1)
-            {
-                newMessage = new Message
-                {
-                    message_id = messageCount,
-                    sent_to = 1,
-                    message = messageText,
-                    from = AstronautInstance.User.id + 1
-                };
-                EventBus.Publish(new MessageSentEvent(newMessage));
-            }
-        }
-        else 
-        {
-            newMessage = new Message
-            {
-                message_id = messageCount,
-                sent_to = 4,
-                message = messageText,
-                from = AstronautInstance.User.id + 1
-            };
-            EventBus.Publish(new MessageSentEvent(newMessage));
-        }
-    }
-
-
-    void sendThumbsUp()
-    {
-        ImageMessage encodedImage = new ImageMessage(thumbsUp);
-        string jsonString = JsonUtility.ToJson(encodedImage);
-        sendReaction(jsonString);
-    }
-
-
-    void sendThumbsDown()
-    {
-        ImageMessage encodedImage = new ImageMessage(thumbsDown);
-        string jsonString = JsonUtility.ToJson(encodedImage);
-        sendReaction(jsonString);
-    }
-
-
-    void sendWarning()
-    {
-        ImageMessage encodedImage = new ImageMessage(warning);
-        string jsonString = JsonUtility.ToJson(encodedImage);
-        sendReaction(jsonString);
     }
 
 
     void appendList(MessagesAddedEvent e)
     {
+        Debug.Log("recieved new messages");
         foreach (Message m in e.NewAddedMessages)
         {
+            Debug.Log(m.message);
+            Debug.Log(m.from);
+            Debug.Log(m.sent_to);
             allMessage.Add(m); // Add new messages instead of replacing the list
 
             //Astronaut1 = 1, Astronaut2 = 2, LMCC = 3, Group = 4
-            if (m.sent_to == 4 && m.from != AstronautInstance.User.id)
+            if (m.sent_to == 4)
             {
                 GroupChat.Add(m);
             }
@@ -210,11 +69,14 @@ using TMPro;
             {
                 LMCCChat.Add(m);
             }
-            else if (m.sent_to == AstronautInstance.User.id)
+            else if ((m.sent_to == AstronautInstance.User.id + 1) || (m.from == AstronautInstance.User.id + 1))
             {
+                Debug.Log("adding to AstroChat");
                 AstroChat.Add(m);
             }
         }
+        Debug.Log("Publishing MessagesAppendedEvent...");
+        EventBus.Publish(new MessagesAppendedEvent());
     }
 
 
