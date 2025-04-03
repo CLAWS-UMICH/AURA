@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4be81c123d7a4517a6b20b2c20c132f2, type: 3}
+  m_Name: ChessPieceScaleAffordanceTheme
+  m_EditorClassIdentifier: 
+  m_SelectionStrengthHoverRange: {x: 0.25, y: 0.5}
+  m_ScaleAffordanceData:
+    idleValue: {x: 0.75, y: 1, z: 0.75}
+    hoveredValue: {x: 0.9, y: 1, z: 0.9}
+    selectValue: {x: 1, y: 1, z: 1}
+    disabledValue: {x: 1, y: 1, z: 1}

@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7db1be6c7e42b6ad6c020b954c716a, type: 3}
+  m_Name: ChessPiece_test_blendshape_Theme_idle
+  m_EditorClassIdentifier: 
+  m_BlendShapeKey: 0
+  m_SelectionStrengthHoverRange: {x: 0.25, y: 0.5}
+  m_IdleShape: 0
+  m_HoveredShape: 0
+  m_SelectShape: 0
+  m_DisabledShape: 0

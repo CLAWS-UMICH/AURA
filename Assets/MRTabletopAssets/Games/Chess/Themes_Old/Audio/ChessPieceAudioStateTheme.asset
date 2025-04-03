@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f596fcf1aa164eca94573dbe64da9172, type: 3}
+  m_Name: ChessPieceAudioStateTheme
+  m_EditorClassIdentifier: 
+  m_SelectionStrengthHoverRange: {x: 0, y: 0}
+  m_AudioDataAffordanceData:
+    idleValue:
+      clip: {fileID: 0}
+      volume: 0
+      pitch: 1
+      loop: 0
+      clipHash: 0
+    hoveredValue:
+      clip: {fileID: 8300000, guid: 4bd8152a3e119f7488b7c976d3aa4551, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      clipHash: 38634
+    selectValue:
+      clip: {fileID: 8300000, guid: 630849c1c0a8ca04c9cecc7a3f4d3969, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      clipHash: 63452
+    toggledValue:
+      clip: {fileID: 0}
+      volume: 0
+      pitch: 1
+      loop: 0
+      clipHash: 0
+    disabledValue:
+      clip: {fileID: 0}
+      volume: 0
+      pitch: 1
+      loop: 0
+      clipHash: 0
+  m_TickAudioDataList:
+  - clip: {fileID: 8300000, guid: a5c7bc4bdbd116041aed558bf7da2112, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    clipHash: 63470
+  - clip: {fileID: 8300000, guid: aa08633d8496166449da48b112928b81, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    clipHash: 63462

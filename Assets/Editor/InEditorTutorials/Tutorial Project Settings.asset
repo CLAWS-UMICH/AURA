@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 579f019eb5d26450982c6ae506c6c3ff, type: 3}
+  m_Name: Tutorial Project Settings
+  m_EditorClassIdentifier: 
+  m_WelcomePage: {fileID: 11400000, guid: 046dc72d0ee2d1e41a935f487154ee9a, type: 2}
+  m_InitialScene: {fileID: 102900000, guid: 1394aae0248047f43a644e21c762f218, type: 3}
+  m_InitialCameraSettings:
+    m_CameraMode: 1
+    m_FocusMode: 0
+    m_Orthographic: 0
+    m_Size: 0.8660254
+    m_Pivot: {x: -0.52966297, y: -0.02991116, z: 0.29224968}
+    m_Rotation: {x: -0.172233, y: 0.4079139, z: -0.078682914, w: -0.89319265}
+    m_FrameObject:
+      m_SceneGuid: 
+      m_GameObjectGuid: 
+      m_SerializedComponentType:
+        m_TypeName: 
+      m_ComponentIndex: 0
+      m_AssetObject: {fileID: 0}
+      m_Prefab: {fileID: 0}
+    m_Enabled: 1
+  m_TutorialStyle: {fileID: 11400000, guid: bcaf24dcefa7047b19a2b51c946e64bf, type: 2}
+  m_RestoreAssetsBackupOnTutorialReload: 0

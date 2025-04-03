@@ -1,0 +1,17 @@
+{
+    "name": "Chess.Testing",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3c5be9a08d6d47b4f9a8f3ac9d94f34a",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

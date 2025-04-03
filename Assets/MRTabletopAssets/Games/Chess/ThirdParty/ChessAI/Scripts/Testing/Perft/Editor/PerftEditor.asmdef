@@ -1,0 +1,19 @@
+{
+    "name": "PerftEditor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:3c5be9a08d6d47b4f9a8f3ac9d94f34a",
+        "GUID:20e9663e3a1c6bb4193d88b4741f8659"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

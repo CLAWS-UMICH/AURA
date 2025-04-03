@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4684634594921661819
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 350585239624829808, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_AffordanceTheme
+      value: 
+      objectReference: {fileID: 11400000, guid: 8545de628c1eaa84eb460445e17ecfd0, type: 2}
+    - target: {fileID: 781652421539460877, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_text
+      value: o
+      objectReference: {fileID: 0}
+    - target: {fileID: 781652421539460877, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.2784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 781652421539460877, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.2627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 781652421539460877, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.2392157
+      objectReference: {fileID: 0}
+    - target: {fileID: 1088933574491536197, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b319c1b96f2e22429ab39f2dcc1f456, type: 2}
+    - target: {fileID: 3030901760704553005, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_Color.b
+      value: 0.5647059
+      objectReference: {fileID: 0}
+    - target: {fileID: 3030901760704553005, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_Color.g
+      value: 0.54901963
+      objectReference: {fileID: 0}
+    - target: {fileID: 3030901760704553005, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_Color.r
+      value: 0.5254902
+      objectReference: {fileID: 0}
+    - target: {fileID: 3030901760704553005, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_Character
+      value: 111
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427259443394712635, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_AffordanceTheme.m_Variable
+      value: 
+      objectReference: {fileID: 11400000, guid: b7efc70bea519dd45aeb72c843447d6e, type: 2}
+    - target: {fileID: 3896372213616498897, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: _realtime
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3896372213616498897, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: _viewUUID
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4453139064408601783, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_AffordanceTheme
+      value: 
+      objectReference: {fileID: 11400000, guid: 8545de628c1eaa84eb460445e17ecfd0, type: 2}
+    - target: {fileID: 4645782612916429797, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_Name
+      value: ChessPiece_Pawn_W
+      objectReference: {fileID: 0}
+    - target: {fileID: 4684760572041478411, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_ChessColor
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5545292172386063575, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6651325174700644346, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7765468680622176956, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_TransformPoseAttributeController
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7826224810894591197, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 951099334
+      objectReference: {fileID: 0}
+    - target: {fileID: 8882434358992240897, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_text
+      value: o
+      objectReference: {fileID: 0}
+    - target: {fileID: 8882434358992240897, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.2784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 8882434358992240897, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.2627451
+      objectReference: {fileID: 0}
+    - target: {fileID: 8882434358992240897, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.2392157
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7686863331990216466, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 30650b42a3e8d4748aeb521cc099dcef, type: 3}

@@ -1,0 +1,158 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1398046673371330368
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1589663454644540229}
+  - component: {fileID: 5080027331663888061}
+  m_Layer: 0
+  m_Name: WinVisualizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1589663454644540229
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398046673371330368}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7718264956515251972}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5080027331663888061
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398046673371330368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c17327bc18081d249a694c15b6dd2504, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 0
+  m_BoardGenerator: {fileID: 0}
+  m_BoardBaseTransform: {fileID: 0}
+  m_HeightMultiplier: -0.1
+  m_curveMultiplier: 4
+  m_CurvePower: 1
+  m_RippleMultiplier: 60
+  m_RippleHeight: 0
+  m_RippleOffset: 0
+--- !u!1 &4905978199154383780
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7718264956515251972}
+  - component: {fileID: 481963734137747417}
+  m_Layer: 0
+  m_Name: WinRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7718264956515251972
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4905978199154383780}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1589663454644540229}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &481963734137747417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4905978199154383780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72493a5da956063498c09657a22ac1ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_InDurationRef:
+    m_UseConstant: 1
+    m_ConstantValue: 2
+    m_Variable: {fileID: 0}
+  m_OutDurationRef:
+    m_UseConstant: 1
+    m_ConstantValue: 0.5
+    m_Variable: {fileID: 0}
+  m_TransitionCurveRef:
+    m_UseConstant: 1
+    m_ConstantValue:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_Variable: {fileID: 0}
+  m_BeginTransitionIn:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TransitionIn:
+    m_PersistentCalls:
+      m_Calls: []
+  m_EndTransitionIn:
+    m_PersistentCalls:
+      m_Calls: []
+  m_BeginTransitionOut:
+    m_PersistentCalls:
+      m_Calls: []
+  m_TransitionOut:
+    m_PersistentCalls:
+      m_Calls: []
+  m_EndTransitionOut:
+    m_PersistentCalls:
+      m_Calls: []
+  m_BoardController: {fileID: 0}
+  m_OptionsButton: {fileID: 0}
+  m_RestartButtonW: {fileID: 0}
+  m_RestartButtonB: {fileID: 0}
+  m_WinVisualizer: {fileID: 5080027331663888061}
+  m_BoardMesh: {fileID: 0}
+  m_BoardInsetDepth: 12

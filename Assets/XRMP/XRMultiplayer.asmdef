@@ -1,0 +1,47 @@
+{
+    "name": "XRMP",
+    "rootNamespace": "",
+    "references": [
+        "Unity.Netcode.Runtime",
+        "Unity.Collections",
+        "Unity.Services.Core",
+        "Unity.Services.Authentication",
+        "Unity.XR.Management",
+        "Unity.XR.Hands",
+        "Unity.XR.Interaction.Toolkit",
+        "Unity.XR.Interaction.Toolkit.Samples.StarterAssets",
+        "Unity.XR.CoreUtils",
+        "Unity.InputSystem",
+        "Unity.Services.Vivox",
+        "Unity.Mathematics",
+        "Unity.TextMeshPro",
+        "ParrelSync",
+        "Unity.Services.Multiplayer",
+        "Unity.Multiplayer.Playmode"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.veriorpies.parrelsync",
+            "expression": "",
+            "define": "HAS_PARRELSYNC"
+        },
+        {
+            "name": "com.unity.netcode.gameobjects",
+            "expression": "[1.9.1,1.9.2)",
+            "define": "USE_FORCED_BYTE_SERIALIZATION"
+        },
+        {
+            "name": "com.unity.multiplayer.playmode",
+            "expression": "",
+            "define": "HAS_MPPM"
+        }
+    ],
+    "noEngineReferences": false
+}
