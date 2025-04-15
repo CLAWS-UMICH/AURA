@@ -576,8 +576,48 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6056454165148638616, guid: c2f49d0d909d3fc4bbc20d1cb743ab1d,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 188225941}
   m_SourcePrefab: {fileID: 100100000, guid: c2f49d0d909d3fc4bbc20d1cb743ab1d, type: 3}
+--- !u!1 &188225940 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6056454165148638616, guid: c2f49d0d909d3fc4bbc20d1cb743ab1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 188225939}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &188225941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 188225940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f8b5dca7d8f34eff86882a28798b352, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  battToggleObject: {fileID: 1996108373}
+  oxyToggleObject: {fileID: 585812173}
+  commToggleObject: {fileID: 797145505}
+  fanToggleObject: {fileID: 258463652}
+  pumpToggleObject: {fileID: 202413436}
+  co2ToggleObject: {fileID: 417505500}
+  UMB: {fileID: 1390101535}
+  LOCAL: {fileID: 176343525}
+  OXY_PRI: {fileID: 1452682304}
+  OXY_SEC: {fileID: 1717092930}
+  COMM_A: {fileID: 583086530}
+  COMM_B: {fileID: 1189899603}
+  FAN_PRI: {fileID: 1254801107}
+  FAN_SEC: {fileID: 1356140079}
+  OPEN: {fileID: 1558644180}
+  CLOSE: {fileID: 1911531706}
+  CO2_A: {fileID: 1698686794}
+  CO2_B: {fileID: 1854690896}
 --- !u!1 &202413436
 GameObject:
   m_ObjectHideFlags: 0
@@ -2319,9 +2359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'LOCAL
-
-'
+  m_text: SEC
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 533bdd8d5c92b52448ee2ecf7bd828a4, type: 2}
   m_sharedMaterial: {fileID: -1005824763306460071, guid: 533bdd8d5c92b52448ee2ecf7bd828a4,
