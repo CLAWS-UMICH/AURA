@@ -33,7 +33,13 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _InnerGlow: 0
+    - _RoundCornerMargin: 0.009
+    - _RoundCornerRadius: 0.5
+    - _RoundCorners: 1
+    - _RoundCornersHideInterior: 0
+    - _UseWorldScale: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []

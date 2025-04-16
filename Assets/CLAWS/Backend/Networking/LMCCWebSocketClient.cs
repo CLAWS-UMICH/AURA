@@ -1,0 +1,237 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using SocketIOClient;
+using System;
+using System.Threading.Tasks;
+using PimDeWitte.UnityMainThreadDispatcher;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+
+public class LMCCWebSocketClient : MonoBehaviour
+{
+    private SocketIO client;
+    private string serverUrl;
+    private string assignedId; // Store the unique ID assigned by the server as a string
+
+    public async Task<bool> ReConnect(string connectionString)
+    {
+        try
+        {
+            serverUrl = connectionString;
+            await InitializeSocket();
+            return true;
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("Error occurred in ReConnect: " + ex.Message);
+            return false;
+        }
+    }
+
+    private async Task InitializeSocket()
+    {
+        if (client != null)
+        {
+            await client.DisconnectAsync();
+        }
+
+        client = new SocketIO(serverUrl);
+
+        // Emit "connect_hololens" after connecting
+        client.OnConnected += async (server, e) =>
+        {
+            Debug.Log("Connected to server, emitting 'connect_hololens'");
+            await client.EmitAsync("connect_hololens");
+        };
+
+        // Listen for 'assign_id' event to receive the unique ID
+        client.On("assign_id", response =>
+        {
+
+            // Parse the response (which is an array in this case)
+            JArray jsonResponseArray = JArray.Parse(response.ToString());
+
+            // Extract the 'id' value from the first item in the array
+            if (jsonResponseArray.Count > 0)
+            {
+                JObject jsonResponse = (JObject)jsonResponseArray[0];
+                assignedId = jsonResponse["id"]?.ToString();  // Get the "id" value
+                Debug.Log($"Received ID from server: {assignedId}");
+            }
+            else
+            {
+                Debug.LogError("No valid 'id' received in the response");
+            }
+        });
+
+        // Listen for 'hololens_data' event to receive data
+        client.On("hololens_data", response =>
+        {
+            try
+            {
+                Debug.Log($"Raw response from WEB: {response}");
+
+                JArray jsonArray = JArray.Parse(response.ToString()); // Now raw is already the correct string
+                if (jsonArray.Count > 0)
+                {
+                    JObject outer = (JObject)jsonArray[0];
+                    JObject data = (JObject)outer["data"];
+
+                    Debug.Log($"Parsed data: {data}");
+
+                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        HandleJsonMessage(data.ToString())
+                    );
+                }
+                else
+                {
+                    Debug.LogWarning("Empty response array.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error parsing hololens_data response: {ex.Message}");
+            }
+        });
+
+        await client.ConnectAsync();
+    }
+
+    private void OnDestroy()
+    {
+        if (client != null)
+        {
+            client.DisconnectAsync();
+        }
+    }
+
+    public void HandleJsonMessage(string jsonData)
+    {
+        try
+        {
+            // Log the received data
+            Debug.Log($"Received data: {jsonData}");
+
+            // Parse the incoming JSON string into a JObject
+            JObject jsonObject = JObject.Parse(jsonData);
+
+            // Check if 'room' exists in the JSON
+            if (jsonObject["room"] == null)
+            {
+                Debug.LogError("Missing 'room' in the received JSON.");
+                return; // Exit early if 'type' is missing
+            }
+
+            string room = (string)jsonObject["room"];
+
+            // Check if 'use' exists in the JSON
+            if (jsonObject["use"] == null)
+            {
+                Debug.LogError("Missing 'use' in the received JSON.");
+                return; // Exit early if 'use' is missing
+            }
+
+            string use = (string)jsonObject["use"];
+
+            // Check if 'data' exists in the JSON
+            if (jsonObject["data"] == null)
+            {
+                Debug.LogError("Missing 'data' in the received JSON.");
+                return; // Exit early if 'data' is missing
+            }
+
+            JObject data = (JObject)jsonObject["data"];
+
+            // Handle different types based on the 'type' field
+            switch (room)
+            {
+                case "VITALS":
+                    Vitals vitalsData = data.ToObject<Vitals>();
+                    if (assignedId == "0")
+                    {
+                        EventBus.Publish(new UpdatedVitalsEvent(vitalsData));
+                    }
+                    if (assignedId == "1") 
+                    {
+                        EventBus.Publish(new UpdatedFellowAstronautVitalsEvent(vitalsData));
+                    }
+                    break;
+                case "WAYPOINTS":
+                    /*
+                    JSON DATA FORMAT:
+                    {
+                        "type": "WAYPOINT",
+                        "use": "<GET/POST/PUT/DELETE>",
+                        "data": {
+                            "id": <number>,
+                            "name": <string>,
+                            "location": <Location>,
+                            "type": <string>,
+                            "author": <string>
+                        }
+                    }
+                    
+                    Waypoint waypointsData = data.ToObject<Waypoint>();
+                    if (use == "DELETE ") {
+                        EventBus.Publish(new WaypointToDelete(waypointsData));
+                    }
+                    else if (use == "POST") {
+                        EventBus.Publish(new WaypointToAdd(waypointsData));
+                    }
+                    else if (use == "PUT") {
+                        EventBus.Publish(new WaypointsEditedEvent(waypointsData));
+                    }
+                    */
+                    break;
+                
+                case "MESSAGING":
+                    try
+                    {
+                        // Deserialize into Message object using Newtonsoft
+                        Message newMessage = data.ToObject<Message>();
+
+                        Debug.Log($"Received MESSAGING object from {newMessage.from} to {newMessage.sent_to}: {newMessage.message}");
+                        
+                        // Fire events to update backend and UI
+                        EventBus.Publish(new MessageSentEvent(newMessage));
+                        EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
+                    }   
+                    catch (Exception ex)
+                    {
+                        Debug.LogError($"Failed to parse MESSAGING data: {ex.Message}");
+                    }
+                    break;
+
+                default:
+                    // Log if the 'type' is not recognized
+                    Debug.LogWarning($"Unhandled 'type': {room}");
+                    break;
+            }
+        }
+        catch (JsonException ex)
+        {
+            // Catch any JSON parsing errors
+            Debug.LogError($"Error parsing JSON: {ex.Message}");
+        }
+    }
+
+    [System.Serializable]
+    public class Data
+    {
+        public string room;
+        public string message;
+    }
+
+    // data should be a json serialized class 
+    // Room is who to Web you want this data to be sent to. Ex. VITALS, TASKLIST, etc.
+    public async void SendJsonData(string message, string room)
+    {
+        if (client != null)
+        {
+            Data data = new Data { room = room.ToUpper(), message = message };
+            string jsonString = JsonUtility.ToJson(data);
+            await client.EmitAsync("send_to_room", jsonString);
+        }
+    }
+}

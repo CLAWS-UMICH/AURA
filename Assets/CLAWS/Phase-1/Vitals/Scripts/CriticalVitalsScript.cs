@@ -7,14 +7,14 @@ using System;
 public class CriticalVitalsScript : MonoBehaviour
 {
     private Subscription<UpdatedVitalsEvent> vitalsUpdateEvent;
-    private Subscription<FellowAstronautVitalsDataChangeEvent> fellowVitalsUpdateEvent;
+    private Subscription<UpdatedFellowAstronautVitalsEvent> fellowVitalsUpdateEvent;
     [SerializeField] private GameObject heartRate, oxygenCons, carbonProd, temp; // priFan, secFan, scrubA, scrubB;
     [SerializeField] private GameObject heartRate2, oxygenCons2, carbonProd2, temp2; //priFan2, secFan2, scrubA2, scrubB2;
     // Start is called before the first frame update
     void Start()
     {
         vitalsUpdateEvent = EventBus.Subscribe<UpdatedVitalsEvent>(onVitalsUpdate);
-        fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
+        fellowVitalsUpdateEvent = EventBus.Subscribe<UpdatedFellowAstronautVitalsEvent>(onFellowVitalsUpdate);
     }
 
     private void onVitalsUpdate(UpdatedVitalsEvent e) {
@@ -42,7 +42,7 @@ public class CriticalVitalsScript : MonoBehaviour
 
     }
 
-    private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e) {
+    private void onFellowVitalsUpdate(UpdatedFellowAstronautVitalsEvent e) {
         // astr2 vitals update
         oxygenCons2.transform.Find("O2Cnum").GetComponent<TextMeshPro>().text = e.vitals.oxy_consumption.ToString("F1");
         heartRate2.transform.Find("HRnum").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");

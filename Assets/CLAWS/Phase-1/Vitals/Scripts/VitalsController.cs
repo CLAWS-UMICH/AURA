@@ -36,7 +36,7 @@ public class EVAGroup
 
 public class VitalsData
 {
-    public string type;
+    public string room;
     public string use;
     public Vitals data;
 }
@@ -47,69 +47,42 @@ public class VitalsController : MonoBehaviour
     [SerializeField] private GameObject vitalsFirstAstronautScreen;
     [SerializeField] private GameObject vitalsSecondAstronautScreen;
     private Subscription<UpdatedVitalsEvent> vitalsUpdateEvent;
-    private Subscription<FellowAstronautVitalsDataChangeEvent> fellowVitalsUpdateEvent;
+    private Subscription<UpdatedFellowAstronautVitalsEvent> fellowVitalsUpdateEvent;
     [SerializeField] private EVAGroup eva1;
     [SerializeField] private EVAGroup eva2;
-    private WebSocketClient webSocketClient;
-    [SerializeField] private StatefulInteractable VitalsButton;
+    [SerializeField] private LMCCWebSocketClient LMCCwebSocketClient;
+    [SerializeField] private ToggleCollection toggleCollection;
 
     private void Start() 
     {
-        InitializeWebConnection();
         vitalsUpdateEvent = EventBus.Subscribe<UpdatedVitalsEvent>(onVitalsUpdate);
-        fellowVitalsUpdateEvent = EventBus.Subscribe<FellowAstronautVitalsDataChangeEvent>(onFellowVitalsUpdate);
+        fellowVitalsUpdateEvent = EventBus.Subscribe<UpdatedFellowAstronautVitalsEvent>(onFellowVitalsUpdate);
         vitalsSecondAstronautScreen.SetActive(false);
-    }
-
-
-
-    private void  InitializeWebConnection()
-    {
-        GameObject controllerObject = GameObject.Find("VitalsController");
-        if (controllerObject != null){
-            webSocketClient = controllerObject.GetComponent<WebSocketClient>();
-            if (webSocketClient != null){
-                Debug.Log("Successfully connected to the existing WebSocketClient from Controller.");
-            } else{
-                Debug.LogWarning("WebSocketClient component not found on Controller.");
-            }
-        } else{
-            Debug.LogError("Controller object not found in the scene.");
-        }
     }
 
 
     public void ToggleVitalsScreen()
     {
-        //Debug.Log($"Current Screen: {StateMachine.Instance.CurrScreen}");
         if (vitalsFirstAstronautScreen.activeSelf)
         {
+            vitals.SetActive(true);
             vitalsFirstAstronautScreen.SetActive(false);
             vitalsSecondAstronautScreen.SetActive(true);
-            vitals.SetActive(true);
-            EventBus.Publish(new ScreenChangedEvent(Screens.VitalsSecondAstronaut)); 
         }
         else 
         {
+            vitals.SetActive(true); 
             vitalsSecondAstronautScreen.SetActive(false);
             vitalsFirstAstronautScreen.SetActive(true);
-            vitals.SetActive(true); 
-            EventBus.Publish(new ScreenChangedEvent(Screens.VitalsFirstAstronaut));
         }
     }
 
 
     public void CloseVitalScreen()
     {
-        vitalsFirstAstronautScreen.SetActive(false);
-        vitalsSecondAstronautScreen.SetActive(false);
-        StateMachine.Instance.CurrScreen = Screens.Menu;
-        transform.parent.Find("Vitals").gameObject.SetActive(false);
-        if (VitalsButton.IsToggled.Active)
-        {
-            VitalsButton.ForceSetToggled(false);
-        }
-
+        transform.parent.gameObject.SetActive(false);
+        toggleCollection.SetSelection(6, true);
+        Debug.Log("Toggle event published to reset selection.");
     }
 
 
@@ -152,25 +125,25 @@ public class VitalsController : MonoBehaviour
         eva1.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().text = $"{oxyHours} hr {oxyMinutes} m";
         eva1.oxySlider.Value = e.vitals.oxy_time_left;
 
-        int powerTimeLeftSeconds = e.vitals.batt_time_left;
-        int powerHours = powerTimeLeftSeconds / 3600;
-        int powerMinutes = powerTimeLeftSeconds % 3600 / 60;
+        double powerTimeLeftSeconds = e.vitals.batt_time_left;
+        int powerHours = (int)(powerTimeLeftSeconds / 3600);
+        int powerMinutes = (int)(powerTimeLeftSeconds % 3600 / 60);
         eva1.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().text = $"{powerHours} hr {powerMinutes} m";
-        eva1.battSlider.Value = e.vitals.batt_time_left;
+        eva1.battSlider.Value = (int)e.vitals.batt_time_left;
 
         VitalsData vitalsData = new VitalsData
             {
-                type = "VITALS",
+                room = "VITALS",
                 use = "POST",
                 data = AstronautInstance.User.vitals
             };
         string json = JsonUtility.ToJson(vitalsData);
-        webSocketClient.SendJsonData(json, "VITALS");
+        LMCCwebSocketClient.SendJsonData(json, "VITALS");
         //Debug.Log(json);
     }
 
 
-    private void onFellowVitalsUpdate(FellowAstronautVitalsDataChangeEvent e)
+    private void onFellowVitalsUpdate(UpdatedFellowAstronautVitalsEvent e)
     {
         //astronaut 2
 

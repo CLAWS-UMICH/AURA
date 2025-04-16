@@ -1,0 +1,14 @@
+{
+    "room": "WAYPOINT",
+    "use": "<GET/POST/PUT/DELETE>",
+    "data": {
+        "id": "<1/2>",
+        "name": "<string>",
+        "location": {
+            "lat": "<number>",
+            "long": "<number>"
+        },
+        "type": "<station/nav/geo/danger",
+        "author": "1/2/3/4"
+    }
+}

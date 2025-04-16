@@ -5,7 +5,13 @@ using UnityEditor.Rendering;
 using System.Numerics;
 using Unity.Collections.LowLevel.Unsafe;
 
-// Location
+
+/////////////////////////////////////////////////////////////////////
+////////////////////////////  FEATURES  /////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////  LOCATION  /////////////////////////////
 [System.Serializable]
 public class Location
 {
@@ -19,6 +25,12 @@ public class Location
         latitude = lat;
         longitude = lon;
     }
+    
+        public override int GetHashCode()
+        {
+            return (latitude, longitude).GetHashCode();
+        }
+    
 
     public override bool Equals(object obj)
     {
@@ -33,12 +45,62 @@ public class Location
     }
 }
 
-// Vitals
+
+
+[System.Serializable]
+public class AllBreadCrumbs
+{
+    public List<Breadcrumb> AllCrumbs = new List<Breadcrumb>();
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        AllBreadCrumbs otherCrumbs = (AllBreadCrumbs)obj;
+
+        // Compare lists using the SequenceEqual method from System.Linq
+        return AllCrumbs.SequenceEqual(otherCrumbs.AllCrumbs);
+    }
+}
+
+[System.Serializable]
+public class Breadcrumb
+{
+    public int crumb_id;
+    public Location location;
+    public int type; // 0: backtracking and 1: navigation
+
+    public Breadcrumb(int crumbId, Location location, int type)
+    {
+        this.crumb_id = crumbId;
+        this.location = location;
+        this.type = type;
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Breadcrumb otherBread = (Breadcrumb)obj;
+        return crumb_id == otherBread.crumb_id &&
+               location.Equals(otherBread.location) &&
+               type == otherBread.type;
+    }
+}
+
+
+////////////////////////////  VITALS  /////////////////////////////
 [System.Serializable]
 public class Vitals
 {
     public int eva_time;
-    public int batt_time_left;
+    public double batt_time_left;
     public double oxy_pri_storage;
     public double oxy_sec_storage;
     public double oxy_pri_pressure;
@@ -62,23 +124,70 @@ public class Vitals
     public double coolant_liquid_pressure;
 }
 
-// TestWebObj
 [System.Serializable]
-public class TestWebObj
+public class FellowAstronaut
 {
-    public int num;
+    public int astronaut_id;
+    public Location location;
+    public string color;
+    public Vitals vitals;
+    public bool navigating;
+    public AllBreadCrumbs bread_crumbs;
 
-    public TestWebObj() { 
-        num = 0;
-    }
-
-    public TestWebObj(int _num)
+    public override bool Equals(object obj)
     {
-        num = _num;
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        FellowAstronaut otherA = (FellowAstronaut)obj;
+        return astronaut_id == otherA.astronaut_id &&
+               location.Equals(otherA.location) &&
+               color == otherA.color &&
+               vitals.Equals(otherA.vitals) &&
+               navigating == otherA.navigating &&
+               bread_crumbs.Equals(otherA.bread_crumbs);
     }
 }
 
-// TasklistObj
+
+////////////////////////////  ALERTS  /////////////////////////////
+[System.Serializable]
+public class Alerts
+{
+    public List<AlertObj> AllAlerts = new List<AlertObj>();
+}
+[System.Serializable]
+public class AlertObj
+{
+    public int alert_id; // starting from 0 and going up 1 
+    public int astronaut_in_danger; // ID who is in danger
+    public string vital; // vital that is in danger
+    public float vital_val; // that vital's value
+
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        AlertObj otherAlert = (AlertObj)obj;
+        return alert_id == otherAlert.alert_id &&
+               astronaut_in_danger == otherAlert.astronaut_in_danger &&
+               vital == otherAlert.vital &&
+               vital_val == otherAlert.vital_val;
+    }
+
+    public override int GetHashCode()
+    {
+        return (alert_id, astronaut_in_danger, vital, vital_val).GetHashCode();
+    }
+}
+
+
+////////////////////////////  TASKLIST  /////////////////////////////
 [System.Serializable]
 public class TasklistObj
 {
@@ -86,10 +195,7 @@ public class TasklistObj
     public List<TaskObj> Tasklist = new List<TaskObj>();
     public TaskObj currentTask = new TaskObj();
 
-    public TasklistObj()
-    {
-        //do nothing for now
-    }
+    public TasklistObj() { }
     public TasklistObj(List<TaskObj> data)
     {
         foreach (TaskObj task_d in data)
@@ -132,6 +238,7 @@ public class TaskObj
     public bool isEmergency;
     public bool isShared;
     public bool isSubtask;
+
 
     // change later for location constructor if sent in tuple
     public string location;
@@ -216,6 +323,11 @@ public class TaskObj
                location == otherTask.location;
     }
 
+    public override int GetHashCode()
+    {
+        return (task_id, title, astronauts, subtasks, status, isEmergency, isSubtask, description, isShared, location).GetHashCode();
+    }
+
     public void addCom()
     {
         comSub += 1;
@@ -231,6 +343,63 @@ public class TaskObj
     }
 }
 
+////////////////////////////  WAYPOINTS  /////////////////////////////
+[System.Serializable]
+public class Waypoint
+{
+    public int WaypointId { get; set; } // Sequential ID
+    public Location Location { get; set; } // Latitude and Longitude
+    public WaypointType Type { get; set; } // Enum for waypoint type
+    public string Title { get; set; } // Title of the waypoint (e.g., 'Waypoint 1')
+    public AuthorType Author { get; set; } // Enum for author type
+
+    public Waypoint(int waypointId, Location location, WaypointType type, string title, AuthorType author)
+    {
+        WaypointId = waypointId;
+        Location = location;
+        Type = type;
+        Title = title;
+        Author = author;
+    }
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Waypoint otherWaypoint = (Waypoint)obj;
+        return WaypointId == otherWaypoint.WaypointId &&
+               Location.Equals(otherWaypoint.Location) &&
+               Type == otherWaypoint.Type &&
+               Title == otherWaypoint.Title &&
+               Author == otherWaypoint.Author;
+    }
+    public override int GetHashCode()
+    {
+        return (WaypointId, Location, Type, Title, Author).GetHashCode();
+    }
+}
+
+public enum WaypointType
+{
+    GEO,
+    SAMPLE,
+    DANGER,
+    INTEREST,
+    STATION
+}
+
+public enum AuthorType
+{
+    ASTRONAUT1,
+    ASTRONAUT2,
+    LMCC,
+    PRTEAM,
+}
+
+
+////////////////////////////  GEO SAMPLES  /////////////////////////////
 public struct Composition {
     string element;
     float amount;
@@ -307,9 +476,75 @@ public class GeoSampleDB {
             }
         }
     }
-
 }
-//Messaging
+
+[System.Serializable]
+public class SPEC
+{
+    public SpecEVAs spec;
+}
+
+[System.Serializable]
+public class SpecEVAs
+{
+    public EvaData eva1;
+    public EvaData eva2;
+}
+
+[System.Serializable]
+public class EvaData 
+{
+    public string name; // Name of rock
+    public int id; // id of rock from NASA
+    public DataDetails data; // data of rock
+}
+
+[System.Serializable]
+public class DataDetails
+{
+    public double SiO2;
+    public double TiO2;
+    public double Al2O3;
+    public double FeO;
+    public double MnO;
+    public double MgO;
+    public double CaO;
+    public double K2O;
+    public double P2O3;
+}
+
+// Geosamples
+[System.Serializable]
+public class GeosampleZones
+{
+    public List<GeosampleZone> AllGeosampleZones = new List<GeosampleZone>();
+}
+
+[System.Serializable]
+public class GeosampleZone
+{
+    public char zone_id;
+    public List<int> ZoneGeosamplesIds = new();
+    public Location location;
+    public float radius;
+    
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        GeosampleZone otherGeoZone = (GeosampleZone)obj;
+        return ZoneGeosamplesIds.SequenceEqual(otherGeoZone.ZoneGeosamplesIds) &&
+               zone_id == otherGeoZone.zone_id &&
+               location.Equals(otherGeoZone.location) &&
+               radius == otherGeoZone.radius;  
+    }
+}
+
+
+////////////////////////////  MESSAGES  /////////////////////////////
 [System.Serializable]
 public class Messaging
 {
@@ -352,4 +587,154 @@ public class Message
                message == otherMessage.message &&
                from == otherMessage.from;
     }
+}
+
+
+
+
+/////////////////////////////////////////////////////////////////////
+//////////////////////////////  TSS  ////////////////////////////////
+/////////////////////////////////////////////////////////////////////
+
+///////////////////////////  COMM TOWER  ////////////////////////////
+[System.Serializable]
+public class COMM
+{
+    public CommDetails comm;
+}
+
+[System.Serializable]
+public class CommDetails
+{
+    public bool comm_tower;
+}
+
+
+/////////////////////////////  DCU  //////////////////////////////
+[System.Serializable]
+public class DCU
+{
+    public DCUData dcu;
+}
+
+
+[System.Serializable]
+public class DCUData
+{
+    public EvaDetails eva1;
+    public EvaDetails eva2;
+}
+[System.Serializable]
+public class EvaDetails
+{
+    public bool batt;
+    public bool oxy;
+    public bool comm;
+    public bool fan;
+    public bool pump;
+    public bool co2;
+}
+
+///////////////////////////  IMU/GPS  ////////////////////////////
+[System.Serializable]
+public class IMU
+{
+    public IMUEVAs imu;
+}
+
+[System.Serializable]
+public class IMUEVAs
+{
+    public IMUData eva1;
+    public IMUData eva2;
+}
+
+[System.Serializable]
+public class IMUData
+{
+    public double posx;
+    public double posy;
+    public double heading;
+}
+
+
+///////////////////////////  ROVER  ////////////////////////////
+[System.Serializable]
+public class ROVER
+{
+    public RoverDetails rover;
+}
+
+[System.Serializable]
+public class RoverDetails
+{
+    public double posx;
+    public double posy;
+    public int qr_id;
+}
+
+
+
+[System.Serializable]
+public class TELEMETRY
+{
+    public TelemetryDetails telemetry;
+}
+
+[System.Serializable]
+public class TelemetryDetails
+{
+    public int eva_time;
+    public EvaTelemetryDetails eva1;
+    public EvaTelemetryDetails eva2;
+}
+
+[System.Serializable]
+public class EvaTelemetryDetails
+{
+    public double batt_time_left;
+    public double oxy_pri_storage;
+    public double oxy_sec_storage;
+    public double oxy_pri_pressure;
+    public double oxy_sec_pressure;
+    public int oxy_time_left;
+    public double heart_rate;
+    public double oxy_consumption;
+    public double co2_production;
+    public double suit_pressure_oxy;
+    public double suit_pressure_co2;
+    public double suit_pressure_other;
+    public double suit_pressure_total;
+    public double fan_pri_rpm;
+    public double fan_sec_rpm;
+    public double helmet_pressure_co2;
+    public double scrubber_a_co2_storage;
+    public double scrubber_b_co2_storage;
+    public double temperature;
+    public double coolant_m;
+    public double coolant_gas_pressure;
+    public double coolant_liquid_pressure;
+}
+
+
+///////////////////////////  UIA  ////////////////////////////
+[System.Serializable]
+public class UIA
+{
+    public UiDetails uia;
+}
+
+[System.Serializable]
+public class UiDetails
+{
+    public bool eva1_power;
+    public bool eva1_oxy;
+    public bool eva1_water_supply;
+    public bool eva1_water_waste;
+    public bool eva2_power;
+    public bool eva2_oxy;
+    public bool eva2_water_supply;
+    public bool eva2_water_waste;
+    public bool oxy_vent;
+    public bool depress;
 }

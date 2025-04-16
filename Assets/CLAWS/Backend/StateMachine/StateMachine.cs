@@ -51,8 +51,7 @@ public class StateMachine : MonoBehaviour
 
     private void InitializeEventSubscriptions()
     {
-        screenChangedSubscription = EventBus.Subscribe<ScreenChangedEvent>(SwitchScreen);
-        modeChangedSubscription = EventBus.Subscribe<ModeChangedEvent>(SwitchMode);
+        
     }
 
     private void OnDestroy()
@@ -88,27 +87,5 @@ public class StateMachine : MonoBehaviour
         Debug.Log("Closing screen: " + e.Screen.ToString());
         // currScreen = Screen.Menu;
     }
-
-    [ContextMenu("CloseAll")]
-    public void CloseAll()
-    {
-        // Publish CloseEvent for multiple screens
-        EventBus.Publish(new CloseEvent(Screens.taskList));
-        EventBus.Publish(new CloseEvent(Screens.navigation));
-        EventBus.Publish(new CloseEvent(Screens.messages));
-        EventBus.Publish(new CloseEvent(Screens.samples));
-        EventBus.Publish(new CloseEvent(Screens.vitals));
-        EventBus.Publish(new CloseEvent(Screens.UIA));
-        EventBus.Publish(new CloseEvent(Screens.VitalsFirstAstronaut));
-        EventBus.Publish(new CloseEvent(Screens.VitalsSecondAstronaut));
-        
-
-        // Reset to menu or default screen
-        CurrScreen = Screens.Menu;
-        EventBus.Publish(new ScreenChangedEvent(Screens.Menu));
-
-        // Reset the mode if necessary
-        CurrMode = Modes.Normal;
-        EventBus.Publish(new ModeChangedEvent(Modes.Normal));
-    }
 }
+

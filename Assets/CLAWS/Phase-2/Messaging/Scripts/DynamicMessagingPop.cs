@@ -11,7 +11,9 @@ public class DynamicMessagingPop : MonoBehaviour
     public MessagingBackend MessagingBackend;
     public GameObject[] prefabs; //the three different prefabs from where the message came from. self, other astronaut, LMCC (ORDER SENSITIVE!!)
     private List<Message> currentList; //the current list of message objects that need to be displayed (currently in use by the astronaut)
-    public List<Transform> clones = new List<Transform>(); //clones of the prefab in a list--the clones turn the currentList into the right prefabs
+    public List<Transform> lmccClones = new List<Transform>();
+    public List<Transform> a2Clones = new List<Transform>();
+    public List<Transform> gcClones = new List<Transform>();  // clones of the prefab in a list
     public float LastCloneY;
     private int me; //your astronaut ID (necessary for switch case)
     private int them; //the other astronaut's ID
@@ -19,98 +21,98 @@ public class DynamicMessagingPop : MonoBehaviour
 
     public GameObject LMCC; //the LMCC chat screen
     public GameObject A2; //the other astronaut's chat screen
-    [SerializeField] private Renderer BoundsRenderer; // Renderer to define the bounds
+    public GameObject GC;
+        [SerializeField] private Renderer BoundsRenderer; // Renderer to define the bounds
 
     void Start()
     {
         Debug.Log("DynamicMessagingPop script started");
         messagesAppendedEvent = EventBus.Subscribe<MessagesAppendedEvent>(appendList);
         LastCloneY = 0.00659999996f;
-
-        if (AstronautInstance.User.id == 0) { /*assigning the right ID's. messages from you will be displayed from the right side and use a different
+        Debug.Log("id: " + AstronautInstance.User.id);
+        if (AstronautInstance.User.id == 1) { /*assigning the right ID's. messages from you will be displayed from the right side and use a different
         prefab, so it's important to discern who you are. prefabs will then be generated as sent by ME (you), and will always be on the right*/
             me = 1;
             them = 2;
-        } else {
+        } 
+        else {
             them = 1;
             me = 2;
         }
     }
 
-    public void appendList(MessagesAppendedEvent e)
-    {
-        if (LMCC.activeSelf == true)
-        {
-            currentList = MessagingBackend.LMCCChat;
-        }
-        else if (A2.activeSelf == true)
-        {
-            currentList = MessagingBackend.AstroChat;
-        }
-        else
-        {
-            currentList = MessagingBackend.GroupChat;
-        }
-        Debug.Log(currentList.Count);
 
-        // clear prev chat clones
-        foreach (Transform clone in clones)
+    private void PopulateChat(List<Message> messages, Transform parent, List<Transform> cloneList)
+    {
+        // Clear old clones
+        foreach (Transform clone in cloneList)
         {
             Destroy(clone.gameObject);
         }
-        clones.Clear();
+        cloneList.Clear();
 
-        // bottom bound of qaud window
         float bottomBound = -0.041f;
-
-        // y pos of last clone
         float currentYPosition = 0.00659999996f;
-        float yPlus = 0.0185992f; // height of prefabs (difference)
-        float chatPlus = 0.0184f; // height of chat window
+        float yPlus = 0.0185992f;
+        float chatPlus = 0.0184f;
 
-        // instantiate clones under current
-        for (int i = 0; i < currentList.Count; i++)
+        for (int i = 0; i < messages.Count; i++)
         {
             Transform clone;
             if (currentYPosition < bottomBound)
             {
-                Debug.Log(chatPlus);
-                // Move the parent GameObject up by the increment of one prefab (did math for prettiness rather than)
-                transform.localPosition = new Vector3(0, chatPlus, 0);
+                parent.localPosition = new Vector3(0, chatPlus, 0);
                 chatPlus += 0.0184f;
             }
-            if (currentList[i].from == me)
+            Debug.Log("me:" + me);
+            Debug.Log("From:" + messages[i].from);
+            if (messages[i].from == me)
             {
-                clone = Instantiate(prefabs[0], transform).transform; // A1 = 1;
+                Debug.Log("Instantiating in parent: " + parent.name);
+                clone = Instantiate(prefabs[0], parent).transform;
                 clone.localPosition = new Vector3(0.121200003f, currentYPosition, 0.00270000007f);
             }
-            else if (currentList[i].from <= 2 && currentList[i].from != me)
+            else if (messages[i].from <= 2 && messages[i].from != me)
             {
-                clone = Instantiate(prefabs[1], transform).transform; // A2 = 2
+                Debug.Log("Instantiating in parent: " + parent.name);
+                clone = Instantiate(prefabs[1], parent).transform;
                 clone.localPosition = new Vector3(0.0868000016f, currentYPosition, 0.00270000007f);
             }
             else
             {
-                clone = Instantiate(prefabs[2], transform).transform; // LMCC = 3
+                Debug.Log("Instantiating in parent: " + parent.name);
+                clone = Instantiate(prefabs[2], parent).transform;
                 clone.localPosition = new Vector3(0.0868000016f, currentYPosition, 0.00270000007f);
             }
 
-            // Add the clone to the list
-            clones.Add(clone);
-
-            // Increment the Y position for the next prefab
-            // Check if the next prefab will exceed the bottom bound
+            cloneList.Add(clone);
             currentYPosition -= yPlus;
-            Debug.Log(currentYPosition);
-            Debug.Log(bottomBound);
         }
 
-        // Update the text of each clone
-        for (int j = 0; j < clones.Count; j++)
+        for (int j = 0; j < cloneList.Count; j++)
         {
-            clones[j].transform.Find("CompressableButtonVisuals").Find("IconAndText").Find("Time").GetComponent<TextMeshPro>().text = System.DateTime.Now.ToString("hh:mm tt");
-            clones[j].transform.Find("CompressableButtonVisuals").Find("IconAndText").Find("Message").GetComponent<TextMeshPro>().text = currentList[j].message;
-            clones[j].gameObject.SetActive(true);
+            cloneList[j].transform.Find("CompressableButtonVisuals").Find("IconAndText").Find("Time").GetComponent<TextMeshPro>().text = System.DateTime.Now.ToString("hh:mm tt");
+            cloneList[j].transform.Find("CompressableButtonVisuals").Find("IconAndText").Find("Message").GetComponent<TextMeshPro>().text = messages[j].message;
+            cloneList[j].gameObject.SetActive(true);
         }
+    }
+
+
+    public void appendList(MessagesAppendedEvent e)
+    {
+        Debug.Log("Appending chats for all panels");
+        if (AstronautInstance.User.id == 1) { /*assigning the right ID's. messages from you will be displayed from the right side and use a different
+        prefab, so it's important to discern who you are. prefabs will then be generated as sent by ME (you), and will always be on the right*/
+            me = 1;
+            them = 2;
+        } 
+        else {
+            them = 1;
+            me = 2;
+        }
+        // Update all 3 screens
+        PopulateChat(MessagingBackend.LMCCChat, LMCC.transform, lmccClones);
+        PopulateChat(MessagingBackend.AstroChat, A2.transform, a2Clones);
+        PopulateChat(MessagingBackend.GroupChat, GC.transform, gcClones);
     }
 }

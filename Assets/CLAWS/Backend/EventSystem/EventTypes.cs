@@ -79,48 +79,6 @@ public class UpdatedGPSOriginEvent
     }
 }
 
-public class SelectButton
-{
-    public string letter { get; private set; }
-
-    public SelectButton(string l)
-    {
-        letter = l;
-    }
-}
-
-// Highlight Button
-public class HighlightButton
-{
-    public GameObject button { get; private set; }
-
-    public HighlightButton(GameObject _button)
-    {
-        button = _button;
-    }
-}
-
-public class UnHighlight
-{
-    public List<string> levelnames { get; private set; }
-
-    public UnHighlight(List<string> _levelnames)
-    {
-        levelnames = _levelnames;
-    }
-}
-
-public class WebTestEvent
-{
-    public TestWebObj testData { get; set; }
-    public string use { get; set; }
-
-    public WebTestEvent(TestWebObj _testData, string _use)
-    {
-        testData = _testData;
-        use = _use;
-    }
-}
 
 
 public class TasklistEvent
@@ -166,6 +124,7 @@ public class ProgressBarUpdateEvent
     }
 }
 
+
 public class TaskDeletedEvent
 {
     public int id;
@@ -191,23 +150,19 @@ public class UpdatedVitalsEvent
 {
     public Vitals vitals { get; private set; }
 
-    public UpdatedVitalsEvent(Vitals v)
+    public UpdatedVitalsEvent(Vitals _v)
     {
-        vitals = v;
-    }
-    public override string ToString()
-    {
-        return "<VitalsUpdatedEvent>: vitals were updated";
+        vitals = _v;
     }
 }
 
-public class FellowAstronautVitalsDataChangeEvent
+public class UpdatedFellowAstronautVitalsEvent
 {
     public Vitals vitals { get; private set; }
 
-    public FellowAstronautVitalsDataChangeEvent(Vitals v)
+    public UpdatedFellowAstronautVitalsEvent(Vitals _v)
     {
-        vitals = v;
+        vitals = _v;
     }
 }
 
@@ -223,58 +178,60 @@ public class WaypointsEditedEvent
     }
 }
 
-public class WaypointToDelete
-{
-    public int Id { get; private set; }
 
-    public WaypointToDelete(Waypoint _waypoint)
+public class WaypointDeletedEvent
+{
+    public Waypoint DeletedWaypoint { get; private set; }
+
+    public WaypointDeletedEvent(Waypoint _deletedWaypoint)
     {
-        Id = _waypoint.Id;
+        DeletedWaypoint = _deletedWaypoint;
     }
 }
 
-public class WaypointToAdd
-{
-    public Waypoint waypointToAdd { get; private set; }
 
-    public WaypointToAdd(Waypoint _waypoint)
+public class WaypointAddedEvent
+{
+    public Waypoint NewAddedWaypoint{ get; private set; }
+
+    public WaypointAddedEvent(Waypoint _waypoint)
     {
-        waypointToAdd = _waypoint;
+        NewAddedWaypoint = _waypoint;
     }
 }
+
 
 public class MessagesAddedEvent
 {
     public List<Message> NewAddedMessages { get; private set; }
 
-    public MessagesAddedEvent(List<Message> newAddedMessages)
+    public MessagesAddedEvent(List<Message> _newAddedMessages)
     {
-        NewAddedMessages = newAddedMessages;
+        NewAddedMessages = _newAddedMessages;
     }
 }
 
+
 public class MessagesAppendedEvent 
-{
-    public MessagesAppendedEvent()
-    {
-    }
-}
+{   public MessagesAppendedEvent() {}   }
+
 
 public class MessageSentEvent
 {
     public Message NewMadeMessage { get; private set; }
 
-    public MessageSentEvent(Message newMadeMessage)
+    public MessageSentEvent(Message _newMadeMessage)
     {
-        NewMadeMessage = newMadeMessage;
+        NewMadeMessage = _newMadeMessage;
     }
 }
+
 
 public class MessageReactionEvent
 {
     public Message NewReactionMessage { get; private set; }
-    public MessageReactionEvent(Message newRactionMessage)
+    public MessageReactionEvent(Message _newRactionMessage)
     {
-        NewReactionMessage = newRactionMessage;
+        NewReactionMessage = _newRactionMessage;
     }
 }

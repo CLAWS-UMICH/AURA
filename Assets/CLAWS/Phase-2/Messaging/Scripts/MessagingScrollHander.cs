@@ -71,7 +71,7 @@ public class MessagingScrollHandler : MonoBehaviour
         if (dynamicMessagingPop == null) return;
 
         // Use the clones list from DynamicMessagingPop
-        List<Transform> clones = dynamicMessagingPop.clones;
+        List<Transform> clones = dynamicMessagingPop.lmccClones;
 
         for (int i = 0; i < clones.Count; i++)
         {
