@@ -93,7 +93,7 @@ Material:
     - Vector1_4: 0.211
     - Vector1_69b40c1ee2e1422cbfcae389f53b36a9: 1
     - Vector1_8671db567d5d4784b29e8ff511bd8f1e: 1
-    - _ARPassthroughAlpha: 1e-45
+    - _ARPassthroughAlpha: 0
     - _AlphaClip: 0
     - _AlphaCutoff: 0.6
     - _AlphaToMask: 0
@@ -132,7 +132,7 @@ Material:
     - _OutlinePinchRange: 0.15
     - _OutlineSphereHardness: 0.3
     - _OutlineWidth: 0.00134
-    - _PassthroughAlpha: 1e-45
+    - _PassthroughAlpha: 0
     - _PassthroughBoundaryCrossAlpha: 1
     - _PinchIntensity: 0
     - _PinchRange: 0.03

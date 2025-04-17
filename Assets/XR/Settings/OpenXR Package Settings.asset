@@ -238,11 +238,12 @@ MonoBehaviour:
   m_Name: HandTrackingFeaturePlugin Android
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 
-  version: 
-  featureIdInternal: 
-  openxrExtensionStrings: 
-  company: 
+  nameUi: Hand Tracking
+  version: 1.11.1
+  featureIdInternal: com.microsoft.openxr.feature.handtracking
+  openxrExtensionStrings: XR_EXT_hand_tracking XR_EXT_hand_joints_motion_range XR_EXT_hand_tracking_data_source
+    XR_MSFT_hand_tracking_mesh
+  company: Microsoft
   priority: 0
   required: 0
   leftHandTrackingOptions:
@@ -1017,19 +1018,15 @@ MonoBehaviour:
   m_Name: Standalone
   m_EditorClassIdentifier: 
   features:
-  - {fileID: 6432673634050277626}
-  - {fileID: 3141472640761719572}
-  - {fileID: -7310911987068956834}
-  - {fileID: 8947201782317327450}
-  - {fileID: 2498061952822841068}
-  - {fileID: 5425493469571983144}
   - {fileID: 8252341181048927357}
   - {fileID: 7021578052443350749}
   - {fileID: -6908827050236996345}
   - {fileID: -3539280509119365465}
   - {fileID: 9025083743953891338}
   - {fileID: -3555515149898820811}
+  - {fileID: 8947201782317327450}
   - {fileID: -346149393797645207}
+  - {fileID: 5425493469571983144}
   - {fileID: 2056324246602362908}
   - {fileID: -7308501897332428306}
   - {fileID: 8103123680571596978}
@@ -1037,13 +1034,17 @@ MonoBehaviour:
   - {fileID: -3961981241831845708}
   - {fileID: 6831153197111130890}
   - {fileID: -7871940535321586562}
+  - {fileID: 6432673634050277626}
   - {fileID: 4019666479180720506}
+  - {fileID: 3141472640761719572}
   - {fileID: 6784543783709265212}
   - {fileID: -6651641000128692336}
   - {fileID: -4592348737112505416}
   - {fileID: -1641120204466911666}
   - {fileID: 1938827170848843245}
   - {fileID: 6360567451069700747}
+  - {fileID: 2498061952822841068}
+  - {fileID: -7310911987068956834}
   m_renderMode: 1
   m_autoColorSubmissionMode: 1
   m_colorSubmissionModes:
@@ -1179,21 +1180,15 @@ MonoBehaviour:
   - {fileID: 4769546829663575849}
   - {fileID: -1100980029955112333}
   - {fileID: -6360416284242654764}
+  - {fileID: -5989667451864688424}
   - {fileID: -3252265544724651010}
   - {fileID: 5010811022273906226}
   - {fileID: -6798188590923508713}
   - {fileID: 3527857905479295652}
   - {fileID: -5398522058140357640}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: -344564471723833705}
   - {fileID: 8686180216259876673}
+  - {fileID: 7509152316393841641}
   - {fileID: 3737997638715929813}
   - {fileID: -1486765010490598132}
   - {fileID: -7842711284469159894}
@@ -1255,11 +1250,11 @@ MonoBehaviour:
   m_Name: MotionControllerFeaturePlugin Android
   m_EditorClassIdentifier: 
   m_enabled: 0
-  nameUi: 
-  version: 
-  featureIdInternal: 
-  openxrExtensionStrings: 
-  company: 
+  nameUi: Motion Controller Model
+  version: 1.11.1
+  featureIdInternal: com.microsoft.openxr.feature.controller
+  openxrExtensionStrings: XR_MSFT_controller_model XR_FB_render_model
+  company: Microsoft
   priority: 0
   required: 0
 --- !u!114 &7837631358663972461

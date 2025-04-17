@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2401910689
+  GlobalObjectIdHash: 297135350
   InScenePlacedSourceGlobalObjectIdHash: 297135350
   DeferredDespawnTick: 0
   Ownership: 1
@@ -190,7 +190,6 @@ MonoBehaviour:
   ShowTopMostFoldoutHeaderGroup: 1
   m_SeatID: 0
   m_InteractableArea: {fileID: 5030654390952280157}
-  m_SlingshotGameMode: {fileID: 0}
   m_HoverVisuals:
   - {fileID: 1580570718743716161}
   - {fileID: 7553394527221491374}
