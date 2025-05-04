@@ -858,11 +858,11 @@ PlayerSettings:
   m_MobileRenderingPath: 1
   metroPackageName: CLAWS-24-25
   metroPackageVersion: 1.0.0.0
-  metroCertificatePath: 
+  metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: 
-  metroCertificateIssuer: 
-  metroCertificateNotAfter: 0000000000000000
+  metroCertificateSubject: DefaultCompany
+  metroCertificateIssuer: DefaultCompany
+  metroCertificateNotAfter: 00fc45d9fbcddc01
   metroApplicationDescription: CLAWS-24-25
   wsaImages: {}
   metroTileShortName: CLAWS-24-25

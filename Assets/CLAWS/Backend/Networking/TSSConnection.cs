@@ -8,7 +8,7 @@ using TMPro;
 
 public class TSSConnection : MonoBehaviour
 {
-    private string IPaddr = new Uri(AstronautInstance.User.TSSurl).Host;
+    private string IPaddr;
     int team_number;
     bool connected;
     float time_since_last_update;
@@ -42,7 +42,7 @@ public class TSSConnection : MonoBehaviour
         {
             if (!connected && IPaddr.Length > 0 && !IPaddr.Contains("/"))
             {
-                ConnectToHost(IPaddr, 0); // CHANGE 0 TO ACTUAL TEAM NUMBER IN HOUSTON
+                ConnectToHost(IPaddr, 1); // CHANGE 0 TO ACTUAL TEAM NUMBER IN HOUSTON
             }
             yield return new WaitForSeconds(5);
         }
@@ -122,6 +122,10 @@ public class TSSConnection : MonoBehaviour
                     OnTSSConnectionResult?.Invoke(true);
                     Debug.Log(pages[page] + ":\nReceived: " + webRequest.downloadHandler.text);
                     connected = true;
+                    break;
+                default:
+                    Debug.LogError("Unexpected UnityWebRequest result: " + webRequest.result);
+                    OnTSSConnectionResult?.Invoke(false);
                     break;
             }
 
@@ -254,11 +258,12 @@ public class TSSConnection : MonoBehaviour
                     {
                         TELEMETRYJsonString = webRequest.downloadHandler.text;
                         AstronautInstance.User.telemetry = JsonUtility.FromJson<TELEMETRY>(this.TELEMETRYJsonString);
-                        if (AstronautInstance.User.id == 0)
+                        if (AstronautInstance.User.id == 1)
                         {
                             CopyVitals(AstronautInstance.User.vitals, AstronautInstance.User.telemetry.telemetry.eva1);
                             CopyVitals(AstronautInstance.User.fellowAstronaut.vitals, AstronautInstance.User.telemetry.telemetry.eva2);
-                        } else
+                        } 
+                        else
                         {
                             CopyVitals(AstronautInstance.User.vitals, AstronautInstance.User.telemetry.telemetry.eva2);
                             CopyVitals(AstronautInstance.User.fellowAstronaut.vitals, AstronautInstance.User.telemetry.telemetry.eva1);

@@ -16,25 +16,13 @@ public class MainConnections : MonoBehaviour
     public Action<bool> OnWebConnectionResult;
 
 
-    [Header("UDP Connection Controller")]
-    public UDPConnectionController udpConnectionController;
-
-
     [Header("TSS Settings")]
     [SerializeField] private bool autoConnectTSS = false;
     public TSSConnection tssConnection;
 
-
-    [Header("UDP PR Team Settings")]
-    [SerializeField] private string prTeamIP = ""; // GET FROM START UP
-    [SerializeField] private int prTeamPort = 0; // GET FROM START UP
-    public PRConnection prConnection;
-
-
     void Start()
     {
         websocketConnected = false;
-        udpConnectionController.OnPRDataReceived += HandlePRDataReceived;
 
         if (autoConnectTSS)
             ConnectTSS(AstronautInstance.User.TSSurl);
@@ -43,12 +31,6 @@ public class MainConnections : MonoBehaviour
             StartCoroutine(TryingConnectionToWebSocket(AstronautInstance.User.LMCCurl));
     }
 
-
-    private void HandlePRDataReceived(string message)
-    {
-        Debug.Log($"[PR] Message Received: {message}");
-        prConnection.UpdatePRMessage(message);
-    }
 
 
     // called in setup
@@ -69,6 +51,7 @@ public class MainConnections : MonoBehaviour
             StartCoroutine(TryingConnectionToWebSocket(connectionString));
         }
     }
+
 
 
     private IEnumerator TryingConnectionToWebSocket(string connectionString)
@@ -105,12 +88,4 @@ public class MainConnections : MonoBehaviour
         return await LMCCWebSocketClient.ReConnect(connectionString);
     }
 
-    
-    void OnDestroy()
-    {
-        if (udpConnectionController != null)
-        {
-            udpConnectionController.OnPRDataReceived -= HandlePRDataReceived;
-        }
-    }
 }

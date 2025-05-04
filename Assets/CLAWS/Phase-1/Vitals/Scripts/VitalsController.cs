@@ -138,7 +138,7 @@ public class VitalsController : MonoBehaviour
                 data = AstronautInstance.User.vitals
             };
         string json = JsonUtility.ToJson(vitalsData);
-        LMCCwebSocketClient.SendJsonData(json, "VITALS");
+        //LMCCwebSocketClient.SendJsonData(json, "VITALS");
         //Debug.Log(json);
     }
 

@@ -247,7 +247,7 @@ public class SetUpScreenController : MonoBehaviour
     private void HandleLMCCconnectionResult(bool success)
     {
         // unsubscribe now that result is determined
-        Controller.GetComponent<MainConnections>().OnWebConnectionResult -= HandleTSSConnectionResult;
+        Controller.GetComponent<MainConnections>().OnWebConnectionResult -= HandleLMCCconnectionResult;
         Debug.Log("LMCC connection result received: " + success);
         if (success)
         {

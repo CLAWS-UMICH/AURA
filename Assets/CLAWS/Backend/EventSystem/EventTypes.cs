@@ -168,17 +168,6 @@ public class UpdatedFellowAstronautVitalsEvent
 
 
 // WAYPOINT EVENTS
-public class WaypointsEditedEvent
-{
-    public Waypoint EditedWaypoint { get; private set; }
-
-    public WaypointsEditedEvent(Waypoint _editedWaypoint)
-    {
-        EditedWaypoint = _editedWaypoint;
-    }
-}
-
-
 public class WaypointDeletedEvent
 {
     public Waypoint DeletedWaypoint { get; private set; }

@@ -116,7 +116,7 @@ public class MessagingBackend : MonoBehaviour
             Message = e.NewMadeMessage
         };
         string json = JsonUtility.ToJson(data);
-        webSocketClient.SendJsonData(json, "MESSAGING");
+        //webSocketClient.SendJsonData(json, "MESSAGING");
         Debug.Log(json);
     }
 
@@ -125,7 +125,7 @@ public class MessagingBackend : MonoBehaviour
     {
         Message reaction = e.NewReactionMessage;
         string json = JsonUtility.ToJson(reaction);
-        webSocketClient.SendJsonData(json, "MESSAGING");
+        // webSocketClient.SendJsonData(json, "MESSAGING");
         // Debug.Log(json);
     }
 

@@ -8,11 +8,10 @@ using PimDeWitte.UnityMainThreadDispatcher;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
-public class LMCCWebSocketClient : MonoBehaviour
+public class PRWebSocketClient : MonoBehaviour
 {
     private SocketIO client;
     private string serverUrl;
-    private string assignedId; // Store the unique ID assigned by the server as a string
 
     public async Task<bool> ReConnect(string connectionString)
     {
@@ -38,35 +37,16 @@ public class LMCCWebSocketClient : MonoBehaviour
 
         client = new SocketIO(serverUrl);
 
-        // Emit "connect_hololens" after connecting
+        // Emit "connect_pr" after connecting
         client.OnConnected += async (server, e) =>
         {
-            Debug.Log("Connected to server, emitting 'connect_hololens'");
-            await client.EmitAsync("connect_hololens");
+            Debug.Log("Connected to server, emitting 'connect_pr'");
+            await client.EmitAsync("connect_pr");
         };
 
-        // Listen for 'assign_id' event to receive the unique ID
-        client.On("assign_id", response =>
-        {
-
-            // Parse the response (which is an array in this case)
-            JArray jsonResponseArray = JArray.Parse(response.ToString());
-
-            // Extract the 'id' value from the first item in the array
-            if (jsonResponseArray.Count > 0)
-            {
-                JObject jsonResponse = (JObject)jsonResponseArray[0];
-                assignedId = jsonResponse["id"]?.ToString();  // Get the "id" value
-                Debug.Log($"Received ID from server: {assignedId}");
-            }
-            else
-            {
-                Debug.LogError("No valid 'id' received in the response");
-            }
-        });
 
         // Listen for 'hololens_data' event to receive data
-        client.On("hololens_data", response =>
+        client.On("pr_data", response =>
         {
             try
             {
@@ -116,7 +96,7 @@ public class LMCCWebSocketClient : MonoBehaviour
             // Parse the incoming JSON string into a JObject
             JObject jsonObject = JObject.Parse(jsonData);
 
-            if (jsonObject["client"] == null)
+            if (jsonObject["client"] == null) // client should alwaus be 'pr_client' since youre reeceiving data to the pr_client
             {
                 Debug.LogError("Missing 'client' in the received JSON.");
                 return; // Exit early if 'client' is missing
@@ -140,40 +120,24 @@ public class LMCCWebSocketClient : MonoBehaviour
             // Handle different types based on the 'room' field
             switch (room)
             {
-                case "VITALS":
-                    Vitals vitalsData = data.ToObject<Vitals>();
-                    if (assignedId == "1")
-                    {
-                        EventBus.Publish(new UpdatedVitalsEvent(vitalsData));
-                    }
-                    if (assignedId == "2")
-                    {
-                        EventBus.Publish(new UpdatedFellowAstronautVitalsEvent(vitalsData));
-                    }
-                    break;
-                case "WAYPOINTS":
-                    
-                    Waypoint waypointsData = data.ToObject<Waypoint>();
-                    if ((string)jsonObject["use"] == "DELETE") {
-                        EventBus.Publish(new WaypointDeletedEvent(waypointsData));
-                    }
-                    else if ((string)jsonObject["use"] == "ADD") {
-                        EventBus.Publish(new WaypointAddedEvent(waypointsData));
-                    }
-                    break;
-                case "MESSAGING":
-                    Message newMessage = data.ToObject<Message>();
-                    EventBus.Publish(new MessageSentEvent(newMessage));
-                    EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
-                    break;
                 case "UIA":
                     break;
+
+                case "WAYPOINTS":
+                    break;
+
+                case "MESSAGING":
+                    break;
+
                 case "ALERTS":
                     break;
+
                 case "SAMPLES":
                     break;
+
                 case "TASKS":
                     break;
+
                 default:
                     // Log if the 'type' is not recognized
                     Debug.LogWarning($"Unhandled 'type': {room}");
@@ -230,11 +194,16 @@ public class LMCCWebSocketClient : MonoBehaviour
             string jsonString = JsonUtility.ToJson(data);
 
             // Emit the appropriate event
-            // TODO: LMCC frontend
-            string eventName = clientId == 3 ? "send_to_pr" : "send_to_hololens";
+            string eventName = clientId switch
+            {
+                3 => "send_to_pr",       // PR client
+                4 => "send_to_room",     // LMCC client
+                _ => "send_to_hololens"  // Default for hololens clients
+            };
+
             await client.EmitAsync(eventName, jsonString);
 
-            Debug.Log($"Sent message to {targetClient}: {jsonString}");
+            Debug.Log($"Sent message to {targetClient} in room '{room}': {jsonString}");
         }
         else
         {
