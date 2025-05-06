@@ -166,6 +166,8 @@ public class LMCCWebSocketClient : MonoBehaviour
                     EventBus.Publish(new MessageSentEvent(newMessage));
                     EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
                     break;
+                case "PR_UP":
+                    break;
                 case "UIA":
                     break;
                 case "ALERTS":
@@ -196,7 +198,7 @@ public class LMCCWebSocketClient : MonoBehaviour
     {
         public string client; // Target client (e.g., "hololens_1", "hololens_2", "pr_client")
         public string room;   // Room name (e.g., "VITALS", "WAYPOINTS", "MESSAGES")
-        public string data; // The message to send
+        public string data; // The message to send, dependent on what the room is
     }
 
     public async void SendJsonData(string message, string room, int clientId)
@@ -229,12 +231,18 @@ public class LMCCWebSocketClient : MonoBehaviour
             // Serialize the data to JSON
             string jsonString = JsonUtility.ToJson(data);
 
+           
             // Emit the appropriate event
-            // TODO: LMCC frontend
-            string eventName = clientId == 3 ? "send_to_pr" : "send_to_hololens";
+            string eventName = clientId switch
+            {
+                3 => "send_to_pr",       // PR client
+                4 => "send_to_room",     // LMCC client
+                _ => "send_to_hololens"  // Default for hololens clients
+            };
+
             await client.EmitAsync(eventName, jsonString);
 
-            Debug.Log($"Sent message to {targetClient}: {jsonString}");
+            Debug.Log($"Sent message to {targetClient} in room '{room}': {jsonString}");
         }
         else
         {

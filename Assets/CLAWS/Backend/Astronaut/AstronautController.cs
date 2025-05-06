@@ -561,6 +561,10 @@ public class Message
     public string message; 
     public int from; // Astronaut ID it who sent the message    //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3
 
+
+
+
+
     public Message()
     {
         global_message_id++;

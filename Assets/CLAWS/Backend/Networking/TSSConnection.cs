@@ -82,9 +82,7 @@ public class TSSConnection : MonoBehaviour
             if (time_since_last_update > 1.0f)
             {
                 // Pull TSS Updates
-                // StartCoroutine(GetUIAState());
                 StartCoroutine(GetDCUState()); 
-                // StartCoroutine(GetROVERState()); PR TODO: ROVER not implemented yet
                 StartCoroutine(GetSPECState());
                 StartCoroutine(GetTELEMETRYState());
                 StartCoroutine(GetCOMMState());
@@ -132,30 +130,6 @@ public class TSSConnection : MonoBehaviour
         }
     }
 
-
-////////////////////////////  UIA  /////////////////////////////
-    // IEnumerator GetUIAState()
-    // {
-    //     using (UnityWebRequest webRequest = UnityWebRequest.Get(TSSurl + "/json_data/UIA.json"))
-    //     {
-    //         // Request and wait for the desired page.
-    //         yield return webRequest.SendWebRequest();
-
-    //         switch (webRequest.result)
-    //         {
-    //             case UnityWebRequest.Result.Success:
-    //                 if (UIAJsonString != webRequest.downloadHandler.text)
-    //                 {
-    //                     UIAJsonString = webRequest.downloadHandler.text;
-    //                     AstronautInstance.User.uia = JsonUtility.FromJson<UIA>(UIAJsonString);
-
-    //                     // EventBus.Publish(new UIAChanged(AstronautInstance.User.uia));
-    //                 }
-    //                 break;
-    //         }
-
-    //     }
-    // }
 
 
     ////////////////////////////  DCU  /////////////////////////////
@@ -221,28 +195,6 @@ public class TSSConnection : MonoBehaviour
     }
 
 
-    // IEnumerator GetROVERState()
-    // {
-    //     using (UnityWebRequest webRequest = UnityWebRequest.Get(TSSurl "/json_data/ROVER.json"))
-    //     {
-    //         // Request and wait for the desired page.
-    //         yield return webRequest.SendWebRequest();
-
-    //         switch (webRequest.result)
-    //         {
-    //             case UnityWebRequest.Result.Success:
-    //                 if (ROVERJsonString != webRequest.downloadHandler.text)
-    //                 {
-    //                     ROVERJsonString = webRequest.downloadHandler.text;
-    //                     AstronautInstance.User.rover = JsonUtility.FromJson<ROVER>(this.ROVERJsonString);
-    //                     // EventBus.Publish(new RoverChanged(AstronautInstance.User.rover.rover));
-    //                 }
-    //                 break;
-    //         }
-
-    //     }
-    // }
-
 
     ////////////////////////////  EVA VITALS /////////////////////////////
     IEnumerator GetTELEMETRYState()
@@ -270,7 +222,6 @@ public class TSSConnection : MonoBehaviour
                         }
 
                         AstronautInstance.User.vitals.eva_time = AstronautInstance.User.telemetry.telemetry.eva_time;
-                        Debug.Log("TELEMETRY: " + TELEMETRYJsonString);
                         EventBus.Publish<UpdatedVitalsEvent>(new UpdatedVitalsEvent(AstronautInstance.User.vitals));
                         EventBus.Publish<UpdatedFellowAstronautVitalsEvent>(new UpdatedFellowAstronautVitalsEvent(AstronautInstance.User.fellowAstronaut.vitals));
                     }
