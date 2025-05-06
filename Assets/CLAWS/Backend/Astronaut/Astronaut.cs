@@ -17,7 +17,6 @@ public class Astronaut
     // Feature Info
     public Location location;
     public Vitals vitals;
-    public TasklistObj tasklist;
     public Messaging messages;
 
 
@@ -25,8 +24,6 @@ public class Astronaut
     public COMM comm;
     public DCU dcu;
     public IMU imu;
-    public ROVER rover;
     public SPEC spec;
     public TELEMETRY telemetry;
-    public UIA uia;
 }
