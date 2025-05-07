@@ -10,12 +10,17 @@ public class Astronaut
     public string avatarColor;
     public FellowAstronaut fellowAstronaut;
 
+    // Initial Location data
+    public double latitude;
+    public double longitude;
+    public Location origin;
+
     // URL info
     public string LMCCurl;
     public string TSSurl;
 
     // Feature Info
-    public Location location;
+    public Location current;
     public Vitals vitals;
     public Messaging messages;
 
@@ -25,5 +30,6 @@ public class Astronaut
     public DCU dcu;
     public IMU imu;
     public SPEC spec;
+    public ROVER rover;
     public TELEMETRY telemetry;
 }

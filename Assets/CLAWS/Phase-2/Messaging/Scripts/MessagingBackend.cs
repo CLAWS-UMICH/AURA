@@ -40,7 +40,6 @@ public class MessagingBackend : MonoBehaviour
         msgList = new Messaging();
         allMessage = msgList.AllMessages;
 
-
         messageAddedEvent = EventBus.Subscribe<MessagesAddedEvent>(appendList);
         messageSentEvent = EventBus.Subscribe<MessageSentEvent>(sendMessage);
         messageReactionEvent = EventBus.Subscribe<MessageReactionEvent>(sendReaction);

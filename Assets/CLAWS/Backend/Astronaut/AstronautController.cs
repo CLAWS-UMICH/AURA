@@ -15,20 +15,24 @@ using Unity.Collections.LowLevel.Unsafe;
 [System.Serializable]
 public class Location
 {
-    public double latitude;
-    public double longitude;
+    public double posX;
+    public double posY;
+    public double posZ;
+    public double Heading;
 
     public Location() { }
 
-    public Location(double lat, double lon)
+    public Location(double posx, double posy, double posz, double heading)
     {
-        latitude = lat;
-        longitude = lon;
+        this.posX = posx;
+        this.posY = posy;
+        this.posZ = posz;
+        this.Heading = heading;
     }
     
         public override int GetHashCode()
         {
-            return (latitude, longitude).GetHashCode();
+            return (posX, posY, posZ, Heading).GetHashCode();
         }
     
 
@@ -40,9 +44,70 @@ public class Location
         }
 
         Location otherLoc = (Location)obj;
-        return latitude == otherLoc.latitude &&
-               longitude == otherLoc.longitude;
+        return posX == otherLoc.posX &&
+               posY == otherLoc.posY &&
+               posZ == otherLoc.posZ &&
+               Heading == otherLoc.Heading;
     }
+}
+
+
+////////////////////////////  WAYPOINTS  /////////////////////////////
+[System.Serializable]
+public class Waypoint
+{
+    public string  Use { get; set; } // Use this to determine if the waypoint is added/deleted
+    public int Id { get; set; } // Sequential ID
+    public string Name { get; set; } // Name of the waypoint
+    public double IMUposX { get; set; } // LUNAR X coordinate 
+    public double IMUposY { get; set; } // LUNAR Y coordinate
+    public WaypointType Type { get; set; } // Enum for waypoint type
+    public AuthorType Author { get; set; } // Enum for author type
+
+    public Waypoint(string use, int waypointId, string name, double posx, double posy, WaypointType type, AuthorType author)
+    {
+        Use = use;
+        Id = waypointId;
+        Name = name;
+        IMUposX = posx;
+        IMUposY = posy;
+        Type = type;
+        Author = author;
+    }
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Waypoint otherWaypoint = (Waypoint)obj;
+        return Id == otherWaypoint.Id && 
+               Name == otherWaypoint.Name &&
+               IMUposX == otherWaypoint.IMUposX &&
+               IMUposY == otherWaypoint.IMUposY &&
+               Type == otherWaypoint.Type &&
+               Author == otherWaypoint.Author;
+    }
+    public override int GetHashCode()
+    {
+        return (Id, Name, IMUposX, IMUposY, Type, Author).GetHashCode();
+    }
+}
+
+public enum WaypointType
+{
+    POI,
+    GEO,
+    DANGER,
+    STATION
+}
+
+public enum AuthorType
+{
+    EV1,
+    EV2,
+    PR
 }
 
 
@@ -63,6 +128,11 @@ public class AllBreadCrumbs
 
         // Compare lists using the SequenceEqual method from System.Linq
         return AllCrumbs.SequenceEqual(otherCrumbs.AllCrumbs);
+    }
+
+    public override int GetHashCode()
+    {
+        return AllCrumbs != null ? AllCrumbs.Aggregate(0, (hash, crumb) => hash ^ crumb.GetHashCode()) : 0;
     }
 }
 
@@ -91,6 +161,11 @@ public class Breadcrumb
         return crumb_id == otherBread.crumb_id &&
                location.Equals(otherBread.location) &&
                type == otherBread.type;
+    }
+
+    public override int GetHashCode()
+    {
+        return (crumb_id, location, type).GetHashCode();
     }
 }
 
@@ -128,6 +203,7 @@ public class Vitals
 public class FellowAstronaut
 {
     public int astronaut_id;
+    public string name;
     public Location location;
     public string color;
     public Vitals vitals;
@@ -148,6 +224,10 @@ public class FellowAstronaut
                vitals.Equals(otherA.vitals) &&
                navigating == otherA.navigating &&
                bread_crumbs.Equals(otherA.bread_crumbs);
+    }
+    public override int GetHashCode()
+    {
+        return (astronaut_id, location, color, vitals, navigating, bread_crumbs).GetHashCode();
     }
 }
 
@@ -184,6 +264,29 @@ public class AlertObj
     {
         return (alert_id, astronaut_in_danger, vital, vital_val).GetHashCode();
     }
+}
+
+
+////////////////////////////  ROVER  /////////////////////////////
+
+[System.Serializable]
+public class ROVER
+{
+    public RoverDetails rover;
+}
+
+[System.Serializable]
+public class RoverDetails
+{
+    public double posx;
+    public double posy;
+    public double poi_1_x;
+    public double poi_1_y;
+    public double poi_2_x;
+    public double poi_2_y;
+    public double poi_3_x;
+    public double poi_3_y;
+    public bool ping;
 }
 
 
@@ -342,61 +445,6 @@ public class AlertObj
 //         return comSub;
 //     }
 // }
-
-////////////////////////////  WAYPOINTS  /////////////////////////////
-[System.Serializable]
-public class Waypoint
-{
-    public int WaypointId { get; set; } // Sequential ID
-    public Location Location { get; set; } // Latitude and Longitude
-    public WaypointType Type { get; set; } // Enum for waypoint type
-    public string Title { get; set; } // Title of the waypoint (e.g., 'Waypoint 1')
-    public AuthorType Author { get; set; } // Enum for author type
-
-    public Waypoint(int waypointId, Location location, WaypointType type, string title, AuthorType author)
-    {
-        WaypointId = waypointId;
-        Location = location;
-        Type = type;
-        Title = title;
-        Author = author;
-    }
-    public override bool Equals(object obj)
-    {
-        if (obj == null || GetType() != obj.GetType())
-        {
-            return false;
-        }
-
-        Waypoint otherWaypoint = (Waypoint)obj;
-        return WaypointId == otherWaypoint.WaypointId &&
-               Location.Equals(otherWaypoint.Location) &&
-               Type == otherWaypoint.Type &&
-               Title == otherWaypoint.Title &&
-               Author == otherWaypoint.Author;
-    }
-    public override int GetHashCode()
-    {
-        return (WaypointId, Location, Type, Title, Author).GetHashCode();
-    }
-}
-
-public enum WaypointType
-{
-    GEO,
-    SAMPLE,
-    DANGER,
-    INTEREST,
-    STATION
-}
-
-public enum AuthorType
-{
-    ASTRONAUT1,
-    ASTRONAUT2,
-    LMCC,
-    PRTEAM,
-}
 
 
 ////////////////////////////  GEO SAMPLES  /////////////////////////////
@@ -635,7 +683,7 @@ public class EvaDetails
     public bool co2;
 }
 
-///////////////////////////  IMU/GPS  ////////////////////////////
+///////////////////////////  IMU  ////////////////////////////
 [System.Serializable]
 public class IMU
 {
@@ -658,20 +706,20 @@ public class IMUData
 }
 
 
-///////////////////////////  ROVER  ////////////////////////////
-[System.Serializable]
-public class ROVER
-{
-    public RoverDetails rover;
-}
+// ///////////////////////////  ROVER  ////////////////////////////
+// [System.Serializable]
+// public class ROVER
+// {
+//     public RoverDetails rover;
+// }
 
-[System.Serializable]
-public class RoverDetails
-{
-    public double posx;
-    public double posy;
-    public int qr_id;
-}
+// [System.Serializable]
+// public class RoverDetails
+// {
+//     public double posx;
+//     public double posy;
+//     public int qr_id;
+// }
 
 
 

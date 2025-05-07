@@ -5,34 +5,6 @@ using UnityEngine;
 
 
 
-// Event for letting us know GPS data was received from the server
-public class UpdatedGPSEvent
-{
-    public UpdatedGPSEvent()
-    {
-        Debug.Log("GPS update event created");
-    }
-
-    public override string ToString()
-    {
-        return "<UpdatedGPSEvent>: new GPS msg";
-    }
-}
-
-public class UpdatedGPSOriginEvent
-{
-    public UpdatedGPSOriginEvent()
-    {
-        Debug.Log("GPS origin updated");
-    }
-
-    public override string ToString()
-    {
-        return "<UpdatedGPSOriginEvent>: new GPS origin";
-    }
-}
-
-
 // VITALS EVENTS
 public class UpdatedVitalsEvent
 {
@@ -73,13 +45,35 @@ public class WaypointAddedEvent
         NewAddedWaypoint = _waypoint;
     }
 }
-public class GPSUpdatedEvent
+public class EV1_LocationUpdatedEvent
 {
-    public loc NewGPS { get; private set; }
+    public Location data { get; private set; }
 
-    public GPSUpdatedEvent(GPS _gps)
+    public EV1_LocationUpdatedEvent(Location _gps)
     {
-        NewGPS = _gps;
+        data = _gps;
+    }
+}
+
+
+public class EV2_LocationUpdatedEvent
+{
+    public Location data { get; private set; }
+
+    public EV2_LocationUpdatedEvent(Location _gps)
+    {
+        data = _gps;
+    }
+}
+
+
+public class PR_LocationUpdatedEvent
+{
+    public Location data { get; private set; }
+
+    public PR_LocationUpdatedEvent(Location _gps)
+    {
+        data = _gps;
     }
 }
 
@@ -116,5 +110,26 @@ public class MessageReactionEvent
     public MessageReactionEvent(Message _newRactionMessage)
     {
         NewReactionMessage = _newRactionMessage;
+    }
+}
+
+
+public class RoverUpdatedEvent
+{
+    public RoverDetails data { get; private set; }
+
+    public RoverUpdatedEvent(RoverDetails d)
+    {
+        data = d;
+    }
+}
+
+public class RoverStatusUpdatedEvent
+{
+    public bool data { get; private set; }
+
+    public RoverStatusUpdatedEvent(bool d)
+    {
+        data = d;
     }
 }
