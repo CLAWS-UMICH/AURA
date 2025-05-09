@@ -117,9 +117,9 @@ public class NavigationController : MonoBehaviour
                 dangerIconClosed.name = newWaypoint.Name + "_closed";
 
                 // Instantiate the the danger prefab button in NAV menu
-                dynamicWaypointPop.AddWaypointToMenu(newWaypoint);
                 DangerWaypointList.Add(newWaypoint);
                 waypointList.Add(newWaypoint);
+                dynamicWaypointPop.AddWaypointToMenu(newWaypoint);
                 break;
             case WaypointType.GEO:
                 
