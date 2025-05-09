@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using MixedReality.Toolkit.UX;
 using UnityEditor.Rendering.LookDev;
+using UnityEngine.XR.Interaction.Toolkit.Interactors;
 
 public class NavigationController : MonoBehaviour
 {
@@ -23,6 +24,7 @@ public class NavigationController : MonoBehaviour
     public GameObject geoPrefab_Icon;
     public GameObject stationPrefab_Icon;
     public GameObject poiPrefab_Icon;
+    public GameObject WSPACE_IconpPrefab;
 
     [Header("Closed Icon Prefabs")]
     public GameObject dangerClosedPrefab_Icon;
@@ -35,6 +37,10 @@ public class NavigationController : MonoBehaviour
     [Header("Minimaps")]
     public GameObject FullMap;
     public GameObject EVmap;
+
+    [Header("Ray Interactors")]
+    public XRBaseInteractor leftRayInteractor;
+    public XRBaseInteractor rightRayInteractor;
 
     // Screens Section
     [Header("Screens")]
@@ -49,6 +55,7 @@ public class NavigationController : MonoBehaviour
     public GameObject CreateWaypointScreen;
     public GameObject NavigationScreen;
     public GameObject NotifcationScreen;
+    public GameObject WaypointMenuScreen;
 
     // Buttons Section
     [Header("Buttons")]
