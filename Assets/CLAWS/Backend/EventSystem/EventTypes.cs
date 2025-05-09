@@ -45,6 +45,8 @@ public class WaypointAddedEvent
         NewAddedWaypoint = _waypoint;
     }
 }
+
+
 public class EV1_LocationUpdatedEvent
 {
     public Location data { get; private set; }

@@ -152,7 +152,6 @@ public class LMCCWebSocketClient : MonoBehaviour
                     }
                     break;
                 case "WAYPOINTS":
-                    
                     Waypoint waypointsData = data.ToObject<Waypoint>();
                     if ((string)data["use"] == "DELETE") {
                         EventBus.Publish(new WaypointDeletedEvent(waypointsData));
