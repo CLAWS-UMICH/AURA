@@ -8,11 +8,13 @@ using TMPro;
 
 public class TSSConnection : MonoBehaviour
 {
+    [SerializeField] private GameObject minimap;
     private string IPaddr;
     int team_number;
     bool connected;
     float time_since_last_update;
     public Action<bool> OnTSSConnectionResult;
+    private bool imuInitialized = false;
 
 
     // Database Jsons
@@ -83,6 +85,7 @@ public class TSSConnection : MonoBehaviour
             {
                 // Pull TSS Updates
                 StartCoroutine(GetDCUState()); 
+                StartCoroutine(GetROVERState());
                 StartCoroutine(GetSPECState());
                 StartCoroutine(GetTELEMETRYState());
                 StartCoroutine(GetCOMMState());
@@ -195,6 +198,28 @@ public class TSSConnection : MonoBehaviour
     }
 
 
+    IEnumerator GetROVERState()
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(AstronautInstance.User.TSSurl + "/json_data/ROVER.json"))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if (ROVERJsonString != webRequest.downloadHandler.text)
+                    {
+                        ROVERJsonString = webRequest.downloadHandler.text;
+                        AstronautInstance.User.rover = JsonUtility.FromJson<ROVER>(ROVERJsonString);
+                        EventBus.Publish(new RoverUpdatedEvent(AstronautInstance.User.rover.rover));
+                    }
+                    break;
+            }
+
+        }
+    }
+
 
     ////////////////////////////  EVA VITALS /////////////////////////////
     IEnumerator GetTELEMETRYState()
@@ -298,22 +323,43 @@ public class TSSConnection : MonoBehaviour
                     {
                         IMUJsonString = webRequest.downloadHandler.text;
 
+                        // Parse the IMU data
                         AstronautInstance.User.imu = JsonUtility.FromJson<IMU>(this.IMUJsonString);
-
+                        float EV1_posX = (float)AstronautInstance.User.imu.imu.eva1.posx;
+                        float EV1_posY = (float)AstronautInstance.User.imu.imu.eva1.posy;
+                        float EV2_posX = (float)AstronautInstance.User.imu.imu.eva2.posx;
+                        float EV2_posY = (float)AstronautInstance.User.imu.imu.eva2.posy;
+                        // Check if this is the first IMU update -- should only enter condition once
+                        if (!imuInitialized)
+                        {
+                            // If the IMU data is not (0, 0), initialize the minimap
+                            if (EV1_posX != 0 || EV1_posY != 0)
+                            {
+                                imuInitialized = true;
+                                if (AstronautInstance.User.id == 1)
+                                {
+                                    AstronautInstance.User.origin.posX = EV1_posX;
+                                    AstronautInstance.User.origin.posY = EV1_posY;
+                                }
+                                else
+                                {
+                                    AstronautInstance.User.origin.posX = EV2_posX;
+                                    AstronautInstance.User.origin.posY = EV2_posY;
+                                }
+                            }
+                        }
                         if (AstronautInstance.User.id == 1)
                         {
-                            // EventBus.Publish(new IMUChanged(AstronautInstance.User.imu.imu.eva1));
-                            // EventBus.Publish(new FellowIMUChanged(AstronautInstance.User.imu.imu.eva2));
+                            Location newLocation = new Location(EV1_posX - AstronautInstance.User.origin.posX, EV1_posY - AstronautInstance.User.origin.posY, 0, AstronautInstance.User.imu.imu.eva1.heading);
+                            AstronautInstance.User.current = newLocation;
                         }
-                        else
-                        {
-                            // EventBus.Publish(new IMUChanged(AstronautInstance.User.imu.imu.eva2));
-                            // EventBus.Publish(new FellowIMUChanged(AstronautInstance.User.imu.imu.eva1));
+                        else {
+                            Location newLocation = new Location(EV2_posX - AstronautInstance.User.origin.posX, EV2_posY - AstronautInstance.User.origin.posY, 0, AstronautInstance.User.imu.imu.eva2.heading);
+                            AstronautInstance.User.current = newLocation;
                         }
                     }
                     break;
             }
-
         }
     }
 }

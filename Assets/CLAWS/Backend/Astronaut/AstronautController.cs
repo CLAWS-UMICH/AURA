@@ -15,20 +15,24 @@ using Unity.Collections.LowLevel.Unsafe;
 [System.Serializable]
 public class Location
 {
-    public double latitude;
-    public double longitude;
+    public double posX;
+    public double posY;
+    public double posZ;
+    public double Heading;
 
     public Location() { }
 
-    public Location(double lat, double lon)
+    public Location(double posx, double posy, double posz, double heading)
     {
-        latitude = lat;
-        longitude = lon;
+        this.posX = posx;
+        this.posY = posy;
+        this.posZ = posz;
+        this.Heading = heading;
     }
     
         public override int GetHashCode()
         {
-            return (latitude, longitude).GetHashCode();
+            return (posX, posY, posZ, Heading).GetHashCode();
         }
     
 
@@ -40,9 +44,73 @@ public class Location
         }
 
         Location otherLoc = (Location)obj;
-        return latitude == otherLoc.latitude &&
-               longitude == otherLoc.longitude;
+        return posX == otherLoc.posX &&
+               posY == otherLoc.posY &&
+               posZ == otherLoc.posZ &&
+               Heading == otherLoc.Heading;
     }
+}
+
+
+////////////////////////////  WAYPOINTS  /////////////////////////////
+[System.Serializable]
+public class Waypoint
+{
+    public string  Use { get; set; } // Use this to determine if the waypoint is added/deleted
+    public int Id { get; set; } // Sequential ID
+    public string Name { get; set; } // Name of the waypoint
+    public double IMUposX { get; set; } // LUNAR X coordinate 
+    public double IMUposY { get; set; } // LUNAR Y coordinate
+    public WaypointType Type { get; set; } // Enum for waypoint type
+    public AuthorType Author { get; set; } // Enum for author type
+
+    public Waypoint() { }
+
+    public Waypoint(string use, int waypointId, string name, double posx, double posy, WaypointType type, AuthorType author)
+    {
+        Use = use;
+        Id = waypointId;
+        Name = name;
+        IMUposX = posx;
+        IMUposY = posy;
+        Type = type;
+        Author = author;
+    }
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Waypoint otherWaypoint = (Waypoint)obj;
+        return Use == otherWaypoint.Use && 
+               Id == otherWaypoint.Id && 
+               Name == otherWaypoint.Name &&
+               IMUposX == otherWaypoint.IMUposX &&
+               IMUposY == otherWaypoint.IMUposY &&
+               Type == otherWaypoint.Type &&
+               Author == otherWaypoint.Author;
+    }
+    public override int GetHashCode()
+    {
+        return (Use, Id, Name, IMUposX, IMUposY, Type, Author).GetHashCode();
+    }
+}
+
+public enum WaypointType
+{
+    POI,
+    GEO,
+    DANGER,
+    STATION
+}
+
+public enum AuthorType
+{
+    EV1,
+    EV2,
+    PR
 }
 
 
@@ -63,6 +131,11 @@ public class AllBreadCrumbs
 
         // Compare lists using the SequenceEqual method from System.Linq
         return AllCrumbs.SequenceEqual(otherCrumbs.AllCrumbs);
+    }
+
+    public override int GetHashCode()
+    {
+        return AllCrumbs != null ? AllCrumbs.Aggregate(0, (hash, crumb) => hash ^ crumb.GetHashCode()) : 0;
     }
 }
 
@@ -91,6 +164,11 @@ public class Breadcrumb
         return crumb_id == otherBread.crumb_id &&
                location.Equals(otherBread.location) &&
                type == otherBread.type;
+    }
+
+    public override int GetHashCode()
+    {
+        return (crumb_id, location, type).GetHashCode();
     }
 }
 
@@ -128,6 +206,7 @@ public class Vitals
 public class FellowAstronaut
 {
     public int astronaut_id;
+    public string name;
     public Location location;
     public string color;
     public Vitals vitals;
@@ -148,6 +227,10 @@ public class FellowAstronaut
                vitals.Equals(otherA.vitals) &&
                navigating == otherA.navigating &&
                bread_crumbs.Equals(otherA.bread_crumbs);
+    }
+    public override int GetHashCode()
+    {
+        return (astronaut_id, location, color, vitals, navigating, bread_crumbs).GetHashCode();
     }
 }
 
@@ -187,216 +270,184 @@ public class AlertObj
 }
 
 
+////////////////////////////  ROVER  /////////////////////////////
+
+[System.Serializable]
+public class ROVER
+{
+    public RoverDetails rover;
+}
+
+[System.Serializable]
+public class RoverDetails
+{
+    public double posx;
+    public double posy;
+    public double poi_1_x;
+    public double poi_1_y;
+    public double poi_2_x;
+    public double poi_2_y;
+    public double poi_3_x;
+    public double poi_3_y;
+    public bool ping;
+}
+
+
 ////////////////////////////  TASKLIST  /////////////////////////////
-[System.Serializable]
-public class TasklistObj
-{
+// [System.Serializable]
+// public class TasklistObj
+// {
  
-    public List<TaskObj> Tasklist = new List<TaskObj>();
-    public TaskObj currentTask = new TaskObj();
+//     public List<TaskObj> Tasklist = new List<TaskObj>();
+//     public TaskObj currentTask = new TaskObj();
 
-    public TasklistObj() { }
-    public TasklistObj(List<TaskObj> data)
-    {
-        foreach (TaskObj task_d in data)
-        {
-            TaskObj task = new TaskObj(task_d.task_id, task_d.status, task_d.title, task_d.taskType, task_d.description, task_d.isEmergency, task_d.isShared, task_d.isSubtask, task_d.location, task_d.astronauts, task_d.subtasks);
-            Tasklist.Add(task);
-        }
-    }
+//     public TasklistObj() { }
+//     public TasklistObj(List<TaskObj> data)
+//     {
+//         foreach (TaskObj task_d in data)
+//         {
+//             TaskObj task = new TaskObj(task_d.task_id, task_d.status, task_d.title, task_d.taskType, task_d.description, task_d.isEmergency, task_d.isShared, task_d.isSubtask, task_d.location, task_d.astronauts, task_d.subtasks);
+//             Tasklist.Add(task);
+//         }
+//     }
 
-    public void add(TaskObj t)
-    {
-        Tasklist.Add(t);
-    }
+//     public void add(TaskObj t)
+//     {
+//         Tasklist.Add(t);
+//     }
 
-    public void insert(int pos, TaskObj t)
-    {
-        Tasklist.Insert(pos, t);
-    }
+//     public void insert(int pos, TaskObj t)
+//     {
+//         Tasklist.Insert(pos, t);
+//     }
 
-    public void update(TaskObj newT)
-    {
-        for (int i = 0; i < Tasklist.Count; i++)
-        {
-            if (Tasklist[i].task_id == newT.task_id)
-            {
-                Tasklist[i] = newT;
-                break;
-            }
-        }
-    }
-}
+//     public void update(TaskObj newT)
+//     {
+//         for (int i = 0; i < Tasklist.Count; i++)
+//         {
+//             if (Tasklist[i].task_id == newT.task_id)
+//             {
+//                 Tasklist[i] = newT;
+//                 break;
+//             }
+//         }
+//     }
+// }
 
-public class TaskObj
-{
-    public int task_id;
-    public int status;
-    public string title;
-    public string taskType;
-    public string description;
-    public bool isEmergency;
-    public bool isShared;
-    public bool isSubtask;
+// public class TaskObj
+// {
+//     public int task_id;
+//     public int status;
+//     public string title;
+//     public string taskType;
+//     public string description;
+//     public bool isEmergency;
+//     public bool isShared;
+//     public bool isSubtask;
 
 
-    // change later for location constructor if sent in tuple
-    public string location;
-    public List<int> astronauts;
-    public List<TaskObj> subtasks;
-    private int numSub;
-    private int comSub;
-    public TaskObj()
-    {
-        task_id = 0;
-        status = 0;
-        title = "";
-        description = "";
-        taskType = "";
-        isEmergency = false;
-        isShared = false;
-        isSubtask = false;
-        location = "";
-        astronauts = new List<int>();
-        subtasks = new List<TaskObj>();
-        numSub = 0;
-        comSub = 0;
-    }
-    public TaskObj(int t_id, int st, string tle, string desc, string t_type, bool em, bool sh, bool sut, string loc, List<int> astrs, List<TaskObj> subts)
-    {
-        task_id = t_id;
-        status = st;
-        title = tle;
-        description = desc;
-        taskType = t_type;
-        isEmergency = em;
-        isShared = sh;
-        isSubtask = sut;
-        location = loc;
-        astronauts = new List<int>();
-        foreach (int a in astrs)
-        {
-            astronauts.Add(a);
-        }
-        subtasks = new List<TaskObj>();
-        if (!isSubtask)
-        {
-            if (subts.Count > 0)
-            {
-                foreach (TaskObj t in subts)
-                {
-                    subtasks.Add(t);
-                }
-                numSub = subts.Count;
-                comSub = 0;
-            }
-            else
-            {
-                numSub = -1;
-                comSub = -1;
-            }
-        }
-        else
-        {
-            numSub = -1;
-            comSub = -1;
-        }
-    }
+//     // change later for location constructor if sent in tuple
+//     public string location;
+//     public List<int> astronauts;
+//     public List<TaskObj> subtasks;
+//     private int numSub;
+//     private int comSub;
+//     public TaskObj()
+//     {
+//         task_id = 0;
+//         status = 0;
+//         title = "";
+//         description = "";
+//         taskType = "";
+//         isEmergency = false;
+//         isShared = false;
+//         isSubtask = false;
+//         location = "";
+//         astronauts = new List<int>();
+//         subtasks = new List<TaskObj>();
+//         numSub = 0;
+//         comSub = 0;
+//     }
+//     public TaskObj(int t_id, int st, string tle, string desc, string t_type, bool em, bool sh, bool sut, string loc, List<int> astrs, List<TaskObj> subts)
+//     {
+//         task_id = t_id;
+//         status = st;
+//         title = tle;
+//         description = desc;
+//         taskType = t_type;
+//         isEmergency = em;
+//         isShared = sh;
+//         isSubtask = sut;
+//         location = loc;
+//         astronauts = new List<int>();
+//         foreach (int a in astrs)
+//         {
+//             astronauts.Add(a);
+//         }
+//         subtasks = new List<TaskObj>();
+//         if (!isSubtask)
+//         {
+//             if (subts.Count > 0)
+//             {
+//                 foreach (TaskObj t in subts)
+//                 {
+//                     subtasks.Add(t);
+//                 }
+//                 numSub = subts.Count;
+//                 comSub = 0;
+//             }
+//             else
+//             {
+//                 numSub = -1;
+//                 comSub = -1;
+//             }
+//         }
+//         else
+//         {
+//             numSub = -1;
+//             comSub = -1;
+//         }
+//     }
 
-    public override bool Equals(object obj)
-    {
-        if (obj == null || GetType() != obj.GetType())
-        {
-            return false;
-        }
+//     public override bool Equals(object obj)
+//     {
+//         if (obj == null || GetType() != obj.GetType())
+//         {
+//             return false;
+//         }
 
-        TaskObj otherTask = (TaskObj)obj;
-        return task_id == otherTask.task_id &&
-               title == otherTask.title &&
-               astronauts.Equals(otherTask.astronauts) &&
-               subtasks.Equals(otherTask.subtasks) &&
-               status == otherTask.status &&
-               isEmergency == otherTask.isEmergency &&
-               isSubtask == otherTask.isSubtask && 
-               description == otherTask.description &&
-               isShared == otherTask.isShared &&
-               location == otherTask.location;
-    }
+//         TaskObj otherTask = (TaskObj)obj;
+//         return task_id == otherTask.task_id &&
+//                title == otherTask.title &&
+//                astronauts.Equals(otherTask.astronauts) &&
+//                subtasks.Equals(otherTask.subtasks) &&
+//                status == otherTask.status &&
+//                isEmergency == otherTask.isEmergency &&
+//                isSubtask == otherTask.isSubtask && 
+//                description == otherTask.description &&
+//                isShared == otherTask.isShared &&
+//                location == otherTask.location;
+//     }
 
-    public override int GetHashCode()
-    {
-        return (task_id, title, astronauts, subtasks, status, isEmergency, isSubtask, description, isShared, location).GetHashCode();
-    }
+//     public override int GetHashCode()
+//     {
+//         return (task_id, title, astronauts, subtasks, status, isEmergency, isSubtask, description, isShared, location).GetHashCode();
+//     }
 
-    public void addCom()
-    {
-        comSub += 1;
-    }
+//     public void addCom()
+//     {
+//         comSub += 1;
+//     }
 
-    public int getNumSub()
-    {
-        return numSub;
-    }
-    public int getComSub()
-    {
-        return comSub;
-    }
-}
-
-////////////////////////////  WAYPOINTS  /////////////////////////////
-[System.Serializable]
-public class Waypoint
-{
-    public int WaypointId { get; set; } // Sequential ID
-    public Location Location { get; set; } // Latitude and Longitude
-    public WaypointType Type { get; set; } // Enum for waypoint type
-    public string Title { get; set; } // Title of the waypoint (e.g., 'Waypoint 1')
-    public AuthorType Author { get; set; } // Enum for author type
-
-    public Waypoint(int waypointId, Location location, WaypointType type, string title, AuthorType author)
-    {
-        WaypointId = waypointId;
-        Location = location;
-        Type = type;
-        Title = title;
-        Author = author;
-    }
-    public override bool Equals(object obj)
-    {
-        if (obj == null || GetType() != obj.GetType())
-        {
-            return false;
-        }
-
-        Waypoint otherWaypoint = (Waypoint)obj;
-        return WaypointId == otherWaypoint.WaypointId &&
-               Location.Equals(otherWaypoint.Location) &&
-               Type == otherWaypoint.Type &&
-               Title == otherWaypoint.Title &&
-               Author == otherWaypoint.Author;
-    }
-    public override int GetHashCode()
-    {
-        return (WaypointId, Location, Type, Title, Author).GetHashCode();
-    }
-}
-
-public enum WaypointType
-{
-    GEO,
-    SAMPLE,
-    DANGER,
-    INTEREST,
-    STATION
-}
-
-public enum AuthorType
-{
-    ASTRONAUT1,
-    ASTRONAUT2,
-    LMCC,
-    PRTEAM,
-}
+//     public int getNumSub()
+//     {
+//         return numSub;
+//     }
+//     public int getComSub()
+//     {
+//         return comSub;
+//     }
+// }
 
 
 ////////////////////////////  GEO SAMPLES  /////////////////////////////
@@ -639,7 +690,7 @@ public class EvaDetails
     public bool co2;
 }
 
-///////////////////////////  IMU/GPS  ////////////////////////////
+///////////////////////////  IMU  ////////////////////////////
 [System.Serializable]
 public class IMU
 {
@@ -662,20 +713,20 @@ public class IMUData
 }
 
 
-///////////////////////////  ROVER  ////////////////////////////
-[System.Serializable]
-public class ROVER
-{
-    public RoverDetails rover;
-}
+// ///////////////////////////  ROVER  ////////////////////////////
+// [System.Serializable]
+// public class ROVER
+// {
+//     public RoverDetails rover;
+// }
 
-[System.Serializable]
-public class RoverDetails
-{
-    public double posx;
-    public double posy;
-    public int qr_id;
-}
+// [System.Serializable]
+// public class RoverDetails
+// {
+//     public double posx;
+//     public double posy;
+//     public int qr_id;
+// }
 
 
 

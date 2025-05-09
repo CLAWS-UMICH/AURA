@@ -6,8 +6,8 @@ using System.Collections;
 
 public class EyeGazeButtonHighlight : MonoBehaviour
 {
-    public FrontPlatePulse frontPlatePulse; // Reference to the FrontPlatePulse component
-    public PressableButton button;
+    private FrontPlatePulse frontPlatePulse; // Reference to the FrontPlatePulse component
+    private PressableButton button;
 
     private bool isGazeActive = false; // Tracks whether the gaze is active
     private Coroutine pulseCoroutine; // Reference to the pulse coroutine
@@ -15,12 +15,14 @@ public class EyeGazeButtonHighlight : MonoBehaviour
     void Start()
     {
         // Ensure the button component is assigned
+        button = transform.parent.parent.GetComponent<PressableButton>();
         if (button == null)
         {
             Debug.LogError("PressableButton component not found on this GameObject.");
             return;
         }
 
+        frontPlatePulse = transform.Find("UX.Button.FrontplateHighlight").GetComponent<FrontPlatePulse>();
         // Ensure the FrontPlatePulse component is assigned
         if (frontPlatePulse == null)
         {

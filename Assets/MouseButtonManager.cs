@@ -7,11 +7,16 @@ using MixedReality.Toolkit;
 
 public class MouseButtonManager : MonoBehaviour
 {
-    [SerializeField] private PressableButton pressableButton;
+    private PressableButton pressableButton;
 
     void Start()
     {
         pressableButton = GetComponent<PressableButton>();
+        if (pressableButton == null)
+        {
+            Debug.LogError("PressableButton component not found on this GameObject.");
+            return;
+        }
     }
 
      void Update()

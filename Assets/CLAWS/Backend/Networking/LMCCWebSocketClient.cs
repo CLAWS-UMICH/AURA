@@ -152,12 +152,11 @@ public class LMCCWebSocketClient : MonoBehaviour
                     }
                     break;
                 case "WAYPOINTS":
-                    
                     Waypoint waypointsData = data.ToObject<Waypoint>();
-                    if ((string)jsonObject["use"] == "DELETE") {
+                    if ((string)data["use"] == "DELETE") {
                         EventBus.Publish(new WaypointDeletedEvent(waypointsData));
                     }
-                    else if ((string)jsonObject["use"] == "ADD") {
+                    else if ((string)data["use"] == "ADD") {
                         EventBus.Publish(new WaypointAddedEvent(waypointsData));
                     }
                     break;
@@ -166,7 +165,22 @@ public class LMCCWebSocketClient : MonoBehaviour
                     EventBus.Publish(new MessageSentEvent(newMessage));
                     EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
                     break;
-                case "PR_UP":
+                case "EV":
+                    if ((string)data["use"] == "INIT") 
+                    {
+                        AstronautInstance.User.fellowAstronaut.name = (string)data["name"];
+                        AstronautInstance.User.fellowAstronaut.color = (string)data["color"];
+                    }
+                    break;
+                case "LTV_POI":
+                    if (data["confirmed"]?.Value<bool>() == true)
+                    {
+                        EventBus.Publish(new RoverStatusUpdatedEvent(true));
+                    }
+                    else
+                    {
+                        EventBus.Publish(new RoverStatusUpdatedEvent(false));
+                    }
                     break;
                 case "UIA":
                     break;

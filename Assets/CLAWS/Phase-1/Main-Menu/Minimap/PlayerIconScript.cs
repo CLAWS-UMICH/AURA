@@ -10,9 +10,12 @@ public class PlayerIconScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            // Align position with player, keeping Y constant
-            Vector3 newPosition = playerTransform.position;
-            newPosition.y = transform.position.y; // Maintain the icon's height
+            // Align the icon's position with AstronautInstance.User.current.posX and posY
+            Vector3 newPosition = new Vector3(
+                (float)AstronautInstance.User.current.posX,
+                transform.position.y,                     
+                (float)AstronautInstance.User.current.posY
+            );
             transform.position = newPosition;
 
             // Apply only the player's Z rotation to icon
