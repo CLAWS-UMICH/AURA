@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
+using MixedReality.Toolkit.SpatialManipulation;
 using MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
@@ -14,7 +16,6 @@ public class NavigationFrontend : MonoBehaviour
     private bool dangerButtonPressed = false;
     private bool poiButtonPressed = false;
     private GameObject activeScreen = null;
-    public WaypointWorldSpace waypointWorldSpace;
 
     void Start()
     {
@@ -44,7 +45,36 @@ public class NavigationFrontend : MonoBehaviour
 
     public void addingWaypoint()
     {
-        // waypointWorldSpace.At();
+        navigationController.CreateWaypointScreen.SetActive(false);
+
+        UnityEngine.Vector3 spawnPosition = Camera.main.transform.position + Camera.main.transform.forward * 2f;
+        spawnPosition.y -= 1f;
+
+        GameObject newWaypointMarker = Instantiate(
+            navigationController.WSPACE_IconpPrefab, 
+            spawnPosition, 
+            UnityEngine.Quaternion.identity, 
+            navigationController.Controller.transform
+        );
+        newWaypointMarker.GetComponent<SolverHandler>().LeftInteractor = navigationController.leftRayInteractor;
+        newWaypointMarker.GetComponent<SolverHandler>().RightInteractor = navigationController.rightRayInteractor;
+        newWaypointMarker.GetComponent<TapToPlace>().StartPlacement();
+
+        newWaypointMarker.GetComponent<TapToPlace>().OnPlacingStopped
+        .AddListener(() =>
+        {
+            Waypoint newWaypoint = new Waypoint
+            {
+                Use = "ADD",
+                Id = navigationController.waypointList.Count + 1,
+                Name = newWaypointMarker.name,
+                IMUposX = newWaypointMarker.transform.position.x + AstronautInstance.User.origin.posX,
+                IMUposY = newWaypointMarker.transform.position.z + AstronautInstance.User.origin.posY,
+                Type = dangerButtonPressed ? WaypointType.DANGER : geoButtonPressed ? WaypointType.GEO : WaypointType.POI,
+                Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
+            };
+            EventBus.Publish(new WaypointAddedEvent(newWaypoint));
+        });
     }
 
 
@@ -143,6 +173,9 @@ public class NavigationFrontend : MonoBehaviour
 
     public void openFeatureScreen()
     {
+        navigationController.Controller.SetActive(true);
+        navigationController.CreateWaypointScreen.SetActive(false);
+        navigationController.WaypointMenuScreen.SetActive(true);
         // Check which screen is currently active
         if (activeScreen == navigationController.CompanionScreen)
         {
@@ -168,7 +201,6 @@ public class NavigationFrontend : MonoBehaviour
         {
             openCompanionScreen();
         }
-        navigationController.Controller.SetActive(true);
     }
 
 
