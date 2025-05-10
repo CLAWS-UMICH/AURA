@@ -1,10 +1,10 @@
 using System.Collections;
-using UnityEngine;
-using UnityEngine;
+using UnityEngine; 
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using System.IO;
 
 public class TSSConnection : MonoBehaviour
 {
@@ -33,7 +33,7 @@ public class TSSConnection : MonoBehaviour
         DisconnectFromHost();
         team_number = _team_number;
         AstronautInstance.User.TSSurl = "http://" + IP_host + ":" + "14141";
-        // Debug.Log("Connecting to TSS at: " + AstronautInstance.User.TSSurl);
+        Debug.Log("Connecting to TSS at: " + AstronautInstance.User.TSSurl);
         // Test connection to frontend
         StartCoroutine(GetRequest(AstronautInstance.User.TSSurl));
     }
@@ -44,7 +44,7 @@ public class TSSConnection : MonoBehaviour
         {
             if (!connected && IPaddr.Length > 0 && !IPaddr.Contains("/"))
             {
-                ConnectToHost(IPaddr, 1); // CHANGE 0 TO ACTUAL TEAM NUMBER IN HOUSTON
+                ConnectToHost(IPaddr, 0); // CHANGE 0 TO ACTUAL TEAM NUMBER IN HOUSTON
             }
             yield return new WaitForSeconds(5);
         }
@@ -76,7 +76,6 @@ public class TSSConnection : MonoBehaviour
     void Update()
     {
         // If you are connected to TSS
-        Debug.Log("Connected: " + connected);
         if (connected)
         {
             // Each Second
@@ -224,8 +223,10 @@ public class TSSConnection : MonoBehaviour
     ////////////////////////////  EVA VITALS /////////////////////////////
     IEnumerator GetTELEMETRYState()
     {
+        Debug.Log(AstronautInstance.User.TSSurl + "/json_data/teams/" + this.team_number + "/TELEMETRY.json");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(AstronautInstance.User.TSSurl + "/json_data/teams/" + this.team_number + "/TELEMETRY.json"))
         {
+
             // Request and wait for the desired page.
             yield return webRequest.SendWebRequest();
             switch (webRequest.result)
@@ -235,6 +236,7 @@ public class TSSConnection : MonoBehaviour
                     {
                         TELEMETRYJsonString = webRequest.downloadHandler.text;
                         AstronautInstance.User.telemetry = JsonUtility.FromJson<TELEMETRY>(this.TELEMETRYJsonString);
+                    
                         if (AstronautInstance.User.id == 1)
                         {
                             CopyVitals(AstronautInstance.User.vitals, AstronautInstance.User.telemetry.telemetry.eva1);
@@ -250,6 +252,15 @@ public class TSSConnection : MonoBehaviour
                         EventBus.Publish<UpdatedVitalsEvent>(new UpdatedVitalsEvent(AstronautInstance.User.vitals));
                         EventBus.Publish<UpdatedFellowAstronautVitalsEvent>(new UpdatedFellowAstronautVitalsEvent(AstronautInstance.User.fellowAstronaut.vitals));
                     }
+                    break;
+                case UnityWebRequest.Result.ConnectionError:
+                    Debug.LogError("Connection error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.DataProcessingError:
+                    Debug.LogError("Data processing error: " + webRequest.error);
+                    break;
+                case UnityWebRequest.Result.ProtocolError:
+                    Debug.LogError("HTTP error: " + webRequest.error);
                     break;
             }
 
@@ -352,10 +363,14 @@ public class TSSConnection : MonoBehaviour
                         {
                             Location newLocation = new Location(EV1_posX - AstronautInstance.User.origin.posX, EV1_posY - AstronautInstance.User.origin.posY, 0, AstronautInstance.User.imu.imu.eva1.heading);
                             AstronautInstance.User.current = newLocation;
+                            Location newEV2Location = new Location(EV2_posX - AstronautInstance.User.origin.posX, 0, EV2_posY - AstronautInstance.User.origin.posY, AstronautInstance.User.imu.imu.eva2.heading);
+                            EventBus.Publish(new EV2_LocationUpdatedEvent(newEV2Location));
                         }
                         else {
                             Location newLocation = new Location(EV2_posX - AstronautInstance.User.origin.posX, EV2_posY - AstronautInstance.User.origin.posY, 0, AstronautInstance.User.imu.imu.eva2.heading);
                             AstronautInstance.User.current = newLocation;
+                            Location newEV2Location = new Location(EV1_posX - AstronautInstance.User.origin.posX, 0, EV1_posY - AstronautInstance.User.origin.posY, AstronautInstance.User.imu.imu.eva1.heading);
+                            EventBus.Publish(new EV2_LocationUpdatedEvent(newEV2Location));
                         }
                     }
                     break;

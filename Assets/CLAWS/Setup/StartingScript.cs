@@ -41,7 +41,8 @@ public class StartingScript : MonoBehaviour
         // double lon = Input.location.lastData.longitude;
         // Debug.Log($"Latitude: {lat}, Longitude: {lon}");
 
-        Cursor.visible = false;
+        // // turn on for hololens button
+        // Cursor.visible = false;
         transform.Find("Main").gameObject.SetActive(false);
         transform.Find("Screens").gameObject.SetActive(false);
         greetingScreen.SetActive(true);

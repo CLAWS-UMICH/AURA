@@ -32,8 +32,13 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _Highlight_Width_: 0.24
+    - _Iridescence_Edge_Intensity_: 0.482
+    - _Iridescence_Intensity_: 0.09
     - _Line_Width_: 0
     - _Radius_: 0.008
     m_Colors:
-    - _Base_Color_: {r: 0.21960784, g: 0.21960784, b: 0.44313726, a: 1}
+    - _Base_Color_: {r: 0.20314167, g: 0.24564329, b: 0.5188679, a: 1}
+    - _Highlight_Color_: {r: 0.30196077, g: 0.36262694, b: 0.9254902, a: 1}
+    - _Line_Color_: {r: 0.16260235, g: 0.2825875, b: 0.5471698, a: 1}
   m_BuildTextureStacks: []

@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.GraphicsTools.Editor;
+using MixedReality.Toolkit.Examples.Demos;
 using MixedReality.Toolkit.UX;
 using SocketIOClient.Messages;
 using UnityEngine;
+using UnityEngine.Windows.Speech;
 
 public class SetUpScreenController : MonoBehaviour
 {
@@ -30,15 +33,17 @@ public class SetUpScreenController : MonoBehaviour
     private Subscription<RoverUpdatedEvent> roverUpdatedSubscription;
     private Subscription<RoverStatusUpdatedEvent> roverStatusUpdatedSubscription;
 
+
     void Start()
     {
         roverUpdatedSubscription = EventBus.Subscribe<RoverUpdatedEvent>(OnRoverUpdated);
         roverStatusUpdatedSubscription = EventBus.Subscribe<RoverStatusUpdatedEvent>(OnRoverStatusUpdated);
-    } 
+    }
 
 
     public void openSetUpScreen()
     {
+        transform.gameObject.SetActive(true);
         TSSscreen.SetActive(false);
         LMCCscreen.SetActive(false);
         SetUpScreen.SetActive(true);
@@ -246,6 +251,20 @@ public class SetUpScreenController : MonoBehaviour
         notification.SetActive(false);
     }
 
+[System.Serializable]
+ private class JsonData
+{
+    public string client;
+    public string room;
+    public JsonDataDetails data;
+}
+[System.Serializable]
+private class JsonDataDetails
+{
+    public string use;
+    public string name;
+    public string color;
+}
 
     public void openAURA() {
         GameObject main = transform.parent.GetChild(2).gameObject;
@@ -266,18 +285,18 @@ public class SetUpScreenController : MonoBehaviour
         {
             AstronautInstance.User.avatarColor = "red";
         }
-         var jsonData = new
+        
+        JsonData jsonData = new JsonData
         {
-            client = $"hololens_{AstronautInstance.User.id}", // e.g., "hololens_1" or "hololens_2"
+            client = $"hololens_{AstronautInstance.User.id}",
             room = "EV",
-            data = new
+            data = new JsonDataDetails
             {
                 use = "INIT",
                 name = AstronautInstance.User.name,
                 color = AstronautInstance.User.avatarColor
             }
         };
-
         // Serialize the JSON object to a string
         string jsonString = JsonUtility.ToJson(jsonData);
         LMCCWebSocketClient webSocketClient = Controller.GetComponent<LMCCWebSocketClient>();
@@ -332,9 +351,10 @@ public class SetUpScreenController : MonoBehaviour
         
         // Subscribe to the connection result event
         var mainConnections = Controller.GetComponent<MainConnections>();
-        mainConnections.tssConnection.OnTSSConnectionResult += HandleTSSConnectionResult;
+        var tssConnection = mainConnections.tssConnection;
+       tssConnection.OnTSSConnectionResult += HandleTSSConnectionResult;
         Debug.Log("Attempting to connect to TSS...");
-        Controller.GetComponent<MainConnections>().ConnectTSS(AstronautInstance.User.TSSurl);
+        mainConnections.ConnectTSS(AstronautInstance.User.TSSurl);
         
         // Wait for either a connection result or a timeout of 10 seconds
         float timeout = 10f;

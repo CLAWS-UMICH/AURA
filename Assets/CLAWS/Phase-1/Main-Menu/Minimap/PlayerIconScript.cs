@@ -18,6 +18,7 @@ public class PlayerIconScript : MonoBehaviour
             );
             transform.position = newPosition;
 
+
             // Apply only the player's Z rotation to icon
             float playerZRotation = playerTransform.eulerAngles.y; // Use Y for horizontal rotation
             transform.rotation = Quaternion.Euler(90, 0, -playerZRotation); // Adjust as needed
