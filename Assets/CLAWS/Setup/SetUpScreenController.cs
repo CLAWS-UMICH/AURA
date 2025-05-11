@@ -1,8 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.MixedReality.GraphicsTools.Editor;
+using MixedReality.Toolkit.Examples.Demos;
 using MixedReality.Toolkit.UX;
 using SocketIOClient.Messages;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Windows.Speech;
 
 public class SetUpScreenController : MonoBehaviour
 {
@@ -27,18 +31,21 @@ public class SetUpScreenController : MonoBehaviour
     private int connectionCount = 0;
     private bool hasCountedTSSConnection = false;
     private bool hasCountedLMCCConnection = false;
+    private bool roverStatusUpdated = false;
     private Subscription<RoverUpdatedEvent> roverUpdatedSubscription;
     private Subscription<RoverStatusUpdatedEvent> roverStatusUpdatedSubscription;
+
 
     void Start()
     {
         roverUpdatedSubscription = EventBus.Subscribe<RoverUpdatedEvent>(OnRoverUpdated);
         roverStatusUpdatedSubscription = EventBus.Subscribe<RoverStatusUpdatedEvent>(OnRoverStatusUpdated);
-    } 
+    }
 
 
     public void openSetUpScreen()
     {
+        transform.gameObject.SetActive(true);
         TSSscreen.SetActive(false);
         LMCCscreen.SetActive(false);
         SetUpScreen.SetActive(true);
@@ -115,7 +122,7 @@ public class SetUpScreenController : MonoBehaviour
         POIs.SetActive(false);
         LoadingBox.SetActive(true);
         Debug.Log("LTV screen opened");
-         StartCoroutine(CheckLTVPing(POIs, LoadingBox));
+        StartCoroutine(CheckLTVPing(POIs, LoadingBox));
     }
 
 
@@ -146,16 +153,18 @@ public class SetUpScreenController : MonoBehaviour
     private void OnRoverUpdated(RoverUpdatedEvent e)
     {
         GameObject POIs = LTVScreen.transform.Find("POIs").gameObject;
-        POIs.transform.Find("POI_1").Find("Coords").GetComponent<TextMesh>().text = "[" + e.data.poi_1_x.ToString() + ", " + e.data.poi_1_y.ToString() + "]";
-        POIs.transform.Find("POI_2").Find("Coords").GetComponent<TextMesh>().text = "[" + e.data.poi_2_x.ToString() + ", " + e.data.poi_2_y.ToString() + "]";
-        POIs.transform.Find("POI_3").Find("Coords").GetComponent<TextMesh>().text = "[" + e.data.poi_3_x.ToString() + ", " + e.data.poi_3_y.ToString() + "]";
+        POIs.transform.Find("POI_1").Find("Coords").GetComponent<TextMeshPro>().text = "[" + e.data.poi_1_x.ToString() + ", " + e.data.poi_1_y.ToString() + "]";
+        POIs.transform.Find("POI_2").Find("Coords").GetComponent<TextMeshPro>().text = "[" + e.data.poi_2_x.ToString() + ", " + e.data.poi_2_y.ToString() + "]";
+        POIs.transform.Find("POI_3").Find("Coords").GetComponent<TextMeshPro>().text = "[" + e.data.poi_3_x.ToString() + ", " + e.data.poi_3_y.ToString() + "]";
     }
 
 
     private void OnRoverStatusUpdated(RoverStatusUpdatedEvent e)
     {
+        roverStatusUpdated = true;
         if (e.data)
         {
+            LTVScreen.transform.Find("LoadingBox").gameObject.SetActive(false);
             LTVScreen.transform.Find("Confirmed").gameObject.SetActive(true);
             LTVScreen.transform.Find("NotConfirmed").gameObject.SetActive(false);
             Debug.Log("Rover is connected, and POIs are correct.");
@@ -166,6 +175,40 @@ public class SetUpScreenController : MonoBehaviour
             LTVScreen.transform.Find("NotConfirmed").gameObject.SetActive(true);
             Debug.Log("Rover is not connected, or POIs are incorrect.");
         }
+    }
+
+
+    private IEnumerator WaitForRoverStatusUpdate()
+    {
+        roverStatusUpdated = false;
+
+        float timeout = 10f;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < timeout)
+        {
+            if (roverStatusUpdated)
+            {
+                Debug.Log("Rover status updated successfully within the timeout.");
+                yield break;
+            }
+
+            elapsedTime += Time.deltaTime;
+            yield return null; // Wait for the next frame
+        }
+
+        // If the timeout is reached and the event was not triggered
+        LTVScreen.transform.Find("LoadingBox").gameObject.SetActive(false);
+        Debug.LogWarning("Rover status update not received within 10 seconds.");
+        HandleRoverStatusTimeout();
+    }
+
+
+    private void HandleRoverStatusTimeout()
+    {
+        LTVScreen.transform.Find("Confirmed").gameObject.SetActive(false);
+        LTVScreen.transform.Find("NotConfirmed").gameObject.SetActive(true);
+        Debug.Log("Rover is not connected, or POIs are incorrect.");
     }
 
 
@@ -206,51 +249,34 @@ public class SetUpScreenController : MonoBehaviour
 
         // hide POIs and show loading box
         LTVScreen.transform.Find("POIs").gameObject.SetActive(false);
+        LTVScreen.transform.GetChild(3).Find("Title").GetComponent<TextMeshPro>().text = "Waiting for PR...";   
+        LTVScreen.transform.Find("LoadingBox").gameObject.SetActive(true);
+        StartCoroutine(WaitForRoverStatusUpdate());
     }
 
+     
 
-     /////////////////////////////////////////////  GPS  ///////////////////////////////////////
-     public void openGPS()
-     {
-        GPSScreen.SetActive(true);
-        TSSscreen.SetActive(false);
-        LMCCscreen.SetActive(false);
-        SetUpScreen.SetActive(false);
-        ConnectionScreen.SetActive(false);
-        GreetingScreen.SetActive(false);
-        LoadingBox = GPSScreen.transform.Find("LoadingBox").gameObject;
-        GameObject mapCheck = GPSScreen.transform.Find("MapCheck").gameObject;
-        LTVScreen.transform.Find("OnFail").gameObject.SetActive(false);
-        mapCheck.SetActive(false);
-        LoadingBox.SetActive(true);
-
-        StartCoroutine(ShowMapCheckAfterDelay(mapCheck, LoadingBox));
-     }
-    private IEnumerator ShowMapCheckAfterDelay(GameObject mapCheck, GameObject loadingBox)
+    [System.Serializable]
+    private class JsonData
     {
-        yield return new WaitForSeconds(3);
-        loadingBox.SetActive(false);
-        mapCheck.SetActive(true);
+        public string client;
+        public string room;
+        public JsonDataDetails data;
     }
-
-
-    public void badGPS()
+    [System.Serializable]
+    private class JsonDataDetails
     {
-        GPSScreen.transform.Find("OnFail").gameObject.SetActive(true);
-        openAURA();
-        StartCoroutine(ShowNotificationAfterDelay(GPSScreen.transform.Find("OnFail").gameObject));
+        public string use;
+        public string name;
+        public string color;
     }
-    private IEnumerator ShowNotificationAfterDelay(GameObject notification)
-    {
-        yield return new WaitForSeconds(3);
-        notification.SetActive(false);
-    }
-
 
     public void openAURA() {
         GameObject main = transform.parent.GetChild(2).gameObject;
+        GameObject screens = transform.parent.GetChild(1).gameObject;
         transform.gameObject.SetActive(false);
         main.SetActive(true);
+        screens.SetActive(true);
 
         // check if user put in a name or color or id
         if (AstronautInstance.User.name == null)
@@ -266,18 +292,20 @@ public class SetUpScreenController : MonoBehaviour
         {
             AstronautInstance.User.avatarColor = "red";
         }
-         var jsonData = new
+        
+        JsonData jsonData = new JsonData
         {
-            client = $"hololens_{AstronautInstance.User.id}", // e.g., "hololens_1" or "hololens_2"
+            client = (AstronautInstance.User.id == 1) 
+            ? (AstronautInstance.User.id + 1).ToString() 
+            : (AstronautInstance.User.id - 1).ToString(), 
             room = "EV",
-            data = new
+            data = new JsonDataDetails
             {
                 use = "INIT",
                 name = AstronautInstance.User.name,
                 color = AstronautInstance.User.avatarColor
             }
         };
-
         // Serialize the JSON object to a string
         string jsonString = JsonUtility.ToJson(jsonData);
         LMCCWebSocketClient webSocketClient = Controller.GetComponent<LMCCWebSocketClient>();
@@ -332,9 +360,10 @@ public class SetUpScreenController : MonoBehaviour
         
         // Subscribe to the connection result event
         var mainConnections = Controller.GetComponent<MainConnections>();
-        mainConnections.tssConnection.OnTSSConnectionResult += HandleTSSConnectionResult;
+        var tssConnection = mainConnections.tssConnection;
+       tssConnection.OnTSSConnectionResult += HandleTSSConnectionResult;
         Debug.Log("Attempting to connect to TSS...");
-        Controller.GetComponent<MainConnections>().ConnectTSS(AstronautInstance.User.TSSurl);
+        mainConnections.ConnectTSS(AstronautInstance.User.TSSurl);
         
         // Wait for either a connection result or a timeout of 10 seconds
         float timeout = 10f;

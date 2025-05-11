@@ -15,7 +15,6 @@ Material:
   - _ALPHABLEND_ON
   - _BORDER_LIGHT_USES_HOVER_COLOR
   - _DIRECTIONAL_LIGHT
-  - _DISABLE_ALBEDO_MAP
   - _SPECULAR_HIGHLIGHTS
   - _USE_WORLD_SCALE
   m_InvalidKeywords:
@@ -35,6 +34,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _Fade: 1
+    - _Mode: 5
+    - _ZWrite: 1
     m_Colors:
     - _Color: {r: 0.22107509, g: 0.6558877, b: 0.6792453, a: 1}
   m_BuildTextureStacks: []

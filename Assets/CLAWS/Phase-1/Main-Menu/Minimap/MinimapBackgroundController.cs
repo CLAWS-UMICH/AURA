@@ -4,29 +4,13 @@ using UnityEngine;
 
 public class MinimapBackgroundController : MonoBehaviour
 {
-    public RectTransform backgroundImage; // Background RectTransform
-    public Transform player;              // Reference to the player
-    public float mapScale = 0.1f;         // Scale factor for movement
+    public Transform playerIcon; // Reference to the player icon (at 0,0,0 on the map)
+    public Camera minimapCamera; // Reference to the minimap camera
 
     void Update()
     {
-        if (backgroundImage == null || player == null) return;
-
-        // **Position Update**
-        // Convert player's world position to a 2D position for the minimap
-        Vector2 playerPosition = new Vector2(player.position.x, player.position.z);
-
-        // Offset the background's position to simulate player movement
-        Vector2 backgroundPosition = -playerPosition * mapScale;
-
-        // Apply the new position to the background image
-        backgroundImage.anchoredPosition = backgroundPosition;
-
-        // **Rotation Update**
-        // Rotate the map in the opposite direction of the player to create realistic minimap behavior
-        float playerYRotation = player.eulerAngles.y;
-        backgroundImage.localRotation = Quaternion.Euler(0, 0, playerYRotation);
-
-        //Debug.Log($"Player Position: {playerPosition}, Background Position: {backgroundImage.anchoredPosition}, Rotation: {backgroundImage.localRotation}");
+       Vector3 newCameraPosition = new Vector3(playerIcon.position.x, minimapCamera.transform.position.y, playerIcon.position.z);
+        minimapCamera.transform.position = newCameraPosition;
+        minimapCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
     }
 }

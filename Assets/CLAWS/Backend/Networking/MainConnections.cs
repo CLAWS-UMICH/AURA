@@ -11,8 +11,8 @@ public class MainConnections : MonoBehaviour
 {
     [Header("WebSocket LMCC Settings")]
     [SerializeField] private bool autoConnectWebSocket = false;
-    //public LMCCWebSocketClient LMCCWebSocketClient;
-    public PRWebSocketClient prWebSocketClient;
+    public LMCCWebSocketClient LMCCWebSocketClient;
+    // public PRWebSocketClient prWebSocketClient;
     private bool websocketConnected;
     public Action<bool> OnWebConnectionResult;
 
@@ -81,12 +81,12 @@ public class MainConnections : MonoBehaviour
     // called by tryingConnection
     private async Task<bool> ConnectWebsocket(string connectionString)
     {
-        if (prWebSocketClient == null)
+        if (LMCCWebSocketClient == null)
         {
             Debug.LogWarning("WebSocketClient component not assigned.");
             return false;
         }
-        return await prWebSocketClient.ReConnect(connectionString);
+        return await LMCCWebSocketClient.ReConnect(connectionString);
     }
 
 }

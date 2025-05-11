@@ -64,6 +64,8 @@ public class Waypoint
     public WaypointType Type { get; set; } // Enum for waypoint type
     public AuthorType Author { get; set; } // Enum for author type
 
+    public Waypoint() { }
+
     public Waypoint(string use, int waypointId, string name, double posx, double posy, WaypointType type, AuthorType author)
     {
         Use = use;
@@ -82,7 +84,8 @@ public class Waypoint
         }
 
         Waypoint otherWaypoint = (Waypoint)obj;
-        return Id == otherWaypoint.Id && 
+        return Use == otherWaypoint.Use && 
+               Id == otherWaypoint.Id && 
                Name == otherWaypoint.Name &&
                IMUposX == otherWaypoint.IMUposX &&
                IMUposY == otherWaypoint.IMUposY &&
@@ -91,7 +94,7 @@ public class Waypoint
     }
     public override int GetHashCode()
     {
-        return (Id, Name, IMUposX, IMUposY, Type, Author).GetHashCode();
+        return (Use, Id, Name, IMUposX, IMUposY, Type, Author).GetHashCode();
     }
 }
 
@@ -608,6 +611,10 @@ public class Message
     public int sent_to; // Astronaut ID it was sent to  //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3, Group = 4
     public string message; 
     public int from; // Astronaut ID it who sent the message    //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3
+
+
+
+
 
     public Message()
     {

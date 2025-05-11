@@ -14,13 +14,13 @@ TagManager:
   - EVMinimap Only
   - MessagingQuad
   - RenderObjects
-  - FULLMinimap
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - FULL_Map
+  - Hazards
+  - Geo
+  - POI
+  - Station
+  - Companion
+  - Closed_Icons
   - 
   - 
   - 
