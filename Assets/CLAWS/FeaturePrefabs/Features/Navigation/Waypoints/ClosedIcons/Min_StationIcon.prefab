@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5302056082121113432}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Min_StationIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 1845927082951040985}
   - component: {fileID: 5619653853717006333}
   - component: {fileID: 3919778509691070411}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}

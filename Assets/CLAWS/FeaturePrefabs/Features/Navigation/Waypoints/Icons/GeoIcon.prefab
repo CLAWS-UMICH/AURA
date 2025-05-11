@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2908962326022141487}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: GeoIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25,8 +25,8 @@ Transform:
   m_GameObject: {fileID: 4475453107261486547}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5220507, z: 0}
-  m_LocalScale: {x: 4.489828, y: 4.489828, z: 4.489828}
+  m_LocalPosition: {x: 0, y: 0.2, z: 0}
+  m_LocalScale: {x: 6.685435, y: 6.685435, z: 6.685435}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5333044195443259985}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 3179452857529730563}
   - component: {fileID: 4943252224226483794}
   - component: {fileID: 5593235200324089705}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -61,7 +61,7 @@ Transform:
   m_GameObject: {fileID: 7328236366321172472}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.17030811, y: -0.0020507574, z: -1.6775994}
+  m_LocalPosition: {x: 0, y: -0.0020507574, z: 0}
   m_LocalScale: {x: 1.9899, y: 1.9899, z: 1.9899}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 5333044195443259985}
   - component: {fileID: 4365534939363820805}
   - component: {fileID: 1095255800286677725}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TypeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7335838937634504802}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -1.62}
+  m_LocalPosition: {x: 0, y: 0, z: 0.042}
   m_LocalScale: {x: 2.87667, y: 2.87667, z: 2.87667}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -173,8 +173,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.31, y: 0.1}
-  m_SizeDelta: {x: 0.24, y: 0.01}
+  m_AnchoredPosition: {x: 0, y: 0.1}
+  m_SizeDelta: {x: 0.14349, y: 0.14211}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &4365534939363820805
 MeshRenderer:

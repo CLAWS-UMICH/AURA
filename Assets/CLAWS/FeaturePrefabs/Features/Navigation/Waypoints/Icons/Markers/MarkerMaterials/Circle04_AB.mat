@@ -20,12 +20,13 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Glow01_AB
+  m_Name: Circle04_AB
   m_Shader: {fileID: -6465566751694194690, guid: be8ba0df87da1b448b142819efe929a3,
     type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHATEST_ON
   - _BUILTIN_ALPHATEST_ON
   - _BUILTIN_AlphaClip
   - _BUILTIN_SURFACE_TYPE_TRANSPARENT
@@ -44,11 +45,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - MainTex_:
-        m_Texture: {fileID: 2800000, guid: e6acd599e6486ba4aba6dfdf06e9ecc2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3d91fad37c0fdcd4ca160f3a156e7243, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: e6acd599e6486ba4aba6dfdf06e9ecc2, type: 3}
+        m_Texture: {fileID: 2800000, guid: 3d91fad37c0fdcd4ca160f3a156e7243, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -65,9 +66,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - AlphaClip_: 0
+    - AlphaClip_: 0.503
     - Vector1_AE769210: 20
-    - _AlphaClip: 0
+    - _AlphaClip: 0.503
     - _AlphaToMask: 0
     - _BUILTIN_AlphaClip: 1
     - _BUILTIN_Blend: 2
@@ -82,7 +83,7 @@ Material:
     - _BUILTIN_ZWriteControl: 0
     - _Blend: 0
     - _CastShadows: 1
-    - _Clip: 0
+    - _Clip: 0.503
     - _Cull: 0
     - _DstBlend: 10
     - _QueueControl: 0
@@ -94,8 +95,8 @@ Material:
     - _ZWrite: 0
     - _ZWriteControl: 0
     m_Colors:
-    - Color_: {r: 1, g: 1, b: 1, a: 1}
-    - _Color: {r: 0.6415094, g: 0.009077947, b: 0.009077947, a: 1}
+    - Color_: {r: 1.4980392, g: 1.4980392, b: 1.4980392, a: 1}
+    - _Color: {r: 0.09496263, g: 0.89411765, b: 1.9921569, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &4919855361992938472
 MonoBehaviour:

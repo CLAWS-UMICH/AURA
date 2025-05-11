@@ -42,8 +42,10 @@ public class NavigationController : MonoBehaviour
 
     [Header("Minimaps")]
     public GameObject FullMap;
-    public GameObject EVmap;
-    public GameObject EVmapDangerZones;
+    public GameObject POIMap;
+    public GameObject DangerMap;
+    public GameObject StationMap;
+    public GameObject GeoMap;
 
 
     [Header("Ray Interactors")]
@@ -62,7 +64,6 @@ public class NavigationController : MonoBehaviour
     [Header("Screens")]
     public GameObject Controller;
     public ToggleCollection MainMenuToggleCollection;
-    public ToggleCollection navBarToggleCollection;
     public GameObject CompanionScreen;
     public GameObject POIScreen;
     public GameObject StationScreen;
@@ -93,6 +94,14 @@ public class NavigationController : MonoBehaviour
     public GameObject stationClosedIconParent;
     public GameObject poiClosedIconParent;
 
+    [Header("Cameras")]
+    public GameObject geoCamera;
+    public GameObject stationCamera;
+    public GameObject poiCamera;
+    public GameObject dangerCamera;
+    public GameObject minimapCamera;
+    public GameObject companionCamera;
+
     // add if 3d map added
     // [SerializeField] private GameObject dangerPrefab_3D;
     // [SerializeField] private GameObject geoPrefab_3D;
@@ -107,8 +116,6 @@ public class NavigationController : MonoBehaviour
     public List<Waypoint> StationWaypointList = new List<Waypoint>();
     public List<Waypoint> POIWaypointList = new List<Waypoint>();
     public List<Waypoint> DangerWaypointList = new List<Waypoint>();
-
-
 
 
     void Start()
@@ -222,9 +229,9 @@ public class NavigationController : MonoBehaviour
                         Debug.Log($"The first letter after 'WAYPOINT' is: {firstLetter}");
                     }
                 }
-
                 // Instantiate the danger map icon
                 GameObject dangerIcon = Instantiate(dangerPrefab_Icon, dangerPosition, Quaternion.identity, dangerIconParent.transform);
+                dangerIcon.transform.Find("TypeText").GetComponent<TextMeshPro>().text = firstLetter.ToString();
                 dangerIcon.name = newWaypoint.Name;
                 Debug.Log($"DANGER icon instantiated with name: {dangerIcon.name}");
                 // Instantiate the danger minimized icon

@@ -4,6 +4,7 @@ using System.Numerics;
 using MixedReality.Toolkit.SpatialManipulation;
 using MixedReality.Toolkit.UX;
 using TMPro;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class NavigationFrontend : MonoBehaviour
@@ -20,6 +21,9 @@ public class NavigationFrontend : MonoBehaviour
     private GameObject dangerMarker;
     private GameObject geoMarker;
     private GameObject poiMarker;
+    private TextMeshPro nameField;
+
+    private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
     void Start()
     {
@@ -30,23 +34,12 @@ public class NavigationFrontend : MonoBehaviour
         }
 
         Debug.Log("NavigationFrontend initialized.");
-        navigationController.navBarToggleCollection.OnToggleSelected.AddListener(OnToggleSelected);
+        navigationController.WaypointMenuScreen.SetActive(true);
         openCompanionScreen();
     }
 
-    void OnToggleSelected(int index)
-    {
-        Debug.Log($"Toggle selected: {index}");
-        switch (index)
-        {
-            case 0: openCompanionScreen(); break;
-            case 1: openPOIScreen(); break;
-            case 2: openStationScreen(); break;
-            case 3: openGeoScreen(); break;
-            case 4: openDangerScreen(); break;
-        }
-    }
 
+    // for creating waypoint to set 
     public void addingWaypoint()
     {
         Debug.Log("Adding waypoint...");
@@ -76,11 +69,12 @@ public class NavigationFrontend : MonoBehaviour
         .AddListener(() =>
         {
             Debug.Log("Waypoint placement stopped.");
+            Debug.Log($"Waypoint marker position: {newWaypointMarker.transform.position}");
             Waypoint newWaypoint = new Waypoint
             {
                 Use = "ADD",
                 Id = navigationController.waypointList.Count + 1,
-                Name = newWaypointMarker.name,
+                Name = navigationController.CreateWaypointScreen.transform.GetChild(4).GetChild(3).GetComponent<TextMeshPro>().text,
                 IMUposX = newWaypointMarker.transform.position.x + AstronautInstance.User.origin.posX,
                 IMUposY = newWaypointMarker.transform.position.z + AstronautInstance.User.origin.posY,
                 Type = dangerButtonPressed ? WaypointType.DANGER : geoButtonPressed ? WaypointType.GEO : WaypointType.POI,
@@ -95,17 +89,24 @@ public class NavigationFrontend : MonoBehaviour
     public void UpdateActiveMarker(GameObject newMarker)
     {
         Debug.Log("Updating active marker...");
-        geoMarker = newMarker.transform.GetChild(2).GetChild(1).GetChild(2).gameObject;
-        dangerMarker = newMarker.transform.GetChild(2).GetChild(1).GetChild(3).gameObject;
-        poiMarker = newMarker.transform.GetChild(2).GetChild(1).GetChild(4).gameObject;
-
+        geoMarker = newMarker.transform.GetChild(3).GetChild(0).gameObject;
+        dangerMarker = newMarker.transform.GetChild(3).GetChild(2).gameObject;
+        poiMarker = newMarker.transform.GetChild(3).GetChild(1).gameObject;
+        nameField = navigationController.CreateWaypointScreen.transform.GetChild(4).GetChild(3).GetComponent<TextMeshPro>();
         Debug.Log($"geoButtonPressed: {geoButtonPressed}, dangerButtonPressed: {dangerButtonPressed}, poiButtonPressed: {poiButtonPressed}");
+
 
         if (geoButtonPressed)
         {
             geoMarker.SetActive(true);
             dangerMarker.SetActive(false);
             poiMarker.SetActive(false);
+            if (nameField.text == "Waypoint Name")
+            {
+                int waypointIndex = navigationController.GeoWaypointList.Count;
+                char waypointLetter = waypointIndex < alphabet.Length ? alphabet[waypointIndex] : '*'; // Fallback to '*' if out of range
+                nameField.text = "Waypoint " + waypointLetter;
+            }
             Debug.Log("Geo marker activated.");
         }
         else if (dangerButtonPressed)
@@ -113,6 +114,12 @@ public class NavigationFrontend : MonoBehaviour
             geoMarker.SetActive(false);
             dangerMarker.SetActive(true);
             poiMarker.SetActive(false);
+            if (nameField.text == "Waypoint Name")
+            {
+                int waypointIndex = navigationController.DangerWaypointList.Count;
+                char waypointLetter = waypointIndex < alphabet.Length ? alphabet[waypointIndex] : '*'; 
+                nameField.text = "Waypoint " + waypointLetter;
+            }
             Debug.Log("Danger marker activated.");
         }
         else if (poiButtonPressed)
@@ -120,132 +127,162 @@ public class NavigationFrontend : MonoBehaviour
             geoMarker.SetActive(false);
             dangerMarker.SetActive(false);
             poiMarker.SetActive(true);
+            if (nameField.text == "Waypoint Name")
+            {
+                int waypointIndex = navigationController.POIWaypointList.Count;
+                char waypointLetter = waypointIndex < alphabet.Length ? alphabet[waypointIndex] : '*';
+                nameField.text = "Waypoint " + waypointLetter;
+            }
             Debug.Log("POI marker activated.");
         }
     }
 
     public void openCompanionScreen()
     {
-        navigationController.poiIconParent.SetActive(false);
-        navigationController.dangerIconParent.SetActive(false);
-        navigationController.geoIconParent.SetActive(false);
-        navigationController.stationIconParent.SetActive(false);
-        navigationController.poiClosedIconParent.SetActive(true);
-        navigationController.dangerClosedIconParent.SetActive(true);
-        navigationController.geoClosedIconParent.SetActive(true);
-        navigationController.stationClosedIconParent.SetActive(true);
-
-        navigationController.ev2Icon_full.SetActive(true);
-        navigationController.ev2Icon_small.SetActive(false);
-        navigationController.roverIcon_full.SetActive(true);
-
-        navigationController.EVmap.SetActive(false);
+        //maps
+        navigationController.GeoMap.SetActive(false);
         navigationController.FullMap.SetActive(true);
-        navigationController.EVmapDangerZones.SetActive(false);
-        SetScreen(navigationController.CompanionScreen);
-    }
+        navigationController.DangerMap.SetActive(false);
+        navigationController.POIMap.SetActive(false);
+        navigationController.StationMap.SetActive(false);
 
-    // helper for opening screens -- not frontend 
-    private void openEvMapScreens()
-    {
-        navigationController.ev2Icon_full.SetActive(false);
-        navigationController.ev2Icon_small.SetActive(true);
-        navigationController.roverIcon_full.SetActive(false);
+        //cameras
+        navigationController.geoCamera.SetActive(false);
+        navigationController.companionCamera.SetActive(true);
+        navigationController.dangerCamera.SetActive(false);
+        navigationController.poiCamera.SetActive(false);
+        navigationController.stationCamera.SetActive(false);
+
+        //screens
+        navigationController.CompanionScreen.SetActive(true);
+        navigationController.POIScreen.SetActive(false);
+        navigationController.StationScreen.SetActive(false);
+        navigationController.GeoScreen.SetActive(false);
+        navigationController.DangerScreen.SetActive(false);
+        activeScreen = navigationController.CompanionScreen;
     }
 
     
     public void openPOIScreen()
     {
-        navigationController.poiIconParent.SetActive(true);
-        navigationController.dangerIconParent.SetActive(false);
-        navigationController.geoIconParent.SetActive(false);
-        navigationController.stationIconParent.SetActive(false);
-        navigationController.poiClosedIconParent.SetActive(false);
-        navigationController.dangerClosedIconParent.SetActive(true);
-        navigationController.geoClosedIconParent.SetActive(true);
-        navigationController.stationClosedIconParent.SetActive(true);
-       
-        openEvMapScreens();
-
-        navigationController.EVmap.SetActive(true);
+        //maps
+        navigationController.GeoMap.SetActive(false);
         navigationController.FullMap.SetActive(false);
-        navigationController.EVmapDangerZones.SetActive(false);
-        SetScreen(navigationController.POIScreen);
+        navigationController.DangerMap.SetActive(false);
+        navigationController.POIMap.SetActive(true);
+        navigationController.StationMap.SetActive(false);
+
+        //cameras
+        navigationController.geoCamera.SetActive(false);
+        navigationController.companionCamera.SetActive(false);
+        navigationController.dangerCamera.SetActive(false);
+        navigationController.poiCamera.SetActive(true);
+        navigationController.stationCamera.SetActive(false);
+
+        //screens
+        navigationController.CompanionScreen.SetActive(false);
+        navigationController.POIScreen.SetActive(true);
+        navigationController.StationScreen.SetActive(false);
+        navigationController.GeoScreen.SetActive(false);
+        navigationController.DangerScreen.SetActive(false);
+
+        // close closed icon
+        navigationController.poiClosedIconParent.SetActive(false);
+        activeScreen = navigationController.POIScreen;
+        dangerButtonPressed = false;
+        geoButtonPressed = false;
+        poiButtonPressed = true;
     }
 
 
     public void openStationScreen()
     {
-        navigationController.poiIconParent.SetActive(false);
-        navigationController.dangerIconParent.SetActive(false);
-        navigationController.geoIconParent.SetActive(false);
-        navigationController.stationIconParent.SetActive(true);
-        navigationController.poiClosedIconParent.SetActive(true);
-        navigationController.dangerClosedIconParent.SetActive(true);
-        navigationController.geoClosedIconParent.SetActive(true);
-        navigationController.stationClosedIconParent.SetActive(false);
-       
-        openEvMapScreens();
-
-        navigationController.EVmap.SetActive(true);
+        //maps
+        navigationController.GeoMap.SetActive(false);
         navigationController.FullMap.SetActive(false);
-        navigationController.EVmapDangerZones.SetActive(false);
-        SetScreen(navigationController.StationScreen);
+        navigationController.DangerMap.SetActive(false);
+        navigationController.POIMap.SetActive(false);
+        navigationController.StationMap.SetActive(true);
+
+        //cameras
+        navigationController.geoCamera.SetActive(false);
+        navigationController.companionCamera.SetActive(false);
+        navigationController.dangerCamera.SetActive(false);
+        navigationController.poiCamera.SetActive(false);
+        navigationController.stationCamera.SetActive(true);
+
+        //screens
+        navigationController.CompanionScreen.SetActive(false);
+        navigationController.POIScreen.SetActive(false);
+        navigationController.StationScreen.SetActive(true);
+        navigationController.GeoScreen.SetActive(false);
+        navigationController.DangerScreen.SetActive(false);
+
+        // close closed icon
+        navigationController.stationClosedIconParent.SetActive(false);
+        activeScreen = navigationController.StationScreen;
     }
 
     public void openGeoScreen()
     {
-        navigationController.poiIconParent.SetActive(false);
-        navigationController.dangerIconParent.SetActive(false);
-        navigationController.geoIconParent.SetActive(true);
-        navigationController.stationIconParent.SetActive(false);
-        navigationController.poiClosedIconParent.SetActive(true);
-        navigationController.dangerClosedIconParent.SetActive(true);
-        navigationController.geoClosedIconParent.SetActive(false);
-        navigationController.stationClosedIconParent.SetActive(true);
-        
-        openEvMapScreens();
-
-        navigationController.EVmap.SetActive(true);
+        //maps
+        navigationController.GeoMap.SetActive(true);
         navigationController.FullMap.SetActive(false);
-        navigationController.EVmapDangerZones.SetActive(false);
-        SetScreen(navigationController.GeoScreen);
+        navigationController.DangerMap.SetActive(false);
+        navigationController.POIMap.SetActive(false);
+        navigationController.StationMap.SetActive(false);
+
+        //cameras
+        navigationController.geoCamera.SetActive(true);
+        navigationController.companionCamera.SetActive(false);
+        navigationController.dangerCamera.SetActive(false);
+        navigationController.poiCamera.SetActive(false);
+        navigationController.stationCamera.SetActive(false);
+
+        //screens
+        navigationController.CompanionScreen.SetActive(false);
+        navigationController.POIScreen.SetActive(false);
+        navigationController.StationScreen.SetActive(false);
+        navigationController.GeoScreen.SetActive(true);
+        navigationController.DangerScreen.SetActive(false);
+
+        // close closed icon
+        navigationController.geoClosedIconParent.SetActive(false);
+        activeScreen = navigationController.GeoScreen;
+        dangerButtonPressed = false;
         geoButtonPressed = true;
         poiButtonPressed = false;
-        dangerButtonPressed = false;
     }
 
     public void openDangerScreen()
     {
-        navigationController.poiIconParent.SetActive(false);
-        navigationController.dangerIconParent.SetActive(true);
-        navigationController.geoIconParent.SetActive(false);
-        navigationController.stationIconParent.SetActive(false);
-        navigationController.poiClosedIconParent.SetActive(true);
-        navigationController.dangerClosedIconParent.SetActive(false);
-        navigationController.geoClosedIconParent.SetActive(true);
-        navigationController.stationClosedIconParent.SetActive(true);
-       
-        openEvMapScreens();
-
-        navigationController.EVmap.SetActive(false);
+        //maps
+        navigationController.GeoMap.SetActive(false);
         navigationController.FullMap.SetActive(false);
-        navigationController.EVmapDangerZones.SetActive(true);
-        SetScreen(navigationController.DangerScreen);
+        navigationController.DangerMap.SetActive(true);
+        navigationController.POIMap.SetActive(false);
+        navigationController.StationMap.SetActive(false);
+
+        //cameras
+        navigationController.geoCamera.SetActive(false);
+        navigationController.companionCamera.SetActive(false);
+        navigationController.dangerCamera.SetActive(true);
+        navigationController.poiCamera.SetActive(false);
+        navigationController.stationCamera.SetActive(false);
+
+        //screens
+        navigationController.CompanionScreen.SetActive(false);
+        navigationController.POIScreen.SetActive(false);
+        navigationController.StationScreen.SetActive(false);
+        navigationController.GeoScreen.SetActive(false);
+        navigationController.DangerScreen.SetActive(true);
+
+        // close closed icon
+        navigationController.dangerClosedIconParent.SetActive(false);
+        activeScreen = navigationController.DangerScreen;
         dangerButtonPressed = true;
         geoButtonPressed = false;
         poiButtonPressed = false;
-    }
-
-    void SetScreen(GameObject screenToShow)
-    {
-        navigationController.CompanionScreen.SetActive(screenToShow == navigationController.CompanionScreen);
-        navigationController.POIScreen.SetActive(screenToShow == navigationController.POIScreen);
-        navigationController.StationScreen.SetActive(screenToShow == navigationController.StationScreen);
-        navigationController.GeoScreen.SetActive(screenToShow == navigationController.GeoScreen);
-        navigationController.DangerScreen.SetActive(screenToShow == navigationController.DangerScreen);
-
-        activeScreen = screenToShow;
     }
 
 

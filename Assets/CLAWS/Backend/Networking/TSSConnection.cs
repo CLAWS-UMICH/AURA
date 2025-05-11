@@ -38,15 +38,11 @@ public class TSSConnection : MonoBehaviour
         StartCoroutine(GetRequest(AstronautInstance.User.TSSurl));
     }
 
-    IEnumerator LookForConnection()
+    public void LookForConnection()
     {
-        while (true)
+        if (!connected && IPaddr.Length > 0 && !IPaddr.Contains("/"))
         {
-            if (!connected && IPaddr.Length > 0 && !IPaddr.Contains("/"))
-            {
-                ConnectToHost(IPaddr, 0); // CHANGE 0 TO ACTUAL TEAM NUMBER IN HOUSTON
-            }
-            yield return new WaitForSeconds(5);
+            ConnectToHost(IPaddr, 0); // CHANGE 0 TO ACTUAL TEAM NUMBER IN HOUSTON
         }
     }
 
@@ -56,7 +52,7 @@ public class TSSConnection : MonoBehaviour
     {
         IPaddr = ip;
         Debug.Log("IPAddr: " + IPaddr);
-        StartCoroutine(LookForConnection());
+        LookForConnection();
     }
 
 
@@ -247,7 +243,6 @@ public class TSSConnection : MonoBehaviour
                             CopyVitals(AstronautInstance.User.vitals, AstronautInstance.User.telemetry.telemetry.eva2);
                             CopyVitals(AstronautInstance.User.fellowAstronaut.vitals, AstronautInstance.User.telemetry.telemetry.eva1);
                         }
-
                         AstronautInstance.User.vitals.eva_time = AstronautInstance.User.telemetry.telemetry.eva_time;
                         EventBus.Publish<UpdatedVitalsEvent>(new UpdatedVitalsEvent(AstronautInstance.User.vitals));
                         EventBus.Publish<UpdatedFellowAstronautVitalsEvent>(new UpdatedFellowAstronautVitalsEvent(AstronautInstance.User.fellowAstronaut.vitals));
@@ -349,25 +344,28 @@ public class TSSConnection : MonoBehaviour
                                 imuInitialized = true;
                                 if (AstronautInstance.User.id == 1)
                                 {
-                                    AstronautInstance.User.origin.posX = EV1_posX;
-                                    AstronautInstance.User.origin.posY = EV1_posY;
+                                    //AstronautInstance.User.origin.posX = EV1_posX;
+                                    //AstronautInstance.User.origin.posY = EV1_posY;
                                 }
                                 else
                                 {
-                                    AstronautInstance.User.origin.posX = EV2_posX;
-                                    AstronautInstance.User.origin.posY = EV2_posY;
+                                    //AstronautInstance.User.origin.posX = EV2_posX;
+                                    //AstronautInstance.User.origin.posY = EV2_posY;
                                 }
                             }
                         }
                         if (AstronautInstance.User.id == 1)
                         {
-                            Location newLocation = new Location(EV1_posX - AstronautInstance.User.origin.posX, EV1_posY - AstronautInstance.User.origin.posY, 0, AstronautInstance.User.imu.imu.eva1.heading);
+                            Debug.Log("EV1: " + EV1_posX + " " + EV1_posY);
+                            Debug.Log("EV2 " + EV2_posX + " " + EV2_posY);
+                            Location newLocation = new Location(EV1_posX - AstronautInstance.User.origin.posX, 0, EV1_posY - AstronautInstance.User.origin.posY, AstronautInstance.User.imu.imu.eva1.heading);
                             AstronautInstance.User.current = newLocation;
                             Location newEV2Location = new Location(EV2_posX - AstronautInstance.User.origin.posX, 0, EV2_posY - AstronautInstance.User.origin.posY, AstronautInstance.User.imu.imu.eva2.heading);
                             EventBus.Publish(new EV2_LocationUpdatedEvent(newEV2Location));
                         }
                         else {
-                            Location newLocation = new Location(EV2_posX - AstronautInstance.User.origin.posX, EV2_posY - AstronautInstance.User.origin.posY, 0, AstronautInstance.User.imu.imu.eva2.heading);
+                            
+                            Location newLocation = new Location(EV2_posX - AstronautInstance.User.origin.posX, 0, EV2_posY - AstronautInstance.User.origin.posY, AstronautInstance.User.imu.imu.eva2.heading);
                             AstronautInstance.User.current = newLocation;
                             Location newEV2Location = new Location(EV1_posX - AstronautInstance.User.origin.posX, 0, EV1_posY - AstronautInstance.User.origin.posY, AstronautInstance.User.imu.imu.eva1.heading);
                             EventBus.Publish(new EV2_LocationUpdatedEvent(newEV2Location));

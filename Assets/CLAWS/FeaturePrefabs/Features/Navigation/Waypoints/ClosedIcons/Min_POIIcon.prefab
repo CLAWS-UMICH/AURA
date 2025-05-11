@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8818381764288088782}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Min_POIIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 4465500258011762721}
   - component: {fileID: 55643692104177026}
   - component: {fileID: 6735876333079287168}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}

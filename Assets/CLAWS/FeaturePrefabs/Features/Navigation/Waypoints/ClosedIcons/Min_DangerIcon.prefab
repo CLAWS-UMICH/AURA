@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7466558546896272087}
   - component: {fileID: 7100050224622378762}
   - component: {fileID: 6186338061806989278}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Quad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,7 +115,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5977542776686822750}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Min_DangerIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
