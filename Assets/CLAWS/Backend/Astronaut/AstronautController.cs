@@ -10,6 +10,13 @@ using Unity.Collections.LowLevel.Unsafe;
 ////////////////////////////  FEATURES  /////////////////////////////
 /////////////////////////////////////////////////////////////////////
 
+[System.Serializable]
+public class Data
+{
+    public string client; // Target client (e.g., "hololens_1", "hololens_2", "pr_client")
+    public string room;   // Room name (e.g., "VITALS", "WAYPOINTS", "MESSAGES")
+    public Dictionary<string, object> data; // The message to send, dependent on what the room is
+}
 
 ////////////////////////////  LOCATION  /////////////////////////////
 [System.Serializable]

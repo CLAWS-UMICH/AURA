@@ -219,7 +219,7 @@ public class TSSConnection : MonoBehaviour
     ////////////////////////////  EVA VITALS /////////////////////////////
     IEnumerator GetTELEMETRYState()
     {
-        Debug.Log(AstronautInstance.User.TSSurl + "/json_data/teams/" + this.team_number + "/TELEMETRY.json");
+        // Debug.Log(AstronautInstance.User.TSSurl + "/json_data/teams/" + this.team_number + "/TELEMETRY.json");
         using (UnityWebRequest webRequest = UnityWebRequest.Get(AstronautInstance.User.TSSurl + "/json_data/teams/" + this.team_number + "/TELEMETRY.json"))
         {
 

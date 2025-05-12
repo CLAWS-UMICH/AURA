@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.MixedReality.GraphicsTools.Editor;
 using MixedReality.Toolkit.Examples.Demos;
 using MixedReality.Toolkit.UX;
+using Newtonsoft.Json;
 using SocketIOClient.Messages;
 using TMPro;
 using UnityEngine;
@@ -16,10 +17,10 @@ public class SetUpScreenController : MonoBehaviour
     [SerializeField] private GameObject SetUpScreen;
     [SerializeField] private GameObject ConnectionScreen;
     [SerializeField] private GameObject LTVScreen;
-    [SerializeField] private GameObject GPSScreen;
     [SerializeField] private GameObject Controller;
     [SerializeField] private GameObject connectionButton;
     [SerializeField] private GameObject doneButton;
+    public NavigationController navigationController;
     private GameObject Backplate;
     private GameObject LoadingBox;
     private GameObject connected;
@@ -88,6 +89,7 @@ public class SetUpScreenController : MonoBehaviour
 
 
     public void returnToConnectionScreen() {
+        LTVScreen.transform.Find("NotConfirmed").gameObject.SetActive(false);
         if (connectionCount == 2)
         {
             connectionButton.SetActive(false);
@@ -214,33 +216,28 @@ public class SetUpScreenController : MonoBehaviour
 
     public void sendToPR()
     {
-        var data = new 
+        Dictionary <string, object> jsonData = new Dictionary<string, object>
         {
-            client = "pr_client",
-            room = "LTV_POI",
-            data = new
-            {
-                from = AstronautInstance.User.id,
-                rover = new
+            { "from", AstronautInstance.User.id },
+            { "rover", new Dictionary<string, object>
                 {
-                    ping = true,
-                    poi_1_x = AstronautInstance.User.rover.rover.poi_1_x,
-                    poi_1_y = AstronautInstance.User.rover.rover.poi_1_y,
-                    poi_2_x = AstronautInstance.User.rover.rover.poi_2_x,
-                    poi_2_y = AstronautInstance.User.rover.rover.poi_2_y,
-                    poi_3_x = AstronautInstance.User.rover.rover.poi_3_x,
-                    poi_3_y = AstronautInstance.User.rover.rover.poi_3_y,
+                    { "ping", true },
+                    { "poi_1_x", AstronautInstance.User.rover.rover.poi_1_x },
+                    { "poi_1_y", AstronautInstance.User.rover.rover.poi_1_y },
+                    { "poi_2_x", AstronautInstance.User.rover.rover.poi_2_x },
+                    { "poi_2_y", AstronautInstance.User.rover.rover.poi_2_y },
+                    { "poi_3_x", AstronautInstance.User.rover.rover.poi_3_x },
+                    { "poi_3_y", AstronautInstance.User.rover.rover.poi_3_y },
                 }
             }
         };
 
         // Send the data to the server
-        string jsonString = JsonUtility.ToJson(data);
         LMCCWebSocketClient webSocketClient = Controller.GetComponent<LMCCWebSocketClient>();
         if (webSocketClient != null)
         {
-            webSocketClient.SendJsonData(jsonString, "LTV_POI", AstronautInstance.User.id);
-            Debug.Log($"Sent JSON: {jsonString}");
+            webSocketClient.SendJsonData(jsonData, "LTV_POI", 3);
+            Debug.Log($"Sent JSON: {jsonData}");
         }
         else
         {
@@ -254,29 +251,20 @@ public class SetUpScreenController : MonoBehaviour
         StartCoroutine(WaitForRoverStatusUpdate());
     }
 
-     
-
-    [System.Serializable]
-    private class JsonData
-    {
-        public string client;
-        public string room;
-        public JsonDataDetails data;
-    }
-    [System.Serializable]
-    private class JsonDataDetails
-    {
-        public string use;
-        public string name;
-        public string color;
-    }
 
     public void openAURA() {
         GameObject main = transform.parent.GetChild(2).gameObject;
         GameObject screens = transform.parent.GetChild(1).gameObject;
-        transform.gameObject.SetActive(false);
+        SetUpScreen.SetActive(false);
         main.SetActive(true);
+        foreach (Transform child in screens.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
         screens.SetActive(true);
+        int clientToSend = (AstronautInstance.User.id == 1) 
+            ? (AstronautInstance.User.id + 1)
+            : (AstronautInstance.User.id - 1);
 
         // check if user put in a name or color or id
         if (AstronautInstance.User.name == null)
@@ -293,31 +281,95 @@ public class SetUpScreenController : MonoBehaviour
             AstronautInstance.User.avatarColor = "red";
         }
         
-        JsonData jsonData = new JsonData
+        Dictionary<string, object> jsonData = new Dictionary<string, object>
         {
-            client = (AstronautInstance.User.id == 1) 
-            ? (AstronautInstance.User.id + 1).ToString() 
-            : (AstronautInstance.User.id - 1).ToString(), 
-            room = "EV",
-            data = new JsonDataDetails
-            {
-                use = "INIT",
-                name = AstronautInstance.User.name,
-                color = AstronautInstance.User.avatarColor
-            }
+            { "use", "INIT" },
+            { "name", AstronautInstance.User.name },
+            { "color", AstronautInstance.User.avatarColor }
         };
         // Serialize the JSON object to a string
-        string jsonString = JsonUtility.ToJson(jsonData);
         LMCCWebSocketClient webSocketClient = Controller.GetComponent<LMCCWebSocketClient>();
         if (webSocketClient != null)
         {
-            webSocketClient.SendJsonData(jsonString, "EV", AstronautInstance.User.id);
-            Debug.Log($"Sent JSON: {jsonString}");
+
+            webSocketClient.SendJsonData(jsonData, "EV", clientToSend);
+            Debug.Log($"Sent JSON: {jsonData}");
         }
         else
         {
             Debug.LogError("LMCCWebSocketClient is not assigned to the Controller.");
         }
+
+        // INSTANTIATE STATION WAYPOINTS
+        Waypoint station1 = new Waypoint {
+            Use = "ADD",
+            Id = navigationController.StationWaypointList.Count,
+            Name = "Station 1",
+            IMUposX = -5616f,
+            IMUposY = -10005f,
+            Type = WaypointType.STATION,
+            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
+        };
+
+        Waypoint station2 = new Waypoint {
+            Use = "ADD",
+            Id = navigationController.StationWaypointList.Count,
+            Name = "Station 2",
+            IMUposX = -5643f,
+            IMUposY = -9970f,
+            Type = WaypointType.STATION,
+            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
+        };
+
+        Waypoint station3 = new Waypoint {
+            Use = "ADD",
+            Id = navigationController.StationWaypointList.Count,
+            Name = "Station 3",
+            IMUposX = -5608f,
+            IMUposY = -9988f,
+            Type = WaypointType.STATION,
+            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
+        };
+        Debug.Log("Instantiating Station Waypoints...");
+        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station1));
+        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station2));
+        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station3));    
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        // INSTANTIATE LTV WAYPOINTS ---- HARD CODED FOR TESTING  ------ WILL SEE IF WE CAN GET THE DATA FROM THE SERVER //
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        
+        Waypoint ltv1 = new Waypoint {
+            Use = "ADD",
+            Id = navigationController.StationWaypointList.Count,
+            Name = "Waypoint A",
+            IMUposX = -5635f,
+            IMUposY = -9970f,
+            Type = WaypointType.POI,
+            Author = AuthorType.PR
+        };
+        Waypoint ltv2 = new Waypoint {
+            Use = "ADD",
+            Id = navigationController.StationWaypointList.Count,
+            Name = "Waypoint B",
+            IMUposX = -5610f,
+            IMUposY = -9971f,
+            Type = WaypointType.POI,
+            Author = AuthorType.PR
+        };
+        Waypoint ltv3 = new Waypoint {
+            Use = "ADD",
+            Id = navigationController.StationWaypointList.Count,
+            Name = "Waypoint C",
+            IMUposX = -5615f,
+            IMUposY = -9995f,
+            Type = WaypointType.POI,
+            Author = AuthorType.PR,
+        };
+        Debug.Log("Instantiating LTV Waypoints...");
+        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv1));
+        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv2));
+        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv3));     
     }
 
 

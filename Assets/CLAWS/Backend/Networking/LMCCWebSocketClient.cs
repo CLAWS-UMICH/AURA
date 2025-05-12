@@ -222,15 +222,8 @@ public class LMCCWebSocketClient : MonoBehaviour
     /////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////  SENDING DATA ////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////
-    [System.Serializable]
-    public class Data
-    {
-        public string client; // Target client (e.g., "hololens_1", "hololens_2", "pr_client")
-        public string room;   // Room name (e.g., "VITALS", "WAYPOINTS", "MESSAGES")
-        public string data; // The message to send, dependent on what the room is
-    }
 
-    public async void SendJsonData(string message, string room, int clientId)
+    public async void SendJsonData(Dictionary <string, object> message, string room, int clientId)
     {
         if (client != null)
         {
@@ -253,12 +246,12 @@ public class LMCCWebSocketClient : MonoBehaviour
             Data data = new Data
             {
                 client = targetClient,
-                room = "",
+                room = room,
                 data = message
             };
 
             // Serialize the data to JSON
-            string jsonString = JsonUtility.ToJson(data);
+            string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
 
            
             // Emit the appropriate event

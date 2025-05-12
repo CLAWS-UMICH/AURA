@@ -39,7 +39,8 @@ public class StartingScript : MonoBehaviour
         // // Access the location data
         // double lat = Input.location.lastData.latitude;
         // double lon = Input.location.lastData.longitude;
-        // Debug.Log($"Latitude: {lat}, Longitude: {lon}");
+        // Debug.Log($"Latitude: {lat}, Longitude: {lon}")  
+
 
         // // turn on for hololens button
         // Cursor.visible = false;

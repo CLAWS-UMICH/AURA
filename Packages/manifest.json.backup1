@@ -1,13 +1,4 @@
 {
-  "scopedRegistries": [
-    {
-      "name": "OpenUPM",
-      "url": "https://package.openupm.com",
-      "scopes": [
-        "com.atteneder"
-      ]
-    }
-  ],
   "dependencies": {
     "com.itisnajim.socketiounity": "https://github.com/itisnajim/SocketIOUnity.git",
     "com.microsoft.mixedreality.openxr": "file:MixedReality/com.microsoft.mixedreality.openxr-1.11.1.tgz",
@@ -73,7 +64,15 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",
-    "org.mixedrealitytoolkit.uxcore": "file:MixedReality/org.mixedrealitytoolkit.uxcore-4.0.0-pre.1.tgz"
-  }
+    "com.unity.modules.xr": "1.0.0"
+  },
+  "scopedRegistries": [
+    {
+      "name": "OpenUPM",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.atteneder"
+      ]
+    }
+  ]
 }

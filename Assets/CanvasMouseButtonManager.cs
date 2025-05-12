@@ -1,14 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 using MixedReality.Toolkit.UX;
 using MixedReality.Toolkit;
 using UnityEngine.InputSystem;
 
-public class MouseButtonManager : MonoBehaviour
+public class CanvasMouseButtonManager : MonoBehaviour
 {
     private PressableButton pressableButton;
+    public UGUIInputAdapter inputAdapter; // Reference to the UGUIInputAdapter component
 
     void Start()
     {
@@ -35,7 +33,7 @@ public class MouseButtonManager : MonoBehaviour
             else
             {
                 // Click logic
-                pressableButton.OnClicked.Invoke();
+                inputAdapter.Click();
                 Debug.Log($"{gameObject.name} clicked.");
             }
         }
