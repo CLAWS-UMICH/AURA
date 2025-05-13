@@ -20,6 +20,7 @@ public class SetUpScreenController : MonoBehaviour
     [SerializeField] private GameObject Controller;
     [SerializeField] private GameObject connectionButton;
     [SerializeField] private GameObject doneButton;
+    [SerializeField] private GameObject navigationControllerScreen;
     public NavigationController navigationController;
     private GameObject Backplate;
     private GameObject LoadingBox;
@@ -237,7 +238,6 @@ public class SetUpScreenController : MonoBehaviour
         if (webSocketClient != null)
         {
             webSocketClient.SendJsonData(jsonData, "LTV_POI", 3);
-            Debug.Log($"Sent JSON: {jsonData}");
         }
         else
         {
@@ -253,14 +253,19 @@ public class SetUpScreenController : MonoBehaviour
 
 
     public void openAURA() {
-        GameObject main = transform.parent.GetChild(2).gameObject;
-        GameObject screens = transform.parent.GetChild(1).gameObject;
+        GameObject main = transform.parent.GetChild(3).gameObject;
+        GameObject screens = transform.parent.GetChild(2).gameObject;
         SetUpScreen.SetActive(false);
         main.SetActive(true);
         foreach (Transform child in screens.transform)
         {
             child.gameObject.SetActive(false);
         }
+        foreach (Transform child in navigationControllerScreen.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        navigationControllerScreen.SetActive(true);
         screens.SetActive(true);
         int clientToSend = (AstronautInstance.User.id == 1) 
             ? (AstronautInstance.User.id + 1)
@@ -287,13 +292,13 @@ public class SetUpScreenController : MonoBehaviour
             { "name", AstronautInstance.User.name },
             { "color", AstronautInstance.User.avatarColor }
         };
-        // Serialize the JSON object to a string
+
+
         LMCCWebSocketClient webSocketClient = Controller.GetComponent<LMCCWebSocketClient>();
-        if (webSocketClient != null)
+        if (webSocketClient != null && connectedToWEB)
         {
 
             webSocketClient.SendJsonData(jsonData, "EV", clientToSend);
-            Debug.Log($"Sent JSON: {jsonData}");
         }
         else
         {

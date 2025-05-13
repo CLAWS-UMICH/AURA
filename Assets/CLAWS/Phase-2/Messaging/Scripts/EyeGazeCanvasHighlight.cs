@@ -6,7 +6,7 @@ using System.Collections;
 
 public class EyeGazeCanvasHighlight: MonoBehaviour
 {
-    [SerializeField] private FrontPlatePulse frontPlatePulse; // Reference to the FrontPlatePulse component
+    [SerializeField] private FrontPlatePulse frontPlatePulse;
     [SerializeField] private PressableButton button;
 
     private bool isGazeActive = false; // Tracks whether the gaze is active

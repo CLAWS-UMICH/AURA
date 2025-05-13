@@ -402,7 +402,7 @@ PrefabInstance:
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
@@ -512,12 +512,12 @@ PrefabInstance:
     - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -60.4
+      value: -60.400024
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 4.6
+      value: 4.5999756
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
@@ -546,7 +546,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8376646494505211202, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8786222496603992076}
+      addedObject: {fileID: 7823108259783864426}
     - targetCorrespondingSourceObject: {fileID: 6922469058048946451, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       insertIndex: -1
@@ -582,7 +582,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2110900158415501022}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8786222496603992076
+--- !u!114 &7823108259783864426
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -591,7 +591,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7598908582837019548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
+  m_Script: {fileID: 11500000, guid: 371a37fc00edd2f43bd904b51ab1c208, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &9032778760982104013 stripped

@@ -6,11 +6,12 @@ using UnityEngine.InputSystem;
 public class CanvasMouseButtonManager : MonoBehaviour
 {
     private PressableButton pressableButton;
-    public UGUIInputAdapter inputAdapter; // Reference to the UGUIInputAdapter component
+    private UGUIInputAdapter inputAdapter;
 
     void Start()
     {
         pressableButton = GetComponent<PressableButton>();
+        inputAdapter = GetComponent<UGUIInputAdapter>();
         if (pressableButton == null)
         {
             Debug.LogError("PressableButton component not found on this GameObject.");
