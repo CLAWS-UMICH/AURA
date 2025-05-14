@@ -146,14 +146,14 @@ public class TSSConnection : MonoBehaviour
                     {
                         DCUJsonString = webRequest.downloadHandler.text;
                         AstronautInstance.User.dcu = JsonUtility.FromJson<DCU>(DCUJsonString);
-
+                        Debug.Log("DCU STATE" + DCUJsonString);
                         if (AstronautInstance.User.id == 1)
                         {
-                            EventBus.Publish(new DCUChangedEvent(AstronautInstance.User.dcu.dcu.eva1));
+                            EventBus.Publish(new DCUChangedEvent(AstronautInstance.User.dcu.dcu.eva1, AstronautInstance.User.id));
                         }
                         else
                         {
-                            EventBus.Publish(new DCUChangedEvent(AstronautInstance.User.dcu.dcu.eva2));
+                            EventBus.Publish(new DCUChangedEvent(AstronautInstance.User.dcu.dcu.eva2, AstronautInstance.User.id));
                         }
                     }
                     break;
@@ -176,15 +176,7 @@ public class TSSConnection : MonoBehaviour
                         ErrorJsonString = webRequest.downloadHandler.text;
                         ErrorMsg e;
                         e = JsonUtility.FromJson<ErrorMsg>(ErrorJsonString);
-
-                        if (AstronautInstance.User.id == 1)
-                        {
-                            EventBus.Publish(new DCUErrorEvent(e));
-                        }
-                        else
-                        {
-                            EventBus.Publish(new DCUErrorEvent(e));
-                        }
+                        EventBus.Publish(new DCUErrorEvent(e));
                     }
                     break;
             }
