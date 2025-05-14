@@ -690,6 +690,14 @@ public class EvaDetails
     public bool co2;
 }
 
+[System.Serializable]
+public class ErrorMsg
+{
+    public bool fan;
+    public bool oxy;
+    public bool pump;
+}
+
 ///////////////////////////  IMU  ////////////////////////////
 [System.Serializable]
 public class IMU

@@ -1356,21 +1356,60 @@ MonoBehaviour:
   geoPrefab_Icon: {fileID: 0}
   stationPrefab_Icon: {fileID: 0}
   poiPrefab_Icon: {fileID: 0}
-  companionPrefab_Icon: {fileID: 0}
+  WSPACE_IconpPrefab: {fileID: 0}
+  ev2Icon_full: {fileID: 0}
+  roverIcon_full: {fileID: 0}
+  ev2Icon_small: {fileID: 0}
+  dangerClosedPrefab_Icon: {fileID: 0}
+  geoClosedPrefab_Icon: {fileID: 0}
+  stationClosedPrefab_Icon: {fileID: 0}
+  poiClosedPrefab_Icon: {fileID: 0}
+  FullMap: {fileID: 0}
+  POIMap: {fileID: 0}
+  DangerMap: {fileID: 0}
+  StationMap: {fileID: 0}
+  GeoMap: {fileID: 0}
+  leftRayInteractor: {fileID: 0}
+  rightRayInteractor: {fileID: 0}
+  dangerScrollRectList: {fileID: 0}
+  geoScrollRectList: {fileID: 0}
+  stationScrollRectList: {fileID: 0}
+  poiScrollRectList: {fileID: 0}
   Controller: {fileID: 0}
   MainMenuToggleCollection: {fileID: 0}
-  navBarToggleCollection: {fileID: 0}
   CompanionScreen: {fileID: 0}
   POIScreen: {fileID: 0}
   StationScreen: {fileID: 0}
   GeoScreen: {fileID: 0}
   DangerScreen: {fileID: 0}
+  CreateWaypointScreen: {fileID: 0}
+  NavigationScreen: {fileID: 0}
+  NotifcationScreen: {fileID: 0}
+  WaypointMenuScreen: {fileID: 0}
   companionButton: {fileID: 0}
   poiButton: {fileID: 0}
   stationButton: {fileID: 0}
   geoButton: {fileID: 0}
   dangerButton: {fileID: 0}
-  waypointsUpdate: {fileID: 0}
+  dangerIconParent: {fileID: 0}
+  geoIconParent: {fileID: 0}
+  stationIconParent: {fileID: 0}
+  poiIconParent: {fileID: 0}
+  dangerClosedIconParent: {fileID: 0}
+  geoClosedIconParent: {fileID: 0}
+  stationClosedIconParent: {fileID: 0}
+  poiClosedIconParent: {fileID: 0}
+  geoCamera: {fileID: 0}
+  stationCamera: {fileID: 0}
+  poiCamera: {fileID: 0}
+  dangerCamera: {fileID: 0}
+  minimapCamera: {fileID: 0}
+  companionCamera: {fileID: 0}
+  waypointList: []
+  GeoWaypointList: []
+  StationWaypointList: []
+  POIWaypointList: []
+  DangerWaypointList: []
 --- !u!114 &156117365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2063,15 +2102,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7371150165736459387, guid: 6ef777d2cb14b42499937567d2e2d3d3,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4873238498492945870, guid: 6ef777d2cb14b42499937567d2e2d3d3,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6ef777d2cb14b42499937567d2e2d3d3, type: 3}
 --- !u!4 &219530951 stripped
 Transform:
@@ -2564,11 +2595,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 701778301}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1147649740051854652, guid: bb45df82ba657a845aea1b5aa230164f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb45df82ba657a845aea1b5aa230164f, type: 3}
 --- !u!1 &241325231
 GameObject:
@@ -3765,11 +3792,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 224186562}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1147649740051854652, guid: bb45df82ba657a845aea1b5aa230164f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb45df82ba657a845aea1b5aa230164f, type: 3}
 --- !u!1001 &445800270
 PrefabInstance:
@@ -4268,11 +4291,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 51398155}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1220126735637944177, guid: 5e1e5c2fb89ded5469dd37ccbed1a896,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e1e5c2fb89ded5469dd37ccbed1a896, type: 3}
 --- !u!4 &477037782 stripped
 Transform:
@@ -5708,7 +5727,7 @@ PrefabInstance:
     - target: {fileID: 3741718370749980489, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.026495373
+      value: -0.026495377
       objectReference: {fileID: 0}
     - target: {fileID: 3741718370749980489, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
@@ -5863,12 +5882,12 @@ PrefabInstance:
     - target: {fileID: 7854584029484224368, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 0.10000002
       objectReference: {fileID: 0}
     - target: {fileID: 7854584029484224368, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000000029237444
+      value: 0.0000000029237448
       objectReference: {fileID: 0}
     - target: {fileID: 7854584029484224368, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
@@ -5898,17 +5917,17 @@ PrefabInstance:
     - target: {fileID: 8766917845679176987, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.099999994
+      value: 0.10000001
       objectReference: {fileID: 0}
     - target: {fileID: 8766917845679176987, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000000017026672
+      value: 0.000000017026673
       objectReference: {fileID: 0}
     - target: {fileID: 9123677476484932006, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.038125
+      value: -0.038125005
       objectReference: {fileID: 0}
     - target: {fileID: 9126957931536584818, guid: 7cff799fbdbf84b2f8b2d4f65e2ea001,
         type: 3}
@@ -6535,11 +6554,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 587531151}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1147649740051854652, guid: bb45df82ba657a845aea1b5aa230164f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb45df82ba657a845aea1b5aa230164f, type: 3}
 --- !u!1 &840194820
 GameObject:
@@ -7048,11 +7063,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 959747496}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1147649740051854652, guid: bb45df82ba657a845aea1b5aa230164f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb45df82ba657a845aea1b5aa230164f, type: 3}
 --- !u!1 &858386118
 GameObject:
@@ -7751,11 +7762,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1701347356}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1220126735637944177, guid: 5e1e5c2fb89ded5469dd37ccbed1a896,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5e1e5c2fb89ded5469dd37ccbed1a896, type: 3}
 --- !u!1 &959747495
 GameObject:
@@ -9141,23 +9148,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8610569658741466436, guid: ea16c984daffbb0438a0fcba2a1a0797,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 9134659953992713323, guid: ea16c984daffbb0438a0fcba2a1a0797,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 7671116404224832488, guid: ea16c984daffbb0438a0fcba2a1a0797,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 5543689105275043605, guid: ea16c984daffbb0438a0fcba2a1a0797,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea16c984daffbb0438a0fcba2a1a0797, type: 3}
 --- !u!4 &1214197778 stripped
 Transform:
@@ -10202,7 +10193,7 @@ MonoBehaviour:
       posZ: 0
       Heading: 0
     LMCCurl: http://10.0.0.208:8080
-    TSSurl: http://172.20.10.9:14141
+    TSSurl: http://127.0.0.1:14141
     current:
       posX: 0
       posY: 0
@@ -10377,7 +10368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoConnectWebSocket: 0
-  prWebSocketClient: {fileID: 1555562891}
+  LMCCWebSocketClient: {fileID: 0}
   autoConnectTSS: 0
   tssConnection: {fileID: 1555562888}
 --- !u!114 &1555562887
@@ -10590,7 +10581,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1585254167
 Transform:
   m_ObjectHideFlags: 0
@@ -11001,51 +10992,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Navigation
       objectReference: {fileID: 0}
+    - target: {fileID: 4016413162667499207, guid: 45d04d303e676401180a42175117dc89,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 1039162712226545916, guid: 45d04d303e676401180a42175117dc89, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3348975512824533832, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 1705985766436705716, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 5591854568684944248, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 4242381821410444499, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 5216815329020262031, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 957828118675688294, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 5176038617119443066, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 6270298765696345039, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 2602216782296574962, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
-    - targetCorrespondingSourceObject: {fileID: 5261985954253748, guid: 45d04d303e676401180a42175117dc89,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45d04d303e676401180a42175117dc89, type: 3}
 --- !u!1 &1743598513
 GameObject:
@@ -11851,21 +11807,60 @@ MonoBehaviour:
   geoPrefab_Icon: {fileID: 0}
   stationPrefab_Icon: {fileID: 0}
   poiPrefab_Icon: {fileID: 0}
-  companionPrefab_Icon: {fileID: 0}
+  WSPACE_IconpPrefab: {fileID: 0}
+  ev2Icon_full: {fileID: 0}
+  roverIcon_full: {fileID: 0}
+  ev2Icon_small: {fileID: 0}
+  dangerClosedPrefab_Icon: {fileID: 0}
+  geoClosedPrefab_Icon: {fileID: 0}
+  stationClosedPrefab_Icon: {fileID: 0}
+  poiClosedPrefab_Icon: {fileID: 0}
+  FullMap: {fileID: 0}
+  POIMap: {fileID: 0}
+  DangerMap: {fileID: 0}
+  StationMap: {fileID: 0}
+  GeoMap: {fileID: 0}
+  leftRayInteractor: {fileID: 0}
+  rightRayInteractor: {fileID: 0}
+  dangerScrollRectList: {fileID: 0}
+  geoScrollRectList: {fileID: 0}
+  stationScrollRectList: {fileID: 0}
+  poiScrollRectList: {fileID: 0}
   Controller: {fileID: 0}
   MainMenuToggleCollection: {fileID: 0}
-  navBarToggleCollection: {fileID: 0}
   CompanionScreen: {fileID: 0}
   POIScreen: {fileID: 0}
   StationScreen: {fileID: 0}
   GeoScreen: {fileID: 0}
   DangerScreen: {fileID: 0}
+  CreateWaypointScreen: {fileID: 0}
+  NavigationScreen: {fileID: 0}
+  NotifcationScreen: {fileID: 0}
+  WaypointMenuScreen: {fileID: 0}
   companionButton: {fileID: 0}
   poiButton: {fileID: 0}
   stationButton: {fileID: 0}
   geoButton: {fileID: 0}
   dangerButton: {fileID: 0}
-  waypointsUpdate: {fileID: 0}
+  dangerIconParent: {fileID: 0}
+  geoIconParent: {fileID: 0}
+  stationIconParent: {fileID: 0}
+  poiIconParent: {fileID: 0}
+  dangerClosedIconParent: {fileID: 0}
+  geoClosedIconParent: {fileID: 0}
+  stationClosedIconParent: {fileID: 0}
+  poiClosedIconParent: {fileID: 0}
+  geoCamera: {fileID: 0}
+  stationCamera: {fileID: 0}
+  poiCamera: {fileID: 0}
+  dangerCamera: {fileID: 0}
+  minimapCamera: {fileID: 0}
+  companionCamera: {fileID: 0}
+  waypointList: []
+  GeoWaypointList: []
+  StationWaypointList: []
+  POIWaypointList: []
+  DangerWaypointList: []
 --- !u!1001 &1784929794
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12267,11 +12262,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 2079423256}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1147649740051854652, guid: bb45df82ba657a845aea1b5aa230164f,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb45df82ba657a845aea1b5aa230164f, type: 3}
 --- !u!1 &1794377150
 GameObject:

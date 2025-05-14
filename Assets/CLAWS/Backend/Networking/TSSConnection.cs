@@ -20,6 +20,7 @@ public class TSSConnection : MonoBehaviour
     // Database Jsons
     string UIAJsonString;
     string DCUJsonString;
+    string ErrorJsonString;
     string ROVERJsonString;
     string SPECJsonString;
     string TELEMETRYJsonString;
@@ -79,7 +80,8 @@ public class TSSConnection : MonoBehaviour
             if (time_since_last_update > 1.0f)
             {
                 // Pull TSS Updates
-                StartCoroutine(GetDCUState()); 
+                StartCoroutine(GetDCUState());
+                StartCoroutine(GetDCUError());
                 StartCoroutine(GetROVERState());
                 StartCoroutine(GetSPECState());
                 StartCoroutine(GetTELEMETRYState());
@@ -147,11 +149,41 @@ public class TSSConnection : MonoBehaviour
 
                         if (AstronautInstance.User.id == 1)
                         {
-                            // EventBus.Publish(new DCUChanged(AstronautInstance.User.dcu.dcu.eva1));
+                            EventBus.Publish(new DCUChangedEvent(AstronautInstance.User.dcu.dcu.eva1));
                         }
                         else
                         {
-                            // EventBus.Publish(new DCUChanged(AstronautInstance.User.dcu.dcu.eva2));
+                            EventBus.Publish(new DCUChangedEvent(AstronautInstance.User.dcu.dcu.eva2));
+                        }
+                    }
+                    break;
+            }
+
+        }
+    }
+
+    IEnumerator GetDCUError()
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(AstronautInstance.User.TSSurl + "/json_data/ERROR.json"))
+        {
+            // Request and wait for the desired page.
+            yield return webRequest.SendWebRequest();
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if (ErrorJsonString != webRequest.downloadHandler.text)
+                    {
+                        ErrorJsonString = webRequest.downloadHandler.text;
+                        ErrorMsg e;
+                        e = JsonUtility.FromJson<ErrorMsg>(ErrorJsonString);
+
+                        if (AstronautInstance.User.id == 1)
+                        {
+                            EventBus.Publish(new DCUErrorEvent(e));
+                        }
+                        else
+                        {
+                            EventBus.Publish(new DCUErrorEvent(e));
                         }
                     }
                     break;
