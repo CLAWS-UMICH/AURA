@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using MixedReality.Toolkit.UX;
 using MixedReality.Toolkit;
+using UnityEngine.InputSystem;
 
 public class MouseButtonManager : MonoBehaviour
 {
@@ -21,8 +22,9 @@ public class MouseButtonManager : MonoBehaviour
 
      void Update()
     {
-        if (pressableButton.IsGazeHovered && Input.GetMouseButtonDown(0))
+        if (pressableButton.IsGazeHovered && Mouse.current.leftButton.wasPressedThisFrame)
         {
+
             if (pressableButton.ToggleMode == StatefulInteractable.ToggleType.Toggle)
             {
                 // Toggle logic

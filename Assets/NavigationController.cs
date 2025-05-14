@@ -7,6 +7,8 @@ using UnityEditor.Rendering.LookDev;
 using MixedReality.Toolkit.UX.Experimental;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using MixedReality.Toolkit.Examples.Demos;
+using UnityEngine.UI;
+using MixedReality.Toolkit;
 
 public class NavigationController : MonoBehaviour
 {
@@ -102,6 +104,10 @@ public class NavigationController : MonoBehaviour
     public GameObject minimapCamera;
     public GameObject companionCamera;
 
+    [Header("Miscellaneous")]
+    public GameObject verticalButtonScreen;
+    public GameObject notificationScreen;
+
     // add if 3d map added
     // [SerializeField] private GameObject dangerPrefab_3D;
     // [SerializeField] private GameObject geoPrefab_3D;
@@ -123,77 +129,6 @@ public class NavigationController : MonoBehaviour
         waypointAddedSubscription = EventBus.Subscribe<WaypointAddedEvent>(OnWaypointAdded);
         waypointRemovedSubscription = EventBus.Subscribe<WaypointDeletedEvent>(OnWaypointRemoved);
 
-        // INSTANTIATE STATION WAYPOINTS
-        Waypoint station1 = new Waypoint {
-            Use = "ADD",
-            Id = StationWaypointList.Count,
-            Name = "Station 1",
-            IMUposX = -5616f,
-            IMUposY = -10005f,
-            Type = WaypointType.STATION,
-            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
-        };
-
-        Waypoint station2 = new Waypoint {
-            Use = "ADD",
-            Id = StationWaypointList.Count,
-            Name = "Station 2",
-            IMUposX = -5643f,
-            IMUposY = -9970f,
-            Type = WaypointType.STATION,
-            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
-        };
-
-        Waypoint station3 = new Waypoint {
-            Use = "ADD",
-            Id = StationWaypointList.Count,
-            Name = "Station 3",
-            IMUposX = -5608f,
-            IMUposY = -9988f,
-            Type = WaypointType.STATION,
-            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
-        };
-        Debug.Log("Instantiating Station Waypoints...");
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station1));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station2));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station3));    
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // INSTANTIATE LTV WAYPOINTS ---- HARD CODED FOR TESTING  ------ WILL SEE IF WE CAN GET THE DATA FROM THE SERVER //
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        Waypoint ltv1 = new Waypoint {
-            Use = "ADD",
-            Id = StationWaypointList.Count,
-            Name = "Waypoint A",
-            IMUposX = -5635f,
-            IMUposY = -9970f,
-            Type = WaypointType.POI,
-            Author = AuthorType.PR
-        };
-        Waypoint ltv2 = new Waypoint {
-            Use = "ADD",
-            Id = StationWaypointList.Count,
-            Name = "Waypoint B",
-            IMUposX = -5610f,
-            IMUposY = -9971f,
-            Type = WaypointType.POI,
-            Author = AuthorType.PR
-        };
-        Waypoint ltv3 = new Waypoint {
-            Use = "ADD",
-            Id = StationWaypointList.Count,
-            Name = "Waypoint C",
-            IMUposX = -5615f,
-            IMUposY = -9995f,
-            Type = WaypointType.POI,
-            Author = AuthorType.PR,
-        };
-        Debug.Log("Instantiating LTV Waypoints...");
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv1));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv2));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv3));
-
         CompanionScreen.SetActive(true);
         POIScreen.SetActive(false);
         StationScreen.SetActive(false);
@@ -206,6 +141,25 @@ public class NavigationController : MonoBehaviour
     {
         Debug.Log("Waypoint added: " + e.NewAddedWaypoint);
         Waypoint newWaypoint = e.NewAddedWaypoint;
+
+        // show ppop up notification
+        AuthorType author = newWaypoint.Author;
+        switch (author)
+        {
+            case AuthorType.EV1:
+                notificationScreen.transform.Find("AuthorText").GetComponent<TextMeshPro>().text = "Astronaut 1 added a waypoint to the map";
+                break;
+            case AuthorType.EV2:
+                notificationScreen.transform.Find("AuthorText").GetComponent<TextMeshPro>().text = "Astronaut 2 added a waypoint to the map";
+                break;
+            case AuthorType.PR:
+                notificationScreen.transform.Find("AuthorText").GetComponent<TextMeshPro>().text = "The PR Team added a waypoint to the map";
+                break;
+        }
+        notificationScreen.SetActive(true);
+        // Hide the notification after 3 seconds
+        StartCoroutine(HideNotificationAfterDelay(3f));
+
         switch(newWaypoint.Type)
         {
             case WaypointType.DANGER:
@@ -287,6 +241,13 @@ public class NavigationController : MonoBehaviour
                 poiScrollRectList.SetItemCount(POIWaypointList.Count);
                 break;
         }
+    }
+
+
+    private IEnumerator HideNotificationAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        notificationScreen.SetActive(false);
     }
 
 

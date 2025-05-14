@@ -37,7 +37,6 @@ public class EyeGazeButtonHighlight : MonoBehaviour
 
     private void OnButtonGazeEnter()
     {
-        Debug.Log("Gaze entered on button: " + gameObject.name);
         isGazeActive = true;
         // Start the pulse coroutine if not already running
         if (pulseCoroutine == null)
@@ -48,7 +47,6 @@ public class EyeGazeButtonHighlight : MonoBehaviour
 
     private void OnButtonGazeExit()
     {
-        Debug.Log("Gaze exited on button: " + gameObject.name);
         isGazeActive = false;
         // Stop the pulse coroutine
         if (pulseCoroutine != null)

@@ -188,6 +188,10 @@ public class NavigationFrontend : MonoBehaviour
 
         // close closed icon
         navigationController.poiClosedIconParent.SetActive(false);
+        navigationController.geoClosedIconParent.SetActive(true);
+        navigationController.dangerClosedIconParent.SetActive(true);
+        navigationController.stationClosedIconParent.SetActive(true);
+
         activeScreen = navigationController.POIScreen;
         dangerButtonPressed = false;
         geoButtonPressed = false;
@@ -220,6 +224,10 @@ public class NavigationFrontend : MonoBehaviour
 
         // close closed icon
         navigationController.stationClosedIconParent.SetActive(false);
+        navigationController.geoClosedIconParent.SetActive(true);
+        navigationController.dangerClosedIconParent.SetActive(true);
+        navigationController.poiClosedIconParent.SetActive(true);
+
         activeScreen = navigationController.StationScreen;
     }
 
@@ -248,6 +256,10 @@ public class NavigationFrontend : MonoBehaviour
 
         // close closed icon
         navigationController.geoClosedIconParent.SetActive(false);
+        navigationController.poiClosedIconParent.SetActive(true);
+        navigationController.dangerClosedIconParent.SetActive(true);
+        navigationController.stationClosedIconParent.SetActive(true);
+
         activeScreen = navigationController.GeoScreen;
         dangerButtonPressed = false;
         geoButtonPressed = true;
@@ -279,6 +291,10 @@ public class NavigationFrontend : MonoBehaviour
 
         // close closed icon
         navigationController.dangerClosedIconParent.SetActive(false);
+        navigationController.geoClosedIconParent.SetActive(true);
+        navigationController.poiClosedIconParent.SetActive(true);
+        navigationController.stationClosedIconParent.SetActive(true);
+
         activeScreen = navigationController.DangerScreen;
         dangerButtonPressed = true;
         geoButtonPressed = false;
@@ -289,7 +305,8 @@ public class NavigationFrontend : MonoBehaviour
     public void openWaypointScreen()
     {
         navigationController.CreateWaypointScreen.SetActive(true);
-        navigationController.CompanionScreen.transform.parent.gameObject.SetActive(false);
+        navigationController.verticalButtonScreen.SetActive(false);
+        navigationController.WaypointMenuScreen.SetActive(false);
         navigationController.NavigationScreen.SetActive(false);
     }
 
@@ -382,6 +399,7 @@ public class NavigationFrontend : MonoBehaviour
 
     public void closeScreens()
     {
+        Debug.Log("Closing nav current screen...");
         navigationController.Controller.SetActive(false);
         navigationController.MainMenuToggleCollection.SetSelection(1, false);
     }
