@@ -23,7 +23,7 @@ public class Astronaut
     public Location current;
     public Vitals vitals;
     public Messaging messages;
-    public Data currentData;
+    public List<GeosampleZone> geosampleZones;
 
 
     // TSS Info

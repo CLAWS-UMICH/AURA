@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -531,7 +531,6 @@ GameObject:
   - component: {fileID: 7160417062954217485}
   - component: {fileID: 3970964820359338904}
   - component: {fileID: 1807824417565605325}
-  - component: {fileID: 3111123786126113791}
   m_Layer: 0
   m_Name: ReadyButton
   m_TagString: Untagged
@@ -599,13 +598,13 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
-  m_AllowGazeSelect: 0
+  m_AllowGazeInteraction: 0
+  m_AllowGazeSelect: 1
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
   m_OverrideTimeToAutoDeselectGaze: 0
   m_TimeToAutoDeselectGaze: 3
-  m_AllowGazeAssistance: 1
+  m_AllowGazeAssistance: 0
   m_FirstHoverEntered:
     m_PersistentCalls:
       m_Calls: []
@@ -760,9 +759,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 0
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -793,7 +792,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
   <OnEnabled>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -801,9 +800,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   smoothSelectionProgress: 1
-  distanceSpaceMode: 1
-  startPushPlane: -0.003838122
-  endPushPlane: 0.006
+  distanceSpaceMode: 0
+  startPushPlane: -0.007976769
+  endPushPlane: 0.0124698
   returnSpeed: 0.25
   enforceFrontPush: 1
   rejectXYRollOff: 1
@@ -843,6 +842,7 @@ MonoBehaviour:
       value:
         effects:
         - rid: 3
+        - rid: 6299951268115775488
         isVariable: 0
     - key: ActiveHover
       value:
@@ -853,6 +853,7 @@ MonoBehaviour:
       value:
         effects:
         - rid: 5
+        - rid: 6299951268115775489
         isVariable: 1
     - key: Toggle
       value:
@@ -927,6 +928,24 @@ MonoBehaviour:
         name: Set Targets Active/Inactive
         invert: 0
         targets: []
+    - rid: 6299951268115775488
+      type: {class: AnimationEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
+      data:
+        name: Animation
+        clip: {fileID: 7400000, guid: df1fdf2e763ac6d4281d5894f5fab7e4, type: 2}
+        speed: 1
+        playbackMode: 1
+        weightMode: 0
+        transitionDuration: 0
+    - rid: 6299951268115775489
+      type: {class: AnimationEffect, ns: MixedReality.Toolkit.UX, asm: MixedReality.Toolkit.UXCore}
+      data:
+        name: Animation
+        clip: {fileID: 7400000, guid: df1fdf2e763ac6d4281d5894f5fab7e4, type: 2}
+        speed: 1
+        playbackMode: 1
+        weightMode: 0
+        transitionDuration: 0
 --- !u!82 &5126146381213571566
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1046,9 +1065,9 @@ Animator:
   m_GameObject: {fileID: 2810142430857966402}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e2503ae3821a6c5468d93a5b7fc80923, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 1
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -1113,18 +1132,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &3111123786126113791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2810142430857966402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3309696000268362528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1153,8 +1160,8 @@ Transform:
   m_GameObject: {fileID: 3309696000268362528}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.1308, y: 0.0391, z: 0}
-  m_LocalScale: {x: 2.2491627, y: 0.9370889, z: 1}
+  m_LocalPosition: {x: 0.1363, y: 0.0004, z: 0.83}
+  m_LocalScale: {x: 2.4962366, y: 1.1843251, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1060971463306284968}
@@ -1187,7 +1194,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1835ff4604a204321b55c7ce24bb76dc, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -12,6 +12,7 @@ using UnityEngine.Windows.Speech;
 public class SetUpScreenController : MonoBehaviour
 {
     [SerializeField] private GameObject TSSscreen;
+    [SerializeField] private GameObject SetUpController;
     [SerializeField] private GameObject LMCCscreen;
     [SerializeField] private GameObject GreetingScreen;
     [SerializeField] private GameObject SetUpScreen;
@@ -47,11 +48,11 @@ public class SetUpScreenController : MonoBehaviour
 
     public void openSetUpScreen()
     {
-        transform.gameObject.SetActive(true);
         TSSscreen.SetActive(false);
         LMCCscreen.SetActive(false);
         SetUpScreen.SetActive(true);
         ConnectionScreen.SetActive(false);
+        LTVScreen.SetActive(false);
         GreetingScreen.SetActive(false);
     }
 
@@ -103,6 +104,8 @@ public class SetUpScreenController : MonoBehaviour
         }
         TSSscreen.SetActive(false);
         LMCCscreen.SetActive(false);
+        LTVScreen.SetActive(false);
+        SetUpScreen.SetActive(false);
         ConnectionScreen.SetActive(true);
     }
 
@@ -120,9 +123,9 @@ public class SetUpScreenController : MonoBehaviour
 
         LoadingBox = LTVScreen.transform.Find("LoadingBox").gameObject;
         GameObject POIs = LTVScreen.transform.Find("POIs").gameObject;
-
-        // Set initial states
         POIs.SetActive(false);
+        LTVScreen.transform.Find("Confirmed").gameObject.SetActive(false);
+        LTVScreen.transform.Find("NotConfirmed").gameObject.SetActive(false);
         LoadingBox.SetActive(true);
         Debug.Log("LTV screen opened");
         StartCoroutine(CheckLTVPing(POIs, LoadingBox));
@@ -255,18 +258,14 @@ public class SetUpScreenController : MonoBehaviour
     public void openAURA() {
         GameObject main = transform.parent.GetChild(3).gameObject;
         GameObject screens = transform.parent.GetChild(2).gameObject;
-        SetUpScreen.SetActive(false);
+        SetUpController.SetActive(false);
         main.SetActive(true);
-        foreach (Transform child in screens.transform)
-        {
-            child.gameObject.SetActive(false);
-        }
-        foreach (Transform child in navigationControllerScreen.transform)
-        {
-            child.gameObject.SetActive(false);
-        }
-        navigationControllerScreen.SetActive(true);
-        screens.SetActive(true);
+        // foreach (Transform child in screens.transform)
+        // {
+        //     child.gameObject.SetActive(false);
+        // }
+        //screens.SetActive(true);
+        //screens.transform.Find("Navigation").gameObject.SetActive(true);
         int clientToSend = (AstronautInstance.User.id == 1) 
             ? (AstronautInstance.User.id + 1)
             : (AstronautInstance.User.id - 1);
@@ -304,77 +303,6 @@ public class SetUpScreenController : MonoBehaviour
         {
             Debug.LogError("LMCCWebSocketClient is not assigned to the Controller.");
         }
-
-        // INSTANTIATE STATION WAYPOINTS
-        Waypoint station1 = new Waypoint {
-            Use = "ADD",
-            Id = navigationController.StationWaypointList.Count,
-            Name = "Station 1",
-            IMUposX = -5616f,
-            IMUposY = -10005f,
-            Type = WaypointType.STATION,
-            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
-        };
-
-        Waypoint station2 = new Waypoint {
-            Use = "ADD",
-            Id = navigationController.StationWaypointList.Count,
-            Name = "Station 2",
-            IMUposX = -5643f,
-            IMUposY = -9970f,
-            Type = WaypointType.STATION,
-            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
-        };
-
-        Waypoint station3 = new Waypoint {
-            Use = "ADD",
-            Id = navigationController.StationWaypointList.Count,
-            Name = "Station 3",
-            IMUposX = -5608f,
-            IMUposY = -9988f,
-            Type = WaypointType.STATION,
-            Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
-        };
-        Debug.Log("Instantiating Station Waypoints...");
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station1));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station2));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station3));    
-
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        // INSTANTIATE LTV WAYPOINTS ---- HARD CODED FOR TESTING  ------ WILL SEE IF WE CAN GET THE DATA FROM THE SERVER //
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        Waypoint ltv1 = new Waypoint {
-            Use = "ADD",
-            Id = navigationController.StationWaypointList.Count,
-            Name = "Waypoint A",
-            IMUposX = -5635f,
-            IMUposY = -9970f,
-            Type = WaypointType.POI,
-            Author = AuthorType.PR
-        };
-        Waypoint ltv2 = new Waypoint {
-            Use = "ADD",
-            Id = navigationController.StationWaypointList.Count,
-            Name = "Waypoint B",
-            IMUposX = -5610f,
-            IMUposY = -9971f,
-            Type = WaypointType.POI,
-            Author = AuthorType.PR
-        };
-        Waypoint ltv3 = new Waypoint {
-            Use = "ADD",
-            Id = navigationController.StationWaypointList.Count,
-            Name = "Waypoint C",
-            IMUposX = -5615f,
-            IMUposY = -9995f,
-            Type = WaypointType.POI,
-            Author = AuthorType.PR,
-        };
-        Debug.Log("Instantiating LTV Waypoints...");
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv1));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv2));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv3));     
     }
 
 
@@ -408,6 +336,26 @@ public class SetUpScreenController : MonoBehaviour
         StartCoroutine(ShowTSSLoadingBoxAndConnect());
     }
 
+    public void retryTSSConnection()
+    {
+        Backplate = TSSscreen.transform.Find("UIBackplate").Find("UX.Slate.ContentBackplate").gameObject;
+        Backplate.transform.localPosition = new Vector3(0.0313699991f, 0.0131000001f, 0);
+        Backplate.transform.localScale = new Vector3(0.190743789f, 0.10200458f, 0.0199999996f);
+        TSSscreen.transform.Find("LoadingBox").gameObject.SetActive(true);
+        TSSscreen.transform.Find("Connected").gameObject.SetActive(false);
+        TSSscreen.transform.Find("Disconnected").gameObject.SetActive(false);
+        StartCoroutine(Awaiting5Seconds());
+        if (connectedToTSS)
+        {
+            TSSscreen.transform.Find("LoadingBox").gameObject.SetActive(false);
+            TSSscreen.transform.Find("Connected").gameObject.SetActive(true);
+            Debug.Log("Already connected to TSS.");
+            return;
+        }
+
+        StartCoroutine(ShowTSSLoadingBoxAndConnect());
+    }
+
 
     private IEnumerator ShowTSSLoadingBoxAndConnect()
     {
@@ -418,7 +366,7 @@ public class SetUpScreenController : MonoBehaviour
         // Subscribe to the connection result event
         var mainConnections = Controller.GetComponent<MainConnections>();
         var tssConnection = mainConnections.tssConnection;
-       tssConnection.OnTSSConnectionResult += HandleTSSConnectionResult;
+        tssConnection.OnTSSConnectionResult += HandleTSSConnectionResult;
         Debug.Log("Attempting to connect to TSS...");
         mainConnections.ConnectTSS(AstronautInstance.User.TSSurl);
         
@@ -533,6 +481,24 @@ public class SetUpScreenController : MonoBehaviour
         Debug.Log("LMCC screen opened");
         StartCoroutine(ShowLMCCLoadingBoxAndConnect());
     }
+
+
+    public void retryLMCCConnection()
+    {
+        Backplate = LMCCscreen.transform.Find("UIBackplate").Find("UX.Slate.ContentBackplate").gameObject;
+        Backplate.transform.localPosition = new Vector3(0.0313699991f, 0.0131000001f, 0);
+        Backplate.transform.localScale = new Vector3(0.190743789f, 0.10200458f, 0.0199999996f);
+        LMCCscreen.transform.Find("Connected").gameObject.SetActive(false);
+        LMCCscreen.transform.Find("Disconnected").gameObject.SetActive(false);
+        //  to canncel out previous awaits 
+        StartCoroutine(Awaiting5Seconds());
+        if (connectedToWEB)
+        {
+            Debug.Log("Already connected to LMCC.");
+            return;
+        }
+        StartCoroutine(ShowLMCCLoadingBoxAndConnect());
+    }
     
 
     private IEnumerator ShowLMCCLoadingBoxAndConnect()
@@ -634,4 +600,9 @@ public class SetUpScreenController : MonoBehaviour
         return connectedToWEB;
     }
 
+
+    private IEnumerator Awaiting5Seconds()
+    {
+        yield return new WaitForSeconds(5);
+    }
 }

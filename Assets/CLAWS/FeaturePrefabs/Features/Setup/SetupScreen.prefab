@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 8049240436233693570}
   - component: {fileID: 6276958784539950521}
   - component: {fileID: 3789611322297691906}
-  - component: {fileID: 7500439773881559602}
   m_Layer: 0
   m_Name: Red
   m_TagString: Untagged
@@ -247,9 +246,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -601,18 +600,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &7500439773881559602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 35737782691188305}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &44423920752532288
 GameObject:
   m_ObjectHideFlags: 0
@@ -630,7 +617,6 @@ GameObject:
   - component: {fileID: 8180927343368910735}
   - component: {fileID: 2699708466344326190}
   - component: {fileID: 6330924634596202450}
-  - component: {fileID: 566456673582076294}
   m_Layer: 0
   m_Name: Orange
   m_TagString: Untagged
@@ -699,7 +685,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -860,9 +846,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -1214,18 +1200,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &566456673582076294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44423920752532288}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &53351008249231655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1346,8 +1320,8 @@ Transform:
   m_GameObject: {fileID: 61434876085859607}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0018, y: 0, z: 0.7}
+  m_LocalScale: {x: 1.208764, y: 1.1628294, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4613817140222952071}
@@ -1380,7 +1354,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d394647fa36b46d29b623e8a9786dec, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2094,8 +2068,8 @@ Transform:
   m_GameObject: {fileID: 656925183135964191}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0053, y: 0.0018, z: 0.7}
+  m_LocalScale: {x: 1.194648, y: 1.1592609, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 919542739916697402}
@@ -2128,7 +2102,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d394647fa36b46d29b623e8a9786dec, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2300,8 +2274,8 @@ Transform:
   m_GameObject: {fileID: 861286088756193201}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -0.0068, y: 0.016, z: 0.7}
+  m_LocalScale: {x: 1.1688727, y: 1.1780405, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4187878228555452338}
@@ -2334,7 +2308,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d394647fa36b46d29b623e8a9786dec, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2476,7 +2450,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2762,8 +2736,8 @@ Transform:
   m_GameObject: {fileID: 1329718709620221997}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0019, y: 0, z: 0}
-  m_LocalScale: {x: 1.09348, y: 1.0971502, z: 1}
+  m_LocalPosition: {x: -0.004, y: -0.0001, z: 0.9}
+  m_LocalScale: {x: 1.2436202, y: 1.2270682, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2564587589331267628}
@@ -2796,7 +2770,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6fa8da19c71e242f9aa27d88ee1be226, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3725,7 +3699,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3848,7 +3822,6 @@ GameObject:
   - component: {fileID: 8909769657591698730}
   - component: {fileID: 2455152618799191817}
   - component: {fileID: 6158598707434198180}
-  - component: {fileID: 4596540405024908490}
   m_Layer: 0
   m_Name: KeyboardButton
   m_TagString: Untagged
@@ -3916,7 +3889,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -4089,9 +4062,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 0
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -4442,18 +4415,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &4596540405024908490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2514196059708086023}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2691714430239722342
 GameObject:
   m_ObjectHideFlags: 0
@@ -4598,7 +4559,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4670,7 +4631,6 @@ GameObject:
   - component: {fileID: 3159796309334317904}
   - component: {fileID: 18424095147146570}
   - component: {fileID: 820063331208070566}
-  - component: {fileID: 3897156398620997501}
   m_Layer: 0
   m_Name: EV1Button
   m_TagString: Untagged
@@ -4739,7 +4699,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -4902,7 +4862,7 @@ MonoBehaviour:
   <ToggleMode>k__BackingField: 1
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -5254,18 +5214,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &3897156398620997501
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2932738437490693389}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2985909459350050702
 GameObject:
   m_ObjectHideFlags: 0
@@ -5398,7 +5346,6 @@ GameObject:
   - component: {fileID: 8448832132395692741}
   - component: {fileID: 2483674274990450893}
   - component: {fileID: 7341952198951158531}
-  - component: {fileID: 3769228799664302427}
   m_Layer: 0
   m_Name: Green
   m_TagString: Untagged
@@ -5467,7 +5414,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -5628,9 +5575,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -5982,18 +5929,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &3769228799664302427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3140266612839862269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3145076078000507536
 GameObject:
   m_ObjectHideFlags: 0
@@ -6278,7 +6213,6 @@ GameObject:
   - component: {fileID: 8704374370015047179}
   - component: {fileID: 4957671002415301381}
   - component: {fileID: 2116466438516913173}
-  - component: {fileID: 813672080857805877}
   m_Layer: 0
   m_Name: VoiceRecordButton
   m_TagString: Untagged
@@ -6347,7 +6281,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -6508,9 +6442,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -6876,18 +6810,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &813672080857805877
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3277379675858783096}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3304408043911906332
 GameObject:
   m_ObjectHideFlags: 0
@@ -7202,7 +7124,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -7363,8 +7285,8 @@ Transform:
   m_GameObject: {fileID: 3747820712866910896}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.0097, y: 0.0025, z: 0.7}
+  m_LocalScale: {x: 1.195109, y: 1.1706904, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2189140485672594881}
@@ -7397,7 +7319,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d394647fa36b46d29b623e8a9786dec, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8068,7 +7990,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8830,7 +8752,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9009,8 +8931,8 @@ Transform:
   m_GameObject: {fileID: 4919858447994030436}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.0088, y: -0.0018, z: 0.7}
+  m_LocalScale: {x: 1.201746, y: 1.2017237, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 879783009761538117}
@@ -9043,7 +8965,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d394647fa36b46d29b623e8a9786dec, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9293,8 +9215,8 @@ Transform:
   m_GameObject: {fileID: 5045207327114751596}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.1146, y: -0.0747, z: 0}
-  m_LocalScale: {x: 0.91705763, y: 0.7470272, z: 0.91161}
+  m_LocalPosition: {x: -0.1022, y: -0.085, z: 0.84}
+  m_LocalScale: {x: 0.999727, y: 0.85037994, z: 0.91161}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6916694920607058041}
@@ -9327,7 +9249,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d799bb5cdce474216aead5d7cab5d3e8, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9588,8 +9510,8 @@ Transform:
   m_GameObject: {fileID: 5289182084126131825}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0295, y: -0.0015, z: 0}
-  m_LocalScale: {x: 0.9893521, y: 0.965016, z: 1}
+  m_LocalPosition: {x: 0.0308, y: 0.0049, z: 0.9}
+  m_LocalScale: {x: 1.1349493, y: 1.1947517, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4452769199210530277}
@@ -9622,7 +9544,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 0c9b01fd9ede14cea9f1b92f7c89dfa8, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9814,8 +9736,8 @@ Transform:
   m_GameObject: {fileID: 5453139010990859195}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.027, y: 0.012, z: 0}
-  m_LocalScale: {x: 0.97941023, y: 0.9625, z: 1}
+  m_LocalPosition: {x: 0.0305, y: 0.0046, z: 0.9}
+  m_LocalScale: {x: 1.1462322, y: 1.2190245, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6471693451030529545}
@@ -9848,7 +9770,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7e2c7e072783a478dbc5ce1e373b642b, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10183,7 +10105,6 @@ GameObject:
   - component: {fileID: 8428812192208945229}
   - component: {fileID: 2560007487137035857}
   - component: {fileID: 4620694190342142531}
-  - component: {fileID: 7158105013910771344}
   m_Layer: 0
   m_Name: Pink
   m_TagString: Untagged
@@ -10252,7 +10173,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -10415,7 +10336,7 @@ MonoBehaviour:
   <ToggleMode>k__BackingField: 1
   <SelectThreshold>k__BackingField: 0.9
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -10767,18 +10688,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &7158105013910771344
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5766137774302232617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5794601665731588387
 GameObject:
   m_ObjectHideFlags: 0
@@ -11001,7 +10910,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -11136,7 +11045,6 @@ GameObject:
   - component: {fileID: 7288902722814023910}
   - component: {fileID: 8300511130956093462}
   - component: {fileID: 1781814147325566815}
-  - component: {fileID: 3631307196919185429}
   m_Layer: 0
   m_Name: Yellow
   m_TagString: Untagged
@@ -11205,7 +11113,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -11366,9 +11274,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -11720,18 +11628,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &3631307196919185429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6320522363723995829}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6387253748366530838
 GameObject:
   m_ObjectHideFlags: 0
@@ -11795,7 +11691,6 @@ GameObject:
   - component: {fileID: 2740288293500684504}
   - component: {fileID: 4705210646841917004}
   - component: {fileID: 8309796771607183704}
-  - component: {fileID: 6060594857448938936}
   m_Layer: 0
   m_Name: DoneButton
   m_TagString: Untagged
@@ -11863,7 +11758,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -12024,9 +11919,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 0
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -12377,18 +12272,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &6060594857448938936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6405424724733422831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &6593163278057954143
 GameObject:
   m_ObjectHideFlags: 0
@@ -13013,7 +12896,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13654,8 +13537,8 @@ Transform:
   m_GameObject: {fileID: 8143683712608157894}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.0088, y: 0.0088, z: 0.7}
+  m_LocalScale: {x: 1.201746, y: 1.1804562, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4235725350407716833}
@@ -13688,7 +13571,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1d394647fa36b46d29b623e8a9786dec, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13784,7 +13667,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -13901,7 +13784,6 @@ GameObject:
   - component: {fileID: 8311688497247543611}
   - component: {fileID: 7709318063014187390}
   - component: {fileID: 392242158325630342}
-  - component: {fileID: 4458581198437323865}
   m_Layer: 0
   m_Name: EV2Button
   m_TagString: Untagged
@@ -13970,7 +13852,7 @@ MonoBehaviour:
   m_SelectMode: 1
   m_FocusMode: 1
   m_CustomReticle: {fileID: 0}
-  m_AllowGazeInteraction: 1
+  m_AllowGazeInteraction: 0
   m_AllowGazeSelect: 0
   m_OverrideGazeTimeToSelect: 0
   m_GazeTimeToSelect: 0.5
@@ -14131,9 +14013,9 @@ MonoBehaviour:
   disabledInteractorTypes:
   - reference: MixedReality.Toolkit.IGrabInteractor, MixedReality.Toolkit.Core
   <ToggleMode>k__BackingField: 1
-  <SelectThreshold>k__BackingField: 0.9
+  <SelectThreshold>k__BackingField: 0.1
   <DeselectThreshold>k__BackingField: 0.1
-  <TriggerOnRelease>k__BackingField: 0
+  <TriggerOnRelease>k__BackingField: 1
   <UseGazeDwell>k__BackingField: 0
   <GazeDwellTime>k__BackingField: 1
   <UseFarDwell>k__BackingField: 0
@@ -14485,18 +14367,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &4458581198437323865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8213439010786023330}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8234678674487380576
 GameObject:
   m_ObjectHideFlags: 0
@@ -14559,7 +14429,6 @@ GameObject:
   - component: {fileID: 4608052511343242152}
   - component: {fileID: 6384398395366808852}
   - component: {fileID: 1947547448586273909}
-  - component: {fileID: 1711069995570520006}
   m_Layer: 0
   m_Name: Blue
   m_TagString: Untagged
@@ -15143,18 +15012,6 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 0}
   movableAxes: 0
   onMoveDelta: 0.01
---- !u!114 &1711069995570520006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8270901958475935982}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 158738678d92d134bbff43e3c98f42c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8277718807538257428
 GameObject:
   m_ObjectHideFlags: 0
@@ -15298,8 +15155,8 @@ Transform:
   m_GameObject: {fileID: 8343200243418248187}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0292, y: 0, z: 0}
-  m_LocalScale: {x: 1.0179145, y: 1, z: 1}
+  m_LocalPosition: {x: 0.028, y: -0.0098, z: 0.57}
+  m_LocalScale: {x: 1.1438447, y: 1.1556524, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3651961815161048260}
@@ -15332,7 +15189,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 71fa24e68da104865be6e8c141e2b31a, type: 2}
+  - {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -15460,7 +15317,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -16179,8 +16036,8 @@ Transform:
   m_GameObject: {fileID: 9182026848547243468}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0272, y: 0.006, z: 0}
-  m_LocalScale: {x: 1.03098, y: 0.965276, z: 1}
+  m_LocalPosition: {x: 0.0272, y: -0.0004, z: 0}
+  m_LocalScale: {x: 1.03098, y: 0.9525344, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 9133425449152453779}
@@ -16213,7 +16070,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 047b59022c583b040ae4a202e758bb81, type: 2}
+  - {fileID: 2100000, guid: 3f9a60c9ea2ca4cf7aab567f13399897, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

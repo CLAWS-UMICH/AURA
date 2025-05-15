@@ -346,9 +346,8 @@ public class NavigationFrontend : MonoBehaviour
 
     public void openFeatureScreen()
     {
-        navigationController.Controller.SetActive(true);
-        navigationController.CreateWaypointScreen.SetActive(false);
         navigationController.WaypointMenuScreen.SetActive(true);
+        navigationController.verticalButtonScreen.SetActive(true);
         // Check which screen is currently active
         if (activeScreen == navigationController.CompanionScreen)
         {
@@ -400,7 +399,10 @@ public class NavigationFrontend : MonoBehaviour
     public void closeScreens()
     {
         Debug.Log("Closing nav current screen...");
-        navigationController.Controller.SetActive(false);
-        navigationController.MainMenuToggleCollection.SetSelection(1, false);
+        navigationController.Controller.SetActive(true);
+        foreach (Transform screen in navigationController.transform)
+        {
+            screen.gameObject.SetActive(false);
+        }
     }
 }

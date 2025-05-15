@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 using MixedReality.Toolkit.UX;
 using UnityEditor.Rendering.LookDev;
 using MixedReality.Toolkit.UX.Experimental;
@@ -9,6 +10,7 @@ using UnityEngine.XR.Interaction.Toolkit.Interactors;
 using MixedReality.Toolkit.Examples.Demos;
 using UnityEngine.UI;
 using MixedReality.Toolkit;
+using Unity.VisualScripting;
 
 public class NavigationController : MonoBehaviour
 {
@@ -119,15 +121,20 @@ public class NavigationController : MonoBehaviour
     private Subscription<WaypointDeletedEvent> waypointRemovedSubscription;
     public List<Waypoint> waypointList = new List<Waypoint>();
     public List<Waypoint> GeoWaypointList = new List<Waypoint>();
+    public List<Waypoint> GEO_ZONEA_WaypointList = new List<Waypoint>();
+    public List<Waypoint> GEO_ZONEB_WaypointList = new List<Waypoint>();
+    public List<Waypoint> GEO_ZONEC_WaypointList = new List<Waypoint>();
     public List<Waypoint> StationWaypointList = new List<Waypoint>();
     public List<Waypoint> POIWaypointList = new List<Waypoint>();
     public List<Waypoint> DangerWaypointList = new List<Waypoint>();
+    private int initSetCount = 0;
 
 
     void Start()
     {
         waypointAddedSubscription = EventBus.Subscribe<WaypointAddedEvent>(OnWaypointAdded);
         waypointRemovedSubscription = EventBus.Subscribe<WaypointDeletedEvent>(OnWaypointRemoved);
+        
 
         CompanionScreen.SetActive(true);
         POIScreen.SetActive(false);
@@ -141,25 +148,38 @@ public class NavigationController : MonoBehaviour
     {
         Debug.Log("Waypoint added: " + e.NewAddedWaypoint);
         Waypoint newWaypoint = e.NewAddedWaypoint;
+        if (!gameObject.activeInHierarchy)
+        {
+            gameObject.SetActive(true);
+            Debug.LogError("NavigationController is not active. Cannot start coroutine.");
+            return;
+        }
 
         // show ppop up notification
         AuthorType author = newWaypoint.Author;
         switch (author)
         {
             case AuthorType.EV1:
-                notificationScreen.transform.Find("AuthorText").GetComponent<TextMeshPro>().text = "Astronaut 1 added a waypoint to the map";
+                notificationScreen.transform.GetChild(0).Find("Body").GetComponent<TextMeshPro>().text = "Astronaut 1 added a waypoint to the map";
                 break;
             case AuthorType.EV2:
-                notificationScreen.transform.Find("AuthorText").GetComponent<TextMeshPro>().text = "Astronaut 2 added a waypoint to the map";
+                notificationScreen.transform.GetChild(0).Find("Body").GetComponent<TextMeshPro>().text = "Astronaut 2 added a waypoint to the map";
                 break;
             case AuthorType.PR:
-                notificationScreen.transform.Find("AuthorText").GetComponent<TextMeshPro>().text = "The PR Team added a waypoint to the map";
+                notificationScreen.transform.GetChild(0).Find("Body").GetComponent<TextMeshPro>().text = "The PR Team added a waypoint to the map";
                 break;
         }
-        notificationScreen.SetActive(true);
-        // Hide the notification after 3 seconds
-        StartCoroutine(HideNotificationAfterDelay(3f));
-
+        notificationScreen.transform.GetChild(0).Find("Title").GetComponent<TextMeshPro>().text = "Waypoint Removed";
+        notificationScreen.transform.GetChild(0).Find("Added").gameObject.SetActive(true);
+        notificationScreen.transform.GetChild(0).Find("Deleted").gameObject.SetActive(false);
+        if (initSetCount > 5)
+        {
+            Debug.Log("Showing notification screen");
+            notificationScreen.SetActive(true);
+            StartCoroutine(HideNotificationAfterDelay(5f));
+        }
+        initSetCount++;
+        char firstLetter = '*';
         switch(newWaypoint.Type)
         {
             case WaypointType.DANGER:
@@ -171,18 +191,49 @@ public class NavigationController : MonoBehaviour
                     (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY)
                 );
                 Debug.Log($"DANGER waypoint position: {dangerPosition}");
-                char firstLetter = newWaypoint.Name[0];
-                // get letter from waypoint name
+               
+                 // get letter from waypoint name
                 newWaypoint.Name = newWaypoint.Name.ToUpper();
                 if (newWaypoint.Name.Contains("WAYPOINT"))
                 {
+                    // Prioritize finding the first letter after "WAYPOINT"
                     int index = newWaypoint.Name.IndexOf("WAYPOINT") + "WAYPOINT".Length;
+                    Debug.Log($"Index after 'WAYPOINT': {index}");
+
+                    // Skip spaces to find the first character of the next word
+                    while (index < newWaypoint.Name.Length && newWaypoint.Name[index] == ' ')
+                    {
+                        index++;
+                    }
+
                     if (index < newWaypoint.Name.Length)
                     {
                         firstLetter = newWaypoint.Name[index];
                         Debug.Log($"The first letter after 'WAYPOINT' is: {firstLetter}");
                     }
+                    else
+                    {
+                        Debug.LogWarning("No valid character found after 'WAYPOINT'.");
+                        firstLetter = '*';
+                    }
                 }
+                else
+                {
+                    // Fallback: Get the first letter of the second word
+                    string[] words = newWaypoint.Name.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (words.Length > 1)
+                    {
+                        firstLetter = words[1][0];
+                        Debug.Log($"The first letter of the second word is: {firstLetter}");
+                    }
+                    else
+                    {
+                        firstLetter = POIWaypointList.Count.ToString()[0];
+                        Debug.LogWarning("No valid character found. Using count as fallback.");
+                        Debug.LogWarning($"First letter set to: {firstLetter}");
+                    }
+                }
+
                 // Instantiate the danger map icon
                 GameObject dangerIcon = Instantiate(dangerPrefab_Icon, dangerPosition, Quaternion.identity, dangerIconParent.transform);
                 dangerIcon.transform.Find("TypeText").GetComponent<TextMeshPro>().text = firstLetter.ToString();
@@ -202,9 +253,53 @@ public class NavigationController : MonoBehaviour
             case WaypointType.GEO:
                  Debug.Log("Adding a GEO waypoint...");
                 Vector3 geoPosition = new Vector3((float)(newWaypoint.IMUposX - AstronautInstance.User.origin.posX), 0, (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY));
-                 Debug.Log($"GEO waypoint position: {geoPosition}");
+                Debug.Log($"GEO waypoint position: {geoPosition}");
+                
+                 // get letter from waypoint name
+                newWaypoint.Name = newWaypoint.Name.ToUpper();
+                if (newWaypoint.Name.Contains("WAYPOINT"))
+                {
+                    // Prioritize finding the first letter after "WAYPOINT"
+                    int index = newWaypoint.Name.IndexOf("WAYPOINT") + "WAYPOINT".Length;
+                    Debug.Log($"Index after 'WAYPOINT': {index}");
+
+                    // Skip spaces to find the first character of the next word
+                    while (index < newWaypoint.Name.Length && newWaypoint.Name[index] == ' ')
+                    {
+                        index++;
+                    }
+
+                    if (index < newWaypoint.Name.Length)
+                    {
+                        firstLetter = newWaypoint.Name[index];
+                        Debug.Log($"The first letter after 'WAYPOINT' is: {firstLetter}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No valid character found after 'WAYPOINT'.");
+                        firstLetter = '*';
+                    }
+                }
+                else
+                {
+                    // Fallback: Get the first letter of the second word
+                    string[] words = newWaypoint.Name.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (words.Length > 1)
+                    {
+                        firstLetter = words[1][0];
+                        Debug.Log($"The first letter of the second word is: {firstLetter}");
+                    }
+                    else
+                    {
+                        firstLetter = POIWaypointList.Count.ToString()[0];
+                        Debug.LogWarning("No valid character found. Using count as fallback.");
+                        Debug.LogWarning($"First letter set to: {firstLetter}");
+                    }
+                }
+
                 GameObject geoIcon = Instantiate(geoPrefab_Icon, geoPosition, Quaternion.identity, geoIconParent.transform);
-                 geoIcon.name = newWaypoint.Name;
+                geoIcon.transform.Find("TypeText").GetComponent<TextMeshPro>().text = firstLetter.ToString();
+                geoIcon.name = newWaypoint.Name;
                 Debug.Log($"GEO icon instantiated with name: {geoIcon.name}");
                 GameObject geoIconClosed = Instantiate(geoClosedPrefab_Icon, geoPosition, Quaternion.identity, geoClosedIconParent.transform);
                 geoIconClosed.name = newWaypoint.Name + "_closed";
@@ -217,7 +312,51 @@ public class NavigationController : MonoBehaviour
                 Debug.Log("Adding a STATION waypoint...");
                 Vector3 stationPosition = new Vector3((float)(newWaypoint.IMUposX - AstronautInstance.User.origin.posX), 0, (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY));
                 Debug.Log($"STATION waypoint position: {stationPosition}");
+                firstLetter = '*';
+                // get letter from waypoint name
+                newWaypoint.Name = newWaypoint.Name.ToUpper();
+                if (newWaypoint.Name.Contains("WAYPOINT"))
+                {
+                    // Prioritize finding the first letter after "WAYPOINT"
+                    int index = newWaypoint.Name.IndexOf("WAYPOINT") + "WAYPOINT".Length;
+                    Debug.Log($"Index after 'WAYPOINT': {index}");
+
+                    // Skip spaces to find the first character of the next word
+                    while (index < newWaypoint.Name.Length && newWaypoint.Name[index] == ' ')
+                    {
+                        index++;
+                    }
+
+                    if (index < newWaypoint.Name.Length)
+                    {
+                        firstLetter = newWaypoint.Name[index];
+                        Debug.Log($"The first letter after 'WAYPOINT' is: {firstLetter}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No valid character found after 'WAYPOINT'.");
+                        firstLetter = '*';
+                    }
+                }
+                else
+                {
+                    // Fallback: Get the first letter of the second word
+                    string[] words = newWaypoint.Name.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (words.Length > 1)
+                    {
+                        firstLetter = words[1][0];
+                        Debug.Log($"The first letter of the second word is: {firstLetter}");
+                    }
+                    else
+                    {
+                        firstLetter = POIWaypointList.Count.ToString()[0];
+                        Debug.LogWarning("No valid character found. Using count as fallback.");
+                        Debug.LogWarning($"First letter set to: {firstLetter}");
+                    }
+                }
+            
                 GameObject stationIcon = Instantiate(stationPrefab_Icon, stationPosition, Quaternion.identity, stationIconParent.transform);
+                stationIcon.transform.Find("TypeText").GetComponent<TextMeshPro>().text = firstLetter.ToString();
                 stationIcon.name = newWaypoint.Name;
                 Debug.Log($"STATION icon instantiated with name: {stationIcon.name}");
                 GameObject stationIconClosed = Instantiate(stationClosedPrefab_Icon, stationPosition, Quaternion.identity, stationClosedIconParent.transform);
@@ -231,7 +370,50 @@ public class NavigationController : MonoBehaviour
                 Debug.Log("Adding a POI waypoint...");
                 Vector3 poiPosition = new Vector3((float)(newWaypoint.IMUposX - AstronautInstance.User.origin.posX), 0, (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY));
                 Debug.Log($"POI waypoint position: {poiPosition}");
+                // get letter from waypoint name
+                newWaypoint.Name = newWaypoint.Name.ToUpper();
+                if (newWaypoint.Name.Contains("WAYPOINT"))
+                {
+                    // Prioritize finding the first letter after "WAYPOINT"
+                    int index = newWaypoint.Name.IndexOf("WAYPOINT") + "WAYPOINT".Length;
+                    Debug.Log($"Index after 'WAYPOINT': {index}");
+
+                    // Skip spaces to find the first character of the next word
+                    while (index < newWaypoint.Name.Length && newWaypoint.Name[index] == ' ')
+                    {
+                        index++;
+                    }
+
+                    if (index < newWaypoint.Name.Length)
+                    {
+                        firstLetter = newWaypoint.Name[index];
+                        Debug.Log($"The first letter after 'WAYPOINT' is: {firstLetter}");
+                    }
+                    else
+                    {
+                        Debug.LogWarning("No valid character found after 'WAYPOINT'.");
+                        firstLetter = '*';
+                    }
+                }
+                else
+                {
+                    // Fallback: Get the first letter of the second word
+                    string[] words = newWaypoint.Name.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    if (words.Length > 1)
+                    {
+                        firstLetter = words[1][0];
+                        Debug.Log($"The first letter of the second word is: {firstLetter}");
+                    }
+                    else
+                    {
+                        firstLetter = POIWaypointList.Count.ToString()[0];
+                        Debug.LogWarning("No valid character found. Using count as fallback.");
+                        Debug.LogWarning($"First letter set to: {firstLetter}");
+                    }
+                }
+                
                 GameObject poiIcon = Instantiate(poiPrefab_Icon, poiPosition, Quaternion.identity, poiIconParent.transform);
+                poiIcon.transform.Find("TypeText").GetComponent<TextMeshPro>().text = firstLetter.ToString();
                 poiIcon.name = newWaypoint.Name;
                 Debug.Log($"POI icon instantiated with name: {poiIcon.name}");
                 GameObject poiIconClosed = Instantiate(poiClosedPrefab_Icon, poiPosition, Quaternion.identity, poiClosedIconParent.transform);

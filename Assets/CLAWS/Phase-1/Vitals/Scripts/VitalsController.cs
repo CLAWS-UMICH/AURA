@@ -61,6 +61,14 @@ public class VitalsController : MonoBehaviour
     }
 
 
+    public void openFeatureScreen()
+    {
+        vitals.SetActive(true);
+        vitals.transform.Find("CloseButton").gameObject.SetActive(true);
+        vitalsFirstAstronautScreen.SetActive(true);
+        vitalsSecondAstronautScreen.SetActive(false);
+    }
+
     public void ToggleVitalsScreen()
     {
         if (vitalsFirstAstronautScreen.activeSelf)
@@ -81,8 +89,7 @@ public class VitalsController : MonoBehaviour
     public void CloseVitalScreen()
     {
         transform.parent.gameObject.SetActive(false);
-        toggleCollection.SetSelection(6, true);
-        Debug.Log("Toggle event published to reset selection.");
+        
     }
 
 
