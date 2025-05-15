@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using MixedReality.Toolkit.UX;
 using UnityEngine;
 
 public class ScreenManager : MonoBehaviour
 {
+    public GameObject screens;
     public GameObject vitals;
     public GameObject navigation;
     public GameObject PR;
@@ -70,6 +69,7 @@ public class ScreenManager : MonoBehaviour
 
     private void DeactivateAllScreens()
     {
+        screens.SetActive(true);
         Debug.Log("Deactivating all screens");
         UIA.SetActive(true);
         foreach (Transform child in UIA.transform)

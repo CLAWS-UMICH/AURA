@@ -14,9 +14,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/CLAWS/Phase-1/Waypoints/WaypointsCreateWaypointMenu.unity
     guid: 7c89f8486ce7b4bf4aefbe1bbee0ecaf
-  - enabled: 1
+  - enabled: 0
     path: Assets/CLAWS/AURA.unity
     guid: f13e1e2442e8345528895a3cc12670a9
+  - enabled: 1
+    path: Assets/CLAWS/AURA 1.unity
+    guid: 98f3e6b5d91a6a1448bb1df02767de03
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 46e4b5d14303849999936f8a0b73f591,
       type: 2}

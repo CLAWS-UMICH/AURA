@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Timeline;
 
 public class FrontEndButton : MonoBehaviour
 {
@@ -252,7 +250,7 @@ public class FrontEndButton : MonoBehaviour
         LMCCgc.SetActive(false);
         A2andLMCCgc.SetActive(false);
         A2gc.SetActive(false);
-        transform.gameObject.SetActive(true);
+        Debug.Log("{tranform} " + transform);
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(false);

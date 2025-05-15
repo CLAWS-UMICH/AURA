@@ -4,13 +4,8 @@ using UnityEngine;
 using TMPro;
 using System;
 using MixedReality.Toolkit.UX;
-using UnityEditor.Rendering.LookDev;
 using MixedReality.Toolkit.UX.Experimental;
 using UnityEngine.XR.Interaction.Toolkit.Interactors;
-using MixedReality.Toolkit.Examples.Demos;
-using UnityEngine.UI;
-using MixedReality.Toolkit;
-using Unity.VisualScripting;
 
 public class NavigationController : MonoBehaviour
 {
@@ -77,6 +72,7 @@ public class NavigationController : MonoBehaviour
     public GameObject NavigationScreen;
     public GameObject NotifcationScreen;
     public GameObject WaypointMenuScreen;
+    public GameObject addWaypointButton;
 
     // Buttons Section
     [Header("Buttons")]
@@ -134,7 +130,6 @@ public class NavigationController : MonoBehaviour
     {
         waypointAddedSubscription = EventBus.Subscribe<WaypointAddedEvent>(OnWaypointAdded);
         waypointRemovedSubscription = EventBus.Subscribe<WaypointDeletedEvent>(OnWaypointRemoved);
-        
 
         CompanionScreen.SetActive(true);
         POIScreen.SetActive(false);
@@ -421,6 +416,29 @@ public class NavigationController : MonoBehaviour
                 POIWaypointList.Add(newWaypoint);
                 waypointList.Add(newWaypoint);
                 poiScrollRectList.SetItemCount(POIWaypointList.Count);
+
+                // dynamic zone creation may not be needed
+                // publish geo sample zone added event
+                // EventBus.Publish(new GeoSampleZoneAddedEvent(
+                //     new GeosampleZone
+                //     {
+                //         id = AstronautInstance.User.geosampleZones.Count,  // zone id after the last one
+                //         origin = new Location
+                //         {
+                //             posX = (float)(newWaypoint.IMUposX - AstronautInstance.User.origin.posX),
+                //             posY = 0.2f,
+                //             posZ = (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY)
+                //         },
+                //         TotalGeoSamples = new GeoSampleDB
+                //         {
+                //             samples = new List<GeoSample>()
+                //         },
+                //         SignificantGeoSamples = new GeoSampleDB
+                //         {
+                //             samples = new List<GeoSample>()
+                //         }
+                //     }
+                // ));
                 break;
         }
     }

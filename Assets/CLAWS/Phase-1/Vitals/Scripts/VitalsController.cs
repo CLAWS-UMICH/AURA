@@ -69,22 +69,6 @@ public class VitalsController : MonoBehaviour
         vitalsSecondAstronautScreen.SetActive(false);
     }
 
-    public void ToggleVitalsScreen()
-    {
-        if (vitalsFirstAstronautScreen.activeSelf)
-        {
-            vitals.SetActive(true);
-            vitalsFirstAstronautScreen.SetActive(false);
-            vitalsSecondAstronautScreen.SetActive(true);
-        }
-        else 
-        {
-            vitals.SetActive(true); 
-            vitalsSecondAstronautScreen.SetActive(false);
-            vitalsFirstAstronautScreen.SetActive(true);
-        }
-    }
-
 
     public void CloseVitalScreen()
     {

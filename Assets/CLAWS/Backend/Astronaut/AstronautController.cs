@@ -476,7 +476,8 @@ public class GeoSample {
     public string color;
     public string texture;
     public string note;
-    public int id;
+    public int id;  // NASA GIVEN ID
+    public bool isSignificant;
     public List<Composition> comp;
     public GeoSample() {
         name = "";
@@ -488,7 +489,7 @@ public class GeoSample {
         id = 0;
         comp = new List<Composition>();
     }
-    public GeoSample(string nameIn, string zoneIn, string typeIn, string shapeIn, string colorIn, string textureIn, string noteIn, int idIn, List<Composition> compIn) {
+    public GeoSample(string nameIn, string zoneIn, string typeIn, string shapeIn, string colorIn, string textureIn, string noteIn, int idIn, bool isSignificant, List<Composition> compIn) {
         name = nameIn;
         zone = zoneIn;
         type = typeIn;
@@ -502,7 +503,7 @@ public class GeoSample {
 }
 [System.Serializable]
 public class GeoSampleDB {
-    List<GeoSample> samples;
+    public List<GeoSample> samples;
 
     public GeoSampleDB() {
         samples = new List<GeoSample>();
@@ -511,7 +512,7 @@ public class GeoSampleDB {
     {
         foreach (GeoSample sample in data)
         {
-            GeoSample geo = new GeoSample(sample.name, sample.zone, sample.type, sample.shape, sample.color, sample.texture, sample.note, sample.id, sample.comp);
+            GeoSample geo = new GeoSample(sample.name, sample.zone, sample.type, sample.shape, sample.color, sample.texture, sample.note, sample.id, sample.isSignificant,sample.comp);
             samples.Add(geo);
         }
     }
@@ -618,6 +619,11 @@ public class Message
     public int sent_to; // Astronaut ID it was sent to  //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3, Group = 4
     public string message; 
     public int from; // Astronaut ID it who sent the message    //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3
+
+    public override int GetHashCode()
+    {
+        return (message_id, sent_to, message, from).GetHashCode();
+    }
 
 
 

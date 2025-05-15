@@ -1,14 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Microsoft.MixedReality.GraphicsTools.Editor;
-using MixedReality.Toolkit.Examples.Demos;
 using MixedReality.Toolkit.UX;
-using Newtonsoft.Json;
-using SocketIOClient.Messages;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
-
 public class SetUpScreenController : MonoBehaviour
 {
     [SerializeField] private GameObject TSSscreen;
@@ -256,8 +250,9 @@ public class SetUpScreenController : MonoBehaviour
 
 
     public void openAURA() {
-        GameObject main = transform.parent.GetChild(3).gameObject;
-        GameObject screens = transform.parent.GetChild(2).gameObject;
+        // change if you add a profiler to  controller
+        GameObject main = transform.parent.GetChild(2).gameObject;
+        GameObject screens = transform.parent.GetChild(1).gameObject;
         SetUpController.SetActive(false);
         main.SetActive(true);
         // foreach (Transform child in screens.transform)

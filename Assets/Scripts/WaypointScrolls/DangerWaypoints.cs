@@ -47,6 +47,8 @@ namespace MixedReality.Toolkit.Examples.Demos
                     }
                 }
             };
+
+            // list.TryGetVisibleItems(out var visibleItems);
         }
 
         private void Update()
