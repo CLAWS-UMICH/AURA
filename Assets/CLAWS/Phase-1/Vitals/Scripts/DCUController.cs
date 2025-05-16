@@ -97,7 +97,29 @@ public class DCUController : MonoBehaviour
         }
         else
         {
-            
+            // battery
+            dcu2.batt_umb.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.batt);
+            dcu2.batt_loc.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.batt);
+
+            // oxygen
+            dcu2.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.oxy);
+            dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.oxy);
+
+            // commms
+            dcu2.comm_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.comm);
+            dcu1.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.comm);
+
+            // fan
+            dcu2.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.fan);
+            dcu2.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.fan);
+
+            // pump
+            dcu2.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.pump);
+            dcu2.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.pump);
+
+            // CO2
+            dcu2.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.co2);
+            dcu2.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.co2);
         }
     }
 
@@ -105,6 +127,52 @@ public class DCUController : MonoBehaviour
 
     private void onDcuError(DCUErrorEvent e)
     {
+        // oxygen DCU error
+        if (e.err.oxy)
+        {
+            // dcu1 oxygen error toggle
+            bool dcu1_oxy = dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+            dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(dcu1_oxy);
+            dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!dcu1_oxy);
 
+            // dcu2 oxygen error toggle
+            bool dcu2_oxy = dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+            dcu2.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(dcu2_oxy);
+            dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!dcu2_oxy);
+        }
+
+        // fan DCU error
+        if (e.err.fan)
+        {
+            // dcu1 fan error toggle
+            bool dcu1_fan = dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+            dcu1.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(dcu1_fan);
+            dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!dcu1_fan);
+
+            // dcu1 fan error toggle
+            bool dcu2_fan = dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+            dcu2.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(dcu2_fan);
+            dcu2.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!dcu2_fan);
+        }
+
+        // pump DCU error
+        if (e.err.pump)
+        {
+            // dcu1 pump error toggle
+            bool dcu1_pump = dcu1.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+            if (dcu1_pump)
+            {
+                dcu1.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(false);
+                dcu1.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(true);
+            }
+
+            // dcu1 pump error toggle
+            bool dcu2_pump = dcu2.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+            if (dcu2_pump)
+            {
+                dcu2.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(false);
+                dcu2.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(true);
+            }
+        }
     }
 }
