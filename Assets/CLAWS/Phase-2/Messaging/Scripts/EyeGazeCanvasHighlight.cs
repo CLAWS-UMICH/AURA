@@ -30,7 +30,6 @@ public class EyeGazeCanvasHighlight: MonoBehaviour
 
     private void OnButtonGazeExit()
     {
-        Debug.Log("Gaze exited on button: " + gameObject.name);
         isGazeActive = false;
         // Stop the pulse coroutine
         if (pulseCoroutine != null)

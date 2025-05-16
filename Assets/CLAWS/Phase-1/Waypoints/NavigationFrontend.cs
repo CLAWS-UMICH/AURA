@@ -429,7 +429,7 @@ public class NavigationFrontend : MonoBehaviour
     }
 
 
-    public void navigateToEV()
+    public void navigateToEV(int index)
     {
         // pull up ev2 coords
         // AstronautInstance.User.fellowAstronaut.location.posX
@@ -439,7 +439,7 @@ public class NavigationFrontend : MonoBehaviour
     }
 
 
-    public void navigateToPR()
+    public void navigateToPR(int index)
     {
         // pull up pr coords
         // AstronautInstance.User.fellowAstronaut.location.posX

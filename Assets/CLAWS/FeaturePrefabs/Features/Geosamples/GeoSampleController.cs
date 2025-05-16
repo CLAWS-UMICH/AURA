@@ -18,22 +18,36 @@ public class GeoSampleController : MonoBehaviour
     // 2nd layer -- geosampling mode
     public GameObject geoSamplingModeSelectionScreen;
 
+    // shape and texture selection screens
+    public GameObject ShapeSelectScreen;
+    public GameObject TextureSelectScreen;
+
+    public GameObject voiceNotesDictation;
+
     [Header("Description Panels for Each Zone")]
     public GameObject ZoneADescriptionScreen;
     public GameObject ZoneBDescriptionScreen;
     public GameObject ZoneCDescriptionScreen;
+    
+    [Header("Navigation screens")]
+    public GameObject ZoneANavigationScreen;
+    public GameObject ZoneBNavigationScreen;
+    public GameObject ZoneCNavigationScreen;
 
-
+    public Slider slider; 
      
     public GameObject ZoneMappingScreen;
     public GameObject GeosampleSelectionScreen;
     public  GameObject ColorHueSelectionScreen;
     public GameObject HueParentScreen;
-    public GameObject ShapeSelectionScreen;
-    public GameObject TextureSelectionScreen;
+
     // buttons
     public GameObject buttonSideBar;
+    public PressableButton mainMenuGeoButton;
     public ToggleCollection sideBarToggleCollection;
+    public PressableButton procedureStep1Button;
+    public PressableButton procedureStep2Button;
+    public PressableButton procedureStep3Button;
 
     private Subscription<GeoSampleAddedToZoneEvent> geoSampleAddedToZoneEventSubscription;
     private Subscription<GeoSampleZoneAddedEvent> geoSampleZoneAddedEventSubscription;

@@ -53,10 +53,6 @@ namespace MixedReality.Toolkit.Examples.Demos
                 {
                     clickHandler.SetWaypointIndex(i);
                 }
-                else
-                {
-                    Debug.LogWarning("WaypointClickHandler not found on the prefab instance.");
-                }
             };
         }
 

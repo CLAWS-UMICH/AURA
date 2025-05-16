@@ -21,22 +21,43 @@ public class WaypointClickHandler : MonoBehaviour
     {
         Debug.Log($"Storing waypoint index: {index}");
         NavigationFrontend navigationFrontend = FindObjectOfType<NavigationFrontend>();
+        GeoSampleFrontend geoSampleFrontend = FindObjectOfType<GeoSampleFrontend>();
         Debug.Log("transform name: " + transform.name);
-        if (transform.name == "GEO")
+        if (transform.name == "GEO(Clone)")
         {
             navigationFrontend.openGeoNavigation(index);
         }
-        else if (transform.name == "DANGER")
+        else if (transform.name == "DANGER(Clone)")
         {
             navigationFrontend.openDangerNavigation(index);
         }
-        else if (transform.name == "POI")
+        else if (transform.name == "POI(Clone)")
         {
             navigationFrontend.openPOINavigation(index);
         }
-        else if (transform.name == "STATION")
+        else if (transform.name == "STATION(Clone)")
         {
             navigationFrontend.openStationNavigation(index);
+        }
+        else if (transform.name == "EV2")
+        {
+            navigationFrontend.navigateToEV(index);
+        }
+        else if (transform.name == "ROVER")
+        {
+            navigationFrontend.navigateToPR(index);
+        }
+        else if (transform.name == "ZONEA(Clone)")
+        {
+            geoSampleFrontend.openNavigationToZoneA(index);
+        }
+        else if (transform.name == "ZONEB(Clone)")
+        {
+            geoSampleFrontend.openNavigationToZoneB(index);
+        }
+        else if (transform.name == "ZONEC(Clone)")
+        {
+            geoSampleFrontend.openNavigationToZoneC(index);
         }
     }
 }
