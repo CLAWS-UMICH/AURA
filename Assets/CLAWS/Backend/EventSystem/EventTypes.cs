@@ -102,6 +102,30 @@ public class PR_LocationUpdatedEvent
 }
 
 
+// GEOSAMPLE EVENTS
+public class GeoSampleZoneAddedEvent
+{
+    public GeosampleZone newLTVLocation { get; private set; }
+
+    public GeoSampleZoneAddedEvent(GeosampleZone _newLTVLocation)
+    {
+        newLTVLocation = _newLTVLocation;
+    }
+}
+
+
+public class GeoSampleAddedToZoneEvent
+{
+    public GeoSample newGeoSample { get; private set; }
+
+    public GeoSampleAddedToZoneEvent(GeoSample _newGeoSample)
+    {
+        newGeoSample = _newGeoSample;
+    }
+}
+
+
+// MESSAGES EVENTS
 public class MessagesAddedEvent
 {
     public List<Message> NewAddedMessages { get; private set; }

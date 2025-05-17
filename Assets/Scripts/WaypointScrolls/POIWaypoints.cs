@@ -46,6 +46,13 @@ namespace MixedReality.Toolkit.Examples.Demos
                         Debug.Log($"Updated UIButtonFontIcon field with first letter of waypoint name: {waypoint.Name[0]}");
                     }
                 }
+
+                // Assign the index to the WaypointClickHandler
+                WaypointClickHandler clickHandler = go.GetComponent<WaypointClickHandler>();
+                if (clickHandler != null)
+                {
+                    clickHandler.SetWaypointIndex(i);
+                }
             };
         }
 

@@ -9,9 +9,8 @@ public class EyeGazeCanvasHighlight: MonoBehaviour
     [SerializeField] private FrontPlatePulse frontPlatePulse;
     [SerializeField] private PressableButton button;
 
-    private bool isGazeActive = false; // Tracks whether the gaze is active
-    private Coroutine pulseCoroutine; // Reference to the pulse coroutine
-
+    private bool isGazeActive = false;
+    private Coroutine pulseCoroutine;
     void Start()
     {
         // Add listeners for gaze hover events
@@ -21,7 +20,6 @@ public class EyeGazeCanvasHighlight: MonoBehaviour
 
     private void OnButtonGazeEnter()
     {
-        Debug.Log("Gaze entered on button: " + gameObject.name);
         isGazeActive = true;
         // Start the pulse coroutine if not already running
         if (pulseCoroutine == null)
@@ -32,7 +30,6 @@ public class EyeGazeCanvasHighlight: MonoBehaviour
 
     private void OnButtonGazeExit()
     {
-        Debug.Log("Gaze exited on button: " + gameObject.name);
         isGazeActive = false;
         // Stop the pulse coroutine
         if (pulseCoroutine != null)
@@ -48,13 +45,13 @@ public class EyeGazeCanvasHighlight: MonoBehaviour
         while (isGazeActive)
         {
             // Trigger the pulse
-            frontPlatePulse.PulseAt(transform.position, 0); // Use index 0 for left pulse
+            frontPlatePulse.PulseAt(transform.position, 0);
             float elapsedTime = 0f;
 
             while (elapsedTime < pulseInterval && isGazeActive)
             {
                 elapsedTime += Time.deltaTime;
-                yield return null; // Wait for next frame to continue
+                yield return null;
             }
         }
 

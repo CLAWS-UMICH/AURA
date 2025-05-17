@@ -5,7 +5,7 @@ using UnityEngine;
 public class EventBus
 {
     // Change this to "true" and all events will be logged to console automatically
-    public const bool DEBUG_MODE = false;
+    public const bool DEBUG_MODE = true;
 
     // Dictionary to hold subscribers for each event type
     private static Dictionary<Type, IList<ISubscription>> _topics = new Dictionary<Type, IList<ISubscription>>();

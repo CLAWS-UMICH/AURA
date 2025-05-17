@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEditor.Rendering;
 using System.Numerics;
 using Unity.Collections.LowLevel.Unsafe;
+using GLTFast.Schema;
 
 
 /////////////////////////////////////////////////////////////////////
@@ -473,8 +474,10 @@ public class GeoSample {
     public string type;
     public string shape;
     public string color;
+    public string texture;
     public string note;
-    public int id;
+    public int id;  // NASA GIVEN ID
+    public bool isSignificant;
     public List<Composition> comp;
     public GeoSample() {
         name = "";
@@ -486,12 +489,13 @@ public class GeoSample {
         id = 0;
         comp = new List<Composition>();
     }
-    public GeoSample(string nameIn, string zoneIn, string typeIn, string shapeIn, string colorIn, string noteIn, int idIn, List<Composition> compIn) {
+    public GeoSample(string nameIn, string zoneIn, string typeIn, string shapeIn, string colorIn, string textureIn, string noteIn, int idIn, bool isSignificant, List<Composition> compIn) {
         name = nameIn;
         zone = zoneIn;
         type = typeIn;
         shape = shapeIn;
         color = colorIn;
+        texture = textureIn;
         note = noteIn;
         id = idIn;
         comp = new List<Composition>(compIn);
@@ -499,8 +503,8 @@ public class GeoSample {
 }
 [System.Serializable]
 public class GeoSampleDB {
-    List<GeoSample> samples;
-    GeoSample curr;
+    public List<GeoSample> samples;
+
     public GeoSampleDB() {
         samples = new List<GeoSample>();
     }
@@ -508,7 +512,7 @@ public class GeoSampleDB {
     {
         foreach (GeoSample sample in data)
         {
-            GeoSample geo = new GeoSample(sample.name, sample.zone, sample.type, sample.shape, sample.color, sample.note, sample.id, sample.comp);
+            GeoSample geo = new GeoSample(sample.name, sample.zone, sample.type, sample.shape, sample.color, sample.texture, sample.note, sample.id, sample.isSignificant,sample.comp);
             samples.Add(geo);
         }
     }
@@ -523,13 +527,13 @@ public class GeoSampleDB {
         samples.Insert(pos, g);
     }
 
-    public void update(GeoSample newG)
+    public void update(GeoSample newSample)
     {
         for (int i = 0; i < samples.Count; i++)
         {
-            if (samples[i].id == newG.id)
+            if (samples[i].id == newSample.id)
             {
-                samples[i] = newG;
+                samples[i] = newSample;
                 break;
             }
         }
@@ -571,20 +575,13 @@ public class DataDetails
     public double P2O3;
 }
 
-// Geosamples
-[System.Serializable]
-public class GeosampleZones
-{
-    public List<GeosampleZone> AllGeosampleZones = new List<GeosampleZone>();
-}
-
 [System.Serializable]
 public class GeosampleZone
 {
-    public char zone_id;
-    public List<int> ZoneGeosamplesIds = new();
-    public Location location;
-    public float radius;
+    public int id;
+    public Location origin;
+    public GeoSampleDB TotalGeoSamples;
+    public GeoSampleDB SignificantGeoSamples;
     
     public override bool Equals(object obj)
     {
@@ -594,10 +591,14 @@ public class GeosampleZone
         }
 
         GeosampleZone otherGeoZone = (GeosampleZone)obj;
-        return ZoneGeosamplesIds.SequenceEqual(otherGeoZone.ZoneGeosamplesIds) &&
-               zone_id == otherGeoZone.zone_id &&
-               location.Equals(otherGeoZone.location) &&
-               radius == otherGeoZone.radius;  
+        return id == otherGeoZone.id &&
+               TotalGeoSamples.Equals(otherGeoZone.TotalGeoSamples) &&
+               SignificantGeoSamples.Equals(otherGeoZone.SignificantGeoSamples);
+    }
+
+    public override int GetHashCode()
+    {
+        return (id, TotalGeoSamples, SignificantGeoSamples).GetHashCode();
     }
 }
 
@@ -618,6 +619,11 @@ public class Message
     public int sent_to; // Astronaut ID it was sent to  //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3, Group = 4
     public string message; 
     public int from; // Astronaut ID it who sent the message    //Astrounaut1 = 1, Astronaut2 = 2, LMCC = 3
+
+    public override int GetHashCode()
+    {
+        return (message_id, sent_to, message, from).GetHashCode();
+    }
 
 
 

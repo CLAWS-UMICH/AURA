@@ -245,17 +245,30 @@ public class FrontEndButton : MonoBehaviour
     }
 
 
-    // void upButton() 
-    // {
-    //     // call scroll handler
-    // }
+    public void closeFeature()
+    {
+        LMCCgc.SetActive(false);
+        A2andLMCCgc.SetActive(false);
+        A2gc.SetActive(false);
+        Debug.Log("{tranform} " + transform);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+    }
 
 
-    // void downButton()
-    // {
-    //     // call scroll handler
-    // }
-
+    public void openFeatureScreen()
+    {
+        LMCCgc.SetActive(false);
+        A2andLMCCgc.SetActive(false);
+        A2gc.SetActive(false);
+        transform.gameObject.SetActive(true);
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+    }
 }
 
 

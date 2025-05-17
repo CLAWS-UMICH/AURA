@@ -159,6 +159,7 @@ public class NavigationFrontend : MonoBehaviour
         navigationController.StationScreen.SetActive(false);
         navigationController.GeoScreen.SetActive(false);
         navigationController.DangerScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(true);
         activeScreen = navigationController.CompanionScreen;
     }
 
@@ -185,6 +186,8 @@ public class NavigationFrontend : MonoBehaviour
         navigationController.StationScreen.SetActive(false);
         navigationController.GeoScreen.SetActive(false);
         navigationController.DangerScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(true);
+        
 
         // close closed icon
         navigationController.poiClosedIconParent.SetActive(false);
@@ -221,6 +224,7 @@ public class NavigationFrontend : MonoBehaviour
         navigationController.StationScreen.SetActive(true);
         navigationController.GeoScreen.SetActive(false);
         navigationController.DangerScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(true);
 
         // close closed icon
         navigationController.stationClosedIconParent.SetActive(false);
@@ -253,6 +257,7 @@ public class NavigationFrontend : MonoBehaviour
         navigationController.StationScreen.SetActive(false);
         navigationController.GeoScreen.SetActive(true);
         navigationController.DangerScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(true);
 
         // close closed icon
         navigationController.geoClosedIconParent.SetActive(false);
@@ -288,6 +293,7 @@ public class NavigationFrontend : MonoBehaviour
         navigationController.StationScreen.SetActive(false);
         navigationController.GeoScreen.SetActive(false);
         navigationController.DangerScreen.SetActive(true);
+        navigationController.addWaypointButton.SetActive(true);
 
         // close closed icon
         navigationController.dangerClosedIconParent.SetActive(false);
@@ -308,14 +314,59 @@ public class NavigationFrontend : MonoBehaviour
         navigationController.verticalButtonScreen.SetActive(false);
         navigationController.WaypointMenuScreen.SetActive(false);
         navigationController.NavigationScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(false);
     }
 
 
-    public void openNavigationScreen()
+    public void openDangerNavigation(int waypointIndex)
     {
+        Debug.Log($"Opening danger navigation for waypoint index: {waypointIndex}");
+        navigationController.WaypointMenuScreen.SetActive(false);
         navigationController.NavigationScreen.SetActive(true);
-        navigationController.CreateWaypointScreen.transform.parent.gameObject.SetActive(false);
-        navigationController.CompanionScreen.SetActive(false);
+        navigationController.verticalButtonScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(false);
+
+        Waypoint waypoint = navigationController.DangerWaypointList[waypointIndex];
+        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
+    }
+
+
+    public void openGeoNavigation(int waypointIndex)
+    {
+        Debug.Log($"Opening geo navigation for waypoint index: {waypointIndex}");
+        navigationController.WaypointMenuScreen.SetActive(false);
+        navigationController.NavigationScreen.SetActive(true);
+        navigationController.verticalButtonScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(false);
+
+        Waypoint waypoint = navigationController.GeoWaypointList[waypointIndex];
+        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
+    }
+
+
+    public void openPOINavigation(int waypointIndex)
+    {
+        Debug.Log($"Opening POI navigation for waypoint index: {waypointIndex}");
+        navigationController.WaypointMenuScreen.SetActive(false);
+        navigationController.NavigationScreen.SetActive(true);
+        navigationController.verticalButtonScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(false);
+
+        Waypoint waypoint = navigationController.POIWaypointList[waypointIndex];
+        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
+    }
+
+
+    public void openStationNavigation(int waypointIndex)
+    {
+        Debug.Log($"Opening station navigation for waypoint index: {waypointIndex}");
+        navigationController.WaypointMenuScreen.SetActive(false);
+        navigationController.NavigationScreen.SetActive(true);
+        navigationController.verticalButtonScreen.SetActive(false);
+        navigationController.addWaypointButton.SetActive(false);
+
+        Waypoint waypoint = navigationController.StationWaypointList[waypointIndex];
+        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
     }
 
 
@@ -343,12 +394,13 @@ public class NavigationFrontend : MonoBehaviour
         poiButtonPressed = false;
     }
 
+    
 
     public void openFeatureScreen()
     {
-        navigationController.Controller.SetActive(true);
-        navigationController.CreateWaypointScreen.SetActive(false);
         navigationController.WaypointMenuScreen.SetActive(true);
+        navigationController.verticalButtonScreen.SetActive(true);
+        navigationController.addWaypointButton.SetActive(true);
         // Check which screen is currently active
         if (activeScreen == navigationController.CompanionScreen)
         {
@@ -377,30 +429,33 @@ public class NavigationFrontend : MonoBehaviour
     }
 
 
-    public void navigateToEV()
+    public void navigateToEV(int index)
     {
         // pull up ev2 coords
         // AstronautInstance.User.fellowAstronaut.location.posX
         // AstronautInstance.User.fellowAstronaut.location.posY
         // AstronautInstance.User.fellowAstronaut.location.posZ
-        openNavigationScreen();
+        
     }
 
 
-    public void navigateToPR()
+    public void navigateToPR(int index)
     {
         // pull up pr coords
         // AstronautInstance.User.fellowAstronaut.location.posX
         // AstronautInstance.User.fellowAstronaut.location.posY
         // AstronautInstance.User.fellowAstronaut.location.posZ
-        openNavigationScreen();
+;
     }
 
 
     public void closeScreens()
     {
         Debug.Log("Closing nav current screen...");
-        navigationController.Controller.SetActive(false);
-        navigationController.MainMenuToggleCollection.SetSelection(1, false);
+        navigationController.Controller.SetActive(true);
+        foreach (Transform screen in navigationController.transform)
+        {
+            screen.gameObject.SetActive(false);
+        }
     }
 }
