@@ -5,7 +5,6 @@ using MixedReality.Toolkit;
 using MixedReality.Toolkit.UX;
 using UnityEngine;
 using TMPro;
-
 public class GeoSampleFrontend : MonoBehaviour
 {
     public GeoSampleController geoSampleController;
@@ -89,7 +88,7 @@ public class GeoSampleFrontend : MonoBehaviour
             screen.gameObject.SetActive(false);
         }
         geoSampleController.ZoneA_databaseSamplesScreen.SetActive(true);
-        geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.229399994f, -0.00930000003f, 0.00314010005f);
+        geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.279f, 0.076f, 0.014f);
         geoSampleController.buttonSideBar.SetActive(true);
         foreach (Transform child in geoSampleController.ZoneA_databaseSamplesScreen.transform)
         {
@@ -107,7 +106,7 @@ public class GeoSampleFrontend : MonoBehaviour
             screen.gameObject.SetActive(false);
         }
         geoSampleController.ZoneB_databaseSamplesScreen.SetActive(true);
-        geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.231099993f, -0.00680000009f, 0.00314010005f);
+        geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.279f, 0.076f, 0.014f);
         geoSampleController.buttonSideBar.SetActive(true);
     }
 
@@ -119,7 +118,7 @@ public class GeoSampleFrontend : MonoBehaviour
             screen.gameObject.SetActive(false);
         }
         geoSampleController.ZoneC_databaseSamplesScreen.SetActive(true);
-        geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.231099993f, -0.00680000009f, 0.00314010005f);
+        geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.279f, 0.076f, 0.014f);
         geoSampleController.buttonSideBar.SetActive(true);
     }
 
@@ -261,30 +260,36 @@ public class GeoSampleFrontend : MonoBehaviour
     }
 
     // called in each layer buttons to then trigger when result achieved (after camera or xrf)
-    public void firstLayerDoneCheck()
+    public bool firstLayerDoneCheck()
     {
         if (cameraDone && xrfScanDone)
         {
             geoSampleController.geoSamplingModeSelectionScreen.transform.Find("1st_Layer").GetChild(0).GetComponent<PressableButton>().ForceSetToggled(true);
+            return true;
         }
+        return false;
     }
 
 
-    public void secondLayerDoneCheck()
+    public bool secondLayerDoneCheck()
     {
         if (shapeSelected && colorSelected && textureSelected)
         {
             geoSampleController.geoSamplingModeSelectionScreen.transform.Find("2nd_Layer").GetChild(0).GetComponent<PressableButton>().ForceSetToggled(true);
+            return true;
         }
+        return false;
     }
 
 
-    public void thirdLayerDoneCheck()
+    public bool thirdLayerDoneCheck()
     {
         if (voiceNotesDone)
         {
             geoSampleController.geoSamplingModeSelectionScreen.transform.Find("3rd_Layer").GetChild(0).GetComponent<PressableButton>().ForceSetToggled(true);
+            return true;
         }
+        return false;
     }
 
 
@@ -361,7 +366,55 @@ public class GeoSampleFrontend : MonoBehaviour
 
     public void addGeoSampleToDB()
     {
-        
+        // If save is complete, then add geosample into the DB and go back to the zone screen
+        // Prevents needing to check whether geosample already exists
+        if (firstLayerDoneCheck() && secondLayerDoneCheck() && thirdLayerDoneCheck())
+        {
+            string name = "";
+            int id = 0;
+            List<Composition> compositions = new List<Composition>();
+            if (AstronautInstance.User.id == 1)
+            {
+                name = AstronautInstance.User.spec.spec.eva1.name;
+                id = AstronautInstance.User.spec.spec.eva1.id;
+                compositions.Add(new Composition("SiO2", (float)AstronautInstance.User.spec.spec.eva1.data.SiO2));
+                compositions.Add(new Composition("TiO2", (float)AstronautInstance.User.spec.spec.eva1.data.TiO2));
+                compositions.Add(new Composition("Al2O3", (float)AstronautInstance.User.spec.spec.eva1.data.Al2O3));
+                compositions.Add(new Composition("FeO", (float)AstronautInstance.User.spec.spec.eva1.data.FeO));
+                compositions.Add(new Composition("MnO", (float)AstronautInstance.User.spec.spec.eva1.data.MnO));
+                compositions.Add(new Composition("MgO", (float)AstronautInstance.User.spec.spec.eva1.data.MgO));
+                compositions.Add(new Composition("CaO", (float)AstronautInstance.User.spec.spec.eva1.data.CaO));
+                compositions.Add(new Composition("K2O", (float)AstronautInstance.User.spec.spec.eva1.data.K2O));
+                compositions.Add(new Composition("P2O3", (float)AstronautInstance.User.spec.spec.eva1.data.P2O3));
+            }
+            else
+            {
+                name = AstronautInstance.User.spec.spec.eva2.name;
+                id = AstronautInstance.User.spec.spec.eva2.id;
+                compositions.Add(new Composition("SiO2", (float)AstronautInstance.User.spec.spec.eva2.data.SiO2));
+                compositions.Add(new Composition("TiO2", (float)AstronautInstance.User.spec.spec.eva2.data.TiO2));
+                compositions.Add(new Composition("Al2O3", (float)AstronautInstance.User.spec.spec.eva2.data.Al2O3));
+                compositions.Add(new Composition("FeO", (float)AstronautInstance.User.spec.spec.eva2.data.FeO));
+                compositions.Add(new Composition("MnO", (float)AstronautInstance.User.spec.spec.eva2.data.MnO));
+                compositions.Add(new Composition("MgO", (float)AstronautInstance.User.spec.spec.eva2.data.MgO));
+                compositions.Add(new Composition("CaO", (float)AstronautInstance.User.spec.spec.eva2.data.CaO));
+                compositions.Add(new Composition("K2O", (float)AstronautInstance.User.spec.spec.eva2.data.K2O));
+                compositions.Add(new Composition("P2O3", (float)AstronautInstance.User.spec.spec.eva2.data.P2O3));
+            }
+            //public string name;
+            //public string zone;
+            //public string shape;
+            //public string color;
+            //public string texture;
+            //public string note;
+            //public int id;  // NASA GIVEN ID
+            //public bool isSignificant;
+            //public List<Composition> comp;
+            sample.name = geoSampleController.GeosampleSelectionScreen.transform.Find("SampleName").Find("GeoNameText").gameObject.GetComponent<TextMeshPro>().text;
+            sample.id = id;
+            sample.comp = new List<Composition>(compositions);
+            EventBus.Publish(new GeoSampleAddedToZoneEvent(sample));
+        }
     }
 
 

@@ -485,14 +485,15 @@ public class GeoSample {
         type = "";
         shape = "";
         color = "";
+        texture = "";
         note = "";
         id = 0;
         comp = new List<Composition>();
     }
-    public GeoSample(string nameIn, string zoneIn, string typeIn, string shapeIn, string colorIn, string textureIn, string noteIn, int idIn, bool isSignificant, List<Composition> compIn) {
+    public GeoSample(string nameIn, string zoneIn, string shapeIn, string colorIn, string textureIn, string noteIn, int idIn, bool isSignificant, List<Composition> compIn) {
         name = nameIn;
         zone = zoneIn;
-        type = typeIn;
+        // type = typeIn;
         shape = shapeIn;
         color = colorIn;
         texture = textureIn;
