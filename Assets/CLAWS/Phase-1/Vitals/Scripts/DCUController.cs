@@ -111,7 +111,7 @@ public class DCUController : MonoBehaviour
 
         // commms
         dcu2.comm_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.comm);
-        dcu1.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.comm);
+        dcu2.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.comm);
 
         // fan
         dcu2.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.fan);
@@ -178,5 +178,12 @@ public class DCUController : MonoBehaviour
                 dcu2.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(true);
             }
         }
+    }
+
+    private void OnDestroy()
+    {
+        EventBus.Unsubscribe(dcuChangedEvent);
+        EventBus.Unsubscribe(fellowDcuChangedEvent);
+        EventBus.Unsubscribe(dcuErrorEvent);
     }
 }
