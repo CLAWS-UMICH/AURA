@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 [System.Serializable]
 public class DCUGroup
@@ -67,6 +68,104 @@ public class DCUController : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void swapDcuController()
+    {
+        bool state = true;
+        string buttonName = EventSystem.current.currentSelectedGameObject.name;
+        switch (buttonName)
+        {
+            case "LOCAL_1":
+            case "UMB_1":
+                state = dcu1.batt_umb.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu1.batt_umb.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                dcu1.batt_loc.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                break;
+
+            case "LOCAL_2":
+            case "UMB_2":
+                state = dcu2.batt_loc.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu2.batt_umb.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu2.batt_loc.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+
+            case "PRI_OXY_1":
+            case "SEC_OXY_1":
+                state = dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "PRI_OXY_2":
+            case "SEC_OXY_2":
+                state = dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu2.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "A_COMMS_1":
+            case "B_COMMS_1":
+                state = dcu1.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu1.comm_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu1.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "A_COMMS_2":
+            case "B_COMMS_2":
+                state = dcu2.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu2.comm_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu2.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "PRI_FAN_1":
+            case "SEC_FAN_1":
+                state = dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu1.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "PRI_FAN_2":
+            case "SEC_FAN_2":
+                state = dcu2.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu2.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu2.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "Open_1":
+            case "Close_1":
+                state = dcu1.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu1.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu1.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "Open_2":
+            case "Close_2":
+                state = dcu2.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu2.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu2.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "A_CO2_1":
+            case "B_CO2_1":
+                state = dcu1.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu1.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu1.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            case "A_CO2_2":
+            case "B_CO2_2":
+                state = dcu2.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf;
+                dcu2.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(state);
+                dcu2.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!state);
+                break;
+
+            default:
+                Debug.LogWarning("Unknown DCU button pressed: " + buttonName);
+                break;
+        }
+
     }
 
     private void onDcuChange(DCUChangedEvent e)
