@@ -26,8 +26,8 @@ public class UpdatedFellowAstronautVitalsEvent
 }
 public class PR_UpdateVitalsEvent 
 {
-    public Vitals vitals { get; private set; } 
-    public PR_UpdateVitalsEvent (Vitals _v) 
+    public PRVitalsData vitals { get; private set; } 
+    public PR_UpdateVitalsEvent (PRVitalsData _v) 
     {
         vitals = _v;
     }

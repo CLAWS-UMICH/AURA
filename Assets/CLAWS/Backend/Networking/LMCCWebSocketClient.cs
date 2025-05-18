@@ -197,10 +197,10 @@ public class LMCCWebSocketClient : MonoBehaviour
                         EventBus.Publish(new RoverStatusUpdatedEvent(false));
                     }
                     break;
-                case: "PR_Vitals": 
-                    //something
-                    //something
+                case "PR_Vitals": 
+                    PRVitalsData prVitalsData = data.ToObject<PRVitalsData>(); // need testing 
                     EventBus.Publish(new PR_UpdateVitalsEvent(prVitalsData));
+                    break; 
                 case "UIA":
                     break;
                 case "ALERTS":
