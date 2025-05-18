@@ -76,6 +76,13 @@ public class VitalsController : MonoBehaviour
         
     }
 
+    public void swapVitalScreens()
+    {
+        bool state = vitalsFirstAstronautScreen.gameObject.activeSelf;
+        vitalsFirstAstronautScreen.SetActive(!state);
+        vitalsSecondAstronautScreen.SetActive(state);
+    }
+
 
     private void onVitalsUpdate(UpdatedVitalsEvent e)
     {
@@ -137,6 +144,57 @@ public class VitalsController : MonoBehaviour
     private void onFellowVitalsUpdate(UpdatedFellowAstronautVitalsEvent e)
     {
         //astronaut 2
+        eva2.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_consumption.ToString("F2");
+        eva2.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
+        eva2.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.co2_production.ToString("F2");
+        eva2.temp.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.temperature.ToString("F0");
+
+        eva2.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_pri_pressure.ToString("F0");
+        eva2.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_sec_pressure.ToString("F0");
+        eva2.coolant.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.coolant_m.ToString("F0");
+        eva2.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_pri_storage.ToString("F0");
+        eva2.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_sec_storage.ToString("F0");
+
+        eva2.suitTotPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_total / 4.5) * 302));
+        eva2.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_total.ToString("F1");
+        eva2.suitPresOxy.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_oxy / 4.1) * 302));
+        eva2.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_oxy.ToString("F1");
+        eva2.suitPresCO2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_co2 / 0.1) * 302));
+        eva2.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_co2.ToString("F2");
+        eva2.otherSuitPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_other / 0.5) * 302));
+        eva2.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_other.ToString("F1");
+        eva2.helmetCO2Pres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.helmet_pressure_co2 / 0.15) * 302));
+        eva2.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.helmet_pressure_co2.ToString("F2");
+
+        eva2.priFan.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.fan_pri_rpm.ToString("N0");
+        eva2.secFan.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.fan_sec_rpm.ToString("N0");
+        eva2.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.scrubber_a_co2_storage.ToString("F0");
+        eva2.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.scrubber_b_co2_storage.ToString("F0");
+        eva2.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.coolant_liquid_pressure.ToString("F0");
+        eva2.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.coolant_gas_pressure.ToString("F0");
+
+        int oxyTimeLeftSeconds = e.vitals.oxy_time_left;
+        int oxyHours = oxyTimeLeftSeconds / 3600;
+        int oxyMinutes = oxyTimeLeftSeconds % 3600 / 60;
+        Debug.Log(oxyTimeLeftSeconds);
+        eva2.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().text = $"{oxyHours} hr {oxyMinutes} m";
+        eva2.oxySlider.Value = e.vitals.oxy_time_left;
+
+        double powerTimeLeftSeconds = e.vitals.batt_time_left;
+        int powerHours = (int)(powerTimeLeftSeconds / 3600);
+        int powerMinutes = (int)(powerTimeLeftSeconds % 3600 / 60);
+        eva2.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().text = $"{powerHours} hr {powerMinutes} m";
+        eva2.battSlider.Value = (int)e.vitals.batt_time_left;
+
+        // VitalsData vitalsData = new VitalsData
+        //{
+        //    room = "VITALS",
+        //     use = "POST",
+        //     data = AstronautInstance.User.vitals
+        // };
+        // string json = JsonUtility.ToJson(vitalsData);
+        //LMCCwebSocketClient.SendJsonData(json, "VITALS");
+        //Debug.Log(json);
 
     }
 

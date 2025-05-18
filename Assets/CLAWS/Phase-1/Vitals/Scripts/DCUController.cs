@@ -47,6 +47,7 @@ public class DCUGroup
 public class DCUController : MonoBehaviour
 {
     private Subscription<DCUChangedEvent> dcuChangedEvent;
+    private Subscription<FellowDCUChangedEvent> fellowDcuChangedEvent;
     private Subscription<DCUErrorEvent> dcuErrorEvent;
     [SerializeField] private DCUGroup dcu1;
     [SerializeField] private DCUGroup dcu2;
@@ -58,6 +59,7 @@ public class DCUController : MonoBehaviour
     void Start()
     {
         dcuChangedEvent = EventBus.Subscribe<DCUChangedEvent>(onDcuChange);
+        fellowDcuChangedEvent = EventBus.Subscribe<FellowDCUChangedEvent>(onFellowDcuChange);
         dcuErrorEvent = EventBus.Subscribe<DCUErrorEvent>(onDcuError);
     }
 
@@ -69,61 +71,63 @@ public class DCUController : MonoBehaviour
 
     private void onDcuChange(DCUChangedEvent e)
     {
-        if (e.id == 1)
-        {
-            // battery
-            dcu1.batt_umb.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.batt);
-            dcu1.batt_loc.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.batt);
+        // DCU 1
 
-            // oxygen
-            dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.oxy);
-            dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.oxy);
+        // battery
+        dcu1.batt_umb.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.batt);
+        dcu1.batt_loc.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.batt);
 
-            // commms
-            dcu1.comm_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.comm);
-            dcu1.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.comm);
+        // oxygen
+        dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.oxy);
+        dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.oxy);
 
-            // fan
-            dcu1.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.fan);
-            dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.fan);
+        // commms
+        dcu1.comm_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.comm);
+        dcu1.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.comm);
 
-            // pump
-            dcu1.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.pump);
-            dcu1.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.pump);
+        // fan
+        dcu1.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.fan);
+        dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.fan);
 
-            // CO2
-            dcu1.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.co2);
-            dcu1.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.co2);
-        }
-        else
-        {
-            // battery
-            dcu2.batt_umb.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.batt);
-            dcu2.batt_loc.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.batt);
+        // pump
+        dcu1.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.pump);
+        dcu1.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.pump);
 
-            // oxygen
-            dcu2.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.oxy);
-            dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.oxy);
+        // CO2
+        dcu1.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.co2);
+        dcu1.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.co2);
 
-            // commms
-            dcu2.comm_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.comm);
-            dcu1.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.comm);
-
-            // fan
-            dcu2.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.fan);
-            dcu2.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.fan);
-
-            // pump
-            dcu2.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.pump);
-            dcu2.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.pump);
-
-            // CO2
-            dcu2.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.co2);
-            dcu2.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.co2);
-        }
     }
 
-    
+    private void onFellowDcuChange(FellowDCUChangedEvent e)
+    {
+        // battery
+        dcu2.batt_umb.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.batt);
+        dcu2.batt_loc.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.batt);
+
+        // oxygen
+        dcu2.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.oxy);
+        dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.oxy);
+
+        // commms
+        dcu2.comm_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.comm);
+        dcu1.comm_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.comm);
+
+        // fan
+        dcu2.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.fan);
+        dcu2.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.fan);
+
+        // pump
+        dcu2.pump_open.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.pump);
+        dcu2.pump_close.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.pump);
+
+        // CO2
+        dcu2.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(e.eva.co2);
+        dcu2.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.SetActive(!e.eva.co2);
+
+    }
+
+
 
     private void onDcuError(DCUErrorEvent e)
     {

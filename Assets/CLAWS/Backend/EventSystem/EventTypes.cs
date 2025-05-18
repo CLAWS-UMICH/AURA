@@ -28,12 +28,20 @@ public class UpdatedFellowAstronautVitalsEvent
 public class DCUChangedEvent
 {
     public EvaDetails eva { get; private set; }
-    public int id { get; private set; }
 
-    public DCUChangedEvent(EvaDetails _e, int _id)
+    public DCUChangedEvent(EvaDetails _e)
     {
         eva = _e;
-        id = _id;
+    }
+}
+
+public class FellowDCUChangedEvent
+{
+    public EvaDetails eva { get; private set; }
+
+    public FellowDCUChangedEvent(EvaDetails _e)
+    {
+        eva = _e;
     }
 }
 
