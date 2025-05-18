@@ -43,7 +43,7 @@ public class MainConnections : MonoBehaviour
     }
 
 
-    // called in setup
+    // called in setup 1ST STEP 
     public void ConnectLMCC(string connectionString)
     {
         if (!websocketConnected)

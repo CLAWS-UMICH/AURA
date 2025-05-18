@@ -181,7 +181,7 @@ public class LMCCWebSocketClient : MonoBehaviour
                         Location currentPosition = new Location
                         {
                             posX = Unity_posX,
-                            posY = 5, // TODO: fix this to be at correct y value so not impacting user fov
+                            posY = 0.02, // TODO: fix this to be at correct y value so not impacting user fov
                             posZ = Unity_posZ
                         };
                         EventBus.Publish(new PR_LocationUpdatedEvent(currentPosition));
@@ -197,6 +197,10 @@ public class LMCCWebSocketClient : MonoBehaviour
                         EventBus.Publish(new RoverStatusUpdatedEvent(false));
                     }
                     break;
+                case: "PR_Vitals": 
+                    //something
+                    //something
+                    EventBus.Publish(new PR_UpdateVitalsEvent(prVitalsData));
                 case "UIA":
                     break;
                 case "ALERTS":

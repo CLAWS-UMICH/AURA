@@ -24,6 +24,14 @@ public class UpdatedFellowAstronautVitalsEvent
         vitals = _v;
     }
 }
+public class PR_UpdateVitalsEvent 
+{
+    public Vitals vitals { get; private set; } 
+    public PR_UpdateVitalsEvent (Vitals _v) 
+    {
+        vitals = _v;
+    }
+}
 
 
 // WAYPOINT EVENTS

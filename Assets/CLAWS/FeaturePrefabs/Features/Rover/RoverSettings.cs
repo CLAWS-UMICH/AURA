@@ -11,12 +11,11 @@ public class RoverSettings : MonoBehaviour
     public GameObject samplingToggle;
     [Header("Map")]
     public GameObject map;
-
+    private Subscription<PR_UpdateVitalsEvent> vitalsUpdateEvent; 
 
     void Start()
     {
-
-
+        vitalsUpdateEvent = EventBus.Subscribe<PR_UpdateVitalsEvent>(updateVitals); 
     }
 
     public void openRoverSettingsScreen()
@@ -34,5 +33,9 @@ public class RoverSettings : MonoBehaviour
         {
             child.gameObject.SetActive(false);
         }
+    }
+
+    void OnDestroy() {
+        EventBus.Unsubscribe(vitalsUpdateEvent);
     }
 }
