@@ -102,6 +102,15 @@ public class GeoSampleAddedToZoneEvent
     }
 }
 
+public class XRFScanEvent
+{
+    public DataDetails compositions { get; private set; }
+
+    public XRFScanEvent(DataDetails _compositions)
+    {
+        compositions = _compositions;
+    }
+}
 
 // MESSAGES EVENTS
 public class MessagesAddedEvent

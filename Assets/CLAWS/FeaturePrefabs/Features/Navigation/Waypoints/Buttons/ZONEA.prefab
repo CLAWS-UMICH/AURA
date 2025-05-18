@@ -979,7 +979,7 @@ PrefabInstance:
         type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7406774276027675107}
+      objectReference: {fileID: 3646801273602049410}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
@@ -988,12 +988,12 @@ PrefabInstance:
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnClick
+      value: onClick
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: WaypointClickHandler, Assembly-CSharp
+      value: GeosampleClickHandler, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211226, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
@@ -1044,6 +1044,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 52.6206
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
@@ -1105,6 +1120,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8376646494505211229, guid: c6b351a67ceb69140b199996bbbea156,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7245587814888172855, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
     - {fileID: 6693165066741680308, guid: c6b351a67ceb69140b199996bbbea156, type: 3}
@@ -1145,7 +1165,7 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8376646494505211202, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7406774276027675107}
+      addedObject: {fileID: 3646801273602049410}
     - targetCorrespondingSourceObject: {fileID: 6922469058048946451, guid: c6b351a67ceb69140b199996bbbea156,
         type: 3}
       insertIndex: -1
@@ -1181,7 +1201,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2110900158415501022}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7406774276027675107
+--- !u!114 &3646801273602049410
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1190,7 +1210,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7598908582837019548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3cabf01554f2b1a4f9b1141153fe6e2f, type: 3}
+  m_Script: {fileID: 11500000, guid: 24b3f09a06652d54fb9dea48523d0ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!224 &8749589811554521721 stripped
