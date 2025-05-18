@@ -234,6 +234,7 @@ public class SetUpScreenController : MonoBehaviour
         LMCCWebSocketClient webSocketClient = Controller.GetComponent<LMCCWebSocketClient>();
         if (webSocketClient != null)
         {
+            Debug.LogError("Sending data to PR: " + jsonData);
             webSocketClient.SendJsonData(jsonData, "LTV_POI", 3);
         }
         else
@@ -296,6 +297,7 @@ public class SetUpScreenController : MonoBehaviour
         }
         else
         {
+            Debug.LogError(connectedToWEB);
             Debug.LogError("LMCCWebSocketClient is not assigned to the Controller.");
         }
     }

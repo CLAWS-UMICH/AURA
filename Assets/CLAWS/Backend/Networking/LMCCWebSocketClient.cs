@@ -205,6 +205,8 @@ public class LMCCWebSocketClient : MonoBehaviour
                     break;
                 case "TASKS":
                     break;
+                case "PR_VITALS":
+                    
                 default:
                     // Log if the 'type' is not recognized
                     Debug.LogWarning($"Unhandled 'type': {room}");

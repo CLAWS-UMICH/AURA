@@ -21,11 +21,11 @@ public class Data
 
 ////////////////////////////  LOCATION  /////////////////////////////
 [System.Serializable]
-public class Location
+public class Location /// UNITY LOCATION ///
 {
-    public double posX;
+    public double posX; // X ACIS
     public double posY;
-    public double posZ;
+    public double posZ; // Y AXIS
     public double Heading;
 
     public Location() { }

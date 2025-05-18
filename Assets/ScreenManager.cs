@@ -61,7 +61,7 @@ public class ScreenManager : MonoBehaviour
              case 5:
                 Debug.Log("Opening PR screen");
                 PR.SetActive(true);
-                // TODO: activate the proper child of PR
+                PR.GetComponent<RoverSettings>().openFeatureScreen();
                 break;
         }
     }

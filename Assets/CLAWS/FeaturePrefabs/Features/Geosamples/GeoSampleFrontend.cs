@@ -367,7 +367,14 @@ public class GeoSampleFrontend : MonoBehaviour
 
     public void openHueSelectionMenu()
     {
+        closeGeoSampleFeature();
+        geoSampleController.colorHueSelectionScreen.SetActive(true);
+    }
 
+    public void openRedHueSelectionMenu()
+    {
+        closeGeoSampleFeature();
+        geoSampleController.redHueSelectionScreen.SetActive(true);
     }
 
     public void openVoiceNotesDictation()
