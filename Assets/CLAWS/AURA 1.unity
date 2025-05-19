@@ -3019,6 +3019,11 @@ PrefabInstance:
       objectReference: {fileID: 1225860903}
     - target: {fileID: 5785872500443218744, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
+      propertyPath: PRChat
+      value: 
+      objectReference: {fileID: 2070888920}
+    - target: {fileID: 5785872500443218744, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
       propertyPath: a2chat
       value: 
       objectReference: {fileID: 1208493813}

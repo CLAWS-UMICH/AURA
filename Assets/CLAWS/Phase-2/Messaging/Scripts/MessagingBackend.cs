@@ -14,7 +14,7 @@ public class MessagingBackend : MonoBehaviour
     public GameObject a2chat;
     public int a2MessagesSeen = 0;
     public List<Message> PRChatList = new List<Message>();
-    public GameObject lmccChat;
+    public GameObject PRChat;
     public int lmccMessagesSeen = 0;
     public List<Message> GroupChat = new List<Message>();
     public GameObject gcChat;
@@ -89,7 +89,7 @@ public class MessagingBackend : MonoBehaviour
             else if ((m.from == 3 && m.sent_to!= 4) || (m.from == 1 && m.sent_to == 3) || (m.from == 2 && m.sent_to == 3))
             {
                 PRChatList.Add(m);
-                lmccChat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (PRChatList.Count - lmccMessagesSeen).ToString();
+                PRChat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (PRChatList.Count - lmccMessagesSeen).ToString();
             }
             else if ((m.from == 1 && m.sent_to == 2) || (m.from == 2 && m.sent_to == 1))
             {

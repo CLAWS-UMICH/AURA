@@ -51,11 +51,11 @@ public class FrontEndButton : MonoBehaviour
         
         if (messagingBackend.PRChatList.Count > 0 || messagingBackend.lmccMessagesSeen > 0) 
         {
-            messagingBackend.lmccChat.SetActive(true);
+            messagingBackend.PRChat.SetActive(true);
         }
         if (messagingBackend.PRChatList.Count == 0 || messagingBackend.lmccMessagesSeen == 0) 
         {
-            messagingBackend.lmccChat.SetActive(false);
+            messagingBackend.PRChat.SetActive(false);
         }
 
         if (messagingBackend.GroupChat.Count > 0 || messagingBackend.gcMessagesSeen > 0) 
