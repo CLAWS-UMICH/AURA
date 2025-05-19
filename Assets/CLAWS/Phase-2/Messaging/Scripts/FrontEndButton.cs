@@ -26,10 +26,10 @@ public class FrontEndButton : MonoBehaviour
     void Update()
     {
         // Debug.Log("astro count: " + messagingBackend.AstroChat.Count);
-        // Debug.Log("lmcc count: " + messagingBackend.PRChatList.Count);
+        // Debug.Log("PR count: " + messagingBackend.PRChatList.Count);
         // Debug.Log("group count: " + messagingBackend.GroupChat.Count);
         // Debug.Log("astro seen: " + messagingBackend.a2MessagesSeen);
-        // Debug.Log("lmcc seen: " + messagingBackend.lmccMessagesSeen);
+        // Debug.Log("PR seen: " + messagingBackend.PRMessagesSeen);
         // Debug.Log("group seen: " + messagingBackend.gcMessagesSeen);
         if (messagingBackend.allMessage.Count - messagingBackend.totalMessagesSeen > 0) 
         {

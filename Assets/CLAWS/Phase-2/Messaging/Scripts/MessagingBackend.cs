@@ -21,7 +21,7 @@ public class MessagingBackend : MonoBehaviour
     public int gcMessagesSeen = 0;
 
     [SerializeField]private GameObject messageObject;
-    [SerializeField]public GameObject LMCCgc;
+    [SerializeField]public GameObject LMCCgc; //touching these causes a domino effect of errors, mostly from scripts where you have to reassign in inspector
     [SerializeField]private GameObject A2gc;
     [SerializeField]private GameObject A2andLMCCgc;
     [SerializeField]private Sprite thumbsUp;
@@ -78,7 +78,7 @@ public class MessagingBackend : MonoBehaviour
                 chat.GetComponent<TextMeshPro>().text = (allMessage.Count - totalMessagesSeen).ToString() + " pending chats";
             }
 
-            //Astronaut1 = 1, Astronaut2 = 2, LMCC = 3, Group = 4
+            //Astronaut1 = 1, Astronaut2 = 2, PR = 3, Group = 4
 
             if (m.sent_to == 4)
             {
