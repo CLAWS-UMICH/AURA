@@ -19,7 +19,7 @@ public class DynamicMessagingPop : MonoBehaviour
     private int them; //the other astronaut's ID
     public MessagingScrollHandler scrollHandler; 
 
-    public GameObject LMCC; //the LMCC chat screen
+    public GameObject LMCC; //the LMCC chat screen, renaming to PR may cause errors because PR already exists in the project
     public GameObject A2; //the other astronaut's chat screen
     public GameObject GC;
         [SerializeField] private Renderer BoundsRenderer; // Renderer to define the bounds
