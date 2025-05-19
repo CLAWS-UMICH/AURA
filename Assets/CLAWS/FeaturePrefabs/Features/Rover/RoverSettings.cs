@@ -3,15 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-
-
-
-public class PRVitalDataWrapper
+public class PRVitalsDataWrapper
 {
     public string room;
     public string use;
     public PRVitalsData data;
-}
+};
 
 public class RoverSettings : MonoBehaviour
 {
@@ -26,7 +23,7 @@ public class RoverSettings : MonoBehaviour
     [Header("Vitals")]
     public GameObject oxyTime; 
     public GameObject battTime; 
-
+    [SerializeField] private LMCCWebSocketClient LMCCwebSocketClient;
 
     void Start()
     {
@@ -71,7 +68,7 @@ public class RoverSettings : MonoBehaviour
             { "o2_tank", e.vitals.o2_tank },
             { "battery_level", e.vitals.battery_level }
         };
-        LMCCWebSocketClient.SendJsonData(message, "PR_Vitals", 3);
+        LMCCwebSocketClient.SendJsonData(message, "PR_Vitals", 3);
     }
 
     void OnDestroy() {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PRVitalsData : MonoBehaviour
+public class PRVitalsData
 {
 
     public double o2_tank {get; set;}

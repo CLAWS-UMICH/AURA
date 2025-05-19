@@ -806,3 +806,22 @@ public class UiDetails
     public bool oxy_vent;
     public bool depress;
 }
+
+///////////////////////// PR ///////////////////////////////
+// public void NotifyPRMessageReceived(string message)
+// {
+//     Debug.Log($"[PR] Message received: {message}");
+//     // TODO: Add UI notification if needed
+// }
+
+// public void NotifyPRWaypointAdded(string waypointName)
+// {
+//     Debug.Log($"[PR] Waypoint added: {waypointName}");
+//     // TODO: Add UI notification if needed
+// }
+
+// public void NotifyPRGeoSampleAdded(string geoSampleName)
+// {
+//     Debug.Log($"[PR] Geosample added: {geoSampleName}");
+//     // TODO: Add UI notification if needed
+// }
