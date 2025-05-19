@@ -242,6 +242,27 @@ public class FellowAstronaut
     }
 }
 
+[System.Serializable]
+public class UIA
+{
+    public UiDetails uia;
+}
+
+[System.Serializable]
+public class UiDetails
+{
+    public bool eva1_power;
+    public bool eva1_oxy;
+    public bool eva1_water_supply;
+    public bool eva1_water_waste;
+    public bool eva2_power;
+    public bool eva2_oxy;
+    public bool eva2_water_supply;
+    public bool eva2_water_waste;
+    public bool oxy_vent;
+    public bool depress;
+}
+
 
 ////////////////////////////  ALERTS  /////////////////////////////
 [System.Serializable]
@@ -784,25 +805,3 @@ public class EvaTelemetryDetails
     public double coolant_liquid_pressure;
 }
 
-
-///////////////////////////  UIA  ////////////////////////////
-[System.Serializable]
-public class UIA
-{
-    public UiDetails uia;
-}
-
-[System.Serializable]
-public class UiDetails
-{
-    public bool eva1_power;
-    public bool eva1_oxy;
-    public bool eva1_water_supply;
-    public bool eva1_water_waste;
-    public bool eva2_power;
-    public bool eva2_oxy;
-    public bool eva2_water_supply;
-    public bool eva2_water_waste;
-    public bool oxy_vent;
-    public bool depress;
-}

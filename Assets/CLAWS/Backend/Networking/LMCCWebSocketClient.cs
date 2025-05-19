@@ -172,20 +172,17 @@ public class LMCCWebSocketClient : MonoBehaviour
                         AstronautInstance.User.fellowAstronaut.color = (string)data["color"];
                     }
                     break;
-                case "PR":
-                    if ((string)data["use"] == "CURRENT_POSITION")
+                case "PR_LOCATION":
+                    double Unity_posX = (float)data["posX"] - AstronautInstance.User.origin.posX;
+                    double Unity_posZ = (float)data["posY"] - AstronautInstance.User.origin.posY;
+                    
+                    Location currentPosition = new Location
                     {
-                        double Unity_posX = (float)data["posX"] - AstronautInstance.User.origin.posX;
-                        double Unity_posZ = (float)data["posY"] - AstronautInstance.User.origin.posY;
-                        
-                        Location currentPosition = new Location
-                        {
-                            posX = Unity_posX,
-                            posY = 5, // TODO: fix this to be at correct y value so not impacting user fov
-                            posZ = Unity_posZ
-                        };
-                        EventBus.Publish(new PR_LocationUpdatedEvent(currentPosition));
-                    }
+                        posX = Unity_posX,
+                        posY = 0.02,
+                        posZ = Unity_posZ
+                    };
+                    EventBus.Publish(new PR_LocationUpdatedEvent(currentPosition));
                     break;
                 case "LTV_POI":
                     if (data["confirmed"]?.Value<bool>() == true)

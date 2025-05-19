@@ -14,8 +14,9 @@ public class PlayerIconScript : MonoBehaviour
             Vector3 newPosition = new Vector3(
                 (float)AstronautInstance.User.current.posX,
                 transform.position.y,                     
-                (float)AstronautInstance.User.current.posY
+                (float)AstronautInstance.User.current.posZ
             );
+            Debug.Log($"Player Icon Position: {newPosition}");
             transform.position = newPosition;
 
 

@@ -1,12 +1,16 @@
 using System.Collections;
+using System.Collections.Generic;
+using Unity.XR.CoreUtils;
 using UnityEngine;
 
 public class StartingScript : MonoBehaviour
 {
     [SerializeField] private GameObject greetingScreen;
     [SerializeField] private GameObject navigationScreen;
+    [SerializeField] private GameObject geoSampleScreen;
     private NavigationController navigationController;
     private NavigationFrontend navigationFrontend;
+    public ScreenManager screenManager;
 
     void Start()
     {
@@ -69,7 +73,6 @@ public class StartingScript : MonoBehaviour
         Debug.Log($"navigationController enabled: {navigationController.enabled}");
         StartCoroutine(InitializeNavigation());
         initializeGeoSamples();
-
         
         // Stop the location service if no longer needed
         // Input.location.Stop();
@@ -82,7 +85,6 @@ public class StartingScript : MonoBehaviour
 
         // Activate navigation screen
         navigationScreen.SetActive(true);
-
         // Wait for one frame to ensure Unity processes the activation
         yield return null;
 
@@ -102,7 +104,8 @@ public class StartingScript : MonoBehaviour
         Debug.Log("Navigation screen and components initialized.");
 
         // INSTANTIATE STATION WAYPOINTS
-        Waypoint station1 = new Waypoint {
+        Waypoint station1 = new Waypoint
+        {
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Station 1",
@@ -112,7 +115,8 @@ public class StartingScript : MonoBehaviour
             Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
         };
 
-        Waypoint station2 = new Waypoint {
+        Waypoint station2 = new Waypoint
+        {
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Station 2",
@@ -122,7 +126,8 @@ public class StartingScript : MonoBehaviour
             Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
         };
 
-        Waypoint station3 = new Waypoint {
+        Waypoint station3 = new Waypoint
+        {
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Station 3",
@@ -131,18 +136,19 @@ public class StartingScript : MonoBehaviour
             Type = WaypointType.STATION,
             Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
         };
-         // Wait another frame to ensure all components are fully active
+        // Wait another frame to ensure all components are fully active
         yield return null;
         Debug.Log("Instantiating Station Waypoints...");
         EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station1));
         EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station2));
-        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station3));    
+        EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(station3));
 
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         // INSTANTIATE LTV WAYPOINTS ---- HARD CODED FOR TESTING  ------ WILL SEE IF WE CAN GET THE DATA FROM THE SERVER //
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        
-        Waypoint ltv1 = new Waypoint {
+
+        Waypoint ltv1 = new Waypoint
+        {
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Waypoint A",
@@ -151,7 +157,8 @@ public class StartingScript : MonoBehaviour
             Type = WaypointType.POI,
             Author = AuthorType.PR
         };
-        Waypoint ltv2 = new Waypoint {
+        Waypoint ltv2 = new Waypoint
+        {
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Waypoint B",
@@ -160,7 +167,8 @@ public class StartingScript : MonoBehaviour
             Type = WaypointType.POI,
             Author = AuthorType.PR
         };
-        Waypoint ltv3 = new Waypoint {
+        Waypoint ltv3 = new Waypoint
+        {
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Waypoint C",
@@ -173,40 +181,70 @@ public class StartingScript : MonoBehaviour
         EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv1));
         EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv2));
         EventBus.Publish<WaypointAddedEvent>(new WaypointAddedEvent(ltv3)); 
+        geoSampleScreen.SetActive(false);
+        foreach (Transform child in geoSampleScreen.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        geoSampleScreen.SetActive(true);
+        foreach (Transform child in navigationScreen.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        navigationScreen.SetActive(true);
     }
 
     void initializeGeoSamples()
     {
-        GeosampleZone newGeoSampleZone1 = new GeosampleZone {
+        foreach (Transform child in geoSampleScreen.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        geoSampleScreen.SetActive(true);
+        GeosampleZone newGeoSampleZone1 = new GeosampleZone
+        {
             id = 0,
-            origin = new Location {
+            origin = new Location
+            {
                 posX = -5635f - AstronautInstance.User.origin.posX,
                 posY = 0.2f,
                 posZ = -9970f - AstronautInstance.User.origin.posY,
             },
+            TotalGeoSamples = new GeoSampleDB { samples = new List<GeoSample>() }
         };
 
-        GeosampleZone newGeoSampleZone2 = new GeosampleZone {
+        GeosampleZone newGeoSampleZone2 = new GeosampleZone
+        {
             id = 0,
-            origin = new Location {
+            origin = new Location
+            {
                 posX = -5610f - AstronautInstance.User.origin.posX,
                 posY = 0.2f,
                 posZ = -9971f - AstronautInstance.User.origin.posY,
             },
+            TotalGeoSamples = new GeoSampleDB { samples = new List<GeoSample>() }
         };
 
-        GeosampleZone newGeoSampleZone3 = new GeosampleZone {
+        GeosampleZone newGeoSampleZone3 = new GeosampleZone
+        {
             id = 0,
-            origin = new Location {
+            origin = new Location
+            {
                 posX = -5615f - AstronautInstance.User.origin.posX,
                 posY = 0.2f,
                 posZ = -9995f - AstronautInstance.User.origin.posY,
             },
+            TotalGeoSamples = new GeoSampleDB { samples = new List<GeoSample>() }
         };
 
         AstronautInstance.User.geosampleZones.Add(newGeoSampleZone1);
         AstronautInstance.User.geosampleZones.Add(newGeoSampleZone2);
         AstronautInstance.User.geosampleZones.Add(newGeoSampleZone3);
         Debug.Log("Instantiating Geosample Zones...");
+        geoSampleScreen.SetActive(true);
+        foreach (Transform child in geoSampleScreen.transform)
+        {
+            child.gameObject.SetActive(false);
+        } 
     }
 }

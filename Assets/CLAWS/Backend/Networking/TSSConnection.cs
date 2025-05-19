@@ -128,6 +128,30 @@ public class TSSConnection : MonoBehaviour
         }
     }
 
+    ////////////////////////////  UIA  /////////////////////////////
+    IEnumerator GetUIAState()
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(AstronautInstance.User.TSSurl + "/json_data/UIA.json"))
+        {
+            yield return webRequest.SendWebRequest();
+
+            switch (webRequest.result)
+            {
+                case UnityWebRequest.Result.Success:
+                    if (UIAJsonString != webRequest.downloadHandler.text)
+                    {
+                        UIAJsonString = webRequest.downloadHandler.text;
+
+                        AstronautInstance.User.uia = JsonUtility.FromJson<UIA>(UIAJsonString);
+
+                        EventBus.Publish(new UIAUpdatedEvent(AstronautInstance.User.uia));
+                    }
+                    break;
+            }
+
+        }
+    }
+
 
 
     ////////////////////////////  DCU  /////////////////////////////

@@ -4,6 +4,17 @@ using UnityEngine;
 
 
 
+// UIA EVENTS
+public class UIAUpdatedEvent
+{
+    public UIA data { get; private set; }
+
+    public UIAUpdatedEvent(UIA _data)
+    {
+        data = _data;
+    }
+}
+
 
 // VITALS EVENTS
 public class UpdatedVitalsEvent

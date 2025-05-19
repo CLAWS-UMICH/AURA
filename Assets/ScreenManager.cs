@@ -36,7 +36,7 @@ public class ScreenManager : MonoBehaviour
             case 0:
                 Debug.Log("Opening UIA screen");
                 UIA.SetActive(true);
-                // TODO: activate the proper child of UIA
+                UIA.GetComponent<UIAController>().openFeatureScreen();
                 break;
             case 1:
                 Debug.Log("Opening Navigation screen");
@@ -46,7 +46,7 @@ public class ScreenManager : MonoBehaviour
             case 2:
                 Debug.Log("Opening Messaging screen");
                 messaging.SetActive(true);
-                messaging.GetComponent<FrontEndButton>().openFeatureScreen();
+                //messaging.GetComponent<FrontEndButton>().openFeatureScreen();
                 break;
             case 3:
                 Debug.Log("Opening Geosample screen");
@@ -67,7 +67,7 @@ public class ScreenManager : MonoBehaviour
     }
 
 
-    private void DeactivateAllScreens()
+    public void DeactivateAllScreens()
     {
         screens.SetActive(true);
         Debug.Log("Deactivating all screens");

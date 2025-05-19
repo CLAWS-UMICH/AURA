@@ -16,6 +16,8 @@ public class SetUpScreenController : MonoBehaviour
     [SerializeField] private GameObject connectionButton;
     [SerializeField] private GameObject doneButton;
     [SerializeField] private GameObject navigationControllerScreen;
+    public GameObject UIAButton;
+    public Material greenMaterial;
     public NavigationController navigationController;
     private GameObject Backplate;
     private GameObject LoadingBox;
@@ -234,7 +236,6 @@ public class SetUpScreenController : MonoBehaviour
         LMCCWebSocketClient webSocketClient = Controller.GetComponent<LMCCWebSocketClient>();
         if (webSocketClient != null)
         {
-            Debug.LogError("Sending data to PR: " + jsonData);
             webSocketClient.SendJsonData(jsonData, "LTV_POI", 3);
         }
         else
@@ -250,7 +251,8 @@ public class SetUpScreenController : MonoBehaviour
     }
 
 
-    public void openAURA() {
+    public void openAURA()
+    {
         // change if you add a profiler to  controller
         GameObject main = transform.parent.GetChild(2).gameObject;
         GameObject screens = transform.parent.GetChild(1).gameObject;
@@ -262,7 +264,7 @@ public class SetUpScreenController : MonoBehaviour
         // }
         //screens.SetActive(true);
         //screens.transform.Find("Navigation").gameObject.SetActive(true);
-        int clientToSend = (AstronautInstance.User.id == 1) 
+        int clientToSend = (AstronautInstance.User.id == 1)
             ? (AstronautInstance.User.id + 1)
             : (AstronautInstance.User.id - 1);
 
@@ -275,12 +277,12 @@ public class SetUpScreenController : MonoBehaviour
         {
             AstronautInstance.User.id = 1;
         }
-        
+
         if (AstronautInstance.User.avatarColor == null)
         {
             AstronautInstance.User.avatarColor = "red";
         }
-        
+
         Dictionary<string, object> jsonData = new Dictionary<string, object>
         {
             { "use", "INIT" },
@@ -300,6 +302,25 @@ public class SetUpScreenController : MonoBehaviour
             Debug.LogError(connectedToWEB);
             Debug.LogError("LMCCWebSocketClient is not assigned to the Controller.");
         }
+        SetUpController.SetActive(true);
+        foreach (Transform child in SetUpController.transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        GameObject backplate = UIAButton.transform.Find("UIBackplateOuterGeometry").GetChild(0).gameObject;
+        var renderer = backplate.GetComponent<Renderer>();
+        if (renderer != null && greenMaterial != null)
+        {
+            StartCoroutine(SetGreenMaterialTemporarily(renderer));
+        }
+    }
+
+    private IEnumerator SetGreenMaterialTemporarily(Renderer renderer)
+    {
+        Material originalMaterial = renderer.material;
+        renderer.material = greenMaterial;
+        yield return new WaitForSeconds(15f);
+        renderer.material = originalMaterial;
     }
 
 

@@ -32,5 +32,6 @@ public class Astronaut
     public IMU imu;
     public SPEC spec;
     public ROVER rover;
+    public UIA uia;
     public TELEMETRY telemetry;
 }
