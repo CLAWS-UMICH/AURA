@@ -106,6 +106,11 @@ public class NavigationController : MonoBehaviour
     public GameObject verticalButtonScreen;
     public GameObject notificationScreen;
 
+    [Header("Pathfinding")]
+    public Pathfinding pathfindingSystem;
+    public LineRenderer navigationPathRenderer;
+
+
     // add if 3d map added
     // [SerializeField] private GameObject dangerPrefab_3D;
     // [SerializeField] private GameObject geoPrefab_3D;
@@ -136,8 +141,15 @@ public class NavigationController : MonoBehaviour
         StationScreen.SetActive(false);
         GeoScreen.SetActive(false);
         DangerScreen.SetActive(false);
+
+        ConfigurePathfindingSystem();
     }
 
+    void ConfigurePathfindingSystem()
+    {
+        pathfindingSystem.pathRenderer = navigationPathRenderer;
+        pathfindingSystem.astronaut = AstronautInstance.User;
+    }
 
     void OnWaypointAdded(WaypointAddedEvent e)
     {
