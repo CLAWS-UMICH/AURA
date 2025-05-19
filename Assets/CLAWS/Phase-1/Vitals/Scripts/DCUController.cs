@@ -72,7 +72,7 @@ public class DCUController : MonoBehaviour
 
     public void swapDcuController()
     {
-        bool state = true;
+        bool state;
         string buttonName = EventSystem.current.currentSelectedGameObject.name;
         switch (buttonName)
         {
