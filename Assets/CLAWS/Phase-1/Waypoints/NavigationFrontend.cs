@@ -338,7 +338,7 @@ public class NavigationFrontend : MonoBehaviour
         );
 
         // Set pathfinding target
-        navigationController.pathfindingSystem.target.position = targetPosition;
+        //navigationController.pathfindingSystem.target.position = targetPosition;
 
         Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
     }
@@ -362,7 +362,7 @@ public class NavigationFrontend : MonoBehaviour
         );
 
         // Set pathfinding target
-        navigationController.pathfindingSystem.target.position = targetPosition;
+        //navigationController.pathfindingSystem.target.position = targetPosition;
 
         Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
     }
@@ -387,7 +387,7 @@ public class NavigationFrontend : MonoBehaviour
         );
 
         // Set pathfinding target
-        navigationController.pathfindingSystem.target.position = targetPosition;
+        //navigationController.pathfindingSystem.target.position = targetPosition;
 
         Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
     }
@@ -411,7 +411,7 @@ public class NavigationFrontend : MonoBehaviour
         );
 
         // Set pathfinding target
-        navigationController.pathfindingSystem.target.position = targetPosition;
+        //navigationController.pathfindingSystem.target.position = targetPosition;
 
         Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
     }

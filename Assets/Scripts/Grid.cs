@@ -263,11 +263,11 @@ public class Grid : MonoBehaviour
                 Gizmos.color = n.bIsWall ? Color.white : Color.clear;
                 // Gizmos.DrawCube(minimapPos, Vector3.one * (fNodeDiameter - fDistanceBetweenNodes));
                 
-                if (FinalPath.Contains(n))
-                {
-                    Gizmos.color = Color.red;
-                    Gizmos.DrawCube(minimapPos, Vector3.one * (fNodeDiameter - fDistanceBetweenNodes));
-                }
+                // if (FinalPath.Contains(n))
+                // {
+                //     Gizmos.color = Color.red;
+                //     Gizmos.DrawCube(minimapPos, Vector3.one * (fNodeDiameter - fDistanceBetweenNodes));
+                // }
             }
         }
 
