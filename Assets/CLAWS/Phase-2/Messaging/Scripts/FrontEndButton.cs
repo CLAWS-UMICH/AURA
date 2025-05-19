@@ -49,11 +49,11 @@ public class FrontEndButton : MonoBehaviour
             messagingBackend.a2chat.SetActive(false);
         }
         
-        if (messagingBackend.PRChatList.Count > 0 || messagingBackend.lmccMessagesSeen > 0) 
+        if (messagingBackend.PRChatList.Count > 0 || messagingBackend.PRMessagesSeen > 0) 
         {
             messagingBackend.PRChat.SetActive(true);
         }
-        if (messagingBackend.PRChatList.Count == 0 || messagingBackend.lmccMessagesSeen == 0) 
+        if (messagingBackend.PRChatList.Count == 0 || messagingBackend.PRMessagesSeen == 0) 
         {
             messagingBackend.PRChat.SetActive(false);
         }
@@ -219,7 +219,7 @@ public class FrontEndButton : MonoBehaviour
 
     public void lmccGC() 
     {
-        messagingBackend.lmccMessagesSeen = messagingBackend.PRChatList.Count;
+        messagingBackend.PRMessagesSeen = messagingBackend.PRChatList.Count;
         LMCCgc.SetActive(true);
         A2andLMCCgc.SetActive(false);
         A2gc.SetActive(false);

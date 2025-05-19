@@ -15,7 +15,7 @@ public class MessagingBackend : MonoBehaviour
     public int a2MessagesSeen = 0;
     public List<Message> PRChatList = new List<Message>();
     public GameObject PRChat;
-    public int lmccMessagesSeen = 0;
+    public int PRMessagesSeen = 0;
     public List<Message> GroupChat = new List<Message>();
     public GameObject gcChat;
     public int gcMessagesSeen = 0;
@@ -68,7 +68,7 @@ public class MessagingBackend : MonoBehaviour
             Debug.Log(m.from);
             Debug.Log(m.sent_to);
             allMessage.Add(m); // Add new messages instead of replacing the list
-            totalMessagesSeen = a2MessagesSeen + lmccMessagesSeen + gcMessagesSeen;
+            totalMessagesSeen = a2MessagesSeen + PRMessagesSeen + gcMessagesSeen;
             if (allMessage.Count - totalMessagesSeen == 1)
             {
                 chat.GetComponent<TextMeshPro>().text = (allMessage.Count - totalMessagesSeen).ToString() + " pending chat";
@@ -89,7 +89,7 @@ public class MessagingBackend : MonoBehaviour
             else if ((m.from == 3 && m.sent_to!= 4) || (m.from == 1 && m.sent_to == 3) || (m.from == 2 && m.sent_to == 3))
             {
                 PRChatList.Add(m);
-                PRChat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (PRChatList.Count - lmccMessagesSeen).ToString();
+                PRChat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (PRChatList.Count - PRMessagesSeen).ToString();
             }
             else if ((m.from == 1 && m.sent_to == 2) || (m.from == 2 && m.sent_to == 1))
             {
