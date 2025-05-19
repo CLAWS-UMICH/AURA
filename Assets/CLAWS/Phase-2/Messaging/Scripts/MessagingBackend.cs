@@ -13,7 +13,7 @@ public class MessagingBackend : MonoBehaviour
     public List<Message> AstroChat = new List<Message>();
     public GameObject a2chat;
     public int a2MessagesSeen = 0;
-    public List<Message> LMCCChat = new List<Message>();
+    public List<Message> PRChatList = new List<Message>();
     public GameObject lmccChat;
     public int lmccMessagesSeen = 0;
     public List<Message> GroupChat = new List<Message>();
@@ -88,8 +88,8 @@ public class MessagingBackend : MonoBehaviour
             }
             else if ((m.from == 3 && m.sent_to!= 4) || (m.from == 1 && m.sent_to == 3) || (m.from == 2 && m.sent_to == 3))
             {
-                LMCCChat.Add(m);
-                lmccChat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (LMCCChat.Count - lmccMessagesSeen).ToString();
+                PRChatList.Add(m);
+                lmccChat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (PRChatList.Count - lmccMessagesSeen).ToString();
             }
             else if ((m.from == 1 && m.sent_to == 2) || (m.from == 2 && m.sent_to == 1))
             {
@@ -105,18 +105,14 @@ public class MessagingBackend : MonoBehaviour
 
     void sendMessage(MessageSentEvent e)
     {
-        if (e.NewMadeMessage.from == 3) return;
-        
-        Debug.Log("Sending message to WebSocket");
-        var data = new
+        var jsonData = new Dictionary<string, object>
         {
-            Room = "MESSAGING",
-            use = "POST",
-            Message = e.NewMadeMessage
+            { "message_id", e.NewMadeMessage.message_id},
+            { "sent_to", e.NewMadeMessage.sent_to },
+            { "message", e.NewMadeMessage.message },
+            { "from", e.NewMadeMessage.from },
         };
-        string json = JsonUtility.ToJson(data);
-        //webSocketClient.SendJsonData(json, "MESSAGING");
-        Debug.Log(json);
+        webSocketClient.SendJsonData(jsonData, "MESSAGING", 4);
     }
 
 

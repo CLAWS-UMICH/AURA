@@ -26,7 +26,7 @@ public class FrontEndButton : MonoBehaviour
     void Update()
     {
         // Debug.Log("astro count: " + messagingBackend.AstroChat.Count);
-        // Debug.Log("lmcc count: " + messagingBackend.LMCCChat.Count);
+        // Debug.Log("lmcc count: " + messagingBackend.PRChatList.Count);
         // Debug.Log("group count: " + messagingBackend.GroupChat.Count);
         // Debug.Log("astro seen: " + messagingBackend.a2MessagesSeen);
         // Debug.Log("lmcc seen: " + messagingBackend.lmccMessagesSeen);
@@ -49,11 +49,11 @@ public class FrontEndButton : MonoBehaviour
             messagingBackend.a2chat.SetActive(false);
         }
         
-        if (messagingBackend.LMCCChat.Count > 0 || messagingBackend.lmccMessagesSeen > 0) 
+        if (messagingBackend.PRChatList.Count > 0 || messagingBackend.lmccMessagesSeen > 0) 
         {
             messagingBackend.lmccChat.SetActive(true);
         }
-        if (messagingBackend.LMCCChat.Count == 0 || messagingBackend.lmccMessagesSeen == 0) 
+        if (messagingBackend.PRChatList.Count == 0 || messagingBackend.lmccMessagesSeen == 0) 
         {
             messagingBackend.lmccChat.SetActive(false);
         }
@@ -219,7 +219,7 @@ public class FrontEndButton : MonoBehaviour
 
     public void lmccGC() 
     {
-        messagingBackend.lmccMessagesSeen = messagingBackend.LMCCChat.Count;
+        messagingBackend.lmccMessagesSeen = messagingBackend.PRChatList.Count;
         LMCCgc.SetActive(true);
         A2andLMCCgc.SetActive(false);
         A2gc.SetActive(false);

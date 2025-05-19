@@ -111,7 +111,7 @@ public class DynamicMessagingPop : MonoBehaviour
             me = 2;
         }
         // Update all 3 screens
-        PopulateChat(MessagingBackend.LMCCChat, LMCC.transform, lmccClones);
+        PopulateChat(MessagingBackend.PRChatList, LMCC.transform, lmccClones);
         PopulateChat(MessagingBackend.AstroChat, A2.transform, a2Clones);
         PopulateChat(MessagingBackend.GroupChat, GC.transform, gcClones);
     }
