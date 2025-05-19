@@ -250,6 +250,7 @@ public class TSSConnection : MonoBehaviour
                     {
                         TELEMETRYJsonString = webRequest.downloadHandler.text;
                         AstronautInstance.User.telemetry = JsonUtility.FromJson<TELEMETRY>(this.TELEMETRYJsonString);
+                        Debug.Log("Telemetry" +TELEMETRYJsonString);
                     
                         if (AstronautInstance.User.id == 1)
                         {

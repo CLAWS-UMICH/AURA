@@ -50,8 +50,8 @@ public class DCUController : MonoBehaviour
     private Subscription<DCUChangedEvent> dcuChangedEvent;
     private Subscription<FellowDCUChangedEvent> fellowDcuChangedEvent;
     private Subscription<DCUErrorEvent> dcuErrorEvent;
-    [SerializeField] private DCUGroup dcu1;
-    [SerializeField] private DCUGroup dcu2;
+    [SerializeField] public DCUGroup dcu1;
+    [SerializeField] public DCUGroup dcu2;
 
 
 
