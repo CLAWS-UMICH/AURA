@@ -7592,15 +7592,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TSSscreen: {fileID: 1706601133}
-  SetUpController: {fileID: 0}
+  SetUpController: {fileID: 809393150}
   LMCCscreen: {fileID: 786385861}
   GreetingScreen: {fileID: 1101584632}
   SetUpScreen: {fileID: 193176870}
   ConnectionScreen: {fileID: 680875455}
   LTVScreen: {fileID: 638489071}
   Controller: {fileID: 1555562878}
-  connectionButton: {fileID: 0}
-  doneButton: {fileID: 0}
+  connectionButton: {fileID: 978545545}
+  doneButton: {fileID: 1689725734}
   navigationControllerScreen: {fileID: 0}
   navigationController: {fileID: 0}
 --- !u!1001 &829017682
@@ -9660,6 +9660,12 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &978545545 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1905449961324189815, guid: 306027ef2a63f4826a449aac4b093a44,
+    type: 3}
+  m_PrefabInstance: {fileID: 8512612503961402322}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &984717052 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6620117580869379915, guid: 23ad519888b9442b8911cbf42e0becd4,
@@ -11758,7 +11764,7 @@ MonoBehaviour:
       posY: 0
       posZ: 0
       Heading: 0
-    LMCCurl: http://0.0.0.0:8080
+    LMCCurl: http://192.168.1.150:8080
     TSSurl: http://169.254.27.27:14141
     current:
       posX: 0
@@ -12484,6 +12490,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32e8a7644144f8419bb881ad588ed0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1689725734 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6744876931479221409, guid: 306027ef2a63f4826a449aac4b093a44,
+    type: 3}
+  m_PrefabInstance: {fileID: 8512612503961402322}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1690167853
 GameObject:
   m_ObjectHideFlags: 0
