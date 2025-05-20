@@ -22,6 +22,7 @@ public class UIAController : MonoBehaviour
     private bool uiaUpdatedReceived = false;
     private bool nextStep = false;
     private bool value = false;
+    public event System.Action OnUIAOpened;
 
 
     void Start()
@@ -95,7 +96,12 @@ public class UIAController : MonoBehaviour
         IngressSteps.Add("Switch EV-2 EMU Power to OFF");
 
         IngressSteps.Add("Disconnect the umbilical cord from the DCU and UIA Panel");
+        OnUIAOpened += HandleUIAOpened;
+    }
 
+    public void HandleUIAOpened()
+    {
+        Debug.Log("UIA screen opened");
         EgressProcedure();
     }
 
@@ -108,6 +114,7 @@ public class UIAController : MonoBehaviour
         }
         main.SetActive(false);
         loadingBars.SetActive(false);
+        OnUIAOpened?.Invoke();
     }
 
     public void closeFeatureScreen()
@@ -131,18 +138,20 @@ public class UIAController : MonoBehaviour
 
     private IEnumerator EgressProcedureCoroutine()
     {
+        Debug.Log("Egress Procedure started");
         yield return new WaitForSeconds(3f);
         initializationScreen.SetActive(false);
         procedureScreen.SetActive(true);
         loadingBars.SetActive(false);
         stepsScreen.SetActive(true);
-        stepsScreen.transform.Find("StepNumber").gameObject.SetActive(true);
+        stepsScreen.transform.Find("NumText").gameObject.SetActive(true);
         stepsScreen.transform.Find("StepText").gameObject.SetActive(true);
 
         for (int i = 0; i < EgressSteps.Count; i++)
         {
             if (i == 0) // 0 connect umbilical
             {
+                
                 loadingBars.SetActive(false);
                 procedureScreen.SetActive(true);
                 stepNumber.text = "";
@@ -153,6 +162,7 @@ public class UIAController : MonoBehaviour
             }
             else if (i == 1 || i == 2) // 1 switch EV1 emu power 2 switch ev2 emu power
             {
+                Debug.Log("stepped");
                 if (AstronautInstance.User.id == 1)
                 {
                     loadingBars.SetActive(false);
