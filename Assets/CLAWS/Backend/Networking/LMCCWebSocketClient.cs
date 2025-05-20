@@ -186,6 +186,7 @@ public class LMCCWebSocketClient : MonoBehaviour
                         };
                         EventBus.Publish(new PR_LocationUpdatedEvent(currentPosition));
                     }
+                    
                     break;
                 case "LTV_POI":
                     if (data["confirmed"]?.Value<bool>() == true)
