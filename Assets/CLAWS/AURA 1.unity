@@ -1242,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &13276293
 Transform:
   m_ObjectHideFlags: 0
@@ -14419,6 +14419,12 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &264263918 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4125495309553998321, guid: c2f49d0d909d3fc4bbc20d1cb743ab1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 915013699}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &264263919 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4205010513405509735, guid: c2f49d0d909d3fc4bbc20d1cb743ab1d,
@@ -19454,6 +19460,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6119071433597302522, guid: 599a17b07934606418579a01f68d3bbe,
     type: 3}
   m_PrefabInstance: {fileID: 1368607606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &343439810 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4125495309553998321, guid: c2f49d0d909d3fc4bbc20d1cb743ab1d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2006707564}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &343439811 stripped
 Transform:
@@ -34842,7 +34854,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &712595509
 Transform:
   m_ObjectHideFlags: 0
@@ -40434,6 +40446,8 @@ MonoBehaviour:
   UIAButton: {fileID: 1868299898}
   greenMaterial: {fileID: 2100000, guid: fe641206f89644c8fa9b325dbcbbf838, type: 2}
   navigationController: {fileID: 1767475546}
+  tssIPaddress: {fileID: 0}
+  lmccIPaddress: {fileID: 0}
 --- !u!1 &810337719
 GameObject:
   m_ObjectHideFlags: 0
@@ -68751,7 +68765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1436945870
 Transform:
   m_ObjectHideFlags: 0
@@ -75727,7 +75741,7 @@ Transform:
   m_GameObject: {fileID: 1555562878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.67, z: 1}
+  m_LocalPosition: {x: 0, y: 1.67, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75754,7 +75768,7 @@ MonoBehaviour:
   trackedHandedness: 3
   trackedHandJoint: 0
   transformOverride: {fileID: 0}
-  additionalOffset: {x: 0.02, y: 0.08, z: -1.5}
+  additionalOffset: {x: 0.02, y: 0.08, z: -0.7}
   additionalRotation: {x: 0, y: 0, z: 0}
   updateSolvers: 1
 --- !u!114 &1555562883
@@ -75816,8 +75830,8 @@ MonoBehaviour:
       posY: 0
       posZ: 0
       Heading: 0
-    LMCCurl: http://localhost:8080
-    TSSurl: http://10.0.0.8:14141
+    LMCCurl: 
+    TSSurl: 
     current:
       posX: 0
       posY: 0
@@ -77038,7 +77052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1585254167
 Transform:
   m_ObjectHideFlags: 0
@@ -77070,12 +77084,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   uiaScreen: {fileID: 1585254166}
   main: {fileID: 600781777}
-  loadingBars: {fileID: 0}
-  initializationScreen: {fileID: 0}
-  procedureScreen: {fileID: 0}
-  stepsScreen: {fileID: 0}
-  stepNumber: {fileID: 0}
-  stepText: {fileID: 0}
+  loadingBars: {fileID: 712595508}
+  initializationScreen: {fileID: 343439810}
+  procedureScreen: {fileID: 264263918}
+  webSocketClient: {fileID: 1555562889}
+  stepsScreen: {fileID: 1436945869}
+  stepNumber: {fileID: 1613448683}
+  stepText: {fileID: 1455335156}
   DCUPanel: {fileID: 0}
   primaryO2: {fileID: 0}
   secondaryO2: {fileID: 0}

@@ -23,6 +23,8 @@ public class SetUpScreenController : MonoBehaviour
     private GameObject LoadingBox;
     private GameObject connected;
     private GameObject disconnected;
+    public TextMeshPro tssIPaddress;
+    public TextMeshPro lmccIPaddress;
     private bool connectedToTSS = false;
     private bool connectedToWEB = false;
     private bool isConnectingTSS = false;

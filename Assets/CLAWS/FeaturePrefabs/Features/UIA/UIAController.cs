@@ -11,6 +11,7 @@ public class UIAController : MonoBehaviour
     public GameObject loadingBars;
     public GameObject initializationScreen;
     public GameObject procedureScreen;
+    public LMCCWebSocketClient webSocketClient;
     public GameObject stepsScreen;
     public TextMeshPro stepNumber;
     public TextMeshPro stepText;
@@ -149,16 +150,20 @@ public class UIAController : MonoBehaviour
 
         for (int i = 0; i < EgressSteps.Count; i++)
         {
+            Debug.Log("STEP INDEX: " + i);
             if (i == 0) // 0 connect umbilical
             {
-                
+
                 loadingBars.SetActive(false);
                 procedureScreen.SetActive(true);
                 stepNumber.text = "";
                 stepText.text = EgressSteps[0];
                 Debug.Log("Step index: " + i + " Step text: " + EgressSteps[0] + " Value: " + value);
                 yield return new WaitForSeconds(10f);
-                break;
+                procedureScreen.SetActive(true);
+                stepsScreen.SetActive(false);
+                loadingBars.SetActive(true);
+                continue;
             }
             else if (i == 1 || i == 2) // 1 switch EV1 emu power 2 switch ev2 emu power
             {
@@ -167,6 +172,7 @@ public class UIAController : MonoBehaviour
                 {
                     loadingBars.SetActive(false);
                     procedureScreen.SetActive(true);
+                    stepsScreen.SetActive(true);
                     stepNumber.text = (1).ToString();
                     stepText.text = EgressSteps[1];
                     value = true;
@@ -179,11 +185,12 @@ public class UIAController : MonoBehaviour
                 {
                     loadingBars.SetActive(false);
                     procedureScreen.SetActive(true);
+                    stepsScreen.SetActive(true);
                     stepNumber.text = (1).ToString();
                     stepText.text = EgressSteps[2];
                     value = true;
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[2] + " Value: " + value);
-                    procedureScreen.SetActive(false);
+                    stepsScreen.SetActive(false);
                     loadingBars.SetActive(true);
                     // falls through to json to PR
                 }
@@ -195,15 +202,16 @@ public class UIAController : MonoBehaviour
                 {
                     loadingBars.SetActive(false);
                     procedureScreen.SetActive(true);
+                    stepsScreen.SetActive(true);
                     DCUPanel.SetActive(true);
                     stepNumber.text = (2).ToString();
                     stepText.text = EgressSteps[3];
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[3] + " Value: " + value);
                     yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva1.batt == true);
                     DCUPanel.SetActive(false);
-                    procedureScreen.SetActive(false);
+                    stepsScreen.SetActive(false);
                     loadingBars.SetActive(true);
-                    break;
+                    continue;
                 }
                 else
                 {
@@ -215,9 +223,9 @@ public class UIAController : MonoBehaviour
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[3] + " Value: " + value);
                     yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva2.batt == true);
                     DCUPanel.SetActive(false);
-                    procedureScreen.SetActive(false);
+                    stepsScreen.SetActive(false);
                     loadingBars.SetActive(true);
-                    break;
+                    continue;
                 }
             }
             else if (i == 4) // 3 depress open
@@ -271,7 +279,7 @@ public class UIAController : MonoBehaviour
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[7] + " Value: " + value);
                     yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva1.oxy == true);
                     DCUPanel.SetActive(false);
-                    break;
+                    continue;
                 }
                 else
                 {
@@ -284,7 +292,7 @@ public class UIAController : MonoBehaviour
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[7] + " Value: " + value);
                     yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva2.oxy == true);
                     DCUPanel.SetActive(false);
-                    break;
+                    continue;
                 }
             }
             else if (i == 8) // 7 open emu1 o2
@@ -354,7 +362,7 @@ public class UIAController : MonoBehaviour
                 Debug.Log("Step index: " + i + " Step text: " + EgressSteps[12] + " Value: " + value);
                 yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva1.oxy == false);
                 DCUPanel.SetActive(false);
-                break;
+                continue;
             }
             else if (i == 13) // 10 open emu1 oxy to open
             {
@@ -426,7 +434,7 @@ public class UIAController : MonoBehaviour
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[17] + " Value: " + value);
                     yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva1.oxy == true);
                     DCUPanel.SetActive(false);
-                    break;
+                    continue;
                 }
                 else
                 {
@@ -439,7 +447,7 @@ public class UIAController : MonoBehaviour
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[17] + " Value: " + value);
                     yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva2.oxy == true);
                     DCUPanel.SetActive(false);
-                    break;
+                    continue;
                 }
             }
             else if (i == 18) // 13 wait for suit and oxy pressure
@@ -453,7 +461,7 @@ public class UIAController : MonoBehaviour
                 yield return new WaitUntil(() => AstronautInstance.User.vitals.suit_pressure_total > 4);
                 yield return new WaitUntil(() => AstronautInstance.User.vitals.oxy_pri_pressure > 4);
                 procedureScreen.SetActive(false);
-                break;
+                continue;
             }
             else if (i == 19) // 14 depress power to off
             {
@@ -495,7 +503,7 @@ public class UIAController : MonoBehaviour
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[20] + " Value: " + value);
                     yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva1.batt == false);
                     DCUPanel.SetActive(false);
-                    break;
+                    continue;
                 }
                 else
                 {
@@ -508,7 +516,7 @@ public class UIAController : MonoBehaviour
                     Debug.Log("Step index: " + i + " Step text: " + EgressSteps[20] + " Value: " + value);
                     yield return new WaitUntil(() => AstronautInstance.User.dcu.dcu.eva2.batt == false);
                     DCUPanel.SetActive(false);
-                    break;
+                    continue;
                 }
             }
             else if (i == 21) // 16 ev1 emu power to off
@@ -574,7 +582,7 @@ public class UIAController : MonoBehaviour
                         Debug.Log("Step index: " + i + " Step text: " + EgressSteps[23]);
                     }
                 }
-                break;
+                continue;
             }
             else if (i == 24) // 18 DCU verify comms == A
             {
@@ -609,7 +617,7 @@ public class UIAController : MonoBehaviour
                         Debug.Log("Step index: " + i + " Step text: " + EgressSteps[24]);
                     }
                 }
-                break;
+                continue;
             }
             else if (i == 25) // 19 DCU verify fan == primary
             {
@@ -644,7 +652,7 @@ public class UIAController : MonoBehaviour
                         Debug.Log("Step index: " + i + " Step text: " + EgressSteps[23]);
                     }
                 }
-                break;
+                continue;
             }
             else if (i == 26) // 20 DCU verify pump == closed
             {
@@ -679,7 +687,7 @@ public class UIAController : MonoBehaviour
                         Debug.Log("Step index: " + i + " Step text: " + EgressSteps[26]);
                     }
                 }
-                break;
+                continue;
             }
             else if (i == 27) // 21 co2 == A
             {
@@ -690,7 +698,7 @@ public class UIAController : MonoBehaviour
                 value = true;
                 Debug.Log("Step index: " + i + " Step text: " + EgressSteps[27] + " Value: " + value);
                 yield return new WaitForSeconds(3f);
-                break;
+                continue;
             }
             else if (i == 28) // 22 disconnect umbilical
             {
@@ -698,7 +706,7 @@ public class UIAController : MonoBehaviour
                 procedureScreen.SetActive(true);
                 stepNumber.text = (22).ToString();
                 stepText.text = EgressSteps[28];
-                break;
+                continue;
             }
                 yield return new WaitForSeconds(3f);
                 var jsonData = new Dictionary<string, object>
@@ -721,7 +729,6 @@ public class UIAController : MonoBehaviour
     {
         uiaUpdatedReceived = false;
         EventBus.Subscribe<UIAUpdatedEvent>(OnUIAUpdated);
-        LMCCWebSocketClient webSocketClient = FindObjectOfType<LMCCWebSocketClient>();
         if (webSocketClient != null)
         {
             webSocketClient.SendJsonData(jsonData, "UIA", 3);
