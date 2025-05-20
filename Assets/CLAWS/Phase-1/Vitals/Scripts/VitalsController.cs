@@ -3,11 +3,14 @@ using TMPro;
 using System.Collections;
 using MixedReality.Toolkit.UX;
 using MixedReality.Toolkit;
+using System.Collections.Generic;
+using Unity.VisualScripting;
+
 
 [System.Serializable]
 public class EVAGroup
 {
-     [Header("Vitals Group")]
+    [Header("Vitals Group")]
     public GameObject heartRate;
     public GameObject temp;
     public GameObject oxyCons;
@@ -46,18 +49,83 @@ public class VitalsController : MonoBehaviour
     [SerializeField] private GameObject vitals;    
     [SerializeField] private GameObject vitalsFirstAstronautScreen;
     [SerializeField] private GameObject vitalsSecondAstronautScreen;
+    [SerializeField] private GameObject selfAlert;
+    [SerializeField] private GameObject otherAlert;
+    public DCUController dcuControllerInstance;
     private Subscription<UpdatedVitalsEvent> vitalsUpdateEvent;
+    private Subscription<UpdatedVitalsEvent> vitalsErrorCheckEvent;
     private Subscription<UpdatedFellowAstronautVitalsEvent> fellowVitalsUpdateEvent;
+    private Subscription<UpdatedFellowAstronautVitalsEvent> fellowVitalsErrorCheckEvent;
     [SerializeField] private EVAGroup eva1;
     [SerializeField] private EVAGroup eva2;
     [SerializeField] private LMCCWebSocketClient LMCCwebSocketClient;
     [SerializeField] private ToggleCollection toggleCollection;
 
+
+    private string message;
+    // Suit Resources Parameters
+    private float BATT_TIME_MIN = 3600.0f; // sec
+    private float BATT_TIME_MAX = 10800.0f; // sec
+
+    private float OXY_STOR_MIN = 20.0f; // %
+    private float OXY_STOR_MAX = 100.0f; // %
+
+    private float OXY_PRES_MIN = 600.0f; // PSI
+    private float OXY_PRES_MAX = 3000.0f; // PSI
+
+    private float OXY_TIME_MIN = 3600.0f; // sec
+    private float OXY_TIME_MAX = 21600.0f; // sec
+
+    private float COOL_STOR_MIN = 80.0f; // %
+    private float COOL_STOR_MAX = 100.0f; // %
+
+    // Suit Atmosphere Parameters
+    private float HEART_RATE_MIN = 50.0f; // bpm
+    private float HEART_RATE_MAX = 160.0f; // bpm
+
+    private float OXY_CONSUM_MIN = 0.05f; // psi/min
+    private float OXY_CONSUM_MAX = 0.15f; // psi/min
+
+    private float CO2_PROD_MIN = 0.05f; // psi/min
+    private float CO2_PROD_MAX = 0.15f; // psi/min
+
+    private float SUIT_PRES_OXY_MIN = 3.5f; // psi
+    private float SUIT_PRES_OXY_MAX = 4.1f; // psi
+
+    private float SUIT_PRES_CO2_MAX = 0.1f; // psi
+
+    private float SUIT_PRES_OTHER_MAX = 0.5f; // psi
+
+    private float SUIT_PRES_TOTAL_MIN = 3.5f; // psi
+    private float SUIT_PRES_TOTAL_MAX = 4.5f; // psi
+    
+    private float HELMET_PRES_CO2_MAX = 0.15f; // psi
+
+    // Suit Fan Parameters
+    private float FAN_SPEED_MIN = 19990.0f; // rpm
+    private float FAN_SPEED_MAX = 30010.0f; // rpm
+
+    // Suit Scrubber Parameters
+    private float SCRUBBER_CO2_STOR_MAX = 60.0f; // %
+
+    // Suit Temperature Parameters
+    private float TEMP_MIN = 50.0f; // farhenheit
+    private float TEMP_MAX = 90.0f; // farhenheit
+
+    private float COOL_LIQ_MIN = 100.0f; // psi
+    private float COOL_LIQ_MAX = 700.0f; // psi
+
+    private float COOL_GAS_MAX = 700.0f; // psi
+
     private void Start() 
     {
         vitalsUpdateEvent = EventBus.Subscribe<UpdatedVitalsEvent>(onVitalsUpdate);
+        vitalsErrorCheckEvent = EventBus.Subscribe<UpdatedVitalsEvent>(onVitalsErrorCheck);
         fellowVitalsUpdateEvent = EventBus.Subscribe<UpdatedFellowAstronautVitalsEvent>(onFellowVitalsUpdate);
+        fellowVitalsErrorCheckEvent = EventBus.Subscribe<UpdatedFellowAstronautVitalsEvent>(onFellowVitalsErrorCheck);
         vitalsSecondAstronautScreen.SetActive(false);
+        selfAlert.SetActive(false);
+        otherAlert.SetActive(false);
     }
 
 
@@ -74,6 +142,13 @@ public class VitalsController : MonoBehaviour
     {
         transform.parent.gameObject.SetActive(false);
         
+    }
+
+    public void swapVitalScreens()
+    {
+        bool state = vitalsFirstAstronautScreen.gameObject.activeSelf;
+        vitalsFirstAstronautScreen.SetActive(!state);
+        vitalsSecondAstronautScreen.SetActive(state);
     }
 
 
@@ -133,16 +208,669 @@ public class VitalsController : MonoBehaviour
         //Debug.Log(json);
     }
 
+    // For Primary Astronaut
+    private void onVitalsErrorCheck(UpdatedVitalsEvent e)
+    {
+        // tracks number of errors
+        int errorCount = 0;
+        var data = new Dictionary<string, object>
+        {
+            { "battery", false },
+            { "heartRate", false },
+            { "temp", false },
+            { "o2SwapToPrimary", false },
+            { "o2SwapToSecondary", false },
+            { "o2Time", false },
+            { "o2Cons", false },
+            { "o2SuitPres", false },
+            { "fanSwapToPrimary", false },
+            { "fanSwapToSecondary", false },
+            { "co2SwapToA", false },
+            { "co2SwapToB", false },
+            { "co2Prod", false },
+            { "co2SuitPres", false },
+            { "co2HelmPres", false },
+            { "coolantStor", false },
+            { "coolantGasPres", false },
+            { "coolantLiquidPres", false },
+            { "suitPresOth", false },
+            { "suitPresTot", false },
+        };
+
+        // battery time
+        if (e.vitals.batt_time_left < BATT_TIME_MIN)
+        {
+            data["battery"] = true;
+            eva1.powerTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+            errorCount++;
+        }
+        else
+        {
+            data["battery"] = false;
+            eva1.powerTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // o2 primary storage
+        if (e.vitals.oxy_pri_storage < OXY_STOR_MIN && dcuControllerInstance.dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+        {
+            data["o2SwapToSecondary"] = true;
+            eva1.priOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["o2SwapToSecondary"] = false;
+            eva1.priOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // o2 secondary storage
+        if (e.vitals.oxy_sec_storage < OXY_STOR_MIN && dcuControllerInstance.dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+        {
+            data["o2SwapToPrimary"] = true;
+            eva1.secOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["o2SwapToPrimary"] = false;
+            eva1.secOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+           
+        // o2 primary pressure
+        if ((e.vitals.oxy_pri_pressure < OXY_PRES_MIN || e.vitals.oxy_pri_pressure > OXY_PRES_MAX) && dcuControllerInstance.dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+        {
+            data["o2SwapToSecondary"] = true;
+            eva1.priOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["o2SwapToSecondary"] = false;
+            eva1.priOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // o2 secondary pressure
+        if ((e.vitals.oxy_sec_pressure < OXY_PRES_MIN || e.vitals.oxy_sec_pressure > OXY_PRES_MAX) && dcuControllerInstance.dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+        {
+            data["o2SwapToPrimary"] = true;
+            eva1.secOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["o2SwapToPrimary"] = false;
+            eva1.secOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // o2 time
+        if (e.vitals.oxy_time_left < OXY_STOR_MIN)
+        {
+            data["o2Time"] = true;
+            eva1.oxyTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["o2Time"] = false;
+            eva1.oxyTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // coolant storage
+        if (e.vitals.coolant_m < COOL_STOR_MIN)
+        {
+            data["coolantStor"] = true;
+            eva1.coolant.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.coolant.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["coolantStor"] = false;
+            eva1.coolant.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.coolant.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // heart rate
+        if (e.vitals.heart_rate < HEART_RATE_MIN || e.vitals.heart_rate > HEART_RATE_MAX)
+        {
+            data["heartRate"] = true;
+            eva1.heartRate.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["heartRate"] = false;
+            eva1.heartRate.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // o2 consumption
+        if (e.vitals.oxy_consumption < OXY_CONSUM_MIN || e.vitals.oxy_consumption > OXY_CONSUM_MAX)
+        {
+            data["o2Cons"] = true;
+            eva1.oxyCons.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["o2Cons"] = false;
+            eva1.oxyCons.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // co2 production
+        if (e.vitals.co2_production < CO2_PROD_MIN || e.vitals.co2_production > CO2_PROD_MAX)
+        {
+            data["co2Prod"] = true;
+            eva1.co2Prod.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["co2Prod"] = false;
+            eva1.co2Prod.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+        
+        // suit o2 pressure
+        if (e.vitals.suit_pressure_oxy < SUIT_PRES_OXY_MIN || e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
+        {
+            data["o2SuitPres"] = true;
+            eva1.suitPresOxy.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["o2SuitPres"] = false;
+            eva1.suitPresOxy.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // suit co2 pressure
+        if (e.vitals.suit_pressure_co2 > SUIT_PRES_CO2_MAX)
+        {
+            data["co2SuitPres"] = true;
+            eva1.suitPresCO2.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["co2SuitPres"] = false;
+            eva1.suitPresCO2.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // suit other pressure
+        if (e.vitals.suit_pressure_other > SUIT_PRES_OTHER_MAX)
+        {
+            data["suitPresOth"] = true;
+            eva1.otherSuitPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["suitPresOth"] = false;
+            eva1.otherSuitPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // suit pressure total
+        if (e.vitals.suit_pressure_total < SUIT_PRES_TOTAL_MIN || e.vitals.suit_pressure_total > SUIT_PRES_TOTAL_MAX)
+        {
+            data["suitPresTot"] = true;
+            eva1.suitTotPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["suitPresTot"] = false;
+            eva1.suitTotPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // helment pressure
+        if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
+        {
+            data["co2HelmPres"] = true;
+            eva1.helmetCO2Pres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["co2HelmPres"] = false;
+            eva1.helmetCO2Pres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // fan primary speed
+        if ((e.vitals.fan_pri_rpm < FAN_SPEED_MIN || e.vitals.fan_pri_rpm > FAN_SPEED_MAX) && dcuControllerInstance.dcu1.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+        {
+            data["fanSwapToSecondary"] = true;
+            eva1.priFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.priFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["fanSwapToSecondary"] = false;
+            eva1.priFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.priFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // fan secondary speed
+        if ((e.vitals.fan_sec_rpm < FAN_SPEED_MIN || e.vitals.fan_sec_rpm > FAN_SPEED_MAX) && dcuControllerInstance.dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+        {
+            data["fanSwapToPrimary"] = true;
+            eva1.secFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.secFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["fanSwapToPrimary"] = false;
+            eva1.secFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.secFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // co2 A storage
+        if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX && dcuControllerInstance.dcu1.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+        {
+            data["co2SwapToB"] = true;
+            eva1.scrubberA.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["co2SwapToB"] = false;
+            eva1.scrubberA.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // co2 B storage
+        if (e.vitals.scrubber_b_co2_storage > SCRUBBER_CO2_STOR_MAX && dcuControllerInstance.dcu1.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+        {
+            data["co2SwapToA"] = true;
+            eva1.scrubberB.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["co2SwapToA"] = false;
+            eva1.scrubberB.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // temperature
+        if (e.vitals.temperature < TEMP_MIN || e.vitals.temperature > TEMP_MAX)
+        {
+            data["temp"] = true;
+            eva1.temp.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.temp.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["temp"] = false;
+            eva1.temp.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.temp.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // coolant liquid
+        if (e.vitals.coolant_liquid_pressure < COOL_LIQ_MIN || e.vitals.coolant_liquid_pressure > COOL_LIQ_MAX)
+        {
+            data["coolantLiqPres"] = true;
+            eva1.coolLiquidPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["coolantLiqPres"] = false;
+            eva1.coolLiquidPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        // coolant gas
+        if (e.vitals.coolant_gas_pressure > COOL_GAS_MAX)
+        {
+            data["coolantGasPres"] = true;
+            eva1.coolGasPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva1.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+        else
+        {
+            data["coolantGasPres"] = false;
+            eva1.coolGasPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+            eva1.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+        }
+
+        if (errorCount > 0)
+        {
+
+        }
+        LMCCwebSocketClient.SendJsonData(data, "VITALS", 3);
+        LMCCwebSocketClient.SendJsonData(data, "VITALS", 4);
+        selfAlert.SetActive(true);
+    }
+
 
     private void onFellowVitalsUpdate(UpdatedFellowAstronautVitalsEvent e)
     {
         //astronaut 2
+        eva2.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_consumption.ToString("F2");
+        eva2.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.heart_rate.ToString("F0");
+        eva2.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.co2_production.ToString("F2");
+        eva2.temp.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.temperature.ToString("F0");
+
+        eva2.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_pri_pressure.ToString("F0");
+        eva2.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_sec_pressure.ToString("F0");
+        eva2.coolant.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.coolant_m.ToString("F0");
+        eva2.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_pri_storage.ToString("F0");
+        eva2.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.oxy_sec_storage.ToString("F0");
+
+        eva2.suitTotPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_total / 4.5) * 302));
+        eva2.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_total.ToString("F1");
+        eva2.suitPresOxy.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_oxy / 4.1) * 302));
+        eva2.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_oxy.ToString("F1");
+        eva2.suitPresCO2.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_co2 / 0.1) * 302));
+        eva2.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_co2.ToString("F2");
+        eva2.otherSuitPres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.suit_pressure_other / 0.5) * 302));
+        eva2.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.suit_pressure_other.ToString("F1");
+        eva2.helmetCO2Pres.transform.Find("RingFull").GetComponent<SpriteRenderer>().material.SetFloat("_Arc1", (float)((1 - e.vitals.helmet_pressure_co2 / 0.15) * 302));
+        eva2.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.helmet_pressure_co2.ToString("F2");
+
+        eva2.priFan.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.fan_pri_rpm.ToString("N0");
+        eva2.secFan.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.fan_sec_rpm.ToString("N0");
+        eva2.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.scrubber_a_co2_storage.ToString("F0");
+        eva2.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.scrubber_b_co2_storage.ToString("F0");
+        eva2.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.coolant_liquid_pressure.ToString("F0");
+        eva2.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().text = e.vitals.coolant_gas_pressure.ToString("F0");
+
+        int oxyTimeLeftSeconds = e.vitals.oxy_time_left;
+        int oxyHours = oxyTimeLeftSeconds / 3600;
+        int oxyMinutes = oxyTimeLeftSeconds % 3600 / 60;
+        Debug.Log(oxyTimeLeftSeconds);
+        eva2.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().text = $"{oxyHours} hr {oxyMinutes} m";
+        eva2.oxySlider.Value = e.vitals.oxy_time_left;
+
+        double powerTimeLeftSeconds = e.vitals.batt_time_left;
+        int powerHours = (int)(powerTimeLeftSeconds / 3600);
+        int powerMinutes = (int)(powerTimeLeftSeconds % 3600 / 60);
+        eva2.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().text = $"{powerHours} hr {powerMinutes} m";
+        eva2.battSlider.Value = (int)e.vitals.batt_time_left;
+
+        // VitalsData vitalsData = new VitalsData
+        //{
+        //    room = "VITALS",
+        //     use = "POST",
+        //     data = AstronautInstance.User.vitals
+        // };
+        // string json = JsonUtility.ToJson(vitalsData);
+        //LMCCwebSocketClient.SendJsonData(json, "VITALS");
+        //Debug.Log(json);
 
     }
+
+    // For Companion Astronaut
+    private void onFellowVitalsErrorCheck(UpdatedFellowAstronautVitalsEvent e)
+    {
+        // tracks number of errors
+        int errorCount = 0;
+
+        // battery time
+        if (e.vitals.batt_time_left < BATT_TIME_MIN)
+        {
+            eva2.powerTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+            errorCount++;
+        }
+
+        // o2 primary storage
+        if (e.vitals.oxy_pri_storage < OXY_STOR_MIN)
+        {
+            eva2.priOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // o2 secondary storage
+        if (e.vitals.oxy_sec_storage < OXY_STOR_MIN)
+        {
+            eva2.secOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // o2 primary pressure
+        if (e.vitals.oxy_pri_pressure < OXY_PRES_MIN || e.vitals.oxy_pri_pressure > OXY_PRES_MAX)
+        {
+            eva2.priOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // o2 secondary pressure
+        if (e.vitals.oxy_sec_pressure < OXY_PRES_MIN || e.vitals.oxy_sec_pressure > OXY_PRES_MAX)
+        {
+            eva2.secOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // o2 time
+        if (e.vitals.oxy_time_left < OXY_STOR_MIN)
+        {
+            eva2.oxyTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // coolant storage
+        if (e.vitals.coolant_m < COOL_STOR_MIN)
+        {
+            eva2.coolant.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.coolant.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // heart rate
+        if (e.vitals.heart_rate < HEART_RATE_MIN || e.vitals.heart_rate > HEART_RATE_MAX)
+        {
+            eva2.heartRate.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // o2 consumption
+        if (e.vitals.oxy_consumption < OXY_CONSUM_MIN || e.vitals.oxy_consumption > OXY_CONSUM_MAX)
+        {
+            eva2.oxyCons.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // co2 production
+        if (e.vitals.co2_production < CO2_PROD_MIN || e.vitals.co2_production > CO2_PROD_MAX)
+        {
+            eva2.co2Prod.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // suit o2 pressure
+        if (e.vitals.suit_pressure_oxy < SUIT_PRES_OXY_MIN || e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
+        {
+            eva2.suitPresOxy.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // suit co2 pressure
+        if (e.vitals.suit_pressure_co2 > SUIT_PRES_CO2_MAX)
+        {
+            eva2.suitPresCO2.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // suit other pressure
+        if (e.vitals.suit_pressure_other > SUIT_PRES_OTHER_MAX)
+        {
+            eva2.otherSuitPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // suit pressure total
+        if (e.vitals.suit_pressure_total < SUIT_PRES_TOTAL_MIN || e.vitals.suit_pressure_total > SUIT_PRES_TOTAL_MAX)
+        {
+            eva2.suitTotPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // helment pressure
+        if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
+        {
+            eva2.helmetCO2Pres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // fan primary speed
+        if (e.vitals.fan_pri_rpm < FAN_SPEED_MIN || e.vitals.fan_pri_rpm > FAN_SPEED_MAX)
+        {
+            eva2.priFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.priFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // fan secondary speed
+        if (e.vitals.fan_sec_rpm < FAN_SPEED_MIN || e.vitals.fan_sec_rpm > FAN_SPEED_MAX)
+        {
+            eva2.secFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.secFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // co2 A storage
+        if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX)
+        {
+            eva2.scrubberA.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // co2 B storage
+        if (e.vitals.scrubber_b_co2_storage > SCRUBBER_CO2_STOR_MAX)
+        {
+            eva2.scrubberB.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // temperature
+        if (e.vitals.temperature < TEMP_MIN || e.vitals.temperature > TEMP_MAX)
+        {
+            eva2.temp.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.temp.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // coolant liquid
+        if (e.vitals.coolant_liquid_pressure < COOL_LIQ_MIN || e.vitals.coolant_liquid_pressure > COOL_LIQ_MAX)
+        {
+            eva2.coolLiquidPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        // coolant gas
+        if (e.vitals.coolant_gas_pressure > COOL_GAS_MAX)
+        {
+            eva2.coolGasPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+            eva2.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+
+            errorCount++;
+        }
+
+        if (errorCount > 0)
+        {
+
+        }
+        otherAlert.SetActive(true);
+    }
+
 
     private void OnDestroy() 
     {
         EventBus.Unsubscribe(vitalsUpdateEvent);
+        EventBus.Unsubscribe(vitalsErrorCheckEvent);
         EventBus.Unsubscribe(fellowVitalsUpdateEvent);
+        EventBus.Unsubscribe(fellowVitalsErrorCheckEvent);
     }
 }
