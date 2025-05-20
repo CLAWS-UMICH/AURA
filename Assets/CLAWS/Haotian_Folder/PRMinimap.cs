@@ -1,58 +1,51 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PRMinimap : MonoBehaviour
 {
     [Header("References")]
     public Transform playerTransform;        // Reference to the player's transform
-    public Camera minimapCamera;            // Reference to the minimap camera
-    public Transform playerIcon;            // Reference to the player icon on the minimap
-    public GameObject maskObject;           // Reference to the mask GameObject
-    public GameObject borderObject;         // Reference to the border GameObject
 
-    [Header("Settings")]
-    public float cameraHeight = 50f;        // Height of the minimap camera
-    public bool rotateWithPlayer = true;    // Whether the minimap should rotate with the player
+    
+    private Subscription<PR_LocationUpdatedEvent> locationUpdateEvent; 
 
     private void Start()
     {
-        // Ensure the minimap camera is properly positioned
-        if (minimapCamera != null)
-        {
-            minimapCamera.transform.position = new Vector3(0, cameraHeight, 0);
-            minimapCamera.transform.rotation = Quaternion.Euler(90f, 0f, 0f);
-        }
+        locationUpdateEvent = EventBus.Subscribe<PR_LocationUpdatedEvent>(OnPRLocationUpdated);        
     }
+
+    private void OnPRLocationUpdated(PR_LocationUpdatedEvent evt)
+    {
+
+
+        Vector3 newPosition = new Vector3(
+                (float)evt.data.posX,
+                transform.position.y,                     
+                (float)evt.data.posY
+            );
+            transform.position = newPosition;
+
+
+            // Apply only the player's Z rotation to icon
+            float playerZRotation = playerTransform.eulerAngles.y; // Use Y for horizontal rotation
+            transform.rotation = Quaternion.Euler(90, 0, -playerZRotation); // Adjust as needed
+    }
+
+
+
+
+    // Update is called once per frame
+
 
     private void Update()
     {
-        if (playerTransform == null || minimapCamera == null) return;
+        
+    }
 
-        // Update camera position to follow player
-        Vector3 newCameraPosition = new Vector3(
-            playerTransform.position.x,
-            cameraHeight,
-            playerTransform.position.z
-        );
-        minimapCamera.transform.position = newCameraPosition;
-
-        // Update camera rotation if enabled
-        if (rotateWithPlayer)
-        {
-            minimapCamera.transform.rotation = Quaternion.Euler(90f, playerTransform.eulerAngles.y, 0f);
-        }
-
-        // Update player icon position and rotation
-        if (playerIcon != null)
-        {
-            // Position the icon at the center of the minimap
-            playerIcon.position = new Vector3(
-                playerTransform.position.x,
-                playerIcon.position.y,
-                playerTransform.position.z
-            );
-
-            // Rotate the icon to match player's rotation
-            playerIcon.rotation = Quaternion.Euler(90f, 0f, -playerTransform.eulerAngles.y);
-        }
+    private void OnDestroy() 
+    {
+        EventBus.Unsubscribe(locationUpdateEvent);
     }
 } 
