@@ -15,6 +15,23 @@ public class UIAUpdatedEvent
     }
 }
 
+[System.Serializable]
+public class PR_Vitals
+{
+    public string oxygen_tank;
+    public string battery_level;
+}
+
+public class prUpdatedVitalsEvent
+{
+    public PR_Vitals data { get; private set; }
+
+    public prUpdatedVitalsEvent(PR_Vitals _data)
+    {
+        data = _data;
+    }
+}
+
 
 // VITALS EVENTS
 public class UpdatedVitalsEvent
@@ -170,3 +187,6 @@ public class RoverStatusUpdatedEvent
         data = d;
     }
 }
+
+
+

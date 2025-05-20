@@ -1242,7 +1242,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &13276293
 Transform:
   m_ObjectHideFlags: 0
@@ -1281,6 +1281,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roverSettingsScreen: {fileID: 13276292}
+  PR_o2Tank: {fileID: 1401457724}
+  PR_batteryLevel: {fileID: 1656853981}
+  imu_pos: {fileID: 1691953403}
   menuToggleCollection: {fileID: 381050582}
   messagingToggle: {fileID: 1219732853}
   waypointToggle: {fileID: 2030326638}
@@ -47865,7 +47868,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f9cb467e8c8d413e8ca214e0d5d538a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 932289778}
 --- !u!1001 &933248870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67782,7 +67785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1401457725}
   m_Layer: 0
-  m_Name: O2_Tank'
+  m_Name: O2_Tank
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75724,7 +75727,7 @@ Transform:
   m_GameObject: {fileID: 1555562878}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.67, z: 0.48}
+  m_LocalPosition: {x: 0, y: 1.67, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -75813,8 +75816,8 @@ MonoBehaviour:
       posY: 0
       posZ: 0
       Heading: 0
-    LMCCurl: http://192.168.51.204:8080
-    TSSurl: http://192.168.51.110:14141
+    LMCCurl: http://localhost:8080
+    TSSurl: http://10.0.0.8:14141
     current:
       posX: 0
       posY: 0
@@ -77035,7 +77038,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1585254167
 Transform:
   m_ObjectHideFlags: 0
@@ -77074,6 +77077,8 @@ MonoBehaviour:
   stepNumber: {fileID: 0}
   stepText: {fileID: 0}
   DCUPanel: {fileID: 0}
+  primaryO2: {fileID: 0}
+  secondaryO2: {fileID: 0}
   EgressSteps: []
   IngressSteps: []
 --- !u!1 &1586846852
@@ -87003,7 +87008,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1763457346
 Transform:
   m_ObjectHideFlags: 0

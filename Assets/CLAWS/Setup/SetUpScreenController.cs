@@ -163,6 +163,7 @@ public class SetUpScreenController : MonoBehaviour
 
     private void OnRoverStatusUpdated(RoverStatusUpdatedEvent e)
     {
+        Debug.Log("Rover status updated: " + e.data);
         roverStatusUpdated = true;
         if (e.data)
         {
@@ -184,7 +185,7 @@ public class SetUpScreenController : MonoBehaviour
     {
         roverStatusUpdated = false;
 
-        float timeout = 10f;
+        float timeout = 20f;
         float elapsedTime = 0f;
 
         while (elapsedTime < timeout)
@@ -363,6 +364,7 @@ public class SetUpScreenController : MonoBehaviour
         TSSscreen.transform.Find("Connected").gameObject.SetActive(false);
         TSSscreen.transform.Find("Disconnected").gameObject.SetActive(false);
         StartCoroutine(Awaiting5Seconds());
+        Debug.Log("connectedToTSS: " + connectedToTSS);
         if (connectedToTSS)
         {
             TSSscreen.transform.Find("LoadingBox").gameObject.SetActive(false);

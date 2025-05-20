@@ -16,7 +16,7 @@ public class PlayerIconScript : MonoBehaviour
                 transform.position.y,                     
                 (float)AstronautInstance.User.current.posZ
             );
-            Debug.Log($"Player Icon Position: {newPosition}");
+    
             transform.position = newPosition;
 
 

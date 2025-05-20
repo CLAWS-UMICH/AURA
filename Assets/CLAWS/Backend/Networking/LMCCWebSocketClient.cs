@@ -135,8 +135,17 @@ public class LMCCWebSocketClient : MonoBehaviour
                 Debug.LogError("Missing 'data' in the received JSON.");
                 return; // Exit early if 'data' is missing
             }
-            JObject data = (JObject)jsonObject["data"];
-
+            JToken dataToken = jsonObject["data"];
+            JObject data;
+             if (dataToken.Type == JTokenType.String)
+            {
+                // If data is a string, parse it again
+                data = JObject.Parse((string)dataToken);
+            }
+            else
+            {
+                data = (JObject)dataToken;
+            }
             // Handle different types based on the 'room' field
             switch (room)
             {
@@ -153,10 +162,12 @@ public class LMCCWebSocketClient : MonoBehaviour
                     break;
                 case "WAYPOINTS":
                     Waypoint waypointsData = data.ToObject<Waypoint>();
-                    if ((string)data["use"] == "DELETE") {
+                    if ((string)data["use"] == "DELETE")
+                    {
                         EventBus.Publish(new WaypointDeletedEvent(waypointsData));
                     }
-                    else if ((string)data["use"] == "ADD") {
+                    else if ((string)data["use"] == "ADD")
+                    {
                         EventBus.Publish(new WaypointAddedEvent(waypointsData));
                     }
                     break;
@@ -166,16 +177,20 @@ public class LMCCWebSocketClient : MonoBehaviour
                     EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
                     break;
                 case "EV":
-                    if ((string)data["use"] == "INIT") 
+                    if ((string)data["use"] == "INIT")
                     {
                         AstronautInstance.User.fellowAstronaut.name = (string)data["name"];
                         AstronautInstance.User.fellowAstronaut.color = (string)data["color"];
                     }
                     break;
+                case "PR_VITALS":
+                    PR_Vitals prVitalsData = data.ToObject<PR_Vitals>();
+                    EventBus.Publish(new prUpdatedVitalsEvent(prVitalsData));
+                    break;
                 case "PR_LOCATION":
                     double Unity_posX = (float)data["posX"] - AstronautInstance.User.origin.posX;
                     double Unity_posZ = (float)data["posY"] - AstronautInstance.User.origin.posY;
-                    
+
                     Location currentPosition = new Location
                     {
                         posX = Unity_posX,
@@ -185,16 +200,18 @@ public class LMCCWebSocketClient : MonoBehaviour
                     EventBus.Publish(new PR_LocationUpdatedEvent(currentPosition));
                     break;
                 case "LTV_POI":
-                    if (data["confirmed"]?.Value<bool>() == true)
+                    Debug.Log(data["confirm"]);
+                    if (data["confirm"]?.Value<bool>() == true)
                     {
+                        Debug.Log("Confirmed LTV POI");
                         EventBus.Publish(new RoverStatusUpdatedEvent(true));
                     }
                     else
                     {
+                        Debug.Log("Unconfirmed LTV POI");
                         EventBus.Publish(new RoverStatusUpdatedEvent(false));
                     }
-                    break;
-                case "UIA":
+
                     break;
                 case "ALERTS":
                     break;
@@ -202,8 +219,6 @@ public class LMCCWebSocketClient : MonoBehaviour
                     break;
                 case "TASKS":
                     break;
-                case "PR_VITALS":
-                    
                 default:
                     // Log if the 'type' is not recognized
                     Debug.LogWarning($"Unhandled 'type': {room}");
