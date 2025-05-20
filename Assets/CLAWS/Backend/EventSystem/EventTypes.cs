@@ -53,6 +53,28 @@ public class UpdatedFellowAstronautVitalsEvent
     }
 }
 
+public class DCUChangedEvent
+{
+    public EvaDetails eva { get; private set; }
+    public int id { get; private set; }
+
+    public DCUChangedEvent(EvaDetails _e, int _id)
+    {
+        eva = _e;
+        id = _id;
+    }
+}
+
+public class DCUErrorEvent
+{
+    public ErrorMsg err { get; private set; }
+
+    public DCUErrorEvent(ErrorMsg _e)
+    {
+        err = _e;
+    }
+}
+
 
 // WAYPOINT EVENTS
 public class WaypointDeletedEvent
