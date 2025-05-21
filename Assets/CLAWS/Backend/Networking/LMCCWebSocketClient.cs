@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using PimDeWitte.UnityMainThreadDispatcher;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-using UnityEditor.Compilation;
 
 public class LMCCWebSocketClient : MonoBehaviour
 {
