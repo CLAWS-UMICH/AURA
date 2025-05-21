@@ -481,8 +481,8 @@ public class RoverDetails
 
 ////////////////////////////  GEO SAMPLES  /////////////////////////////
 public struct Composition {
-    string element;
-    float amount;
+    public string element;
+    public float amount;
     public Composition(string elt, float amt) {
         element = elt;
         amount = amt;
@@ -506,6 +506,7 @@ public class GeoSample {
         type = "";
         shape = "";
         color = "";
+        texture = "";
         note = "";
         id = 0;
         comp = new List<Composition>();
@@ -594,6 +595,7 @@ public class DataDetails
     public double CaO;
     public double K2O;
     public double P2O3;
+    public double other;
 }
 
 [System.Serializable]

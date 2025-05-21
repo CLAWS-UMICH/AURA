@@ -54,6 +54,10 @@ namespace MixedReality.Toolkit.Examples.Demos
                             break;
                         }
                     }
+                    else if (icon.gameObject.name == "UIButtonFontIcon")
+                    {
+                        icon.gameObject.GetComponent<TextMeshPro>().text = sample.zone[^1] + (i + 1).ToString();
+                    }
                 }
                 if (!didFind)
                 {

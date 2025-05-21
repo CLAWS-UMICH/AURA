@@ -28,6 +28,9 @@ public class GeoSampleController : MonoBehaviour
 
     public GameObject voiceNotesDictation;
 
+    public GameObject xrfScreen;
+    public GameObject photoScreen;
+
     [Header("Description Panels for Each Zone")]
     public GameObject ZoneADescriptionScreen;
     public GameObject ZoneBDescriptionScreen;
@@ -42,7 +45,7 @@ public class GeoSampleController : MonoBehaviour
      
     public GameObject ZoneMappingScreen;
     public GameObject GeosampleSelectionScreen;
-    public  GameObject ColorHueSelectionScreen;
+    public GameObject ColorHueSelectionScreen;
     public GameObject HueParentScreen;
 
     // buttons
@@ -52,6 +55,32 @@ public class GeoSampleController : MonoBehaviour
     public PressableButton procedureStep1Button;
     public PressableButton procedureStep2Button;
     public PressableButton procedureStep3Button;
+
+    [Header("Geosampling UI")]
+    public GameObject XRFInitUI;
+    public GameObject XRFCompleteUI;
+    public GameObject photoInitUI;
+    public GameObject photoCompleteUI;
+    public GameObject colorInitUI;
+    public GameObject colorCompleteUI;
+    public GameObject shapeInitUI;
+    public GameObject shapeCompleteUI;
+    public GameObject textureInitUI;
+    public GameObject textureCompleteUI;
+    public GameObject voiceNotesInitUI;
+    public GameObject voiceNotesCompleteUI;
+
+    [Header("Color screens")]
+    public GameObject yellowScreen;
+    public GameObject yellowGreenScreen;
+    public GameObject greenScreen;
+    public GameObject blueGreenScreen;
+    public GameObject blueScreen;
+    public GameObject bluePurpleScreen;
+    public GameObject purpleScreen;
+    public GameObject pinkScreen;
+    public GameObject redScreen;
+    public GameObject orangeScreen;
 
     private Subscription<GeoSampleAddedToZoneEvent> geoSampleAddedToZoneEventSubscription;
     private Subscription<GeoSampleZoneAddedEvent> geoSampleZoneAddedEventSubscription;

@@ -1,5 +1,7 @@
 using UnityEngine;
 using MixedReality.Toolkit.UX;
+using TMPro;
+using Unity.VisualScripting;
 
 public class ToggleCollectionHandler : MonoBehaviour
 {
@@ -44,8 +46,27 @@ public class ToggleCollectionHandler : MonoBehaviour
         {
             // Extract the hex code from the material's color
             Color color = selectedMaterial.color;
-            string hexCode = ColorUtility.ToHtmlStringRGBA(color);
-            Debug.Log($"Selected Toggle Index: {selectedIndex}, Hex Code: #{hexCode}");
+            GeoSampleFrontend geoSampleFrontend = FindObjectOfType<GeoSampleFrontend>();
+
+            // Set the currently constructed geosample's color to be the hexcode (format RRGGBB)
+            geoSampleFrontend.sample.color = UnityEngine.ColorUtility.ToHtmlStringRGBA(color);
+            geoSampleFrontend.sample.color = geoSampleFrontend.sample.color.Substring(0, geoSampleFrontend.sample.color.Length - 2);
+            Debug.Log($"Selected Toggle Index: {selectedIndex}, Hex Code: #{geoSampleFrontend.sample.color}");
+
+            // Update the complete geosampling UI for the color
+            Color newColor;
+            if (UnityEngine.ColorUtility.TryParseHtmlString("#" + geoSampleFrontend.sample.color, out newColor))
+            {
+                geoSampleFrontend.geoSampleController.colorCompleteUI.transform.Find("Color").GetComponent<SpriteRenderer>().color = newColor;
+                Debug.Log("color changed: " + newColor.ToString());
+            }
+            geoSampleFrontend.geoSampleController.colorCompleteUI.transform.Find("ColorText").GetComponent<TextMeshPro>().text = "#" + geoSampleFrontend.sample.color;
+
+            // Make new UI visible
+            geoSampleFrontend.geoSampleController.colorInitUI.SetActive(false);
+            geoSampleFrontend.geoSampleController.colorCompleteUI.SetActive(true);
+
+            geoSampleFrontend.colorSelected = true;
         }
         else
         {

@@ -206,6 +206,9 @@ public class TSSConnection : MonoBehaviour
     ////////////////////////////  SPEC  /////////////////////////////
     IEnumerator GetSPECState()
     {
+
+
+
         using (UnityWebRequest webRequest = UnityWebRequest.Get(AstronautInstance.User.TSSurl + "/json_data/SPEC.json"))
         {
             // Request and wait for the desired page.
@@ -220,11 +223,11 @@ public class TSSConnection : MonoBehaviour
                         AstronautInstance.User.spec = JsonUtility.FromJson<SPEC>(SPECJsonString);
                         if (AstronautInstance.User.id == 1)
                         {
-                            // EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.spec.eva1.data));
+                            EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.spec.eva1.data));
                         } 
                         else
                         {
-                            // EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.spec.eva2.data));
+                            EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.spec.eva2.data));
                         }
                             
                     }
