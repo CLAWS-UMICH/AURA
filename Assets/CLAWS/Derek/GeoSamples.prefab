@@ -59397,6 +59397,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: XRFButton
       objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.12272335
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.045361657
+      objectReference: {fileID: 0}
     - target: {fileID: 2244185731401233550, guid: cd0f0697f0939504389ec612388f609a,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -61813,12 +61823,12 @@ PrefabInstance:
     - target: {fileID: 3268973316923210140, guid: 5cf5d5d5cc7fe184a93c388dbab66bb9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.000000014901161
       objectReference: {fileID: 0}
     - target: {fileID: 3268973316923210140, guid: 5cf5d5d5cc7fe184a93c388dbab66bb9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0000000037252903
       objectReference: {fileID: 0}
     - target: {fileID: 4326098741689817426, guid: 5cf5d5d5cc7fe184a93c388dbab66bb9,
         type: 3}
@@ -61843,12 +61853,12 @@ PrefabInstance:
     - target: {fileID: 4713996577027893013, guid: 5cf5d5d5cc7fe184a93c388dbab66bb9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.000000014901161
       objectReference: {fileID: 0}
     - target: {fileID: 4713996577027893013, guid: 5cf5d5d5cc7fe184a93c388dbab66bb9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.0000000037252903
       objectReference: {fileID: 0}
     - target: {fileID: 5595139221873180800, guid: 5cf5d5d5cc7fe184a93c388dbab66bb9,
         type: 3}
@@ -64607,6 +64617,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShapeButton
       objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.076278724
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.022139335
+      objectReference: {fileID: 0}
     - target: {fileID: 2244185731401233550, guid: cd0f0697f0939504389ec612388f609a,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -66516,7 +66536,7 @@ PrefabInstance:
     - target: {fileID: 2244185731031694095, guid: cd0f0697f0939504389ec612388f609a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
         type: 3}
@@ -70417,6 +70437,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ColorButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.0752129
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.021606443
       objectReference: {fileID: 0}
     - target: {fileID: 2244185731401233550, guid: cd0f0697f0939504389ec612388f609a,
         type: 3}
@@ -74568,6 +74598,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: ImageButton
       objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.12584136
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.046920672
+      objectReference: {fileID: 0}
     - target: {fileID: 2244185731401233550, guid: cd0f0697f0939504389ec612388f609a,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -75586,6 +75626,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TextureButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.08039956
+      objectReference: {fileID: 0}
+    - target: {fileID: 2244185731031694099, guid: cd0f0697f0939504389ec612388f609a,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.024199747
       objectReference: {fileID: 0}
     - target: {fileID: 2244185731401233550, guid: cd0f0697f0939504389ec612388f609a,
         type: 3}
