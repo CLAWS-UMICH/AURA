@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using PimDeWitte.UnityMainThreadDispatcher;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
+using UnityEditor.Compilation;
 
 public class LMCCWebSocketClient : MonoBehaviour
 {
@@ -71,22 +72,45 @@ public class LMCCWebSocketClient : MonoBehaviour
             try
             {
                 Debug.Log($"Raw response from WEB: {response}");
-
-                JArray jsonArray = JArray.Parse(response.ToString()); // Now raw is already the correct string
-                if (jsonArray.Count > 0)
+                try
                 {
-                    JObject outer = (JObject)jsonArray[0];
-                    JObject data = (JObject)outer["data"];
-
-                    Debug.Log($"Parsed data: {data}");
-
-                    UnityMainThreadDispatcher.Instance().Enqueue(() =>
-                        HandleJsonMessage(data.ToString())
-                    );
+                    JObject jsonObject = null;
+                    try
+                    {
+                        jsonObject = JObject.Parse(response.ToString());
+                        JObject data = (JObject)"{data}";
+                        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                        HandleJsonMessage(data.ToString()));
+                    }
+                    catch (JsonReaderException)
+                    {
+                        try
+                        {
+                            JArray jsonArray = JArray.Parse(response.ToString());
+                            if (jsonArray.Count > 0)
+                            {
+                                JObject outer = (JObject)jsonArray[0];
+                                JObject data = (JObject)outer["data"];
+                                Debug.Log($"Parsed data: {data}");
+                                UnityMainThreadDispatcher.Instance().Enqueue(() =>
+                                HandleJsonMessage(data.ToString()));
+                            }
+                            else
+                            {
+                                Debug.LogError("Received empty JSON array.");
+                                return;
+                            }
+                        }
+                        catch (JsonReaderException ex)
+                        {
+                            Debug.LogError($"Failed to parse JSON as JObject or JArray: {ex.Message}");
+                            return;
+                        }
+                    }
                 }
-                else
+                catch (JsonException ex)
                 {
-                    Debug.LogWarning("Empty response array.");
+                    Debug.LogError($"Error parsing JSON: {ex.Message}");
                 }
             }
             catch (Exception ex)
@@ -94,7 +118,6 @@ public class LMCCWebSocketClient : MonoBehaviour
                 Debug.LogError($"Error parsing hololens_data response: {ex.Message}");
             }
         });
-
         await client.ConnectAsync();
     }
 
@@ -137,7 +160,7 @@ public class LMCCWebSocketClient : MonoBehaviour
             }
             JToken dataToken = jsonObject["data"];
             JObject data;
-             if (dataToken.Type == JTokenType.String)
+            if (dataToken.Type == JTokenType.String)
             {
                 // If data is a string, parse it again
                 data = JObject.Parse((string)dataToken);
