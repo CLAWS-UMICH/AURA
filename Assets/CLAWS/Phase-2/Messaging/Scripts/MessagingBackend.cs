@@ -78,23 +78,23 @@ public class MessagingBackend : MonoBehaviour
                 chat.GetComponent<TextMeshPro>().text = (allMessage.Count - totalMessagesSeen).ToString() + " pending chats";
             }
 
-            //Astronaut1 = 1, Astronaut2 = 2, LMCC = 3, Group = 4
+            //Astronaut1 = 1, Astronaut2 = 2, GC = 3, PR = 4
 
-            if (m.sent_to == 4)
+            if ((m.from == 4 && m.sent_to != 3) || (m.from == 1 && m.sent_to == 4) || (m.from == 2 && m.sent_to == 4))
+            {
+                AstroChat.Add(m);
+                a2chat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (AstroChat.Count - a2MessagesSeen).ToString();
+            }
+            else if ((m.sent_to == 3))
             {
                 Debug.Log("GC ADDED");
                 GroupChat.Add(m);
                 gcChat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (GroupChat.Count - gcMessagesSeen).ToString();
             }
-            else if ((m.from == 3 && m.sent_to!= 4) || (m.from == 1 && m.sent_to == 3) || (m.from == 2 && m.sent_to == 3))
+            else if ((m.from == 1 && m.sent_to == 2) || (m.from == 2 && m.sent_to == 1))
             {
                 LMCCChat.Add(m);
                 lmccChat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (LMCCChat.Count - lmccMessagesSeen).ToString();
-            }
-            else if ((m.from == 1 && m.sent_to == 2) || (m.from == 2 && m.sent_to == 1))
-            {
-                AstroChat.Add(m);
-                a2chat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (AstroChat.Count - a2MessagesSeen).ToString();
             }
 
         }

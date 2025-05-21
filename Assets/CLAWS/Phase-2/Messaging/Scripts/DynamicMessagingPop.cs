@@ -20,7 +20,7 @@ public class DynamicMessagingPop : MonoBehaviour
     public MessagingScrollHandler scrollHandler; 
 
     public GameObject LMCC; //the LMCC chat screen
-    public GameObject A2; //the other astronaut's chat screen
+        public GameObject A2; //the other astronaut's chat screen
     public GameObject GC;
         [SerializeField] private Renderer BoundsRenderer; // Renderer to define the bounds
 

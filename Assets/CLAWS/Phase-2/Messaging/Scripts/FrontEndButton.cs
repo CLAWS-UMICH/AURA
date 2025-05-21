@@ -7,9 +7,9 @@ public class FrontEndButton : MonoBehaviour
 {
     
     [SerializeField]private GameObject messageObject;
-    [SerializeField]private GameObject LMCCgc;
+    [SerializeField]private GameObject PRgc;
     [SerializeField]private GameObject A2gc;
-    [SerializeField]private GameObject A2andLMCCgc;
+    [SerializeField]private GameObject A2andPRgc;
     [SerializeField]private Sprite thumbsUp;
     [SerializeField]private Sprite thumbsDown;
     [SerializeField]private Sprite warning;
@@ -18,9 +18,9 @@ public class FrontEndButton : MonoBehaviour
 
     void Start () 
     {
-        LMCCgc.SetActive(false);
-        A2andLMCCgc.SetActive(false);
-        A2gc.SetActive(true);
+        PRgc.SetActive(true);
+        A2andPRgc.SetActive(false);
+        A2gc.SetActive(false);
     }
 
     void Update()
@@ -73,20 +73,7 @@ public class FrontEndButton : MonoBehaviour
         messageText = messageObject.transform.Find("Message").GetComponent<TextMeshPro>().text;
         int messageCount = messagingBackend.allMessage.FindAll(m => m.from == AstronautInstance.User.id).Count + 1;
         Message newMessage;
-        if (LMCCgc.activeSelf)
-        {
-            newMessage = new Message
-            {
-                message_id = messageCount,
-                sent_to = 3,
-                message = messageText,
-                from = AstronautInstance.User.id
-            };
-            Debug.Log(newMessage);
-            EventBus.Publish(new MessageSentEvent(newMessage));
-            EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
-        }
-        else if (A2gc.activeSelf)
+        if (PRgc.activeSelf)
         {
             if (AstronautInstance.User.id == 1) 
             {
@@ -98,7 +85,7 @@ public class FrontEndButton : MonoBehaviour
                     from = AstronautInstance.User.id
                 };
                 Debug.Log(newMessage);
-                //EventBus.Publish(new MessageSentEvent(newMessage));
+                EventBus.Publish(new MessageSentEvent(newMessage));
                 EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
             }
             if (AstronautInstance.User.id == 2)
@@ -115,13 +102,26 @@ public class FrontEndButton : MonoBehaviour
                 EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
             }
         }
+        else if (A2gc.activeSelf)
+        {
+            newMessage = new Message
+            {
+                message_id = messageCount,
+                sent_to = 4,
+                message = messageText,
+                from = AstronautInstance.User.id
+            };
+            Debug.Log(newMessage);
+            EventBus.Publish(new MessageSentEvent(newMessage));
+            EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
+        }
         else 
         {
             Debug.Log("entered");
             newMessage = new Message
             {
                 message_id = messageCount,
-                sent_to = 4,
+                sent_to = 3,
                 message = messageText,
                 from = AstronautInstance.User.id
             };
@@ -143,7 +143,7 @@ public class FrontEndButton : MonoBehaviour
         string messageText = JSONreaction;
         int messageCount = messagingBackend.allMessage.FindAll(m => m.from == (AstronautInstance.User.id + 1)).Count + 1;
         Message newMessage;
-        if (LMCCgc.activeSelf)
+        if (PRgc.activeSelf)
         {
             newMessage = new Message
             {
@@ -155,6 +155,17 @@ public class FrontEndButton : MonoBehaviour
             EventBus.Publish(new MessageSentEvent(newMessage));
         }
         else if (A2gc.activeSelf)
+        {
+            newMessage = new Message
+            {
+                message_id = messageCount,
+                sent_to = 4,
+                message = messageText,
+                from = AstronautInstance.User.id
+            };
+            EventBus.Publish(new MessageSentEvent(newMessage));
+        }
+        else 
         {
             if (AstronautInstance.User.id == 1) 
             {
@@ -178,17 +189,6 @@ public class FrontEndButton : MonoBehaviour
                 };
                 EventBus.Publish(new MessageSentEvent(newMessage));
             }
-        }
-        else 
-        {
-            newMessage = new Message
-            {
-                message_id = messageCount,
-                sent_to = 4,
-                message = messageText,
-                from = AstronautInstance.User.id
-            };
-            EventBus.Publish(new MessageSentEvent(newMessage));
         }
     }
 
@@ -217,11 +217,11 @@ public class FrontEndButton : MonoBehaviour
     }
 
 
-    public void lmccGC() 
+    public void switchPRgc() 
     {
         messagingBackend.lmccMessagesSeen = messagingBackend.LMCCChat.Count;
-        LMCCgc.SetActive(true);
-        A2andLMCCgc.SetActive(false);
+        PRgc.SetActive(true);
+        A2andPRgc.SetActive(false);
         A2gc.SetActive(false);
     }
 
@@ -230,25 +230,25 @@ public class FrontEndButton : MonoBehaviour
     {
         messagingBackend.a2MessagesSeen = messagingBackend.AstroChat.Count;
         Debug.Log(messagingBackend.a2MessagesSeen);
-        LMCCgc.SetActive(false);
-        A2andLMCCgc.SetActive(false);
+        PRgc.SetActive(false);
+        A2andPRgc.SetActive(false);
         A2gc.SetActive(true);
     }
 
 
-    public void a2andlmccGC()
+    public void a2andPRgc()
     {
         messagingBackend.gcMessagesSeen = messagingBackend.GroupChat.Count;
-        LMCCgc.SetActive(false);
-        A2andLMCCgc.SetActive(true);
+        PRgc.SetActive(false);
+        A2andPRgc.SetActive(true);
         A2gc.SetActive(false);
     }
 
 
     public void closeFeature()
     {
-        LMCCgc.SetActive(false);
-        A2andLMCCgc.SetActive(false);
+        PRgc.SetActive(false);
+        A2andPRgc.SetActive(false);
         A2gc.SetActive(false);
         Debug.Log("{tranform} " + transform);
         foreach (Transform child in transform)
@@ -260,14 +260,25 @@ public class FrontEndButton : MonoBehaviour
 
     public void openFeatureScreen()
     {
-        LMCCgc.SetActive(false);
-        A2andLMCCgc.SetActive(false);
-        A2gc.SetActive(false);
+        // First activate the main messaging screen
         transform.gameObject.SetActive(true);
+        
+        // Reset all chat views
+        PRgc.SetActive(false);
+        A2andPRgc.SetActive(false);
+        A2gc.SetActive(false);
+        
+        // Activate the default chat view (A2gc)
+        A2gc.SetActive(true);
+        
+        // Activate all child objects
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
         }
+        
+        // Update the seen messages count for the default view
+        messagingBackend.a2MessagesSeen = messagingBackend.AstroChat.Count;
     }
 }
 
