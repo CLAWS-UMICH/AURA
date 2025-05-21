@@ -40444,8 +40444,8 @@ MonoBehaviour:
   doneButton: {fileID: 527964760}
   navigationControllerScreen: {fileID: 1767475544}
   UIAButton: {fileID: 1868299898}
-  LMCCInputField: {fileID: 0}
-  TSSInputField: {fileID: 0}
+  LMCCInputField: {fileID: 889570328}
+  TSSInputField: {fileID: 1437270803}
   greenMaterial: {fileID: 2100000, guid: fe641206f89644c8fa9b325dbcbbf838, type: 2}
   navigationController: {fileID: 1767475546}
   tssIPaddress: {fileID: 0}
@@ -43902,6 +43902,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &889570328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9101438163560552978, guid: e26258be93b1448c78324571252e1a83,
+    type: 3}
+  m_PrefabInstance: {fileID: 6605110252318209188}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &890715435
 GameObject:
   m_ObjectHideFlags: 0
@@ -68785,6 +68797,18 @@ Transform:
   - {fileID: 1613448682}
   m_Father: {fileID: 264263919}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1437270803 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6798770731477407012, guid: faf9f399ac634481caabe512075511b3,
+    type: 3}
+  m_PrefabInstance: {fileID: 6024011951587492358}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1437436374
 GameObject:
   m_ObjectHideFlags: 0
@@ -75832,7 +75856,7 @@ MonoBehaviour:
       posY: 0
       posZ: 0
       Heading: 0
-    LMCCurl: 
+    LMCCurl: http://10.0.0.8:14144
     TSSurl: http://10.0.0.9:14141
     current:
       posX: 0
@@ -108837,6 +108861,16 @@ PrefabInstance:
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 809393152}
+    - target: {fileID: 2063093827426050535, guid: faf9f399ac634481caabe512075511b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2252596009746330605, guid: faf9f399ac634481caabe512075511b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4427678168102478044, guid: faf9f399ac634481caabe512075511b3,
         type: 3}
       propertyPath: m_Name
@@ -108846,6 +108880,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4671219121569080038, guid: faf9f399ac634481caabe512075511b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5128295797458741577, guid: faf9f399ac634481caabe512075511b3,
         type: 3}
@@ -108902,11 +108941,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6798770731477407012, guid: faf9f399ac634481caabe512075511b3,
-        type: 3}
-      propertyPath: m_text
-      value: http://10.0.0.8:14141
-      objectReference: {fileID: 0}
     - target: {fileID: 7519680025425588828, guid: faf9f399ac634481caabe512075511b3,
         type: 3}
       propertyPath: isPokeSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -108917,6 +108951,11 @@ PrefabInstance:
       propertyPath: <OnClicked>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 809393152}
+    - target: {fileID: 8252792660053593472, guid: faf9f399ac634481caabe512075511b3,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -109052,11 +109091,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9101438163560552978, guid: e26258be93b1448c78324571252e1a83,
-        type: 3}
-      propertyPath: m_text
-      value: http://10.0.0.8:14141
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -109878,6 +109912,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 809393151}
     m_Modifications:
+    - target: {fileID: 795293725438565511, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1091382468997048564, guid: 306027ef2a63f4826a449aac4b093a44,
         type: 3}
       propertyPath: isPokeSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -109890,7 +109929,22 @@ PrefabInstance:
       objectReference: {fileID: 809393152}
     - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
         type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
       propertyPath: isPokeSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 809393152}
+    - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 809393152}
     - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
@@ -109898,6 +109952,26 @@ PrefabInstance:
       propertyPath: <IsToggled>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 809393152}
+    - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: disconnect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: SetUpScreenController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2033755486703710565, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 4358002476174029855, guid: 306027ef2a63f4826a449aac4b093a44,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -109950,9 +110024,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5656902542517751881, guid: 306027ef2a63f4826a449aac4b093a44,
         type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656902542517751881, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656902542517751881, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
       propertyPath: <IsToggled>k__BackingField.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 809393152}
+    - target: {fileID: 5656902542517751881, guid: 306027ef2a63f4826a449aac4b093a44,
+        type: 3}
+      propertyPath: <IsToggled>k__BackingField.onExited.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6198841395842156346, guid: 306027ef2a63f4826a449aac4b093a44,
         type: 3}
       propertyPath: isPokeSelected.onEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target

@@ -17,6 +17,8 @@ public class SetUpScreenController : MonoBehaviour
     [SerializeField] private GameObject doneButton;
     [SerializeField] private GameObject navigationControllerScreen;
     public GameObject UIAButton;
+    public TextMeshPro LMCCInputField;
+    public TextMeshPro TSSInputField;
     public Material greenMaterial;
     public NavigationController navigationController;
     private GameObject Backplate;
@@ -337,7 +339,7 @@ public class SetUpScreenController : MonoBehaviour
     }
 
 
-    ////////////////////////////////  TSS  ///////////////////////////////////////
+////////////////////////////////  TSS  ///////////////////////////////////////
     public void openTSSscreen() 
     {
         TSSscreen.SetActive(true);
@@ -374,7 +376,8 @@ public class SetUpScreenController : MonoBehaviour
             Debug.Log("Already connected to TSS.");
             return;
         }
-
+        Debug.Log("what:" + TSSInputField.text);
+        AstronautInstance.User.TSSurl = TSSInputField.text;
         StartCoroutine(ShowTSSLoadingBoxAndConnect());
     }
 
@@ -477,6 +480,12 @@ public class SetUpScreenController : MonoBehaviour
         ConnectionScreen.transform.Find("Menu/VisualRoot/ScaleRoot/Window/Buttons/ConnectToTSS").gameObject.GetComponent<PressableButton>().ForceSetToggled(false);
     }
 
+    public void disconnect()
+    {
+        Controller.GetComponent<MainConnections>().tssConnection.connected = false;
+        connectedToTSS = false;
+    }
+
 
     public bool tssConnectionCheck()
     {
@@ -519,6 +528,7 @@ public class SetUpScreenController : MonoBehaviour
             Debug.Log("Already connected to LMCC.");
             return;
         }
+        AstronautInstance.User.LMCCurl = LMCCInputField.text;
         StartCoroutine(ShowLMCCLoadingBoxAndConnect());
     }
     
@@ -593,6 +603,10 @@ public class SetUpScreenController : MonoBehaviour
         }
         isConnectingLMCC = false;
         ConnectionScreen.transform.Find("Menu/VisualRoot/ScaleRoot/Window/Buttons/ConnectToLMCC").gameObject.GetComponent<PressableButton>().ForceSetToggled(true);
+    }
+
+    public void disconnectLMCC(){
+        connectedToWEB = false;
     }
 
 

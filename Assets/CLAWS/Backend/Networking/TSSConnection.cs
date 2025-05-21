@@ -11,7 +11,7 @@ public class TSSConnection : MonoBehaviour
     [SerializeField] private GameObject minimap;
     private string IPaddr;
     int team_number;
-    bool connected;
+    public bool connected;
     float time_since_last_update;
     public Action<bool> OnTSSConnectionResult;
     private bool imuInitialized = false;
