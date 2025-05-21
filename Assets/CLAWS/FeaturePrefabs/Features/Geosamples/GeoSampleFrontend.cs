@@ -7,6 +7,8 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 using MixedReality.Toolkit.Examples.Demos;
+using UnityEngine.Networking;
+using UnityEditor.Experimental.GraphView;
 
 public class GeoSampleFrontend : MonoBehaviour
 {
@@ -113,6 +115,12 @@ public class GeoSampleFrontend : MonoBehaviour
         geoSampleController.ZoneB_databaseSamplesScreen.SetActive(true);
         geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.279f, 0.076f, 0.014f);
         geoSampleController.buttonSideBar.SetActive(true);
+        foreach (Transform child in geoSampleController.ZoneB_databaseSamplesScreen.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        geoSampleController.ZoneB_databaseSamplesScreen.transform.GetChild(3).Find("UpdatedState").gameObject.SetActive(false);
+        geoSampleController.ZoneB_databaseSamplesScreen.transform.GetChild(3).Find("InitialState").gameObject.SetActive(true);
     }
 
 
@@ -125,8 +133,13 @@ public class GeoSampleFrontend : MonoBehaviour
         geoSampleController.ZoneC_databaseSamplesScreen.SetActive(true);
         geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.279f, 0.076f, 0.014f);
         geoSampleController.buttonSideBar.SetActive(true);
+        foreach (Transform child in geoSampleController.ZoneC_databaseSamplesScreen.transform)
+        {
+            child.gameObject.SetActive(true);
+        }
+        geoSampleController.ZoneC_databaseSamplesScreen.transform.GetChild(3).Find("UpdatedState").gameObject.SetActive(false);
+        geoSampleController.ZoneC_databaseSamplesScreen.transform.GetChild(3).Find("InitialState").gameObject.SetActive(true);
     }
-
 
 
     public void getLastScreenBeforeGeoSampling()
@@ -148,49 +161,6 @@ public class GeoSampleFrontend : MonoBehaviour
 
     public void enterGeoSamplingMode()
     {
-        lastActiveScreens.Clear();
-        foreach (Transform screen in geoSampleController.transform)
-        {
-            if (screen.gameObject.activeSelf)
-            {
-                lastActiveScreens.Add(screen.gameObject);
-            }
-        }
-
-        foreach (Transform screen in geoSampleController.transform)
-        {
-            screen.gameObject.SetActive(false);
-        }
-        geoSampleController.geoSamplingModeSelectionScreen.SetActive(true);
-        currentZoneCheck();
-        int count = 0;
-        char zone = ' ';
-        if (sample.zone != null)
-        {
-            if (sample.zone == "ZONE_A")
-            {
-                zone = 'A';
-                count = AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples.Count;
-            }
-            else if (sample.zone == "ZONE_B")
-            {
-                zone = 'B';
-                count = AstronautInstance.User.geosampleZones[1].TotalGeoSamples.samples.Count;
-            }
-            else if (sample.zone == "ZONE_C")
-            {
-                zone = 'C';
-                count = AstronautInstance.User.geosampleZones[2].TotalGeoSamples.samples.Count;
-            }
-
-            geoSampleController.geoSamplingModeSelectionScreen.transform.Find("SampleName").Find("GeoNumText").GetComponent<TextMeshPro>().text = zone + count.ToString();
-        }
-        else
-        {
-            Debug.LogError("Sample zone is null. Cannot set sample name.");
-            geoSampleController.geoSamplingModeSelectionScreen.transform.Find("SampleName").Find("GeoNumText").GetComponent<TextMeshPro>().text = "ERR";
-        }
-
         // Reset states when entering the geosampling mode
         sample = new GeoSample();
         cameraDone = false;
@@ -200,7 +170,95 @@ public class GeoSampleFrontend : MonoBehaviour
         textureSelected = false;
         voiceNotesDone = false;
 
-        // TODO: Reset UI (to be created) when entering the geosampling mode
+        geoSampleController.geoSamplingModeSelectionScreen.transform.Find("1st_Layer").GetChild(0).GetComponent<PressableButton>().ForceSetToggled(false);
+        geoSampleController.geoSamplingModeSelectionScreen.transform.Find("2nd_Layer").GetChild(0).GetComponent<PressableButton>().ForceSetToggled(false);
+        geoSampleController.geoSamplingModeSelectionScreen.transform.Find("3rd_Layer").GetChild(0).GetComponent<PressableButton>().ForceSetToggled(false);
+
+        bool fromZoneScreen = false;
+        lastActiveScreens.Clear();
+        foreach (Transform screen in geoSampleController.transform)
+        {
+            if (screen.gameObject.activeSelf)
+            {
+                lastActiveScreens.Add(screen.gameObject);
+                switch (screen.gameObject.name)
+                {
+                    case "ZoneA":
+                        fromZoneScreen = true;
+                        sample.zone = "ZONE_A";
+                        break;
+                    case "ZoneB":
+                        fromZoneScreen = true;
+                        sample.zone = "ZONE_B";
+                        break;
+                    case "ZoneC":
+                        fromZoneScreen = true;
+                        sample.zone = "ZONE_C";
+                        break;
+                }
+            }
+        }
+
+        foreach (Transform screen in geoSampleController.transform)
+        {
+            screen.gameObject.SetActive(false);
+        }
+        geoSampleController.geoSamplingModeSelectionScreen.SetActive(true);
+
+        // Check which zone the geosample is in based on location if astronaut did not explicitly choose a zone
+        if (!fromZoneScreen)
+        {
+            currentZoneCheck();
+        }
+        int count = 0;
+        char zone = ' ';
+        if (sample.zone != null)
+        {
+            if (sample.zone == "ZONE_A")
+            {
+                zone = 'A';
+                if (AstronautInstance.User.geosampleZones[0].TotalGeoSamples == null || AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples == null)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count = AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples.Count;
+                }
+            }
+            else if (sample.zone == "ZONE_B")
+            {
+                zone = 'B';
+                if (AstronautInstance.User.geosampleZones[1].TotalGeoSamples == null || AstronautInstance.User.geosampleZones[1].TotalGeoSamples.samples == null)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count = AstronautInstance.User.geosampleZones[1].TotalGeoSamples.samples.Count;
+                }
+            }
+            else if (sample.zone == "ZONE_C")
+            {
+                zone = 'C';
+                if (AstronautInstance.User.geosampleZones[2].TotalGeoSamples == null || AstronautInstance.User.geosampleZones[2].TotalGeoSamples.samples == null)
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count = AstronautInstance.User.geosampleZones[2].TotalGeoSamples.samples.Count;
+                }
+            }
+            geoSampleController.geoSamplingModeSelectionScreen.transform.Find("SampleName").Find("GeoNumText").GetComponent<TextMeshPro>().text = zone + count.ToString();
+        }
+        else
+        {
+            Debug.LogError("Sample zone is null. Cannot set sample name.");
+            geoSampleController.geoSamplingModeSelectionScreen.transform.Find("SampleName").Find("GeoNumText").GetComponent<TextMeshPro>().text = "ERR";
+        }
+
+        // Reset UI (to be created) when entering the geosampling mode
         geoSampleController.XRFInitUI.SetActive(true);
         geoSampleController.XRFCompleteUI.SetActive(false);
         geoSampleController.colorInitUI.SetActive(true);
@@ -288,7 +346,8 @@ public class GeoSampleFrontend : MonoBehaviour
     // called in each layer buttons to then trigger when result achieved (after camera or xrf)
     public bool firstLayerDoneCheck()
     {
-        if (cameraDone && xrfScanDone)
+        //if (cameraDone && xrfScanDone)
+        if (xrfScanDone)
         {
             geoSampleController.geoSamplingModeSelectionScreen.transform.Find("1st_Layer").GetChild(0).GetComponent<PressableButton>().ForceSetToggled(true);
             return true;
@@ -513,36 +572,63 @@ public class GeoSampleFrontend : MonoBehaviour
 
             // Add geosample to the corresponding zone's list
             // TODO: Add geosample to the scrolling list
-            SetUpScreenController setUpScreenController = FindObjectOfType<SetUpScreenController>();
+            Debug.Log("sample.zone: " + sample.zone);
+            int index = 0;
             switch (sample.zone)
             {
                 case "ZONE_A":
                     AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples.Add(sample);
-                    setUpScreenController.sendGeoSampleToPR(0);
+                    index = AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples.Count - 1;
+                    Debug.Log("Added sample to geosample Zone A");
+                    geoSampleController.setUpScreenController.sendGeoSampleToPR(0);
                     break;
                 case "ZONE_B":
                     AstronautInstance.User.geosampleZones[1].TotalGeoSamples.samples.Add(sample);
-                    setUpScreenController.sendGeoSampleToPR(1);
+                    index = AstronautInstance.User.geosampleZones[1].TotalGeoSamples.samples.Count - 1;
+                    geoSampleController.setUpScreenController.sendGeoSampleToPR(1);
                     break;
                 case "ZONE_C":
                     AstronautInstance.User.geosampleZones[2].TotalGeoSamples.samples.Add(sample);
-                    setUpScreenController.sendGeoSampleToPR(2);
+                    index = AstronautInstance.User.geosampleZones[2].TotalGeoSamples.samples.Count - 1;
+                    geoSampleController.setUpScreenController.sendGeoSampleToPR(2);
                     break;
             }
 
             // Return to zone screen
             getLastScreenBeforeGeoSampling();
+
+            // TESTING
+            selectGeoSample(sample.zone, index);
         }
     }
 
-    public void selectGeoSample(int index)
+    public void selectGeoSample(string zone, int index)
     {
-        // Just works for zone A right now
-        GeoSample geosample = AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples[index];
-        GameObject updatedState = geoSampleController.ZoneA_databaseSamplesScreen.transform.GetChild(3).Find("UpdatedState").gameObject;
+        Debug.Log("Displaying geosample details");
+
+        // Retrieve the selected geosample and UI
+        GeoSample geosample = new GeoSample();
+        GameObject updatedState = null;
+        switch (zone)
+        {
+            case "ZONE_A":
+                geosample = AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples[index];
+                updatedState = geoSampleController.ZoneA_databaseSamplesScreen.transform.GetChild(3).Find("UpdatedState").gameObject;
+                geoSampleController.ZoneA_databaseSamplesScreen.transform.GetChild(3).Find("InitialState").gameObject.SetActive(false);
+                break;
+            case "ZONE_B":
+                geosample = AstronautInstance.User.geosampleZones[1].TotalGeoSamples.samples[index];
+                updatedState = geoSampleController.ZoneB_databaseSamplesScreen.transform.GetChild(3).Find("UpdatedState").gameObject;
+                geoSampleController.ZoneB_databaseSamplesScreen.transform.GetChild(3).Find("InitialState").gameObject.SetActive(false);
+                break;
+            case "ZONE_C":
+                geosample = AstronautInstance.User.geosampleZones[2].TotalGeoSamples.samples[index];
+                updatedState = geoSampleController.ZoneC_databaseSamplesScreen.transform.GetChild(3).Find("UpdatedState").gameObject;
+                geoSampleController.ZoneB_databaseSamplesScreen.transform.GetChild(3).Find("InitialState").gameObject.SetActive(false);
+                break;
+        }
 
         // Set screens to show detailed information of geosample
-        geoSampleController.ZoneA_databaseSamplesScreen.transform.GetChild(3).Find("InitialState").gameObject.SetActive(false);
         updatedState.SetActive(true);
 
         // Update composition data
@@ -556,7 +642,7 @@ public class GeoSampleFrontend : MonoBehaviour
 
         // Update type, shape, and color data
         GameObject typingCells = updatedState.transform.Find("TypingCells").gameObject;
-        typingCells.transform.Find("Type").Find("Value").GetComponent<TextMeshPro>().text = geosample.type;
+        typingCells.transform.Find("Texture").Find("Value").GetComponent<TextMeshPro>().text = geosample.texture;
         typingCells.transform.Find("Shape").Find("Value").GetComponent<TextMeshPro>().text = geosample.shape;
         typingCells.transform.Find("Color").Find("Value").GetComponent<TextMeshPro>().text = geosample.color;
 
@@ -569,14 +655,44 @@ public class GeoSampleFrontend : MonoBehaviour
         closeGeoSampleFeature();
         geoSampleController.xrfScreen.SetActive(true);
 
-        // TODO: Use endpoint to get XRF scan data and update text
+        // Subscribe to XRFScanEvent to get XRF scan data and update text
         geoSampleController.xrfScreen.transform.Find("Waiting").gameObject.SetActive(true);
         geoSampleController.xrfScreen.transform.Find("Compositions").gameObject.SetActive(false);
         scanEvent = EventBus.Subscribe<XRFScanEvent>(updateXRFScan);
+
+        // Dummy data that populates sample compositions after 2 seconds
+        StartCoroutine(TestSpec());
+    }
+
+    IEnumerator TestSpec()
+    {
+        AstronautInstance.User.spec.spec.eva1.data.SiO2 = 1;
+        AstronautInstance.User.spec.spec.eva1.data.TiO2 = 1;
+        AstronautInstance.User.spec.spec.eva1.data.Al2O3 = 1;
+        AstronautInstance.User.spec.spec.eva1.data.FeO = 1;
+        AstronautInstance.User.spec.spec.eva1.data.MnO = 1;
+        AstronautInstance.User.spec.spec.eva1.data.MgO = 1;
+        AstronautInstance.User.spec.spec.eva1.data.CaO = 1;
+        AstronautInstance.User.spec.spec.eva1.data.K2O = 1;
+        AstronautInstance.User.spec.spec.eva1.data.P2O3 = 1;
+        AstronautInstance.User.spec.spec.eva1.data.other = 91;
+
+        yield return new WaitForSeconds(2f);
+
+        if (AstronautInstance.User.id == 1)
+        {
+            EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.spec.eva1.data));
+            Debug.Log("publish XRFScanEvent");
+        }
+        else
+        {
+            EventBus.Publish<XRFScanEvent>(new XRFScanEvent(AstronautInstance.User.spec.spec.eva2.data));
+        }
     }
 
     public void updateXRFScan(XRFScanEvent e)
     {
+        Debug.Log("XRFScanEvent detected");
         if (geoSampleController.xrfScreen.activeSelf)
         {
             geoSampleController.xrfScreen.transform.Find("Waiting").gameObject.SetActive(false);
@@ -666,6 +782,8 @@ public class GeoSampleFrontend : MonoBehaviour
                 i++;
             }
         }
+
+        firstLayerDoneCheck();
     }
 
     public void openPhotoScreen()
@@ -690,6 +808,8 @@ public class GeoSampleFrontend : MonoBehaviour
             geoSampleController.photoInitUI.SetActive(false);
             geoSampleController.photoCompleteUI.SetActive(true);
         }
+
+        //firstLayerDoneCheck();
     }
 
     public void openHueSelectionMenu()
@@ -704,6 +824,14 @@ public class GeoSampleFrontend : MonoBehaviour
         geoSampleController.voiceNotesDictation.SetActive(true);
         geoSampleController.voiceNotesDictation.transform.Find("StartRecordingButton").gameObject.SetActive(true);
         geoSampleController.voiceNotesDictation.transform.Find("StopRecordingButton").gameObject.SetActive(false);
+        if (voiceNotesDone)
+        {
+            geoSampleController.voiceNotesDictation.transform.Find("VoiceNotes").GetComponent<TextMeshPro>().text = sample.note;
+        }
+        else
+        {
+            geoSampleController.voiceNotesDictation.transform.Find("VoiceNotes").GetComponent<TextMeshPro>().text = "Start saying something here";
+        }
     }
 
     public void startRecording()
@@ -719,7 +847,6 @@ public class GeoSampleFrontend : MonoBehaviour
         voiceNotesDone = true;
         geoSampleController.voiceNotesDictation.transform.Find("StartRecordingButton").gameObject.SetActive(true);
         geoSampleController.voiceNotesDictation.transform.Find("StopRecordingButton").gameObject.SetActive(false);
-        sample.note = geoSampleController.voiceNotesDictation.transform.Find("VoiceNotes").GetComponent<TextMeshPro>().text;
     }
 
     public void closeVoiceNotesDictation()
@@ -729,10 +856,13 @@ public class GeoSampleFrontend : MonoBehaviour
         geoSampleController.geoSamplingModeSelectionScreen.SetActive(true);
         if (voiceNotesDone)
         {
+            sample.note = geoSampleController.voiceNotesDictation.transform.Find("VoiceNotes").GetComponent<TextMeshPro>().text;
             geoSampleController.voiceNotesInitUI.SetActive(false);
             geoSampleController.voiceNotesCompleteUI.SetActive(true);
             geoSampleController.voiceNotesCompleteUI.GetComponent<TextMeshPro>().text = sample.note;
         }
+
+        thirdLayerDoneCheck();
     }
 
     // COLORS //

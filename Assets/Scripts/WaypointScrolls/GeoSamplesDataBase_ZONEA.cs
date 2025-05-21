@@ -13,6 +13,7 @@ namespace MixedReality.Toolkit.Examples.Demos
     {
         public GeoSampleController geoSampleController;
         public VirtualizedScrollRectList list;
+        public int zoneIndex;
         private float destScroll;
         private bool animate;
 
@@ -23,16 +24,16 @@ namespace MixedReality.Toolkit.Examples.Demos
             // Update visible items based on waypoint properties
             list.OnVisible = (go, i) =>
             {
-                Debug.Log($"OnVisible called for index {i}.");
+                Debug.Log($"OnVisible called for index {i}.");                
 
                 // access zone a total geosamples list
-                if (i < 0 || i >= AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples.Count)
+                if (i < 0 || i >= AstronautInstance.User.geosampleZones[zoneIndex].TotalGeoSamples.samples.Count)
                 {
                     Debug.LogWarning($"Index {i} is out of range for danger waypoint list.");
                     return;
                 }
 
-                GeoSample sample = AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples[i];
+                GeoSample sample = AstronautInstance.User.geosampleZones[zoneIndex].TotalGeoSamples.samples[i];
                 string nameField = sample.name;
                 string shapeField = sample.shape;
                 bool isSignificant = sample.isSignificant;

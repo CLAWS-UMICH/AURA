@@ -11,11 +11,12 @@ public class GeosampleClickHandler : MonoBehaviour
         Debug.Log("Geosample clicked");
         GeoSampleFrontend geoSampleFrontend = FindObjectOfType<GeoSampleFrontend>();
         int index = 0;
+        string zone = "ZONE_" + transform.GetChild(2).GetChild(0).GetChild(0).GetChild(8).gameObject.GetComponent<TextMeshPro>().text.Substring(0);
         if (Int32.TryParse(transform.GetChild(2).GetChild(0).GetChild(0).GetChild(8).gameObject.GetComponent<TextMeshPro>().text.Substring(1), out index))
         {
             Debug.Log($"Geosample Index = {index}");
         }
 
-        geoSampleFrontend.selectGeoSample(index);
+        geoSampleFrontend.selectGeoSample(zone, index);
     }
 }

@@ -4,6 +4,7 @@ using UnityEngine;
 public class GeoSampleController : MonoBehaviour
 {
     public NavigationController navigationController;
+    public SetUpScreenController setUpScreenController;
     [Header("Screens")]
     public GameObject geoSampleControllerScreen;
     // 1st layer start menu toggles 

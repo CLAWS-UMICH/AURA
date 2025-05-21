@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class StartingScript : MonoBehaviour
@@ -184,6 +185,9 @@ public class StartingScript : MonoBehaviour
                 posY = 0.2f,
                 posZ = -9970f - AstronautInstance.User.origin.posY,
             },
+            TotalGeoSamples = new GeoSampleDB {
+                samples = new List<GeoSample>()
+            }
         };
 
         GeosampleZone newGeoSampleZone2 = new GeosampleZone {
@@ -193,6 +197,10 @@ public class StartingScript : MonoBehaviour
                 posY = 0.2f,
                 posZ = -9971f - AstronautInstance.User.origin.posY,
             },
+            TotalGeoSamples = new GeoSampleDB
+            {
+                samples = new List<GeoSample>()
+            }
         };
 
         GeosampleZone newGeoSampleZone3 = new GeosampleZone {
@@ -202,6 +210,10 @@ public class StartingScript : MonoBehaviour
                 posY = 0.2f,
                 posZ = -9995f - AstronautInstance.User.origin.posY,
             },
+            TotalGeoSamples = new GeoSampleDB
+            {
+                samples = new List<GeoSample>()
+            }
         };
 
         AstronautInstance.User.geosampleZones.Add(newGeoSampleZone1);
