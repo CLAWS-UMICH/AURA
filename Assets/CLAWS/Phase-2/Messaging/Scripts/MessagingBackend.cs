@@ -112,7 +112,7 @@ public class MessagingBackend : MonoBehaviour
             { "message", e.NewMadeMessage.message },
             { "from", e.NewMadeMessage.from },
         };
-        webSocketClient.SendJsonData(jsonData, "MESSAGING", e.NewMadeMessage.from);
+        webSocketClient.SendJsonData(jsonData, "MESSAGING", 4);
     }
 
 

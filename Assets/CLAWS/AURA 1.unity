@@ -910,6 +910,16 @@ PrefabInstance:
       propertyPath: managedReferences[6].targets.Array.size
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2329581102752106122, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      propertyPath: PRgc
+      value: 
+      objectReference: {fileID: 1036107369}
+    - target: {fileID: 2329581102752106122, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      propertyPath: A2andPRgc
+      value: 
+      objectReference: {fileID: 61138490}
     - target: {fileID: 2759524462544717246, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
       propertyPath: m_IsActive
@@ -934,7 +944,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: ccb8881a7febd4f0493debd7309fa286, type: 2}
+      objectReference: {fileID: 2100000, guid: 5d0343c5c108f47ba84787e7fec3474b, type: 2}
     - target: {fileID: 2862397237132096774, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
       propertyPath: managedReferences[6].targets.Array.size
@@ -1693,6 +1703,12 @@ MeshRenderer:
 --- !u!4 &58291363 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5073481229160193914, guid: 23ad519888b9442b8911cbf42e0becd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 35533788}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &61138490 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1324755122400119647, guid: 23ad519888b9442b8911cbf42e0becd4,
     type: 3}
   m_PrefabInstance: {fileID: 35533788}
   m_PrefabAsset: {fileID: 0}
@@ -7451,6 +7467,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ChatCount
       objectReference: {fileID: 0}
+    - target: {fileID: 6172385647721600999, guid: 3cb215ad55f9d493bbfe4ca8e593a819,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6251323845985057873, guid: 3cb215ad55f9d493bbfe4ca8e593a819,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -9113,6 +9134,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ChatCount
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172385647721600999, guid: 3cb215ad55f9d493bbfe4ca8e593a819,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6251323845985057873, guid: 3cb215ad55f9d493bbfe4ca8e593a819,
         type: 3}
@@ -22715,6 +22741,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c839e9f0bf4ba384fb0c4ee324030d95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1036107369 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3098438299435039948, guid: 23ad519888b9442b8911cbf42e0becd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 35533788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1036333775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6527722063806007366, guid: 1e139c688015540ca9307be6a9839af8,
@@ -32476,7 +32508,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1585254167
 Transform:
   m_ObjectHideFlags: 0
@@ -40452,6 +40484,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ChatCount
+      objectReference: {fileID: 0}
+    - target: {fileID: 6172385647721600999, guid: 3cb215ad55f9d493bbfe4ca8e593a819,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6251323845985057873, guid: 3cb215ad55f9d493bbfe4ca8e593a819,
         type: 3}
