@@ -8,6 +8,8 @@ using TMPro;
 
 public class GeoSampleFrontend : MonoBehaviour
 {
+
+    [SerializeField] private GameObject geoNotification; 
     public GeoSampleController geoSampleController;
     public GeoSample sample;
 
@@ -361,7 +363,14 @@ public class GeoSampleFrontend : MonoBehaviour
 
     public void addGeoSampleToDB()
     {
-        
+        // Only show notification if in manual mode
+        if (RoverSettings.isGeoManualMode)
+        {
+            if (geoNotification.activeSelf) {
+                geoNotification.SetActive(false);
+            }
+            geoNotification.SetActive(true);
+        }
     }
 
 

@@ -22,6 +22,7 @@ public class NavigationFrontend : MonoBehaviour
     private GameObject geoMarker;
     private GameObject poiMarker;
     private TextMeshPro nameField;
+    [SerializeField]private GameObject waypointNotification;
 
     private string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
@@ -83,6 +84,14 @@ public class NavigationFrontend : MonoBehaviour
 
             Debug.Log($"New waypoint created: {newWaypoint.Name}, Type: {newWaypoint.Type}, IMUposX: {newWaypoint.IMUposX}, IMUposY: {newWaypoint.IMUposY}");
             EventBus.Publish(new WaypointAddedEvent(newWaypoint));
+            // notification for PR
+            if (RoverSettings.isWaypointManualMode)
+            {
+                if (waypointNotification.activeSelf) {
+                    waypointNotification.SetActive(false);
+                }
+                waypointNotification.SetActive(true);
+            }
         });
     }
 

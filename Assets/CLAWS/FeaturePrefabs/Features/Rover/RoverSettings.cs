@@ -25,6 +25,11 @@ public class RoverSettings : MonoBehaviour
     public GameObject battTime; 
     [SerializeField] private LMCCWebSocketClient LMCCwebSocketClient;
 
+    // Global flags for manual/auto mode
+    public static bool isMessageManualMode = true;
+    public static bool isWaypointManualMode = true;
+    public static bool isGeoManualMode = true;
+
     void Start()
     {
         vitalsUpdateEvent = EventBus.Subscribe<PR_UpdateVitalsEvent>(updateVitals); 
@@ -71,6 +76,23 @@ public class RoverSettings : MonoBehaviour
         LMCCwebSocketClient.SendJsonData(message, "PR_Vitals", 3);
     }
 
+    public void toggleMessageManual() 
+    {
+        isMessageManualMode = !isMessageManualMode;
+        Debug.Log($"Message mode set to: {(isMessageManualMode ? "Manual" : "Auto")}");
+    }
+
+    public void toggleWaypointManual()
+    {
+        isWaypointManualMode = !isWaypointManualMode;
+        Debug.Log($"Waypoint mode set to: {(isWaypointManualMode ? "Manual" : "Auto")}");
+    }
+
+    public void toggleGeoManual()
+    {
+        isGeoManualMode = !isGeoManualMode;
+        Debug.Log($"Geosample mode set to: {(isGeoManualMode ? "Manual" : "Auto")}");
+    }
     void OnDestroy() {
         EventBus.Unsubscribe(vitalsUpdateEvent);
     }

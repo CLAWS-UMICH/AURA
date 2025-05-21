@@ -27,6 +27,8 @@ public class MessagingBackend : MonoBehaviour
     [SerializeField]private Sprite thumbsUp;
     [SerializeField]private Sprite thumbsDown;
     [SerializeField]private Sprite warning;
+    [SerializeField]private GameObject prNotification;
+
     private string messageText;
     
 
@@ -97,6 +99,13 @@ public class MessagingBackend : MonoBehaviour
                 a2chat.transform.Find("TextMeshPro").GetComponent<TextMeshPro>().text = (AstroChat.Count - a2MessagesSeen).ToString();
             }
 
+            // Only show notification if in manual mode
+            if (RoverSettings.isMessageManualMode && AstronautInstance.User.id == m.from) {
+                if (prNotification.activeSelf) {
+                    prNotification.SetActive(false);
+                } 
+                prNotification.SetActive(true);   
+            }
         }
         Debug.Log("Publishing MessagesAppendedEvent...");
         EventBus.Publish(new MessagesAppendedEvent());
