@@ -179,6 +179,7 @@ public class LMCCWebSocketClient : MonoBehaviour
                     Message newMessage = data.ToObject<Message>();
                     EventBus.Publish(new MessageSentEvent(newMessage));
                     EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
+                    Debug.Log(newMessage + "SLAY");
                     break;
                 case "EV":
                     if ((string)data["use"] == "INIT")

@@ -75,19 +75,6 @@ public class FrontEndButton : MonoBehaviour
         Message newMessage;
         if (PRgc.activeSelf)
         {
-            newMessage = new Message
-            {
-                message_id = messageCount,
-                sent_to = 4,
-                message = messageText,
-                from = AstronautInstance.User.id
-            };
-            Debug.Log(newMessage);
-            EventBus.Publish(new MessageSentEvent(newMessage));
-            EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
-        }
-        else if (A2gc.activeSelf)
-        {
             if (AstronautInstance.User.id == 1) 
             {
                 newMessage = new Message
@@ -115,13 +102,26 @@ public class FrontEndButton : MonoBehaviour
                 EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
             }
         }
+        else if (A2gc.activeSelf)
+        {
+            newMessage = new Message
+            {
+                message_id = messageCount,
+                sent_to = 4,
+                message = messageText,
+                from = AstronautInstance.User.id
+            };
+            Debug.Log(newMessage);
+            EventBus.Publish(new MessageSentEvent(newMessage));
+            EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
+        }
         else 
         {
             Debug.Log("entered");
             newMessage = new Message
             {
                 message_id = messageCount,
-                sent_to = 4,
+                sent_to = 3,
                 message = messageText,
                 from = AstronautInstance.User.id
             };
@@ -156,6 +156,17 @@ public class FrontEndButton : MonoBehaviour
         }
         else if (A2gc.activeSelf)
         {
+            newMessage = new Message
+            {
+                message_id = messageCount,
+                sent_to = 4,
+                message = messageText,
+                from = AstronautInstance.User.id
+            };
+            EventBus.Publish(new MessageSentEvent(newMessage));
+        }
+        else 
+        {
             if (AstronautInstance.User.id == 1) 
             {
                 newMessage = new Message
@@ -178,17 +189,6 @@ public class FrontEndButton : MonoBehaviour
                 };
                 EventBus.Publish(new MessageSentEvent(newMessage));
             }
-        }
-        else 
-        {
-            newMessage = new Message
-            {
-                message_id = messageCount,
-                sent_to = 4,
-                message = messageText,
-                from = AstronautInstance.User.id
-            };
-            EventBus.Publish(new MessageSentEvent(newMessage));
         }
     }
 
