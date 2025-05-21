@@ -5,7 +5,7 @@ using TMPro;
 using Unity.VisualScripting;
 
 public class MessagingBackend : MonoBehaviour
- {
+{
     Messaging msgList;
     public List<Message> allMessage = new List<Message>();
     public GameObject chat;
@@ -20,21 +20,21 @@ public class MessagingBackend : MonoBehaviour
     public GameObject gcChat;
     public int gcMessagesSeen = 0;
 
-    [SerializeField]private GameObject messageObject;
-    [SerializeField]public GameObject LMCCgc;
-    [SerializeField]private GameObject A2gc;
-    [SerializeField]private GameObject A2andLMCCgc;
-    [SerializeField]private Sprite thumbsUp;
-    [SerializeField]private Sprite thumbsDown;
-    [SerializeField]private Sprite warning;
+    [SerializeField] private GameObject messageObject;
+    [SerializeField] public GameObject LMCCgc;
+    [SerializeField] private GameObject A2gc;
+    [SerializeField] private GameObject A2andLMCCgc;
+    [SerializeField] private Sprite thumbsUp;
+    [SerializeField] private Sprite thumbsDown;
+    [SerializeField] private Sprite warning;
     private string messageText;
-    
+
 
     private Subscription<MessagesAddedEvent> messageAddedEvent;
     private Subscription<MessageSentEvent> messageSentEvent;
     private Subscription<MessageReactionEvent> messageReactionEvent;
-    [SerializeField]private LMCCWebSocketClient webSocketClient;
-    [SerializeField]private GameObject controllerObject;
+    [SerializeField] private LMCCWebSocketClient webSocketClient;
+    [SerializeField] private GameObject controllerObject;
     void Start()
     {
         msgList = new Messaging();
@@ -48,12 +48,15 @@ public class MessagingBackend : MonoBehaviour
     }
 
 
-    private void  InitializeWebConnection()
+    private void InitializeWebConnection()
     {
 
-        if (webSocketClient != null){
+        if (webSocketClient != null)
+        {
             Debug.Log("Successfully connected to the existing WebSocketClient from Controller.");
-        } else{
+        }
+        else
+        {
             Debug.LogWarning("WebSocketClient component not found on Controller.");
         }
     }
@@ -105,7 +108,7 @@ public class MessagingBackend : MonoBehaviour
 
     void sendMessage(MessageSentEvent e)
     {
-         var jsonData = new Dictionary<string, object>
+        var jsonData = new Dictionary<string, object>
         {
             { "message_id", e.NewMadeMessage.message_id},
             { "sent_to", e.NewMadeMessage.sent_to },
@@ -116,7 +119,7 @@ public class MessagingBackend : MonoBehaviour
     }
 
 
-    void sendReaction(MessageReactionEvent e) 
+    void sendReaction(MessageReactionEvent e)
     {
         Message reaction = e.NewReactionMessage;
         string json = JsonUtility.ToJson(reaction);

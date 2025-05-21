@@ -188,7 +188,7 @@ public class SetUpScreenController : MonoBehaviour
     {
         roverStatusUpdated = false;
 
-        float timeout = 20f;
+        float timeout = 5f;
         float elapsedTime = 0f;
 
         while (elapsedTime < timeout)

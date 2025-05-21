@@ -52,8 +52,8 @@ public class StartingScript : MonoBehaviour
         // // turn on for hololens button
         // Cursor.visible = false;
         AstronautInstance.User.origin.posX = -5670f;
-        AstronautInstance.User.origin.posY = -10010f;
-        AstronautInstance.User.origin.posZ = 0.2f;
+        AstronautInstance.User.origin.posY = 0.2f;
+        AstronautInstance.User.origin.posZ = -10010f;
         transform.Find("Main").gameObject.SetActive(false);
         greetingScreen.SetActive(true);
 

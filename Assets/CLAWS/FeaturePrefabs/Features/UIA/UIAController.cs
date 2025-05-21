@@ -252,6 +252,17 @@ public class UIAController : MonoBehaviour
             child.gameObject.SetActive(false);
         }
     }
+
+        public void openMain()
+    {
+        main.transform.localPosition = new Vector3(0, 0.121f, 0);
+
+    }
+
+    public void closeMain()
+    {
+        main.transform.localPosition = new Vector3(0, -0.121f, 0);
+    }
 }
 
 
