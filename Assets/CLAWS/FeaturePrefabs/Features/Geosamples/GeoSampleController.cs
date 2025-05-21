@@ -25,6 +25,7 @@ public class GeoSampleController : MonoBehaviour
     public GameObject voiceNotesDictation;
 
     public GameObject xrfScreen;
+    public GameObject photoScreen;
 
     [Header("Description Panels for Each Zone")]
     public GameObject ZoneADescriptionScreen;

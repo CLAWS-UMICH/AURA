@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using MixedReality.Toolkit.UX;
 using TMPro;
 using UnityEngine;
@@ -246,6 +247,53 @@ public class SetUpScreenController : MonoBehaviour
         LTVScreen.transform.GetChild(3).Find("Title").GetComponent<TextMeshPro>().text = "Waiting for PR...";   
         LTVScreen.transform.Find("LoadingBox").gameObject.SetActive(true);
         StartCoroutine(WaitForRoverStatusUpdate());
+    }
+
+    public void sendGeoSampleToPR(int zone)
+    {
+        GeoSample newSample = AstronautInstance.User.geosampleZones[zone].TotalGeoSamples.samples.LastOrDefault();
+        Dictionary<string, object> jsonData = new Dictionary<string, object>
+        {
+            { "name", newSample.type },
+            { "rockId", newSample.id },
+            { "EV_id", AstronautInstance.User.id },
+            { "color", newSample.color },
+            { "shape", newSample.shape },
+            { "texture", newSample.texture },
+            { "notes", newSample.note },
+            { "isSignificant", newSample.isSignificant },
+            { "spec", new Dictionary<string, object>
+                {
+                    { "SiO2", newSample.comp[0].amount },
+                    { "TiO2", newSample.comp[1].amount },
+                    { "Al2O3", newSample.comp[2].amount },
+                    { "FeO", newSample.comp[3].amount },
+                    { "MnO", newSample.comp[4].amount },
+                    { "MgO", newSample.comp[5].amount },
+                    { "CaO", newSample.comp[6].amount },
+                    { "K2O", newSample.comp[7].amount },
+                    { "P2O3", newSample.comp[8].amount },
+                    { "other", newSample.comp[9].amount }
+                }
+            }
+        };
+
+        // Send the data to the server
+        LMCCWebSocketClient webSocketClient = Controller.GetComponent<LMCCWebSocketClient>();
+        if (webSocketClient != null)
+        {
+            webSocketClient.SendJsonData(jsonData, "SAMPLING", 3);
+        }
+        else
+        {
+            Debug.LogError("LMCCWebSocketClient is not assigned to the Controller.");
+        }
+
+        // hide POIs and show loading box
+        //LTVScreen.transform.Find("POIs").gameObject.SetActive(false);
+        //LTVScreen.transform.GetChild(3).Find("Title").GetComponent<TextMeshPro>().text = "Waiting for PR...";
+        //LTVScreen.transform.Find("LoadingBox").gameObject.SetActive(true);
+        //StartCoroutine(WaitForRoverStatusUpdate());
     }
 
 

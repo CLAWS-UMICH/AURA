@@ -6,6 +6,7 @@ using MixedReality.Toolkit.UX;
 using UnityEngine;
 using TMPro;
 using System.Linq;
+using MixedReality.Toolkit.Examples.Demos;
 
 public class GeoSampleFrontend : MonoBehaviour
 {
@@ -512,16 +513,20 @@ public class GeoSampleFrontend : MonoBehaviour
 
             // Add geosample to the corresponding zone's list
             // TODO: Add geosample to the scrolling list
+            SetUpScreenController setUpScreenController = FindObjectOfType<SetUpScreenController>();
             switch (sample.zone)
             {
                 case "ZONE_A":
                     AstronautInstance.User.geosampleZones[0].TotalGeoSamples.samples.Add(sample);
+                    setUpScreenController.sendGeoSampleToPR(0);
                     break;
                 case "ZONE_B":
                     AstronautInstance.User.geosampleZones[1].TotalGeoSamples.samples.Add(sample);
+                    setUpScreenController.sendGeoSampleToPR(1);
                     break;
                 case "ZONE_C":
                     AstronautInstance.User.geosampleZones[2].TotalGeoSamples.samples.Add(sample);
+                    setUpScreenController.sendGeoSampleToPR(2);
                     break;
             }
 
@@ -663,10 +668,28 @@ public class GeoSampleFrontend : MonoBehaviour
         }
     }
 
+    public void openPhotoScreen()
+    {
+        closeGeoSampleFeature();
+        geoSampleController.photoScreen.SetActive(true);
+    }
+
     public void takePhoto()
     {
         // TODO: Implement taking a photo
+        geoSampleController.photoScreen.GetComponent<ImageCapture2>().takePhoto();
         cameraDone = true;
+    }
+
+    public void closePhotoScreen()
+    {
+        geoSampleController.photoScreen.SetActive(false);
+        geoSampleController.geoSamplingModeSelectionScreen.SetActive(true);
+        if (cameraDone)
+        {
+            geoSampleController.photoInitUI.SetActive(false);
+            geoSampleController.photoCompleteUI.SetActive(true);
+        }
     }
 
     public void openHueSelectionMenu()
@@ -679,16 +702,20 @@ public class GeoSampleFrontend : MonoBehaviour
     {
         closeGeoSampleFeature();
         geoSampleController.voiceNotesDictation.SetActive(true);
+        geoSampleController.voiceNotesDictation.transform.Find("StartRecordingButton").gameObject.SetActive(true);
+        geoSampleController.voiceNotesDictation.transform.Find("StopRecordingButton").gameObject.SetActive(false);
     }
 
     public void startRecording()
     {
         geoSampleController.voiceNotesDictation.transform.Find("StartRecordingButton").gameObject.SetActive(false);
         geoSampleController.voiceNotesDictation.transform.Find("StopRecordingButton").gameObject.SetActive(true);
+        geoSampleController.voiceNotesDictation.transform.GetComponent<DictationHandler>().StartRecognition();
     }
 
     public void stopRecording()
     {
+        geoSampleController.voiceNotesDictation.transform.GetComponent<DictationHandler>().StopRecognition();
         voiceNotesDone = true;
         geoSampleController.voiceNotesDictation.transform.Find("StartRecordingButton").gameObject.SetActive(true);
         geoSampleController.voiceNotesDictation.transform.Find("StopRecordingButton").gameObject.SetActive(false);
@@ -697,6 +724,7 @@ public class GeoSampleFrontend : MonoBehaviour
 
     public void closeVoiceNotesDictation()
     {
+        geoSampleController.voiceNotesDictation.transform.GetComponent<DictationHandler>().StopRecognition();
         geoSampleController.voiceNotesDictation.SetActive(false);
         geoSampleController.geoSamplingModeSelectionScreen.SetActive(true);
         if (voiceNotesDone)
@@ -724,8 +752,6 @@ public class GeoSampleFrontend : MonoBehaviour
             screen.gameObject.SetActive(false);
         }
         geoSampleController.geoSamplingModeSelectionScreen.SetActive(true);
-
-        // TODO: Make and update UI for geosample selection button to display 
     }
     public void yellow()
     {
