@@ -2868,6 +2868,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2329581102752106122, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
+      propertyPath: A2gc
+      value: 
+      objectReference: {fileID: 860677823}
+    - target: {fileID: 2329581102752106122, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
       propertyPath: PRgc
       value: 
       objectReference: {fileID: 419445057}
@@ -3103,9 +3108,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5785872500443218744, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
+      propertyPath: A2gc
+      value: 
+      objectReference: {fileID: 860677823}
+    - target: {fileID: 5785872500443218744, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
       propertyPath: chat
       value: 
       objectReference: {fileID: 1225860903}
+    - target: {fileID: 5785872500443218744, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      propertyPath: LMCCgc
+      value: 
+      objectReference: {fileID: 419445057}
     - target: {fileID: 5785872500443218744, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
       propertyPath: a2chat
@@ -3121,6 +3136,11 @@ PrefabInstance:
       propertyPath: lmccChat
       value: 
       objectReference: {fileID: 2070888920}
+    - target: {fileID: 5785872500443218744, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      propertyPath: A2andLMCCgc
+      value: 
+      objectReference: {fileID: 1319195839}
     - target: {fileID: 5833645378455075389, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
       propertyPath: managedReferences[6].targets.Array.size
@@ -48448,6 +48468,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bindingProfile: {fileID: 11400000, guid: c2554c7933796464c965ae0c4acf9561, type: 2}
+--- !u!23 &967015720 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4735421346160900734, guid: 23ad519888b9442b8911cbf42e0becd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 35533788}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &967082953 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2580028800308262425, guid: 005f6dd6c02bc4c6a98dd31590be32b3,
@@ -49250,11 +49276,11 @@ MonoBehaviour:
   a2Clones: []
   gcClones: []
   LastCloneY: 0
-  scrollHandler: {fileID: 0}
+  scrollHandler: {fileID: 1492071334}
   LMCC: {fileID: 419445057}
   A2: {fileID: 860677823}
   GC: {fileID: 1319195839}
-  BoundsRenderer: {fileID: 0}
+  BoundsRenderer: {fileID: 967015720}
 --- !u!1001 &992666773
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -71655,6 +71681,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1492071334 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3131388771414814633, guid: 23ad519888b9442b8911cbf42e0becd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 35533788}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5784dbe6a0554de384ba5c1651a54fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1492100466
 GameObject:
   m_ObjectHideFlags: 0

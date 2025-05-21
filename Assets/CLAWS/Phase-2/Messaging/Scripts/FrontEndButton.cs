@@ -98,7 +98,7 @@ public class FrontEndButton : MonoBehaviour
                     from = AstronautInstance.User.id
                 };
                 Debug.Log(newMessage);
-                //EventBus.Publish(new MessageSentEvent(newMessage));
+                EventBus.Publish(new MessageSentEvent(newMessage));
                 EventBus.Publish(new MessagesAddedEvent(new List<Message> { newMessage }));
             }
             if (AstronautInstance.User.id == 2)
@@ -260,14 +260,25 @@ public class FrontEndButton : MonoBehaviour
 
     public void openFeatureScreen()
     {
+        // First activate the main messaging screen
+        transform.gameObject.SetActive(true);
+        
+        // Reset all chat views
         PRgc.SetActive(false);
         A2andPRgc.SetActive(false);
         A2gc.SetActive(false);
-        transform.gameObject.SetActive(true);
+        
+        // Activate the default chat view (A2gc)
+        A2gc.SetActive(true);
+        
+        // Activate all child objects
         foreach (Transform child in transform)
         {
             child.gameObject.SetActive(true);
         }
+        
+        // Update the seen messages count for the default view
+        messagingBackend.a2MessagesSeen = messagingBackend.AstroChat.Count;
     }
 }
 
