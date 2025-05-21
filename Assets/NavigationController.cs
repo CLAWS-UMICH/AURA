@@ -124,6 +124,7 @@ public class NavigationController : MonoBehaviour
     public List<Waypoint> POIWaypointList = new List<Waypoint>();
     public List<Waypoint> DangerWaypointList = new List<Waypoint>();
     private int initSetCount = 0;
+    public Pathfinding pathfindingSystem;
 
 
     void Start()

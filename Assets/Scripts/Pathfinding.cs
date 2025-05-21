@@ -5,17 +5,41 @@ using UnityEngine;
 public class Pathfinding : MonoBehaviour
 {
     public Astronaut astronaut; 
-    public Transform target;
+    // public Transform target;
     public LineRenderer pathRenderer;
 
     private Grid grid;
     private List<Node> currentPath;
+    private Vector3 currentTargetPosition;
 
-    void Start()
+    void Awake()
     {
         grid = GetComponent<Grid>();
-        pathRenderer = GetComponent<LineRenderer>();
-        InitializeLineRenderer();
+        // pathRenderer = GetComponent<LineRenderer>();
+        // InitializeLineRenderer();
+        pathRenderer.positionCount = 0;
+    }
+
+    public void SetTarget(Vector3 targetPosition)
+    {
+        currentTargetPosition = targetPosition;
+        CalculatePath(currentTargetPosition);
+    }
+
+    public void CalculatePath(Vector3 targetWorldPosition)
+    {
+        Vector3 startPos = GetAstronautWorldPosition();
+        Debug.Log($"Start position: {startPos}");
+        FindPath(startPos, targetWorldPosition);
+    }
+
+    Vector3 GetAstronautWorldPosition()
+    {
+        return new Vector3(
+            (float)astronaut.current.posX,
+            0,
+            (float)astronaut.current.posZ // Ensure Z uses posZ
+        );
     }
 
     void InitializeLineRenderer()
@@ -28,28 +52,33 @@ public class Pathfinding : MonoBehaviour
         pathRenderer.positionCount = 0;
     }
 
-    void Update()
-    {
-        Vector3 startPos = new Vector3(
-            (float)astronaut.current.posX,
-            (float)astronaut.current.posY,
-            (float)astronaut.current.posZ
-        );
+    // void Update()
+    // {
+    //     Vector3 startPos = new Vector3(
+    //         (float)astronaut.current.posX,
+    //         (float)astronaut.current.posY,
+    //         (float)astronaut.current.posZ
+    //     );
         
-        FindPath(startPos, target.position);
-    }
+    //     FindPath(startPos, target.position);
+    // }
 
     public void FindPath(Vector3 startPos, Vector3 targetPos)
     {
         Node startNode = grid.NodeFromWorldPoint(startPos);
         Node targetNode = grid.NodeFromWorldPoint(targetPos);
+        
+        if (startNode == null) Debug.LogError($"Start node is null at position {startPos}");
+        if (targetNode == null) Debug.LogError($"Target node is null at position {targetPos}");
 
         if (!ValidateNodes(startNode, targetNode))
         {
+            Debug.LogError("Node validation failed");
             pathRenderer.positionCount = 0;
             return;
         }
 
+        Debug.Log("Starting A* search...");
         ResetNodeCosts();
         AStarSearch(startNode, targetNode);
     }

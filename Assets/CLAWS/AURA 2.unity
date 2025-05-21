@@ -30315,7 +30315,7 @@ Transform:
   m_GameObject: {fileID: 632039918}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -2.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -76297,7 +76297,8 @@ GameObject:
   - component: {fileID: 1599847344}
   - component: {fileID: 1599847343}
   - component: {fileID: 1599847342}
-  m_Layer: 0
+  - component: {fileID: 1599847345}
+  m_Layer: 7
   m_Name: PathfindingManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76514,8 +76515,7 @@ MonoBehaviour:
           coolant_m: 0
           coolant_gas_pressure: 0
           coolant_liquid_pressure: 0
-  target: {fileID: 0}
-  pathRenderer: {fileID: 0}
+  pathRenderer: {fileID: 1599847345}
 --- !u!114 &1599847343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -76528,15 +76528,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18aa89df65bbc4b7094998820287fcbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StartPosition: {fileID: 0}
   WallMask:
     serializedVersion: 2
     m_Bits: 1024
   vGridWorldSize: {x: 210, y: 130}
   fNodeRadius: 0.5
-  fDistanceBetweenNodes: 0
+  fDistanceBetweenNodes: 0.1
   walkableRegions: []
-  blurSize: 3
+  showGridGizmos: 1
 --- !u!4 &1599847344
 Transform:
   m_ObjectHideFlags: 0
@@ -76546,12 +76545,116 @@ Transform:
   m_GameObject: {fileID: 1599847341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.5139368, y: 126.164085, z: -200.99127}
+  m_LocalPosition: {x: 15.8, y: 0, z: 2.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!120 &1599847345
+LineRenderer:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1599847341}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 3ce734156f9ce43a980962500ff51400, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 1}
+  m_Parameters:
+    serializedVersion: 3
+    widthMultiplier: 3
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 0, g: 0.81568635, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 1}
+      key2: {r: 0, g: 0, b: 0, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 26600
+      ctime1: 65535
+      ctime2: 0
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 47609
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    textureScale: {x: 1, y: 1}
+    shadowBias: 0.5
+    generateLightingData: 0
+  m_MaskInteraction: 0
+  m_UseWorldSpace: 1
+  m_Loop: 0
+  m_ApplyActiveColorSpace: 1
 --- !u!1 &1601440954
 GameObject:
   m_ObjectHideFlags: 0
@@ -85068,7 +85171,7 @@ Transform:
   m_GameObject: {fileID: 1750486516}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.02, y: 0, z: 22.58}
+  m_LocalPosition: {x: 29.02, y: -0.63, z: 22.58}
   m_LocalScale: {x: 15.483842, y: 15.483842, z: 15.483842}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -86202,8 +86305,6 @@ MonoBehaviour:
   companionCamera: {fileID: 1904191629}
   verticalButtonScreen: {fileID: 637864234}
   notificationScreen: {fileID: 1579809293}
-  pathfindingSystem: {fileID: 0}
-  navigationPathRenderer: {fileID: 0}
   waypointList: []
   GeoWaypointList: []
   GEO_ZONEA_WaypointList: []
@@ -86212,6 +86313,7 @@ MonoBehaviour:
   StationWaypointList: []
   POIWaypointList: []
   DangerWaypointList: []
+  pathfindingSystem: {fileID: 1599847342}
 --- !u!114 &1767475547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86227,7 +86329,7 @@ MonoBehaviour:
   navigationController: {fileID: 1767475546}
   IMUposX: 0
   IMUposY: 0
-  pathfindingSystem: {fileID: 0}
+  pathfindingSystem: {fileID: 1599847342}
 --- !u!1 &1768014456
 GameObject:
   m_ObjectHideFlags: 0
@@ -100118,7 +100220,7 @@ Transform:
   m_GameObject: {fileID: 2055173126}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 51.66, y: 0, z: 27.4}
+  m_LocalPosition: {x: 51.66, y: -1.7, z: 27.4}
   m_LocalScale: {x: 21.292763, y: 21.292763, z: 21.292763}
   m_ConstrainProportionsScale: 0
   m_Children:
