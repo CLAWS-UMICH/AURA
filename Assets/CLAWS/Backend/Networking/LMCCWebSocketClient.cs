@@ -72,7 +72,8 @@ public class LMCCWebSocketClient : MonoBehaviour
             {
                 Debug.Log($"Raw response from WEB: {response}");
 
-                JArray jsonArray = JArray.Parse(response.ToString()); // Now raw is already the correct string
+                JArray jsonArray = JArray.Parse(response.ToString());
+
                 if (jsonArray.Count > 0)
                 {
                     JObject outer = (JObject)jsonArray[0];

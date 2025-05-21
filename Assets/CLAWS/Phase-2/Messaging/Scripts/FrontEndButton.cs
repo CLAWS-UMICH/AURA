@@ -18,7 +18,7 @@ public class FrontEndButton : MonoBehaviour
 
     void Start () 
     {
-        PRgc.SetActive(false);
+        PRgc.SetActive(true);
         A2andPRgc.SetActive(false);
         A2gc.SetActive(false);
     }

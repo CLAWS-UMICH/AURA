@@ -46,7 +46,7 @@ public class ScreenManager : MonoBehaviour
             case 2:
                 Debug.Log("Opening Messaging screen");
                 messaging.SetActive(true);
-                //messaging.GetComponent<FrontEndButton>().openFeatureScreen();
+                messaging.GetComponent<FrontEndButton>().openFeatureScreen();
                 break;
             case 3:
                 Debug.Log("Opening Geosample screen");
