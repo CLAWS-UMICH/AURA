@@ -96,10 +96,13 @@ public class LMCCWebSocketClient : MonoBehaviour
         });
 
         await client.ConnectAsync();
+        Debug.Log("connected! " + client);
+        Debug.Log("This instance: " + this);
     }
 
     private void OnDestroy()
     {
+        Debug.Log("destroyed!");
         if (client != null)
         {
             client.DisconnectAsync();
@@ -239,6 +242,7 @@ public class LMCCWebSocketClient : MonoBehaviour
 
     public async void SendJsonData(Dictionary <string, object> message, string room, int clientId)
     {
+        Debug.Log("This instance: " + this);
         if (client != null)
         {
             // Determine the target client based on clientId
@@ -266,7 +270,6 @@ public class LMCCWebSocketClient : MonoBehaviour
 
             // Serialize the data to JSON
             string jsonString = JsonConvert.SerializeObject(data, Formatting.Indented);
-
            
             // Emit the appropriate event
             string eventName = clientId switch
@@ -277,7 +280,7 @@ public class LMCCWebSocketClient : MonoBehaviour
             };
 
             await client.EmitAsync(eventName, jsonString);
-
+            
             Debug.Log($"Sent message to {targetClient} in room '{room}': {jsonString}");
         }
         else

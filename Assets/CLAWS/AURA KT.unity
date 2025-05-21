@@ -3146,6 +3146,11 @@ PrefabInstance:
       propertyPath: A2andLMCCgc
       value: 
       objectReference: {fileID: 1084333845}
+    - target: {fileID: 5785872500443218744, guid: 23ad519888b9442b8911cbf42e0becd4,
+        type: 3}
+      propertyPath: webSocketClient
+      value: 
+      objectReference: {fileID: 1555562889}
     - target: {fileID: 5833645378455075389, guid: 23ad519888b9442b8911cbf42e0becd4,
         type: 3}
       propertyPath: managedReferences[6].targets.Array.size
@@ -75602,7 +75607,7 @@ MonoBehaviour:
       posY: 0
       posZ: 0
       Heading: 0
-    LMCCurl: http://10.0.0.8:14141
+    LMCCurl: http://10.0.0.8:8080
     TSSurl: http://10.0.0.8:14141
     current:
       posX: 0

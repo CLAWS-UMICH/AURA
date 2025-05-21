@@ -19,7 +19,7 @@ public class FrontEndButton : MonoBehaviour
     void Start () 
     {
         PRgc.SetActive(false);
-        A2andPRgc.SetActive(true);
+        A2andPRgc.SetActive(false);
         A2gc.SetActive(false);
     }
 
@@ -78,7 +78,7 @@ public class FrontEndButton : MonoBehaviour
             newMessage = new Message
             {
                 message_id = messageCount,
-                sent_to = 3,
+                sent_to = 4,
                 message = messageText,
                 from = AstronautInstance.User.id
             };
