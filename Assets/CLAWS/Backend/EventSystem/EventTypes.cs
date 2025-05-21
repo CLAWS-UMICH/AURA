@@ -43,6 +43,7 @@ public class UpdatedVitalsEvent
         vitals = _v;
     }
 }
+
 public class UpdatedFellowAstronautVitalsEvent
 {
     public Vitals vitals { get; private set; }

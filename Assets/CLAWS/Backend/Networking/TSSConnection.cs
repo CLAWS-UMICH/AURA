@@ -274,13 +274,13 @@ public class TSSConnection : MonoBehaviour
                     {
                         TELEMETRYJsonString = webRequest.downloadHandler.text;
                         AstronautInstance.User.telemetry = JsonUtility.FromJson<TELEMETRY>(this.TELEMETRYJsonString);
-                        Debug.Log("Telemetry" +TELEMETRYJsonString);
-                    
+                        Debug.Log("Telemetry" + TELEMETRYJsonString);
+
                         if (AstronautInstance.User.id == 1)
                         {
                             CopyVitals(AstronautInstance.User.vitals, AstronautInstance.User.telemetry.telemetry.eva1);
                             CopyVitals(AstronautInstance.User.fellowAstronaut.vitals, AstronautInstance.User.telemetry.telemetry.eva2);
-                        } 
+                        }
                         else
                         {
                             CopyVitals(AstronautInstance.User.vitals, AstronautInstance.User.telemetry.telemetry.eva2);
