@@ -50,7 +50,7 @@ public class VitalsController : MonoBehaviour
     [SerializeField] private GameObject vitalsFirstAstronautScreen;
     [SerializeField] private GameObject vitalsSecondAstronautScreen;
     [SerializeField] private GameObject selfAlert;
-    [SerializeField] private GameObject otherAlert;
+    //[SerializeField] private GameObject otherAlert;
 
     [SerializeField] private GameObject alerts;
     public DCUController dcuControllerInstance;
@@ -123,7 +123,7 @@ public class VitalsController : MonoBehaviour
         fellowVitalsUpdateEvent = EventBus.Subscribe<UpdatedFellowAstronautVitalsEvent>(fellowVitalsEventHandler);
         vitalsSecondAstronautScreen.SetActive(false);
         selfAlert.SetActive(false);
-        otherAlert.SetActive(false);
+        // otherAlert.SetActive(false);
     }
 
 
@@ -750,7 +750,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.batt_time_left < BATT_TIME_MIN)
         {
             data["battery"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Battery Time Low";
+        // otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Battery Time Low";
             eva2.powerTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
             errorCount++;
@@ -767,7 +767,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.oxy_pri_storage < OXY_STOR_MIN && dcuControllerInstance.dcu2.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
         {
             data["o2SwapToSecondary"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Primary Storage Low. Switch to Secondary";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Primary Storage Low. Switch to Secondary";
             eva2.priOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -785,7 +785,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.oxy_sec_storage < OXY_STOR_MIN && dcuControllerInstance.dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
         {
             data["o2SwapToPrimary"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Secondary Storage Low. Switch to Primary";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Secondary Storage Low. Switch to Primary";
             eva2.secOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -803,7 +803,7 @@ public class VitalsController : MonoBehaviour
         if ((e.vitals.oxy_pri_pressure < OXY_PRES_MIN || e.vitals.oxy_pri_pressure > OXY_PRES_MAX) && dcuControllerInstance.dcu2.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
         {
             data["o2SwapToSecondary"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Primary Pressure Low. Switch to Secondary";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Primary Pressure Low. Switch to Secondary";
             eva2.priOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -821,7 +821,7 @@ public class VitalsController : MonoBehaviour
         if ((e.vitals.oxy_sec_pressure < OXY_PRES_MIN || e.vitals.oxy_sec_pressure > OXY_PRES_MAX) && dcuControllerInstance.dcu2.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
         {
             data["o2SwapToPrimary"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Secondary Pressure Low. Switch to Primary";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Secondary Pressure Low. Switch to Primary";
             eva2.secOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -839,7 +839,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.oxy_time_left < OXY_STOR_MIN)
         {
             data["o2Time"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Time Low";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Time Low";
             eva2.oxyTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -857,7 +857,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.coolant_m < COOL_STOR_MIN)
         {
             data["coolantStor"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Storage Low";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Storage Low";
             eva2.coolant.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.coolant.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -875,7 +875,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.heart_rate < HEART_RATE_MIN || e.vitals.heart_rate > HEART_RATE_MAX)
         {
             data["heartRate"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Heart Rate Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Heart Rate Out of Nominal Range";
             eva2.heartRate.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -893,7 +893,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.oxy_consumption < OXY_CONSUM_MIN || e.vitals.oxy_consumption > OXY_CONSUM_MAX)
         {
             data["o2Cons"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Consumption Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Consumption Out of Nominal Range";
             eva2.oxyCons.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -911,7 +911,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.co2_production < CO2_PROD_MIN || e.vitals.co2_production > CO2_PROD_MAX)
         {
             data["co2Prod"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 Production Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 Production Out of Nominal Range";
             eva2.co2Prod.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -929,7 +929,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.suit_pressure_oxy < SUIT_PRES_OXY_MIN || e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
         {
             data["o2SuitPres"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit O2 Pressure Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit O2 Pressure Out of Nominal Range";
             eva2.suitPresOxy.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -947,7 +947,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.suit_pressure_co2 > SUIT_PRES_CO2_MAX)
         {
             data["co2SuitPres"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit CO2 Pressure Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit CO2 Pressure Out of Nominal Range";
             eva2.suitPresCO2.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -965,7 +965,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.suit_pressure_other > SUIT_PRES_OTHER_MAX)
         {
             data["suitPresOth"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit Other Pressure Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit Other Pressure Out of Nominal Range";
             eva2.otherSuitPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -983,7 +983,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.suit_pressure_total < SUIT_PRES_TOTAL_MIN || e.vitals.suit_pressure_total > SUIT_PRES_TOTAL_MAX)
         {
             data["suitPresTot"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit Total Pressure Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit Total Pressure Out of Nominal Range";
             eva2.suitTotPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1001,7 +1001,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
         {
             data["co2HelmPres"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Helmet CO2 Pressure Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Helmet CO2 Pressure Out of Nominal Range";
             eva2.helmetCO2Pres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1019,7 +1019,7 @@ public class VitalsController : MonoBehaviour
         if ((e.vitals.fan_pri_rpm < FAN_SPEED_MIN || e.vitals.fan_pri_rpm > FAN_SPEED_MAX) && dcuControllerInstance.dcu2.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
         {
             data["fanSwapToSecondary"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Fan Primary Speed Low. Switch to Secondary";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Fan Primary Speed Low. Switch to Secondary";
             eva2.priFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.priFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1037,7 +1037,7 @@ public class VitalsController : MonoBehaviour
         if ((e.vitals.fan_sec_rpm < FAN_SPEED_MIN || e.vitals.fan_sec_rpm > FAN_SPEED_MAX) && dcuControllerInstance.dcu2.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
         {
             data["fanSwapToPrimary"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Fan Secondary Speed Low. Switch to Primary";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Fan Secondary Speed Low. Switch to Primary";
             eva2.secFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.secFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1055,7 +1055,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX && dcuControllerInstance.dcu2.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
         {
             data["co2SwapToB"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 A Storage High. Switch to B";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 A Storage High. Switch to B";
             eva2.scrubberA.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1073,7 +1073,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.scrubber_b_co2_storage > SCRUBBER_CO2_STOR_MAX && dcuControllerInstance.dcu2.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
         {
             data["co2SwapToA"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 B Storage High. Switch to A";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 B Storage High. Switch to A";
             eva2.scrubberB.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1091,7 +1091,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.temperature < TEMP_MIN || e.vitals.temperature > TEMP_MAX)
         {
             data["temp"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Temperature Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Temperature Out of Nominal Range";
             eva2.temp.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.temp.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1109,7 +1109,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.coolant_liquid_pressure < COOL_LIQ_MIN || e.vitals.coolant_liquid_pressure > COOL_LIQ_MAX)
         {
             data["coolantLiqPres"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Liquid Pressure Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Liquid Pressure Out of Nominal Range";
             eva2.coolLiquidPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1127,7 +1127,7 @@ public class VitalsController : MonoBehaviour
         if (e.vitals.coolant_gas_pressure > COOL_GAS_MAX)
         {
             data["coolantGasPres"] = true;
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Gas Pressure Out of Nominal Range";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Gas Pressure Out of Nominal Range";
             eva2.coolGasPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
             eva2.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
@@ -1142,7 +1142,7 @@ public class VitalsController : MonoBehaviour
         }
         if (errorCount == 0)
         {
-            otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+        //    otherAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
         }
 
 
@@ -1151,7 +1151,7 @@ public class VitalsController : MonoBehaviour
         LMCCwebSocketClient.SendJsonData(data, "VITALS", 4);
         if (errorCount > 0)
         {
-            otherAlert.SetActive(true);
+        //    otherAlert.SetActive(true);
         }
     }
 

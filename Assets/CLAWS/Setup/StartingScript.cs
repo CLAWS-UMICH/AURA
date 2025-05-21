@@ -109,8 +109,8 @@ public class StartingScript : MonoBehaviour
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Station 1",
-            IMUposX = -5616f,
-            IMUposY = -10005f,
+            UNITYposX = -5616f - AstronautInstance.User.origin.posX,
+            UNITYposZ = -10005f - AstronautInstance.User.origin.posZ,
             Type = WaypointType.STATION,
             Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
         };
@@ -120,8 +120,8 @@ public class StartingScript : MonoBehaviour
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Station 2",
-            IMUposX = -5643f,
-            IMUposY = -9970f,
+            UNITYposX = -5643f - AstronautInstance.User.origin.posX,
+            UNITYposZ = -9970f - AstronautInstance.User.origin.posZ,
             Type = WaypointType.STATION,
             Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
         };
@@ -131,8 +131,8 @@ public class StartingScript : MonoBehaviour
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Station 3",
-            IMUposX = -5608f,
-            IMUposY = -9988f,
+            UNITYposX = -5608f - AstronautInstance.User.origin.posX,
+            UNITYposZ = -9988f - AstronautInstance.User.origin.posZ,
             Type = WaypointType.STATION,
             Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
         };
@@ -152,8 +152,8 @@ public class StartingScript : MonoBehaviour
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Waypoint A",
-            IMUposX = -5635f,
-            IMUposY = -9970f,
+            UNITYposX = -5635f - AstronautInstance.User.origin.posX,
+            UNITYposZ = -9970F - AstronautInstance.User.origin.posZ,
             Type = WaypointType.POI,
             Author = AuthorType.PR
         };
@@ -162,8 +162,8 @@ public class StartingScript : MonoBehaviour
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Waypoint B",
-            IMUposX = -5610f,
-            IMUposY = -9971f,
+            UNITYposX = -5610f - AstronautInstance.User.origin.posX,
+            UNITYposZ = -9971 - AstronautInstance.User.origin.posZ,
             Type = WaypointType.POI,
             Author = AuthorType.PR
         };
@@ -172,8 +172,8 @@ public class StartingScript : MonoBehaviour
             Use = "ADD",
             Id = navigationController.StationWaypointList.Count,
             Name = "Waypoint C",
-            IMUposX = -5615f,
-            IMUposY = -9995f,
+            UNITYposX = -5615f - AstronautInstance.User.origin.posX,
+            UNITYposZ = -9995f - AstronautInstance.User.origin.posZ,
             Type = WaypointType.POI,
             Author = AuthorType.PR,
         };

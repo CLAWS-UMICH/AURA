@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ScreenManager : MonoBehaviour
 {
+    public GameObject main;
     public GameObject screens;
     public GameObject vitals;
     public GameObject navigation;
@@ -30,6 +31,7 @@ public class ScreenManager : MonoBehaviour
 
     public void openScreen(int index)
     {
+        main.transform.localPosition = new Vector3(0, 0, 0);
         DeactivateAllScreens();
         switch (index)
         {

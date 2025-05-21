@@ -67,20 +67,20 @@ public class Waypoint
     public string  Use { get; set; } // Use this to determine if the waypoint is added/deleted
     public int Id { get; set; } // Sequential ID
     public string Name { get; set; } // Name of the waypoint
-    public double IMUposX { get; set; } // LUNAR X coordinate 
-    public double IMUposY { get; set; } // LUNAR Y coordinate
+    public double UNITYposX { get; set; } // unity X
+    public double UNITYposZ { get; set; } // unity Z
     public WaypointType Type { get; set; } // Enum for waypoint type
     public AuthorType Author { get; set; } // Enum for author type
 
     public Waypoint() { }
 
-    public Waypoint(string use, int waypointId, string name, double posx, double posy, WaypointType type, AuthorType author)
+    public Waypoint(string use, int waypointId, string name, double posx, double posz, WaypointType type, AuthorType author)
     {
         Use = use;
         Id = waypointId;
         Name = name;
-        IMUposX = posx;
-        IMUposY = posy;
+        UNITYposX = posx;
+        UNITYposZ = posz;
         Type = type;
         Author = author;
     }
@@ -95,14 +95,14 @@ public class Waypoint
         return Use == otherWaypoint.Use && 
                Id == otherWaypoint.Id && 
                Name == otherWaypoint.Name &&
-               IMUposX == otherWaypoint.IMUposX &&
-               IMUposY == otherWaypoint.IMUposY &&
+               UNITYposX == otherWaypoint.UNITYposX &&
+               UNITYposZ == otherWaypoint.UNITYposZ &&
                Type == otherWaypoint.Type &&
                Author == otherWaypoint.Author;
     }
     public override int GetHashCode()
     {
-        return (Use, Id, Name, IMUposX, IMUposY, Type, Author).GetHashCode();
+        return (Use, Id, Name, UNITYposX, UNITYposZ, Type, Author).GetHashCode();
     }
 }
 

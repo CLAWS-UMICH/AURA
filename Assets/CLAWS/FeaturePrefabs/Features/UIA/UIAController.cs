@@ -9,8 +9,6 @@ public class UIAController : MonoBehaviour
 {
     public GameObject uiaScreen;
     public GameObject main;
-    public GameObject EgressInitializationScreen;
-    public GameObject IngressInitializationScreen;
     public GameObject procedureScreen;
     public LMCCWebSocketClient webSocketClient;
     public GameObject stepsScreen;
@@ -139,8 +137,6 @@ public class UIAController : MonoBehaviour
     public void EgressProcedure()
     {
         Debug.Log("Egress Procedure started");
-        EgressInitializationScreen.SetActive(true);
-        IngressInitializationScreen.SetActive(false);
         procedureScreen.SetActive(false);
         StartCoroutine(EgressProcedureCoroutine());
         procedureScreen.SetActive(true);
@@ -150,19 +146,15 @@ public class UIAController : MonoBehaviour
     private IEnumerator EgressProcedureCoroutine()
     {
         yield return new WaitForSeconds(5f);
-        EgressInitializationScreen.SetActive(false);
     }
 
     private IEnumerator IngressProcedureCoroutine()
     {
         yield return new WaitForSeconds(5f);
-        EgressInitializationScreen.SetActive(false);
     }
 
     public void IngressProcedure()
     {
-        IngressInitializationScreen.SetActive(true);
-        EgressInitializationScreen.SetActive(false);
         procedureScreen.SetActive(false);
         StartCoroutine(IngressProcedureCoroutine());
         procedureScreen.SetActive(true);
@@ -173,7 +165,6 @@ public class UIAController : MonoBehaviour
     {
         if (counter > 0)
         {
-            counter--;
             counter--;
             if (egressComplete)
             {
@@ -201,6 +192,7 @@ public class UIAController : MonoBehaviour
 
     public void EgressStep()
     {
+        if (counter == 0) return;
         if (counter < EgressSteps.Count)
         {
             stepNumber.text = (counter + 1).ToString();
@@ -255,13 +247,14 @@ public class UIAController : MonoBehaviour
 
         public void openMain()
     {
-        main.transform.localPosition = new Vector3(0, 0.121f, 0);
-
+        main.SetActive(true);
+        main.transform.localPosition = new Vector3(0, 0.151f, 0);
     }
 
     public void closeMain()
     {
-        main.transform.localPosition = new Vector3(0, -0.121f, 0);
+        main.transform.localPosition = new Vector3(0, 0, 0);
+        main.SetActive(false);
     }
 }
 

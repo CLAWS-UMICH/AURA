@@ -182,9 +182,9 @@ public class NavigationController : MonoBehaviour
                 Debug.Log("Adding a DANGER waypoint...");
                 // ICON WORLD SPACE POSITION
                 Vector3 dangerPosition = new Vector3(
-                    (float)(newWaypoint.IMUposX - AstronautInstance.User.origin.posX),
+                    (float)newWaypoint.UNITYposX,
                     0,
-                    (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY)
+                    (float)newWaypoint.UNITYposZ
                 );
                 Debug.Log($"DANGER waypoint position: {dangerPosition}");
                
@@ -248,7 +248,7 @@ public class NavigationController : MonoBehaviour
 
             case WaypointType.GEO:
                  Debug.Log("Adding a GEO waypoint...");
-                Vector3 geoPosition = new Vector3((float)(newWaypoint.IMUposX - AstronautInstance.User.origin.posX), 0, (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY));
+                Vector3 geoPosition = new Vector3((float)newWaypoint.UNITYposX, 0, (float)newWaypoint.UNITYposZ);
                 Debug.Log($"GEO waypoint position: {geoPosition}");
                 
                  // get letter from waypoint name
@@ -306,7 +306,7 @@ public class NavigationController : MonoBehaviour
 
             case WaypointType.STATION:
                 Debug.Log("Adding a STATION waypoint...");
-                Vector3 stationPosition = new Vector3((float)(newWaypoint.IMUposX - AstronautInstance.User.origin.posX), 0, (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY));
+                Vector3 stationPosition = new Vector3((float)newWaypoint.UNITYposX, 0, (float)newWaypoint.UNITYposZ);
                 Debug.Log($"STATION waypoint position: {stationPosition}");
                 firstLetter = '*';
                 // get letter from waypoint name
@@ -364,7 +364,7 @@ public class NavigationController : MonoBehaviour
 
             case WaypointType.POI:
                 Debug.Log("Adding a POI waypoint...");
-                Vector3 poiPosition = new Vector3((float)(newWaypoint.IMUposX - AstronautInstance.User.origin.posX), 0, (float)(newWaypoint.IMUposY - AstronautInstance.User.origin.posY));
+                Vector3 poiPosition = new Vector3((float)newWaypoint.UNITYposX, 0, (float)newWaypoint.UNITYposZ);
                 Debug.Log($"POI waypoint position: {poiPosition}");
                 // get letter from waypoint name
                 newWaypoint.Name = newWaypoint.Name.ToUpper();

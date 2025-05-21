@@ -19,11 +19,8 @@ public class DigitalClock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeNow = DateTime.Now;
-        hour = timeNow.Hour.ToString().PadLeft(2, '0');
-        minute = timeNow.Minute.ToString().PadLeft(2, '0');
-        second = timeNow.Second.ToString().PadLeft(2, '0');
-
-        textDisplay.text = hour + ":" + minute + ":" + second;
+        int seconds = AstronautInstance.User.vitals.eva_time;
+        TimeSpan time = TimeSpan.FromSeconds(seconds);
+        textDisplay.text = time.ToString(@"hh\:mm\:ss");
     }
 }

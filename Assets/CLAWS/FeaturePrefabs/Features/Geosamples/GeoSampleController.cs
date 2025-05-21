@@ -21,10 +21,6 @@ public class GeoSampleController : MonoBehaviour
     // shape and texture selection screens
     public GameObject ShapeSelectScreen;
     public GameObject TextureSelectScreen;
-    // color hue selection screens
-    public GameObject colorHueSelectionScreen;
-    public GameObject redHueSelectionScreen;
-    
 
     public GameObject voiceNotesDictation;
 

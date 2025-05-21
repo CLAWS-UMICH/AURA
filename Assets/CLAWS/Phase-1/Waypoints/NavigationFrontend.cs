@@ -10,8 +10,8 @@ using UnityEngine;
 public class NavigationFrontend : MonoBehaviour
 {
     [SerializeField] private NavigationController navigationController;
-    public double IMUposX = 0;
-    public double IMUposY = 0;
+    public double UNITYposX = 0;
+    public double UNITYposY = 0;
 
     private bool geoButtonPressed = false;
     private bool dangerButtonPressed = false;
@@ -118,19 +118,16 @@ public class NavigationFrontend : MonoBehaviour
 
         // Get astronaut's current position in IMU coordinates
         Location astronautLoc = AstronautInstance.User.current;
-        Location origin = AstronautInstance.User.origin;
-
-        // Convert to world space coordinates
-        UnityEngine.Vector3 worldPosition = new UnityEngine.Vector3(
-            (float)(astronautLoc.posX - origin.posX),
-            0,
-            (float)(astronautLoc.posZ - origin.posZ) // IMU Y -> Unity Z
-        );
 
         // Create waypoint marker at astronaut's position
+        UnityEngine.Vector3 astronautPosition = new UnityEngine.Vector3(
+            (float)astronautLoc.posX,
+            (float)astronautLoc.posY,
+            (float)astronautLoc.posZ
+        );
         GameObject newWaypointMarker = Instantiate(
             navigationController.WSPACE_IconpPrefab,
-            worldPosition,
+            astronautPosition,
             UnityEngine.Quaternion.identity,
             navigationController.Controller.transform
         );
@@ -145,15 +142,15 @@ public class NavigationFrontend : MonoBehaviour
             Use = "ADD",
             Id = navigationController.waypointList.Count + 1,
             Name = navigationController.CreateWaypointScreen.transform.GetChild(3).GetComponent<TextMeshPro>().text,
-            IMUposX = astronautLoc.posX, // Direct IMU coordinates
-            IMUposY = astronautLoc.posZ,
+            UNITYposX = astronautLoc.posX, // Direct unity coords
+            UNITYposZ = astronautLoc.posZ,
             Type = dangerButtonPressed ? WaypointType.DANGER : 
                 geoButtonPressed ? WaypointType.GEO : 
                 WaypointType.POI,
             Author = AstronautInstance.User.id == 1 ? AuthorType.EV1 : AuthorType.EV2,
         };
 
-        Debug.Log($"New waypoint created at astronaut's position: {newWaypoint.IMUposX}, {newWaypoint.IMUposY}");
+        Debug.Log($"New waypoint created at astronaut's position: {newWaypoint.UNITYposX}, {newWaypoint.UNITYposZ}");
         EventBus.Publish(new WaypointAddedEvent(newWaypoint));
 
         // Immediately trigger pathfinding
@@ -161,9 +158,9 @@ public class NavigationFrontend : MonoBehaviour
         {
             // Convert to pathfinding target position
             UnityEngine.Vector3 targetPosition = new UnityEngine.Vector3(
-                (float)(newWaypoint.IMUposX - origin.posX),
+                (float)newWaypoint.UNITYposX,
                 0,
-                (float)(newWaypoint.IMUposY - origin.posZ)
+                (float)newWaypoint.UNITYposZ
             );
             
             navigationController.pathfindingSystem.CalculatePath(targetPosition);
@@ -419,14 +416,14 @@ public class NavigationFrontend : MonoBehaviour
         Waypoint waypoint = navigationController.StationWaypointList[waypointIndex];
         
         UnityEngine.Vector3 targetPosition = new UnityEngine.Vector3(
-            (float)(waypoint.IMUposX - AstronautInstance.User.origin.posX),
+            (float)waypoint.UNITYposX,
             0,
-            (float)(waypoint.IMUposY - AstronautInstance.User.origin.posZ)
+            (float)waypoint.UNITYposZ
         );
 
         NavigateToPosition(targetPosition);
 
-        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
+        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.UNITYposX}, IMUposY: {waypoint.UNITYposZ}");
     }
 
 
@@ -441,14 +438,14 @@ public class NavigationFrontend : MonoBehaviour
         Waypoint waypoint = navigationController.StationWaypointList[waypointIndex];
         
         UnityEngine.Vector3 targetPosition = new UnityEngine.Vector3(
-            (float)(waypoint.IMUposX - AstronautInstance.User.origin.posX),
+            (float)waypoint.UNITYposX,
             0,
-            (float)(waypoint.IMUposY - AstronautInstance.User.origin.posZ)
+            (float)waypoint.UNITYposZ
         );
 
         NavigateToPosition(targetPosition);
 
-        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
+        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.UNITYposX}, IMUposY: {waypoint.UNITYposZ}");
     }
 
 
@@ -463,14 +460,14 @@ public class NavigationFrontend : MonoBehaviour
         Waypoint waypoint = navigationController.StationWaypointList[waypointIndex];
         
         UnityEngine.Vector3 targetPosition = new UnityEngine.Vector3(
-            (float)(waypoint.IMUposX - AstronautInstance.User.origin.posX),
+            (float)waypoint.UNITYposX,
             0,
-            (float)(waypoint.IMUposY - AstronautInstance.User.origin.posZ)
+            (float)waypoint.UNITYposZ
         );
 
         NavigateToPosition(targetPosition);
 
-        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
+        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.UNITYposX}, IMUposY: {waypoint.UNITYposZ}");
     }
 
 
@@ -485,14 +482,14 @@ public class NavigationFrontend : MonoBehaviour
         Waypoint waypoint = navigationController.StationWaypointList[waypointIndex];
         
         UnityEngine.Vector3 targetPosition = new UnityEngine.Vector3(
-            (float)(waypoint.IMUposX - AstronautInstance.User.origin.posX),
+            (float)waypoint.UNITYposX,
             0,
-            (float)(waypoint.IMUposY - AstronautInstance.User.origin.posZ) 
+            (float)waypoint.UNITYposZ
         );
 
         NavigateToPosition(targetPosition);
 
-        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.IMUposX}, IMUposY: {waypoint.IMUposY}");
+        Debug.Log($"Waypoint details: {waypoint.Name}, Type: {waypoint.Type}, IMUposX: {waypoint.UNITYposX}, IMUposY: {waypoint.UNITYposZ}");
     }
 
 
@@ -556,7 +553,7 @@ public class NavigationFrontend : MonoBehaviour
 
     void SetPathToCompanionLayer()
     {
-        SetLineRendererLayer("COMPANION");
+        SetLineRendererLayer("Companion");
     }
 
     void SetPathToFullMapLayer()
@@ -599,14 +596,7 @@ public class NavigationFrontend : MonoBehaviour
         if (pathfindingSystem != null)
         {
             // Toggle layer on each click
-            if (isCompanionLayer)
-            {
-                SetPathToCompanionLayer();
-            }
-            else
-            {
-                SetPathToFullMapLayer();
-            }
+            SetPathToFullMapLayer();
 
             // Toggle the state for next click
             isCompanionLayer = !isCompanionLayer;
