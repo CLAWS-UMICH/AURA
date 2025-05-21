@@ -25,9 +25,53 @@ public class UIAController : MonoBehaviour
     private bool value = false;
     public event System.Action OnUIAOpened;
 
+    [SerializeField] private GameObject NaViPrefab; //s1mple the goat
+    [SerializeField] private GameObject SamplingPrefab;
+
+    [SerializeField] private NavigationFrontend NavControl;
+    [SerializeField] private GeoSampleFrontend GeoControl;
+
+    private float geoZone1X = -5635f;
+    private float geoZone1Z = -9970f;
+
+    private float geoZone2X = -5610f;
+    private float geoZone2Z = -9971f;
+
+    private float geoZone3X = -5615f;
+    private float geoZone3Z = -9995f;
+
+    private int zone2go = 1;
+
+    private bool flipflop = false; //boolean that flip flops constantly and causes geosampling to end when a sample is saved
+
+    /*
+     Rundown of the system so far:
+     UIA button clicked in menu -> egress begins immediately, triggered by its coroutine in a big coroutine called "fullsequence" which is supposed
+     to hold all the other coroutines in the order they're supposed to be executed
+     that means last egress task leads into...
+    
+     navigation popup -> position monitored and compared to hardcoded geosampling positions every 1 second
+     geosampling position reached -> geosampling popup immediately
+     geosampling popup accepted -> geosampling procedure begins. continues until sample is collected and "save" button clicked, triggering SaveCheck(). You
+     can see this bad boy hooked up to the actual save button in the unity inspector alongside its main purpose
+
+     cycle will repeat from nav popup to bad boy 3 times total before the coroutine ends, and ingress procedure should start
+
+
+     NOTE:
+     The "alert" prefabs have a bug in them somewhere I think. Everything compiles and runs fine, but something about them cause a flood of errors for as
+     long as they're on screen. Works OK though.
+
+     Tested nav -> geosample transition by forcing astronaut position into zone and it worked well there. Force triggered nav by making a button that launched
+     testingPurposesOnly() and the mid coroutine.
+     */
 
     void Start()
     {
+
+        NaViPrefab.SetActive(false);
+        SamplingPrefab.SetActive(false);
+
         // Initialize EGRESS steps
         EgressSteps.Add("Connect the umbilical cord from the DCU to the UIA Panel");
 
@@ -100,6 +144,91 @@ public class UIAController : MonoBehaviour
         OnUIAOpened += HandleUIAOpened;
     }
 
+    IEnumerator midMidMidCoroutine() //"coroutine in the middle of everything" between egress ingress
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            NaViPrefab.SetActive(true);
+            // this will pause here until SecPosCheck() is done:
+            Debug.Log("Navigation popup up.");
+            yield return StartCoroutine(SecPosCheck());
+            Debug.Log("Navigation SecPosCheck execution OK.");
+
+            SamplingPrefab.SetActive(true);
+            Debug.Log("Sampling popup up.");
+            // and then pause here until WaitForSave() is done:
+            yield return StartCoroutine(WaitForSave());
+            Debug.Log("Sampling WaitForSave execution OK.");
+        }
+    }
+
+    IEnumerator WaitForSave() //"wait for save button to be pressed"
+    {
+        yield return new WaitUntil(() => flipflop);
+
+        // then reset and continue
+        flipflop = false;
+        Debug.Log("flipflop flipped and flopped. flip flop goldfish OK.");
+        GeoControl.closeGeoSampleFeature();
+
+    }
+
+    public void saveCheck() //atached to geosampling's save button as the "end" to the sampling process. saving ends the geosample procedure for this
+    {
+        flipflop = true;
+        Debug.Log("flipflop flipped.");
+    }
+
+    IEnumerator SecPosCheck() //every second, position check
+    {
+        Debug.Log("Astronaut position being checked every 1 second starting now.");
+        while (!PosCheck()) //constant 1 second interval position checks when navigation is up
+        {
+            yield return new WaitForSeconds(1);
+        }
+        Debug.Log("Now no longer checking position.");
+    }
+
+    private bool PosCheck() //the actual check
+    {
+        if (zone2go == 1 && (AstronautInstance.User.origin.posX < geoZone1X + 5 && AstronautInstance.User.origin.posX > geoZone1X - 5) && (AstronautInstance.User.origin.posZ < geoZone1Z + 5 && AstronautInstance.User.origin.posZ > geoZone1Z - 5))
+        {
+            zone2go++;
+            NavControl.closeScreens();
+            return true; //position checks out and ends navigation when the user is within bounds of a geosampling area
+            
+        } 
+        else if (zone2go == 2 && (AstronautInstance.User.origin.posX < geoZone2X + 5 && AstronautInstance.User.origin.posX > geoZone2X - 5) && (AstronautInstance.User.origin.posZ < geoZone2Z + 5 && AstronautInstance.User.origin.posZ > geoZone2Z - 5)) 
+        {
+            zone2go++;
+            NavControl.closeScreens();
+            return true;
+
+        }
+        else if (zone2go == 3 && (AstronautInstance.User.origin.posX < geoZone3X + 5 && AstronautInstance.User.origin.posX > geoZone3X - 5) && (AstronautInstance.User.origin.posZ < geoZone3Z + 5 && AstronautInstance.User.origin.posZ > geoZone3Z - 5))
+        {
+            zone2go++;
+            NavControl.closeScreens();
+            return true; 
+        }
+
+        return false;
+    }
+
+    public void onSamplingClick() //when OK is pressed on the geosampling alert
+    {
+        SamplingPrefab.SetActive(false);
+        Debug.Log("geosampling alert clicked");
+        GeoControl.openFeatureScreen();
+    }
+
+    public void onNaViClick() //when OK is pressed on the navigation alert
+    {
+        NaViPrefab.SetActive(false);
+        Debug.Log("navigation alert clicked");
+        NavControl.openFeatureScreen();
+    }
+
     public void HandleUIAOpened()
     {
         Debug.Log("UIA screen opened");
@@ -111,6 +240,10 @@ public class UIAController : MonoBehaviour
         uiaScreen.SetActive(true);
         foreach (Transform child in uiaScreen.transform)
         {
+            if (child.gameObject == NaViPrefab || child.gameObject == SamplingPrefab)
+            {
+                continue; //STOPS ALERT PREFABS FROM DISAPPEARING!!! THIS BYPASS IS IMPORTANT!!
+            }
             child.gameObject.SetActive(true);
         }
         main.SetActive(false);
@@ -123,6 +256,10 @@ public class UIAController : MonoBehaviour
         uiaScreen.SetActive(false);
         foreach (Transform child in uiaScreen.transform)
         {
+            if (child.gameObject == NaViPrefab || child.gameObject == SamplingPrefab)
+            {
+                continue;
+            }
             child.gameObject.SetActive(false);
         }
         main.SetActive(true);
@@ -134,8 +271,21 @@ public class UIAController : MonoBehaviour
         initializationScreen.SetActive(true);
         loadingBars.SetActive(true);
         procedureScreen.SetActive(false);
-        StartCoroutine(EgressProcedureCoroutine());
+        StartCoroutine(FullSequence());
     }
+
+    private IEnumerator FullSequence() 
+    {
+        yield return StartCoroutine(EgressProcedureCoroutine());
+        yield return StartCoroutine(midMidMidCoroutine());
+
+        //then probably ingress here
+    }
+
+    /*public void testingPurposesOnly()
+    {
+        StartCoroutine(midMidMidCoroutine());
+    }*/
 
     private IEnumerator EgressProcedureCoroutine()
     {
@@ -721,6 +871,7 @@ public class UIAController : MonoBehaviour
                 yield return new WaitUntil(() => nextStep);
                 Debug.Log("Egress procedure complete!");
             }
+
     }
 
     
@@ -740,12 +891,15 @@ public class UIAController : MonoBehaviour
         }
         yield return new WaitUntil(() => uiaUpdatedReceived);
         //EventBus.Unsubscribe<UIAUpdatedEvent>(OnUIAUpdated);
+
+        //unsubscribing causes red error. failing to unsubscribe causes red error.
         Debug.Log("UIA update received, continuing to next step...");
         nextStep = true;
     }
 
     private void OnUIAUpdated(UIAUpdatedEvent e)
     {
+
         uiaUpdatedReceived = true;
     }
 }
