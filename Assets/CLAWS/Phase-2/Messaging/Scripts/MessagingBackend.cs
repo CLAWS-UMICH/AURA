@@ -27,6 +27,8 @@ public class MessagingBackend : MonoBehaviour
     [SerializeField] private Sprite thumbsUp;
     [SerializeField] private Sprite thumbsDown;
     [SerializeField] private Sprite warning;
+
+    [SerializeField] private GameObject fakeMessage;
     private string messageText;
 
 
@@ -45,6 +47,11 @@ public class MessagingBackend : MonoBehaviour
         messageReactionEvent = EventBus.Subscribe<MessageReactionEvent>(sendReaction);
 
         InitializeWebConnection();
+    }
+
+    public void fakeSendMessage()
+    {
+        fakeMessage.SetActive(true);
     }
 
 
