@@ -52,6 +52,7 @@ public class GeoSampleFrontend : MonoBehaviour
             screen.gameObject.SetActive(false);
         }
         geoSampleController.startMenu_databaseScreen.SetActive(true);
+        geoSampleController.GeoMiniMap.SetActive(true);
         geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.133499995f, 0.0759999976f, 0.00314010005f);
         geoSampleController.buttonSideBar.SetActive(true);
         // Check if the toggle is already selected
@@ -64,6 +65,7 @@ public class GeoSampleFrontend : MonoBehaviour
         {
             screen.gameObject.SetActive(false);
         }
+
         geoSampleController.startMenu_zoneScreen.SetActive(true);
         geoSampleController.buttonSideBar.transform.localPosition = new Vector3(-0.252799988f, 0.0706999972f, 0.00314010005f);
         geoSampleController.buttonSideBar.SetActive(true);

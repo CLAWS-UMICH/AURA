@@ -138,17 +138,20 @@ public class UIAController : MonoBehaviour
     {
         Debug.Log("Egress Procedure started");
         procedureScreen.SetActive(false);
-        StartCoroutine(EgressProcedureCoroutine());
-    }
-
-    private IEnumerator EgressProcedureCoroutine()
-    {
-        yield return new WaitForSeconds(5f);
+        // StartCoroutine(EgressProcedureCoroutine());
         procedureScreen.SetActive(true);
         stepsScreen.SetActive(true);
         stepNumber.text = (counter + 1).ToString();
         stepText.text = EgressSteps[counter];
     }
+
+    // private IEnumerator EgressProcedureCoroutine()
+    // {
+    //     procedureScreen.SetActive(true);
+    //     stepsScreen.SetActive(true);
+    //     stepNumber.text = (counter + 1).ToString();
+    //     stepText.text = EgressSteps[counter];
+    // }
 
     private IEnumerator IngressProcedureCoroutine()
     {

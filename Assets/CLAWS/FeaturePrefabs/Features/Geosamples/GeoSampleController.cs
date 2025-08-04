@@ -65,6 +65,7 @@ public class GeoSampleController : MonoBehaviour
     public GameObject textureCompleteUI;
     public GameObject voiceNotesInitUI;
     public GameObject voiceNotesCompleteUI;
+    public GameObject GeoMiniMap;
 
     [Header("Color screens")]
     public GameObject yellowScreen;

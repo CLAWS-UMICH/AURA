@@ -153,7 +153,7 @@ public class VitalsController : MonoBehaviour
     private void vitalsEventHandler(UpdatedVitalsEvent e)
     {
         onVitalsUpdate(e);
-        onVitalsErrorCheck(e);
+        // onVitalsErrorCheck(e);
     }
 
     private void fellowVitalsEventHandler(UpdatedFellowAstronautVitalsEvent e)
@@ -220,443 +220,443 @@ public class VitalsController : MonoBehaviour
     }
 
     // For Primary Astronaut
-    private void onVitalsErrorCheck(UpdatedVitalsEvent e)
-    {
-    Debug.Log("Checking Vitals for errors");
-        // tracks number of errors
-        int errorCount = 0;
-        var data = new Dictionary<string, object>
-        {
-            { "battery", false },
-            { "heartRate", false },
-            { "temp", false },
-            { "o2SwapToPrimary", false },
-            { "o2SwapToSecondary", false },
-            { "o2Time", false },
-            { "o2Cons", false },
-            { "o2SuitPres", false },
-            { "fanSwapToPrimary", false },
-            { "fanSwapToSecondary", false },
-            { "co2SwapToA", false },
-            { "co2SwapToB", false },
-            { "co2Prod", false },
-            { "co2SuitPres", false },
-            { "co2HelmPres", false },
-            { "coolantStor", false },
-            { "coolantGasPres", false },
-            { "coolantLiquidPres", false },
-            { "suitPresOth", false },
-            { "suitPresTot", false },
-        };
+    // private void onVitalsErrorCheck(UpdatedVitalsEvent e)
+    // {
+    // Debug.Log("Checking Vitals for errors");
+    //     // tracks number of errors
+    //     int errorCount = 0;
+    //     var data = new Dictionary<string, object>
+    //     {
+    //         { "battery", false },
+    //         { "heartRate", false },
+    //         { "temp", false },
+    //         { "o2SwapToPrimary", false },
+    //         { "o2SwapToSecondary", false },
+    //         { "o2Time", false },
+    //         { "o2Cons", false },
+    //         { "o2SuitPres", false },
+    //         { "fanSwapToPrimary", false },
+    //         { "fanSwapToSecondary", false },
+    //         { "co2SwapToA", false },
+    //         { "co2SwapToB", false },
+    //         { "co2Prod", false },
+    //         { "co2SuitPres", false },
+    //         { "co2HelmPres", false },
+    //         { "coolantStor", false },
+    //         { "coolantGasPres", false },
+    //         { "coolantLiquidPres", false },
+    //         { "suitPresOth", false },
+    //         { "suitPresTot", false },
+    //     };
 
-        // battery time
-        if (e.vitals.batt_time_left < BATT_TIME_MIN)
-        {
-            data["battery"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Battery Time Low";
-            eva1.powerTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
-            errorCount++;
-        }
-        else
-        {
-            data["battery"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.powerTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //     // battery time
+    //     if (e.vitals.batt_time_left < BATT_TIME_MIN)
+    //     {
+    //         data["battery"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Battery Time Low";
+    //         eva1.powerTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["battery"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.powerTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.powerTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // o2 primary storage
-        if (e.vitals.oxy_pri_storage < OXY_STOR_MIN && dcuControllerInstance.dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
-        {
-            data["o2SwapToSecondary"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Primary Storage Low. Switch to Secondary";
-            eva1.priOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // o2 primary storage
+    //     if (e.vitals.oxy_pri_storage < OXY_STOR_MIN && dcuControllerInstance.dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+    //     {
+    //         data["o2SwapToSecondary"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Primary Storage Low. Switch to Secondary";
+    //         eva1.priOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["o2SwapToSecondary"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.priOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["o2SwapToSecondary"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.priOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.priOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // o2 secondary storage
-        if (e.vitals.oxy_sec_storage < OXY_STOR_MIN && dcuControllerInstance.dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
-        {
-            data["o2SwapToPrimary"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Secondary Storage Low. Switch to Primary";
-            eva1.secOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // o2 secondary storage
+    //     if (e.vitals.oxy_sec_storage < OXY_STOR_MIN && dcuControllerInstance.dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+    //     {
+    //         data["o2SwapToPrimary"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Secondary Storage Low. Switch to Primary";
+    //         eva1.secOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["o2SwapToPrimary"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.secOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["o2SwapToPrimary"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.secOxyStor.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.secOxyStor.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
            
-        // o2 primary pressure
-        if ((e.vitals.oxy_pri_pressure < OXY_PRES_MIN || e.vitals.oxy_pri_pressure > OXY_PRES_MAX) && dcuControllerInstance.dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
-        {
-            data["o2SwapToSecondary"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Primary Pressure Low. Switch to Secondary";
-            eva1.priOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // o2 primary pressure
+    //     if ((e.vitals.oxy_pri_pressure < OXY_PRES_MIN || e.vitals.oxy_pri_pressure > OXY_PRES_MAX) && dcuControllerInstance.dcu1.oxy_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+    //     {
+    //         data["o2SwapToSecondary"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Primary Pressure Low. Switch to Secondary";
+    //         eva1.priOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["o2SwapToSecondary"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.priOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["o2SwapToSecondary"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.priOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.priOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // o2 secondary pressure
-        if ((e.vitals.oxy_sec_pressure < OXY_PRES_MIN || e.vitals.oxy_sec_pressure > OXY_PRES_MAX) && dcuControllerInstance.dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
-        {
-            data["o2SwapToPrimary"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Secondary Pressure Low. Switch to Primary";
-            eva1.secOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // o2 secondary pressure
+    //     if ((e.vitals.oxy_sec_pressure < OXY_PRES_MIN || e.vitals.oxy_sec_pressure > OXY_PRES_MAX) && dcuControllerInstance.dcu1.oxy_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+    //     {
+    //         data["o2SwapToPrimary"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Secondary Pressure Low. Switch to Primary";
+    //         eva1.secOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["o2SwapToPrimary"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.secOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["o2SwapToPrimary"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.secOxyPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.secOxyPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // o2 time
-        if (e.vitals.oxy_time_left < OXY_STOR_MIN)
-        {
-            data["o2Time"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Time Low";
-            eva1.oxyTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // o2 time
+    //     if (e.vitals.oxy_time_left < OXY_STOR_MIN)
+    //     {
+    //         data["o2Time"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Time Low";
+    //         eva1.oxyTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["o2Time"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.oxyTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["o2Time"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.oxyTime.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.oxyTime.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // coolant storage
-        if (e.vitals.coolant_m < COOL_STOR_MIN)
-        {
-            data["coolantStor"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Storage Low";
-            eva1.coolant.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.coolant.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // coolant storage
+    //     if (e.vitals.coolant_m < COOL_STOR_MIN)
+    //     {
+    //         data["coolantStor"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Storage Low";
+    //         eva1.coolant.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.coolant.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["coolantStor"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.coolant.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.coolant.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["coolantStor"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.coolant.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.coolant.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // heart rate
-        if (e.vitals.heart_rate < HEART_RATE_MIN || e.vitals.heart_rate > HEART_RATE_MAX)
-        {
-            data["heartRate"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Heart Rate Out of Nominal Range";
-            eva1.heartRate.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // heart rate
+    //     if (e.vitals.heart_rate < HEART_RATE_MIN || e.vitals.heart_rate > HEART_RATE_MAX)
+    //     {
+    //         data["heartRate"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Heart Rate Out of Nominal Range";
+    //         eva1.heartRate.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["heartRate"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.heartRate.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["heartRate"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.heartRate.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.heartRate.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // o2 consumption
-        if (e.vitals.oxy_consumption < OXY_CONSUM_MIN || e.vitals.oxy_consumption > OXY_CONSUM_MAX)
-        {
-            data["o2Cons"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Consumption Out of Nominal Range";
-            eva1.oxyCons.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // o2 consumption
+    //     if (e.vitals.oxy_consumption < OXY_CONSUM_MIN || e.vitals.oxy_consumption > OXY_CONSUM_MAX)
+    //     {
+    //         data["o2Cons"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "O2 Consumption Out of Nominal Range";
+    //         eva1.oxyCons.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["o2Cons"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.oxyCons.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["o2Cons"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.oxyCons.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.oxyCons.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // co2 production
-        if (e.vitals.co2_production < CO2_PROD_MIN || e.vitals.co2_production > CO2_PROD_MAX)
-        {
-            data["co2Prod"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 Production Out of Nominal Range";
-            eva1.co2Prod.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // co2 production
+    //     if (e.vitals.co2_production < CO2_PROD_MIN || e.vitals.co2_production > CO2_PROD_MAX)
+    //     {
+    //         data["co2Prod"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 Production Out of Nominal Range";
+    //         eva1.co2Prod.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["co2Prod"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.co2Prod.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["co2Prod"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.co2Prod.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.co2Prod.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
         
-        // suit o2 pressure
-        if (e.vitals.suit_pressure_oxy < SUIT_PRES_OXY_MIN || e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
-        {
-            data["o2SuitPres"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit O2 Pressure Out of Nominal Range";
-            eva1.suitPresOxy.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // suit o2 pressure
+    //     if (e.vitals.suit_pressure_oxy < SUIT_PRES_OXY_MIN || e.vitals.suit_pressure_oxy > SUIT_PRES_OXY_MAX)
+    //     {
+    //         data["o2SuitPres"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit O2 Pressure Out of Nominal Range";
+    //         eva1.suitPresOxy.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["o2SuitPres"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.suitPresOxy.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["o2SuitPres"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.suitPresOxy.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.suitPresOxy.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // suit co2 pressure
-        if (e.vitals.suit_pressure_co2 > SUIT_PRES_CO2_MAX)
-        {
-            data["co2SuitPres"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit CO2 Pressure Out of Nominal Range";
-            eva1.suitPresCO2.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // suit co2 pressure
+    //     if (e.vitals.suit_pressure_co2 > SUIT_PRES_CO2_MAX)
+    //     {
+    //         data["co2SuitPres"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit CO2 Pressure Out of Nominal Range";
+    //         eva1.suitPresCO2.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["co2SuitPres"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.suitPresCO2.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["co2SuitPres"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.suitPresCO2.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.suitPresCO2.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // suit other pressure
-        if (e.vitals.suit_pressure_other > SUIT_PRES_OTHER_MAX)
-        {
-            data["suitPresOth"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit Other Pressure Out of Nominal Range";
-            eva1.otherSuitPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // suit other pressure
+    //     if (e.vitals.suit_pressure_other > SUIT_PRES_OTHER_MAX)
+    //     {
+    //         data["suitPresOth"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit Other Pressure Out of Nominal Range";
+    //         eva1.otherSuitPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["suitPresOth"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.otherSuitPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["suitPresOth"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.otherSuitPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.otherSuitPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // suit pressure total
-        if (e.vitals.suit_pressure_total < SUIT_PRES_TOTAL_MIN || e.vitals.suit_pressure_total > SUIT_PRES_TOTAL_MAX)
-        {
-            data["suitPresTot"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit Total Pressure Out of Nominal Range";
-            eva1.suitTotPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // suit pressure total
+    //     if (e.vitals.suit_pressure_total < SUIT_PRES_TOTAL_MIN || e.vitals.suit_pressure_total > SUIT_PRES_TOTAL_MAX)
+    //     {
+    //         data["suitPresTot"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Suit Total Pressure Out of Nominal Range";
+    //         eva1.suitTotPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["suitPresTot"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.suitTotPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["suitPresTot"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.suitTotPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.suitTotPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // helment pressure
-        if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
-        {
-            data["co2HelmPres"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Helmet CO2 Pressure Out of Nominal Range";
-            eva1.helmetCO2Pres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // helment pressure
+    //     if (e.vitals.helmet_pressure_co2 > HELMET_PRES_CO2_MAX)
+    //     {
+    //         data["co2HelmPres"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Helmet CO2 Pressure Out of Nominal Range";
+    //         eva1.helmetCO2Pres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["co2HelmPres"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.helmetCO2Pres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["co2HelmPres"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.helmetCO2Pres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.helmetCO2Pres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // fan primary speed
-        if ((e.vitals.fan_pri_rpm < FAN_SPEED_MIN || e.vitals.fan_pri_rpm > FAN_SPEED_MAX) && dcuControllerInstance.dcu1.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
-        {
-            data["fanSwapToSecondary"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Fan Primary Speed Low. Switch to Secondary";
-            eva1.priFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.priFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // fan primary speed
+    //     if ((e.vitals.fan_pri_rpm < FAN_SPEED_MIN || e.vitals.fan_pri_rpm > FAN_SPEED_MAX) && dcuControllerInstance.dcu1.fan_pri.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+    //     {
+    //         data["fanSwapToSecondary"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Fan Primary Speed Low. Switch to Secondary";
+    //         eva1.priFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.priFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["fanSwapToSecondary"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.priFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.priFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["fanSwapToSecondary"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.priFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.priFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // fan secondary speed
-        if ((e.vitals.fan_sec_rpm < FAN_SPEED_MIN || e.vitals.fan_sec_rpm > FAN_SPEED_MAX) && dcuControllerInstance.dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
-        {
-            data["fanSwapToPrimary"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Fan Secondary Speed Low. Switch to Primary";
-            eva1.secFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.secFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // fan secondary speed
+    //     if ((e.vitals.fan_sec_rpm < FAN_SPEED_MIN || e.vitals.fan_sec_rpm > FAN_SPEED_MAX) && dcuControllerInstance.dcu1.fan_sec.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+    //     {
+    //         data["fanSwapToPrimary"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Fan Secondary Speed Low. Switch to Primary";
+    //         eva1.secFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.secFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["fanSwapToPrimary"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.secFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.secFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["fanSwapToPrimary"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.secFan.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.secFan.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // co2 A storage
-        if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX && dcuControllerInstance.dcu1.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
-        {
-            data["co2SwapToB"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 A Storage High. Switch to B";
-            eva1.scrubberA.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // co2 A storage
+    //     if (e.vitals.scrubber_a_co2_storage > SCRUBBER_CO2_STOR_MAX && dcuControllerInstance.dcu1.co2_a.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+    //     {
+    //         data["co2SwapToB"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 A Storage High. Switch to B";
+    //         eva1.scrubberA.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["co2SwapToB"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.scrubberA.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["co2SwapToB"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.scrubberA.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.scrubberA.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // co2 B storage
-        if (e.vitals.scrubber_b_co2_storage > SCRUBBER_CO2_STOR_MAX && dcuControllerInstance.dcu1.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
-        {
-            data["co2SwapToA"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 B Storage High. Switch to A";
-            eva1.scrubberB.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // co2 B storage
+    //     if (e.vitals.scrubber_b_co2_storage > SCRUBBER_CO2_STOR_MAX && dcuControllerInstance.dcu1.co2_b.transform.Find("UIBackplateToggleQuad").gameObject.activeSelf)
+    //     {
+    //         data["co2SwapToA"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "CO2 B Storage High. Switch to A";
+    //         eva1.scrubberB.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["co2SwapToA"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.scrubberB.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["co2SwapToA"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.scrubberB.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.scrubberB.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // temperature
-        if (e.vitals.temperature < TEMP_MIN || e.vitals.temperature > TEMP_MAX)
-        {
-            data["temp"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Temperature Out of Nominal Range";
-            eva1.temp.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.temp.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // temperature
+    //     if (e.vitals.temperature < TEMP_MIN || e.vitals.temperature > TEMP_MAX)
+    //     {
+    //         data["temp"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Temperature Out of Nominal Range";
+    //         eva1.temp.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.temp.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["temp"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.temp.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.temp.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["temp"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.temp.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.temp.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // coolant liquid
-        if (e.vitals.coolant_liquid_pressure < COOL_LIQ_MIN || e.vitals.coolant_liquid_pressure > COOL_LIQ_MAX)
-        {
-            data["coolantLiqPres"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Liquid Pressure Out of Nominal Range";
-            eva1.coolLiquidPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // coolant liquid
+    //     if (e.vitals.coolant_liquid_pressure < COOL_LIQ_MIN || e.vitals.coolant_liquid_pressure > COOL_LIQ_MAX)
+    //     {
+    //         data["coolantLiqPres"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Liquid Pressure Out of Nominal Range";
+    //         eva1.coolLiquidPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["coolantLiqPres"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.coolLiquidPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["coolantLiqPres"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.coolLiquidPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.coolLiquidPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
 
-        // coolant gas
-        if (e.vitals.coolant_gas_pressure > COOL_GAS_MAX)
-        {
-            data["coolantGasPres"] = true;
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Gas Pressure Out of Nominal Range";
-            eva1.coolGasPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
-            eva1.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
+    //     // coolant gas
+    //     if (e.vitals.coolant_gas_pressure > COOL_GAS_MAX)
+    //     {
+    //         data["coolantGasPres"] = true;
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "Coolant Gas Pressure Out of Nominal Range";
+    //         eva1.coolGasPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.red;
+    //         eva1.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.red;
 
-            errorCount++;
-        }
-        else
-        {
-            data["coolantGasPres"] = false;
-            //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-            eva1.coolGasPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
-            eva1.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
-        }
-        if (errorCount == 0)
-        {
-            selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
-        }
+    //         errorCount++;
+    //     }
+    //     else
+    //     {
+    //         data["coolantGasPres"] = false;
+    //         //selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //         eva1.coolGasPres.transform.Find("Title").GetComponent<TextMeshPro>().color = Color.white;
+    //         eva1.coolGasPres.transform.Find("Value").GetComponent<TextMeshPro>().color = Color.white;
+    //     }
+    //     if (errorCount == 0)
+    //     {
+    //         selfAlert.transform.Find("Message").GetComponent<TextMeshPro>().text = "";
+    //     }
 
 
-        Debug.Log("Data: " + data);
-        LMCCwebSocketClient.SendJsonData(data, "VITALS", 3);
-        LMCCwebSocketClient.SendJsonData(data, "VITALS", 4);
-        if (errorCount > 0)
-        {
-            selfAlert.SetActive(true);
-        }
-    }
+    //     Debug.Log("Data: " + data);
+    //     LMCCwebSocketClient.SendJsonData(data, "VITALS", 3);
+    //     LMCCwebSocketClient.SendJsonData(data, "VITALS", 4);
+    //     if (errorCount > 0)
+    //     {
+    //         selfAlert.SetActive(true);
+    //     }
+    // }
 
 
     private void onFellowVitalsUpdate(UpdatedFellowAstronautVitalsEvent e)
